@@ -161,3 +161,10 @@ require __DIR__ . '/auth.php';
 
 //k.pac.news23@gmail.com
 //Пароль приложений    swdw dlmi moue wrpy
+
+
+//Проверка на какой странице сейчас находишься
+
+//              @if(request()->is('myzayavka'))
+//              <!-- Код элемента, который нужно скрыть -->
+//              @endif

@@ -35,16 +35,16 @@
                     <div class="logotype">
                         <div class="logo-left">
 
-                            <div class="logo_nothing">
 
-                            <div class="logoimg_left">
 
                                 <a href="{{ route('allzayavkauser') }}">
-                                    <img src="/uploads/logostore.png"  alt="Описание фото">
+                                    <img src="/uploads/logoimg_store_left.png"  alt="Описание фото">
                                 </a>
 
-                            </div>
-                        </div>
+
+
+
+
                         </div>
                         
                         <div class="logo">
@@ -56,15 +56,25 @@
                         <div class="logo-right">
 
 
-                            <div class="logo_nothing">
 
-                            <div class="logoimg_right">
+
+
+
+                            
+
+                            @if(request()->is('myzayavka'))
+                            <!-- Код элемента, который нужно скрыть -->
+                        @endif
+
+
+
+
+
                                 <a href="{{ route('allzayavkauser') }}">
-                                    <img src="/uploads/logovideohosting.png"  alt="Описание фото">
+                                    <img src="/uploads/logoimg_videohosting_right.png"  alt="Описание фото">
                                 </a>
 
-                            </div>
-                        </div>
+
                         </div>
 
                     </div>

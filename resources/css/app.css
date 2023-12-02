@@ -1453,7 +1453,7 @@ html {
 
 .logotype {
 
-    width: 350px;
+    width: 270px;
     height: auto;
     overflow: hidden;
     display: flex;
@@ -1465,7 +1465,7 @@ html {
 
 .logo-left {
 
-    width: 66px;
+
     height: 40px;
     position: relative;
     display: flex;
@@ -1476,7 +1476,7 @@ html {
 .logo-right {
 
 
-    width: 66px;
+
     height: 40px;
     position: relative;
     display: flex;

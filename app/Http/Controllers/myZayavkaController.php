@@ -24,12 +24,6 @@ class myZayavkaController extends Controller
     {
 
         $zayavkas = Zayavka::orderBy('created_at', 'desc')->get();
-
-
-
-
-
-
         return view('allzayavka', ['zayavkas' => $zayavkas]);
     }
 

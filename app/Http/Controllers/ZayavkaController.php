@@ -9,7 +9,6 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
-
 use App\Models\User;
 
 class ZayavkaController extends Controller
@@ -38,7 +37,7 @@ class ZayavkaController extends Controller
 
         $zayavkas = Zayavka::where('user_id', auth()->id())->get();
 
-        return view('myzayavka', ['zayavkas' => $zayavkas]);
+        return view('news.myzayavka', ['zayavkas' => $zayavkas]);
     }
 
 
@@ -68,7 +67,7 @@ class ZayavkaController extends Controller
         
         $zayavka = Zayavka::with('comments.user')->findOrFail($id);
     
-        return view('zayavkauser', ['zayavka' => $zayavka]);
+        return view('news.zayavkauser', ['zayavka' => $zayavka]);
     }
 
     

@@ -10,12 +10,14 @@
 
 
 
-
+{{-- 
+при полной проверки админа
+ --}}
 
         @if (auth()->user()->permission == 'enabled')
             <a href="{{ route('newzayavka') }}">
                 <div class="main_new_novo">
-                    <p class="txt_2">Предложите свою новость</p>
+                    <p class="txt_2">Добавить товар</p>
                 </div>
             </a>
         @endif
@@ -24,6 +26,7 @@
 
                 @forelse ($zayavkas as $zayavka)
                     @if ($zayavka->status == 'true')
+                    
                         <div class="main_novost">
 
                             @csrf

@@ -16,7 +16,7 @@ class myZayavkaController extends Controller
             ->withCount('likes')
             ->get();
     
-        return view('myzayavka', ['zayavkas' => $zayavkas]);
+        return view('news.myzayavka', ['zayavkas' => $zayavkas]);
     }
     
 
@@ -24,7 +24,7 @@ class myZayavkaController extends Controller
     {
 
         $zayavkas = Zayavka::orderBy('created_at', 'desc')->get();
-        return view('allzayavka', ['zayavkas' => $zayavkas]);
+        return view('news.allzayavka', ['zayavkas' => $zayavkas]);
     }
 
 
@@ -50,7 +50,7 @@ class myZayavkaController extends Controller
 
         $zayavkas = $zayavkas->get();
 
-        return view('allzayavkauser', ['zayavkas' => $zayavkas]);
+        return view('news.allzayavkauser', ['zayavkas' => $zayavkas]);
     }
 
 
@@ -62,7 +62,7 @@ class myZayavkaController extends Controller
         $zayavka->status = $request->status;
         $zayavka->save();
         $zayavkas = Zayavka::orderBy('created_at', 'desc')->get();
-        return view('allzayavka', ['zayavkas' => $zayavkas]);
+        return view('news.allzayavka', ['zayavkas' => $zayavkas]);
     }
 
 
@@ -74,7 +74,7 @@ class myZayavkaController extends Controller
         $user->permission = $request->permission;
         $user->save();
         $user = User::orderBy('created_at', 'desc')->get();
-        return view('alluser', ['users' => $user]);
+        return view('news.alluser', ['users' => $user]);
     }
 
     public function deleteUser($id)
@@ -119,7 +119,7 @@ class myZayavkaController extends Controller
 
         $zayavkas = $zayavkas->get();
 
-        return view('allzayavkauser', ['zayavkas' => $zayavkas, 'category' => $category]);
+        return view('news.allzayavkauser', ['zayavkas' => $zayavkas, 'category' => $category]);
     }
 
 
@@ -152,7 +152,7 @@ class myZayavkaController extends Controller
 
         $zayavkas = $zayavkas->get();
 
-        return view('myzayavka', ['zayavkas' => $zayavkas]);
+        return view('news.myzayavka', ['zayavkas' => $zayavkas]);
     }
 
 

@@ -11,19 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zayavkas', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('zagolovok')->unique();
+            $table->string('title')->unique();
             $table->string('description');
-            $table->string('category')->nullable();
-
-            $table->string('user_id');
-
-
             $table->string('status');
-            
-            $table->rememberToken();
+            $table->string('category')->nullable();
+            $table->string('pathtovideo')->nullable();
             $table->timestamps();
         });
     }
@@ -33,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zayavkas');
+        Schema::dropIfExists('videos');
     }
-    
 };

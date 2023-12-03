@@ -3,6 +3,7 @@
 use App\Http\Controllers\myZayavkaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ZayavkaController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\DialogController;
@@ -26,25 +27,92 @@ Route::get('/', function () {
     return view('/dashboard');
 });
 
+
+// News
+
+
+
 Route::get('/newzayavka', function () {
-    return view('newzayavka');
+    return view('news.newzayavka');
 })->middleware(['auth', 'verified'])->name('newzayavka');
 
 Route::get('/allzayavka', function () {
-    return view('allzayavka');
+    return view('news.allzayavka');
 })->middleware(['auth', 'verified'])->name('allzayavka');
 
 Route::get('/allzayavkauser', function () {
-    return view('allzayavkauser');
+    return view('news.allzayavkauser');
 })->middleware(['auth', 'verified'])->name('allzayavkauser');
+
+Route::get('/zayavkauser', function () {
+    return view('news.zayavkauser');
+})->middleware(['auth', 'verified'])->name('zayavkauser');
+
+
+
+
+
+Route::post('/newzayavka', [ZayavkaController::class, 'store'])->name('test');
+
+Route::get('/myzayavka', [myZayavkaController::class, 'myzayavka'])->name('myzayavka')->middleware(['auth', 'verified']);
+
+Route::get('/allzayavka', [myZayavkaController::class, 'allzayavka'])->name('allzayavka')->middleware(['auth', 'verified']);
+
+Route::post('/allzayavka/{id}', [myZayavkaController::class, 'update'])->name('statusedit');
+
+Route::delete('/zayavka/delete/{id}', [ZayavkaController::class, 'delete'])->name('zayavka.delete');
+
+Route::post('/zayavka/{id}/like', [ZayavkaController::class, 'like'])->name('zayavka.like');
+Route::delete('/zayavka/{id}/unlike', [ZayavkaController::class, 'unlike'])->name('zayavka.unlike');
+
+Route::get('/zayavkauser/{id}', [ZayavkaController::class, 'show'])->name('zayavkauser');
+
+Route::get('/allzayavkauser', [myZayavkaController::class, 'allzayavkauser'])->name('allzayavkauser')->middleware(['auth', 'verified']);
+
+Route::post('/zayavka/{id}/comment', [ZayavkaController::class, 'addComment'])->name('zayavka.comment');
+
+Route::delete('/zayavka/{zayavkaId}/comment/{commentId}', [ZayavkaController::class, 'deleteComment'])->name('zayavka.comment.delete');
+
+Route::get('/sort', [myZayavkaController::class, 'sortMethod'])->name('sort');
+Route::get('/mysort', [myZayavkaController::class, 'mysortMethod'])->name('mysort');
+
+Route::get('/zayavka/{id}/edit', [myZayavkaController::class, 'edit'])->name('zayavka.edit');
+
+Route::put('/zayavka/{id}/updatetest', [myZayavkaController::class, 'updatetest'])->name('zayavka.updatetest');
+
+Route::get('zayavka', [ZayavkaController::class, 'create'])->name('zayavka');
+
+
+
+// Video
+
+Route::get('/allvideouser', function () {
+    return view('video.allvideouser');
+})->middleware(['auth', 'verified'])->name('allvideouser');
+
+Route::get('/newvideo', function () {
+    return view('video.newvideo');
+})->middleware(['auth', 'verified'])->name('newvideo');
+
+Route::post('/newvideo', [VideoController::class, 'store'])->name('createvideo');
+
+
+// Store
+
+Route::get('/allstoreuser', function () {
+    return view('store.allstoreuser');
+})->middleware(['auth', 'verified'])->name('allstoreuser');
+
+
+
+
+
+
+// Other
 
 Route::get('/profileuser', function () {
     return view('profileuser');
 })->middleware(['auth', 'verified'])->name('profileuser');
-
-Route::get('/zayavkauser', function () {
-    return view('zayavkauser');
-})->middleware(['auth', 'verified'])->name('zayavkauser');
 
 Route::get('/dialog', function () {
     return view('dialog');
@@ -54,43 +122,36 @@ Route::get('/confirmation', function () {
     return view('confirmation');
 })->middleware(['auth', 'verified'])->name('confirmation');
 
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('zayavka', [ZayavkaController::class, 'create'])
-    ->name('zayavka');
-
-Route::post('/newzayavka', [ZayavkaController::class, 'store'])->name('test');
-
-Route::get('/myzayavka', [myZayavkaController::class, 'myzayavka'])->name('myzayavka')->middleware(['auth', 'verified']);
 
 
-Route::get('/allzayavka', [myZayavkaController::class, 'allzayavka'])->name('allzayavka')->middleware(['auth', 'verified']);
 
-Route::post('/allzayavka/{id}', [myZayavkaController::class, 'update'])->name('statusedit');
 
 Route::post('/alluser/{id}', [myZayavkaController::class, 'updatepermission'])->name('permissionedit');
 
 Route::delete('/deleteUser/{id}', [myZayavkaController::class, 'deleteUser'])->name('deleteUser');
 
-Route::delete('/zayavka/delete/{id}', [ZayavkaController::class, 'delete'])->name('zayavka.delete');
 
 
 
-Route::get('/allzayavkauser', [myZayavkaController::class, 'allzayavkauser'])->name('allzayavkauser')->middleware(['auth', 'verified']);
-
-Route::post('/zayavka/{id}/like', [ZayavkaController::class, 'like'])->name('zayavka.like');
-Route::delete('/zayavka/{id}/unlike', [ZayavkaController::class, 'unlike'])->name('zayavka.unlike');
-
-Route::get('/zayavkauser/{id}', [ZayavkaController::class, 'show'])->name('zayavkauser');
 
 
-Route::post('/zayavka/{id}/comment', [ZayavkaController::class, 'addComment'])->name('zayavka.comment');
 
-Route::delete('/zayavka/{zayavkaId}/comment/{commentId}', [ZayavkaController::class, 'deleteComment'])->name('zayavka.comment.delete');
+
+
+
+
+
+
 
 
 Route::post('/update-condition', [ProfileController::class, 'updateCondition'])->name('update-condition');
@@ -130,7 +191,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 'sendPostToFriend'])
     ->name('sendPostToFriend');
 
-Route::get('/all-users', [ProfileController::class, 'getAllUsers'])->name('allUsers');
+Route::get('/allusers', [ProfileController::class, 'getAllUsers'])->name('allUsers');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -144,14 +205,11 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/zayavka/autocomplete', [ZayavkaController::class, 'autocomplete'])->name('zayavka.autocomplete');
 
-Route::get('/sort', [myZayavkaController::class, 'sortMethod'])->name('sort');
-Route::get('/mysort', [myZayavkaController::class, 'mysortMethod'])->name('mysort');
+
 Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('usersort');
 
 
-Route::get('/zayavka/{id}/edit', [myZayavkaController::class, 'edit'])->name('zayavka.edit');
 
-Route::put('/zayavka/{id}/updatetest', [myZayavkaController::class, 'updatetest'])->name('zayavka.updatetest');
 
 
 require __DIR__ . '/auth.php';
@@ -166,5 +224,5 @@ require __DIR__ . '/auth.php';
 //Проверка на какой странице сейчас находишься
 
 //              @if(request()->is('myzayavka'))
-//              <!-- Код элемента, который нужно скрыть -->
+//              <!-- Код элемента, который не нужно скрывать -->
 //              @endif

@@ -14,7 +14,7 @@
 
         <div class="main_osnova_allusers">
             <div class="useriii">
-                @foreach ($users as $user)
+                @forelse ($users as $user)
                     <div class="main_novost">
 
                         <div class="main_novost_top">
@@ -82,7 +82,11 @@
                         </div>
 
                     </div>
-                @endforeach
+@empty
+
+<p class="txt_1">Пользователей нет</p>
+
+                @endforelse
             </div>
 
 

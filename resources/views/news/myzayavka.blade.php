@@ -183,7 +183,7 @@
                 @endforelse
             </div>
 
-            <div class="main_filter">
+            <div class="main_filter_news">
                 <div class="main_filter1">
                     <form method="GET" action="{{ route('mysort') }}">
                         @csrf
@@ -191,7 +191,7 @@
 
                         <div class="category">
                             <label for="category">Выберите категорию</label>
-                            <select class="custom-select" name="category" id="category">
+                            <select class="custom-select-news" name="category" id="category">
                                 <option value="">Все категории</option>
                                 <option value="Спорт">Спорт</option>
                                 <option value="Игры">Игры</option>
@@ -203,7 +203,7 @@
 
                         <div class="sortirovka">
                             <label for="sortirovka">Выберите сортировку</label>
-                            <select class="custom-select" name="sortirovka" id="sortirovka">
+                            <select class="custom-select-news" name="sortirovka" id="sortirovka">
                                 <option value="recent">Сначала недавние</option>
                                 <option value="old">Сначала старые</option>
                                 <option value="popular">Сначала популярные</option>

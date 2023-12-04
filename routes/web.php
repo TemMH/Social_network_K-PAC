@@ -90,11 +90,26 @@ Route::get('/allvideouser', function () {
     return view('video.allvideouser');
 })->middleware(['auth', 'verified'])->name('allvideouser');
 
+Route::get('/allvideo', function () {
+    return view('video.allvideo');
+})->middleware(['auth', 'verified'])->name('allvideo');
+
 Route::get('/newvideo', function () {
     return view('video.newvideo');
 })->middleware(['auth', 'verified'])->name('newvideo');
 
 Route::post('/newvideo', [VideoController::class, 'store'])->name('createvideo');
+
+Route::get('/allvideouser', [VideoController::class, 'allvideouser'])->name('allvideouser')->middleware(['auth', 'verified']);
+
+Route::get('/allvideo', [VideoController::class, 'allvideo'])->name('allvideo')->middleware(['auth', 'verified']);
+Route::post('/allvideo/{id}', [VideoController::class, 'update'])->name('statusedit');
+
+Route::post('/video/{id}/like', [VideoController::class, 'like'])->name('video.like');
+Route::delete('/video/{id}/unlike', [VideoController::class, 'unlike'])->name('video.unlike');
+
+Route::get('/myvideo', [VideoController::class, 'myvideo'])->name('myvideo')->middleware(['auth', 'verified']);
+
 
 
 // Store

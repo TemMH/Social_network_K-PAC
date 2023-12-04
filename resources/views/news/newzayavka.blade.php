@@ -11,7 +11,7 @@
         <div class="main_osnova">
             <form method="POST" action="{{ route('test') }}">
                 @csrf
-                <div class="main_newnovost">
+                <div class="main_news">
 
                     <div>
                         <x-input-label class="txt_2" for="zagolovok" :value="__('Заголовок статьи')" />
@@ -36,7 +36,7 @@
                     <input type="hidden" name="id" :value="old('category')">
                     <div class="category">
                         <label for="category" class="txt_2">Выберите категорию</label>
-                        <select class="custom-select" name="category" id="category">
+                        <select class="custom-select-news" name="category" id="category">
                             <option value=" "> </option>
                             <option value="Спорт">Спорт</option>
                             <option value="Игры">Игры</option>

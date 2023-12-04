@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('zayavka_id');
+            $table->foreignId('video_id');
             $table->timestamps();
     
-            $table->unique(['user_id', 'zayavka_id']);
+            $table->unique(['user_id', 'zayavka_id', 'video_id']);
         });
     }
 

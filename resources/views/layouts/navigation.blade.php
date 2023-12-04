@@ -29,7 +29,7 @@
 
     <!-- Video -->
 
-    @if (request()->is('newvideo'))
+    @if (request()->is('newvideo','login','register','allvideouser', 'allvideo'))
 
 
     <div class="header_up_video">
@@ -55,7 +55,7 @@
         <div class="nav_right">
 
             @if (Auth::check())
-                <div class="field_notification" id="notificationBlock">
+                <div class="field_notification_video" id="notificationBlock">
 
 
 
@@ -66,7 +66,7 @@
                     ?>
 
                     @foreach ($friendRequests as $request)
-                        <div class="notificationitem" id="notificationitem">
+                        <div class="notificationitem_video" id="notificationitem">
 
                             <p>
                                 <a href="{{ route('profileuser.profile', ['id' => $request->id]) }}">
@@ -102,7 +102,7 @@
 
 
 
-                    <div class="notification_line">
+                    <div class="notification_line_video">
 
                     </div>
 
@@ -213,7 +213,7 @@
 
     <!-- News -->
 
-    @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/'))
+    @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
 
 
     <div class="header_up_news">
@@ -239,7 +239,7 @@
         <div class="nav_right">
 
             @if (Auth::check())
-                <div class="field_notification" id="notificationBlock">
+                <div class="field_notification_news" id="notificationBlock">
 
 
 
@@ -250,7 +250,7 @@
                     ?>
 
                     @foreach ($friendRequests as $request)
-                        <div class="notificationitem" id="notificationitem">
+                        <div class="notificationitem_news" id="notificationitem">
 
                             <p>
                                 <a href="{{ route('profileuser.profile', ['id' => $request->id]) }}">
@@ -286,7 +286,7 @@
 
 
 
-                    <div class="notification_line">
+                    <div class="notification_line_news">
 
                     </div>
 

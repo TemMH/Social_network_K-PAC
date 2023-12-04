@@ -369,7 +369,7 @@
 
 
                     <!-- Video -->
-                    @if (request()->is('newvideo', 'allusers'))
+                    @if (request()->is('newvideo', 'allusers', 'login', 'register','allvideouser', 'allvideo'))
                         <!-- Logo -->
                         <div class="logotype">
 
@@ -387,7 +387,7 @@
 
 
                             <div class="logo">
-                                <a href="{{ route('allzayavkauser') }}">
+                                <a href="{{ route('allvideouser') }}">
                                     <img src="/uploads/menuvideo.png" class="logo" alt="Описание фото">
                                 </a>
                             </div>
@@ -414,8 +414,8 @@
                             @if (auth()->user()->role == 'Admin')
                                 <div class="adminpanel">
 
-                                    <a href="{{ route('allzayavka') }}">
-                                        <p class="txt_1">Предложка</p>
+                                    <a href="{{ route('allvideo') }}">
+                                        <p class="txt_1">Все видео - ADMIN</p>
                                     </a>
 
                                 </div>
@@ -424,7 +424,7 @@
                             @if (auth()->user()->role == 'Admin')
                                 <div class="adminpanel">
                                     <a href="{{ route('allUsers') }}">
-                                        <p class="txt_1">Все пользователи</p>
+                                        <p class="txt_1">Все пользователи - ADMIN</p>
                                     </a>
                                 </div>
                             @endif
@@ -434,7 +434,7 @@
                             @if (auth()->user()->role !== 'Admin')
                                 <div class="search-container">
                                     <input type="text" id="searchInput" class="custom-search-input"
-                                        placeholder="Поиск по заголовку новости">
+                                        placeholder="Поиск по названию видео">
                                     <div id="searchResults"></div>
                                 </div>
                             @endif
@@ -484,15 +484,15 @@
 
                             <div class="adminpanel">
 
-                                <a href="{{ route('myzayavka') }}">
-                                    <p class="txt_1">Мои статьи</p>
+                                <a href="{{ route('myvideo') }}">
+                                    <p class="txt_1">Мои видео</p>
                                 </a>
 
                             </div>
                             <div class="adminpanel">
 
-                                <a href="{{ route('allzayavkauser') }}">
-                                    <p class="txt_1">Все статьи</p>
+                                <a href="{{ route('allvideouser') }}">
+                                    <p class="txt_1">Все видео</p>
                                 </a>
 
                             </div>
@@ -717,7 +717,7 @@
 
                     <!-- News -->
 
-                    @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/'))
+                    @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
                         <!-- Logo -->
                         <div class="logotype">
 
@@ -781,8 +781,9 @@
 
                             @if (auth()->user()->role !== 'Admin')
                                 <div class="search-container">
-                                    <input type="text" id="searchInput" class="custom-search-input"
+                                    <input type="text" id="searchInput" class="custom-search-input-news"
                                         placeholder="Поиск по заголовку новости">
+
                                     <div id="searchResults"></div>
                                 </div>
                             @endif
@@ -1074,7 +1075,7 @@
 
 <!-- Video -->
 
-            @if (request()->is('newvideo','allusers'))
+            @if (request()->is('newvideo','allusers', 'login', 'register', 'allvideouser', 'allvideo'))
 
             <div class="triygol">
 
@@ -1089,7 +1090,7 @@
 
 <!-- News -->
 
-            @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/'))
+            @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
 
             <div class="triygol">
 

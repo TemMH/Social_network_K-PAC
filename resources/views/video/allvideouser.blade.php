@@ -13,7 +13,7 @@
 
 
         @if (auth()->user()->permission == 'enabled')
-            <a href="{{ route('newzayavka') }}">
+            <a href="{{ route('newvideo') }}">
                 <div class="main_new_novo">
                     <p class="txt_2">Добавить видео</p>
                 </div>
@@ -22,8 +22,8 @@
         <div class="main_osnova">
             <div class="main_novosti">
 
-                @forelse ($zayavkas as $zayavka)
-                    @if ($zayavka->status == 'true')
+                @forelse ($videos as $video)
+                    @if ($video->status == 'true')
                     
                         <div class="main_novost">
 
@@ -31,11 +31,11 @@
                             <div class="main_novost_top">
                                 <div class="main_novost_img">
 
-                                    @if ($zayavka->user_id !== NULL)
+                                    @if ($video->user_id !== NULL)
                                     
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                        <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
                                            
-                                            <img class="avatar" src=" {{$zayavka->user !== null ? asset($zayavka->user->avatar) : asset('storage/')}}"
+                                            <img class="avatar" src=" {{$video->user !== null ? asset($video->user->avatar) : asset('storage/')}}"
                                                 alt="Avatar">
                                         </a>
 
@@ -47,19 +47,18 @@
 
                                 <div class="main_novost_zagolovok">
                                     <div>
-                                        <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
-                                            <p class="txt_2">{{ $zayavka->zagolovok }}</p>
-                                        </a>
+
+                                            <p class="txt_2">{{ $video->zagolovok }}</p>
+
                                     </div>
 
                                     <div class="flex">
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
-                                            <p class="txt_2">
-                                                {{ $zayavka->name }}
+                                           <p class="txt_2">
+                                                {{ $video->name }}
                                             </p>
-                                        </a>
+                          
 
-                                        <p class="txt_2">ㅤ{{ $zayavka->created_at }}</p>
+                                        <p class="txt_2">ㅤ{{ $video->created_at }}</p>
 
 
                                     </div>
@@ -70,20 +69,19 @@
 
 
                             <div class="main_novost_middle">
-                                <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
-                                    <p class="txt_2">
-                                        {{ $zayavka->description }}
+                                   <p class="txt_2">
+                                        {{ $video->description }}
                                     </p>
                                 </a>
 
-                                @if ($zayavka->category !== null)
-                                    <p class="txt_2">Категория: {{ $zayavka->category }}</p>
+                                @if ($video->category !== null)
+                                    <p class="txt_2">Категория: {{ $video->category }}</p>
                                 @endif
                             </div>
 
 
 
-                            <div class="main_novost_down">
+                            {{-- <div class="main_novost_down">
                                 <div class="main_novost_down">
                                     <div class="novost_down_func1">
                                         @if (!$zayavka->likes()->where('user_id', auth()->id())->exists())
@@ -162,7 +160,7 @@
                                         }
                                     </script>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     @endif

@@ -28,7 +28,7 @@
                         <x-input-label class="txt_2" for="description" :value="__('Описание видео')" />
 
 
-                        <textarea class="main_newtextarea" id="description" type="text" name="description" :value="old('description')"
+                        <textarea class="main_videotextarea" id="description" type="text" name="description" :value="old('description')"
                             required autofocus autocomplete="description"></textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>

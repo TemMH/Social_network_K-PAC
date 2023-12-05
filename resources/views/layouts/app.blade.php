@@ -369,7 +369,7 @@
 
 
                     <!-- Video -->
-                    @if (request()->is('newvideo', 'allusers', 'login', 'register','allvideouser', 'allvideo'))
+                    @if (request()->is('newvideo', 'allusers', 'login', 'register','allvideouser', 'allvideo','myvideo'))
                         <!-- Logo -->
                         <div class="logotype">
 
@@ -726,7 +726,7 @@
 
                             <div class="logo-left">
 
-                                <a href="{{ route('newvideo') }}">
+                                <a href="{{ route('allvideouser') }}">
                                     <img src="/uploads/logoimg_video_left.png" alt="Описание фото">
                                 </a>
 
@@ -1056,7 +1056,20 @@
 
             <!-- Triygol -->
 
+<!-- Neutral -->
 
+@if (request()->is('allvideo','allusers'))
+
+<div class="triygol">
+
+    <img class="image" src="/uploads/triyglev_neutral.png" />
+    <img class="image" src="/uploads/triygright_neutral.png" />
+
+
+</div>
+
+
+@endif
 
 <!-- Store -->
 
@@ -1075,7 +1088,7 @@
 
 <!-- Video -->
 
-            @if (request()->is('newvideo','allusers', 'login', 'register', 'allvideouser', 'allvideo'))
+            @if (request()->is('newvideo', 'login', 'register', 'allvideouser','myvideo'))
 
             <div class="triygol">
 

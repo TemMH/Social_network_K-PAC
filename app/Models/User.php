@@ -111,6 +111,9 @@ class User extends Authenticatable
         })->exists();
     }
 
-
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
 
 }

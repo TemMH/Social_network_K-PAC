@@ -22,7 +22,7 @@
             @foreach ($zayavkas as $zayavka)
                 @if ($zayavka->status == 'new')
                     <div class="main_novost">
-                        <form method="POST" action="{{ route('statusedit', ['id' => $zayavka->id]) }}">
+                        <form method="POST" action="{{ route('statuseditnews', ['id' => $zayavka->id]) }}">
                             @csrf
                             <div class="main_novost_top">
                                 <div class="main_novost_img">

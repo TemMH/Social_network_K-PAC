@@ -58,7 +58,7 @@ Route::get('/myzayavka', [myZayavkaController::class, 'myzayavka'])->name('myzay
 
 Route::get('/allzayavka', [myZayavkaController::class, 'allzayavka'])->name('allzayavka')->middleware(['auth', 'verified']);
 
-Route::post('/allzayavka/{id}', [myZayavkaController::class, 'update'])->name('statusedit');
+Route::post('/allzayavka/{id}', [myZayavkaController::class, 'updatenews'])->name('statuseditnews');
 
 Route::delete('/zayavka/delete/{id}', [ZayavkaController::class, 'delete'])->name('zayavka.delete');
 
@@ -73,8 +73,8 @@ Route::post('/zayavka/{id}/comment', [ZayavkaController::class, 'addComment'])->
 
 Route::delete('/zayavka/{zayavkaId}/comment/{commentId}', [ZayavkaController::class, 'deleteComment'])->name('zayavka.comment.delete');
 
-Route::get('/sort', [myZayavkaController::class, 'sortMethod'])->name('sort');
-Route::get('/mysort', [myZayavkaController::class, 'mysortMethod'])->name('mysort');
+// Route::get('/sort', [myZayavkaController::class, 'sortMethod'])->name('sort');
+// Route::get('/mysort', [myZayavkaController::class, 'mysortMethod'])->name('mysort');
 
 Route::get('/zayavka/{id}/edit', [myZayavkaController::class, 'edit'])->name('zayavka.edit');
 
@@ -98,19 +98,23 @@ Route::get('/newvideo', function () {
     return view('video.newvideo');
 })->middleware(['auth', 'verified'])->name('newvideo');
 
+Route::get('/myvideo', function () {
+    return view('video.myvideo');
+})->middleware(['auth', 'verified'])->name('myvideo');
+
 Route::post('/newvideo', [VideoController::class, 'store'])->name('createvideo');
 
 Route::get('/allvideouser', [VideoController::class, 'allvideouser'])->name('allvideouser')->middleware(['auth', 'verified']);
 
 Route::get('/allvideo', [VideoController::class, 'allvideo'])->name('allvideo')->middleware(['auth', 'verified']);
-Route::post('/allvideo/{id}', [VideoController::class, 'update'])->name('statusedit');
+Route::post('/allvideo/{id}', [VideoController::class, 'updatevideo'])->name('statuseditvideo');
 
 Route::post('/video/{id}/like', [VideoController::class, 'like'])->name('video.like');
 Route::delete('/video/{id}/unlike', [VideoController::class, 'unlike'])->name('video.unlike');
 
 Route::get('/myvideo', [VideoController::class, 'myvideo'])->name('myvideo')->middleware(['auth', 'verified']);
 
-
+Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
 
 // Store
 

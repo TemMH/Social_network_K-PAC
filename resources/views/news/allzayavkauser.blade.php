@@ -184,7 +184,7 @@
 
             <div class="main_filter_news">
                 <div class="main_filter1">
-                    <form method="GET" action="{{ route('sort') }}">
+                    <form method="GET" action="{{ url()->current() }}">
                         @csrf
 
                         <div class="category">

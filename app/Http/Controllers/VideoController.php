@@ -21,28 +21,37 @@ class VideoController extends Controller
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
         ]);
-
-
-        Video::create([
-
+    
+        $user = auth()->user(); // Получение текущего пользователя
+    
+        $video = $user->videos()->create([
             'title' => $request->title,
             'description' => $request->description,
             'status' => 'new',
             'category'=> $request->category,
         ]);
-
-        $videos = Video::where('user_id', auth()->id())->get();
-
+    
+        $videos = $user->videos()->get();
+    
         return view('video.myvideo', ['videos' => $videos]);
     }
+    
+    
+
+
+    
 
     public function allvideouser(Request $request)
     {
+        $category = $request->input('category');
         $sort = $request->input('sortirovka');
-
-        $videos = Video::where('status', 'new')->withCount('likes');
-
-
+    
+        $videos = Video::where('status', 'true')->withCount('likes');
+    
+        if ($category) {
+            $videos->where('category', $category);
+        }
+    
         switch ($sort) {
             case 'old':
                 $videos->orderBy('created_at', 'asc');
@@ -55,11 +64,13 @@ class VideoController extends Controller
                 $videos->orderBy('created_at', 'desc');
                 break;
         }
-
+    
         $videos = $videos->get();
-
+    
         return view('video.allvideouser', ['videos' => $videos]);
     }
+    
+    
 
     public function allvideo(User $user)
     {
@@ -69,7 +80,7 @@ class VideoController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function updatevideo(Request $request, $id)
     {
 
         $video = Video::find($id);
@@ -81,24 +92,33 @@ class VideoController extends Controller
 
     public function myvideo()
     {
-        $videos = Video::where('user_id', auth()->id())
+        $user = auth()->user();
+    
+        $videos = $user->videos()
             ->withCount('likes')
             ->get();
     
         return view('video.myvideo', ['videos' => $videos]);
     }
+    
+
+    
 
     public function like(Request $request, $id)
     {
         $video = Video::findOrFail($id);
-
+    
         if (!$video->likes()->where('user_id', auth()->id())->exists()) {
-            $like = new Like(['user_id' => auth()->id()]);
+            $like = new Like([
+                'user_id' => auth()->id(),
+                'zayavka_id' => null,
+            ]);
             $video->likes()->save($like);
         }
-
+    
         return redirect()->back();
     }
+    
 
     public function unlike(Request $request, $id)
     {

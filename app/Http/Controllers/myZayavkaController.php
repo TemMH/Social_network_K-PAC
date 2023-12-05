@@ -10,11 +10,32 @@ use Illuminate\Http\Request;
 class myZayavkaController extends Controller
 {
     //
-    public function myzayavka()
+    public function myzayavka(Request $request)
     {
+        $category = $request->input('category');
+        $sort = $request->input('sortirovka');
+    
         $zayavkas = Zayavka::where('user_id', auth()->id())
-            ->withCount('likes')
-            ->get();
+            ->withCount('likes');
+    
+        if ($category) {
+            $zayavkas->where('category', $category);
+        }
+    
+        switch ($sort) {
+            case 'old':
+                $zayavkas->orderBy('created_at', 'asc');
+                break;
+            case 'popular':
+                $zayavkas->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case 'recent':
+            default:
+                $zayavkas->orderBy('created_at', 'desc');
+                break;
+        }
+    
+        $zayavkas = $zayavkas->get();
     
         return view('news.myzayavka', ['zayavkas' => $zayavkas]);
     }
@@ -30,10 +51,14 @@ class myZayavkaController extends Controller
 
     public function allzayavkauser(Request $request)
     {
+        $category = $request->input('category');
         $sort = $request->input('sortirovka');
 
         $zayavkas = Zayavka::where('status', 'true')->withCount('likes');
 
+        if ($category) {
+            $zayavkas->where('category', $category);
+        }
 
         switch ($sort) {
             case 'old':
@@ -53,8 +78,7 @@ class myZayavkaController extends Controller
         return view('news.allzayavkauser', ['zayavkas' => $zayavkas]);
     }
 
-
-    public function update(Request $request, $id)
+    public function updatenews(Request $request, $id)
     {
 
 
@@ -93,67 +117,67 @@ class myZayavkaController extends Controller
 
 
 
-    public function sortMethod(Request $request)
-    {
-        $category = $request->input('category');
-        $sort = $request->input('sortirovka');
+    // public function sortMethod(Request $request)
+    // {
+    //     $category = $request->input('category');
+    //     $sort = $request->input('sortirovka');
 
-        $zayavkas = Zayavka::withCount('likes')->where('status', 'true');
+    //     $zayavkas = Zayavka::withCount('likes')->where('status', 'true');
 
-        if ($category && $category !== 'all') {
-            $zayavkas->where('category', $category);
-        }
+    //     if ($category && $category !== 'all') {
+    //         $zayavkas->where('category', $category);
+    //     }
 
-        switch ($sort) {
-            case 'old':
-                $zayavkas->orderBy('created_at', 'asc');
-                break;
-            case 'popular':
-                $zayavkas->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $zayavkas->orderBy('created_at', 'desc');
-                break;
-        }
+    //     switch ($sort) {
+    //         case 'old':
+    //             $zayavkas->orderBy('created_at', 'asc');
+    //             break;
+    //         case 'popular':
+    //             $zayavkas->orderByDesc('likes_count');
+    //             break;
+    //         case 'recent':
+    //         default:
+    //             $zayavkas->orderBy('created_at', 'desc');
+    //             break;
+    //     }
 
-        $zayavkas = $zayavkas->get();
+    //     $zayavkas = $zayavkas->get();
 
-        return view('news.allzayavkauser', ['zayavkas' => $zayavkas, 'category' => $category]);
-    }
-
-
-    public function mysortMethod(Request $request)
-    {
-
-        $category = $request->input('category');
-        $sort = $request->input('sortirovka');
+    //     return view('news.allzayavkauser', ['zayavkas' => $zayavkas, 'category' => $category]);
+    // }
 
 
-        $zayavkas = Zayavka::where('user_id', auth()->id())
-            ->withCount('likes');
+    // public function mysortMethod(Request $request)
+    // {
 
-        if ($category && $category !== 'all') {
-            $zayavkas->where('category', $category);
-        }
+    //     $category = $request->input('category');
+    //     $sort = $request->input('sortirovka');
 
-        switch ($sort) {
-            case 'old':
-                $zayavkas->orderBy('created_at', 'asc');
-                break;
-            case 'popular':
-                $zayavkas->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $zayavkas->orderBy('created_at', 'desc');
-                break;
-        }
 
-        $zayavkas = $zayavkas->get();
+    //     $zayavkas = Zayavka::where('user_id', auth()->id())
+    //         ->withCount('likes');
 
-        return view('news.myzayavka', ['zayavkas' => $zayavkas]);
-    }
+    //     if ($category && $category !== 'all') {
+    //         $zayavkas->where('category', $category);
+    //     }
+
+    //     switch ($sort) {
+    //         case 'old':
+    //             $zayavkas->orderBy('created_at', 'asc');
+    //             break;
+    //         case 'popular':
+    //             $zayavkas->orderByDesc('likes_count');
+    //             break;
+    //         case 'recent':
+    //         default:
+    //             $zayavkas->orderBy('created_at', 'desc');
+    //             break;
+    //     }
+
+    //     $zayavkas = $zayavkas->get();
+
+    //     return view('news.myzayavka', ['zayavkas' => $zayavkas]);
+    // }
 
 
 

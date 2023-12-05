@@ -22,28 +22,28 @@
             @foreach ($videos as $video)
                 @if ($video->status == 'new')
                     <div class="main_novost">
-                        <form method="POST" action="{{ route('statusedit', ['id' => $video->id]) }}">
+                        <form method="POST" action="{{ route('statuseditvideo', ['id' => $video->id]) }}">
                             @csrf
                             <div class="main_novost_top">
                                 <div class="main_novost_img">
-                                    {{-- <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                    <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
                                         <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}"
                                             alt="Avatar">
-                                    </a> --}}
+                                    </a>
                                 </div>
 
 
 
                                 <div class="main_novost_zagolovok">
                                     <div> 
-                                        {{-- <a href="{{ route('zayavkauser', ['id' => $video->id]) }}"> --}}
+                                        {{-- <a href="{{ route('videouser', ['id' => $video->id]) }}"> --}}
                                             <p class="txt_2">{{ $video->title }}</p>
                                         {{-- </a> --}}
                                     </div>
                                     <div class="flex">
-                                        {{-- <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}"> --}}
-                                            <p class="txt_2">{{ $video->user }}</p>
-                                        {{-- </a> --}}
+                                        <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                            <p class="txt_2">{{ $video->user->name }}</p>
+                                        </a>
                                         <p class="txt_2">ㅤ{{ $video->created_at }}</p>
                                     </div>
 
@@ -53,7 +53,7 @@
 
 
                             <div class="main_novost_middle">
-                                {{-- <a href="{{ route('zayavkauser', ['id' => $video->id]) }}"> --}}
+                                {{-- <a href="{{ route('videouser', ['id' => $video->id]) }}"> --}}
                                     <p class="txt_2">{{ $video->description }}</p>
                                 {{-- </a> --}}
 

@@ -48,13 +48,13 @@
                                 <div class="main_novost_zagolovok">
                                     <div>
 
-                                            <p class="txt_2">{{ $video->zagolovok }}</p>
+                                            <p class="txt_2">{{ $video->title }}</p>
 
                                     </div>
 
                                     <div class="flex">
                                            <p class="txt_2">
-                                                {{ $video->name }}
+                                                {{ $video->user->name }}
                                             </p>
                           
 
@@ -81,23 +81,23 @@
 
 
 
-                            {{-- <div class="main_novost_down">
+                            <div class="main_novost_down">
                                 <div class="main_novost_down">
                                     <div class="novost_down_func1">
-                                        @if (!$zayavka->likes()->where('user_id', auth()->id())->exists())
+                                        @if (!$video->likes()->where('user_id', auth()->id())->exists())
                                             <form method="POST"
-                                                action="{{ route('zayavka.like', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('video.like', ['id' => $video->id]) }}">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="novost_down_func"><span>{{ $zayavka->likes_count }}</span>ㅤ𓆩♡𓆪</button>
+                                                    class="novost_down_func"><span>{{ $video->likes_count }}</span>ㅤ𓆩♡𓆪</button>
                                             </form>
                                         @else
                                             <form method="POST"
-                                                action="{{ route('zayavka.unlike', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('video.unlike', ['id' => $video->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="novost_down_func">
-                                                    <span>{{ $zayavka->likes_count }}</span>ㅤ❤</button>
+                                                    <span>{{ $video->likes_count }}</span>ㅤ❤</button>
                                             </form>
                                         @endif
 
@@ -109,7 +109,7 @@
 
 
                                             <form method="POST"
-                                                action="{{ route('zayavka.delete', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('video.delete', ['id' => $video->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit">Удалить новость</button>
@@ -136,16 +136,16 @@
                                     ?>
 
                                     <div class="novost_down_func1">
-                                        <button onclick="toggleFriendsList({{ $zayavka->id }})"
+                                        <button onclick="toggleFriendsList({{ $video->id }})"
                                             class="novost_down_func">📢</button>
 
                                     </div>
-                                    <div id="friendsList{{ $zayavka->id }}" style="display: none;">
+                                    <div id="friendsList{{ $video->id }}" style="display: none;">
                                         <div class="friendsList_repost">
                                             @foreach ($friends as $friend)
                                                 @if ($friend->id !== auth()->id())
                                                     <a class="txt_2"
-                                                        href="{{ route('sendPostToFriend', ['postId' => $zayavka->id, 'friendId' => $friend->id]) }}">
+                                                        href="{{ route('sendPostToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
                                                         {{ $friend->name }}
                                                     </a>
                                                 @endif
@@ -160,7 +160,7 @@
                                         }
                                     </script>
                                 </div>
-                            </div> --}}
+                            </div>
 
                         </div>
                     @endif
@@ -173,10 +173,11 @@
 
             <div class="main_filter">
                 <div class="main_filter1">
-                    <form method="GET" action="{{ route('sort') }}">
+                    <form method="GET" action="{{ url()->current() }}">
                         @csrf
 
                         <div class="category">
+                            
                             <label for="category">Выберите категорию</label>
                             <select class="custom-select" name="category" id="category">
                                 <option value="">Все категории</option>

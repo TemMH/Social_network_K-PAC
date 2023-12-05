@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('title')->unique();
             $table->string('description');
             $table->string('status');
             $table->string('category')->nullable();
             $table->string('pathtovideo')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

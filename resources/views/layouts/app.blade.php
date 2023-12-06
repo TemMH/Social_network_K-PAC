@@ -1058,7 +1058,7 @@
 
 <!-- Neutral -->
 
-@if (request()->is('allvideo','allusers'))
+@if (request()->is('allvideo','allusers','profileuser', 'allzayavka','profileuser/*'))
 
 <div class="triygol">
 
@@ -1103,7 +1103,7 @@
 
 <!-- News -->
 
-            @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
+            @if (request()->is('myzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
 
             <div class="triygol">
 

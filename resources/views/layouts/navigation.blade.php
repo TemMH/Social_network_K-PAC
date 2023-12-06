@@ -5,7 +5,7 @@
 
     {{-- Neutral --}}
 
-    @if (request()->is('allvideo','allusers'))
+    @if (request()->is('allvideo','allusers','profileuser', 'allzayavka','profileuser/*'))
 
 
     <div class="header_up_neutral" id="header">
@@ -146,7 +146,7 @@
                     <script>
                         function toggleNotification() {
                             const notificationBlock = document.getElementById('notificationBlock');
-                            const notificationItems = document.querySelectorAll('.notificationitem');
+                            const notificationItems = document.querySelectorAll('.notificationitem_video');
                             const notification_friends = document.querySelectorAll('.notification_friends_video');
 
                             notificationBlock.classList.toggle('show');
@@ -374,7 +374,7 @@ document.addEventListener('mousemove', (event) => {
                     <script>
                         function toggleNotification() {
                             const notificationBlock = document.getElementById('notificationBlock');
-                            const notificationItems = document.querySelectorAll('.notificationitem');
+                            const notificationItems = document.querySelectorAll('.notificationitem_news');
                             const notification_friends = document.querySelectorAll('.notification_friends_video');
 
                             notificationBlock.classList.toggle('show');
@@ -417,7 +417,7 @@ document.addEventListener('mousemove', (event) => {
 
     <!-- News -->
 
-    @if (request()->is('myzayavka', 'allzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
+    @if (request()->is('myzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
 
 
     <div class="header_up_news">
@@ -558,7 +558,7 @@ document.addEventListener('mousemove', (event) => {
                     <script>
                         function toggleNotification() {
                             const notificationBlock = document.getElementById('notificationBlock');
-                            const notificationItems = document.querySelectorAll('.notificationitem');
+                            const notificationItems = document.querySelectorAll('.notificationitem_news');
                             const notification_friends = document.querySelectorAll('.notification_friends_news');
 
                             notificationBlock.classList.toggle('show');

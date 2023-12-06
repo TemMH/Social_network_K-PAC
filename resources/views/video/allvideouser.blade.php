@@ -53,11 +53,12 @@
                                     </div>
 
                                     <div class="flex">
+                                        <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
                                            <p class="txt_2">
                                                 {{ $video->user->name }}
                                             </p>
                           
-
+                                        </a>
                                         <p class="txt_2">ㅤ{{ $video->created_at }}</p>
 
 

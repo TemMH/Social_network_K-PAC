@@ -90,13 +90,32 @@ class VideoController extends Controller
         return redirect()->back()->with('success', 'Статус успешно обновлён');
     }
 
-    public function myvideo()
+    public function myvideo(Request $request)
     {
-        $user = auth()->user();
+        $category = $request->input('category');
+        $sort = $request->input('sortirovka');
     
-        $videos = $user->videos()
-            ->withCount('likes')
-            ->get();
+        $videos = Video::where('user_id', auth()->id())
+            ->withCount('likes');
+    
+        if ($category) {
+            $videos->where('category', $category);
+        }
+    
+        switch ($sort) {
+            case 'old':
+                $videos->orderBy('created_at', 'asc');
+                break;
+            case 'popular':
+                $videos->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case 'recent':
+            default:
+                $videos->orderBy('created_at', 'desc');
+                break;
+        }
+    
+        $videos = $videos->get();
     
         return view('video.myvideo', ['videos' => $videos]);
     }

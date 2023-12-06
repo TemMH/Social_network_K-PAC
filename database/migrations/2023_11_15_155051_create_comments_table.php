@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreignId('zayavka_id');
+            // $table->foreignId('video_id');
             $table->text('content');
             $table->timestamps();
 

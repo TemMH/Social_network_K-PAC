@@ -9,7 +9,7 @@
     <div class="main">
 
         <div class="main_osnova">
-            <form method="POST" action="{{ route('createvideo') }}">
+            <form method="POST" action="{{ route('createvideo') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="main_newnovost">
 
@@ -44,6 +44,19 @@
                             <option value="Транспорт">Транспорт</option>
                         </select>
                     </div>
+
+                    <div>
+                        <label for="thumbnail" class="txt_2">{{ __('Загрузите превью видео') }}</label>
+                        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required />
+                        <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
+                    </div>
+                    
+                    <div>
+                        <label for="video" class="txt_2">{{ __('Загрузите видео (MP4)') }}</label>
+                        <input type="file" id="video" name="video" accept="video/mp4" required />
+                        <x-input-error :messages="$errors->get('video')" class="mt-2" />
+                    </div>
+
                     <div class="margin_20_20"></div>
                     <x-primary-button class="btn_1">
                         {{ __('Отправить') }}

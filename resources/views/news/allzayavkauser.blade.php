@@ -31,12 +31,10 @@
                                 <div class="main_novost_img">
 
                                     @if ($zayavka->user_id !== null)
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
-
-                                            <img class="avatar"
-                                                src=" {{ $zayavka->user !== null ? asset($zayavka->user->avatar) : asset('storage/') }}"
-                                                alt="Avatar">
-                                        </a>
+                                <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                    <img class="avatar" src="{{ asset('storage/' . $zayavka->user->avatar) }}"
+                                        alt="Avatar">
+                                </a>
                                     @endif
 
 

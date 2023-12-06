@@ -16,6 +16,8 @@ class Video extends Model
         'description',
         'status',
         'category',
+        'video_path',
+        'thumbnail_path',
     ];
 
     public function likes()

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class VideoController extends Controller
 {
@@ -20,21 +22,39 @@ class VideoController extends Controller
         $request->validate([
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
+            'video' => 'required|file|mimes:mp4|max:500000',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        $user = auth()->user(); // Получение текущего пользователя
+        $user = auth()->user();
     
-        $video = $user->videos()->create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => 'new',
-            'category'=> $request->category,
-        ]);
+        if ($request->hasFile('video') && $request->hasFile('thumbnail')) {
+            $uploadedVideo = $request->file('video');
+            $videoName = 'video_' . time() . '.' . $uploadedVideo->getClientOriginalExtension();
+            $videoPath = $uploadedVideo->storeAs('public/videos', $videoName);
     
-        $videos = $user->videos()->get();
+            $uploadedThumbnail = $request->file('thumbnail');
+            $thumbnailName = 'thumbnail_' . time() . '.' . $uploadedThumbnail->getClientOriginalExtension();
+            $thumbnailPath = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
     
-        return view('video.myvideo', ['videos' => $videos]);
+            $video = $user->videos()->create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'status' => 'new',
+                'category' => $request->category,
+                'video_path' => 'videos/' . $videoName,
+                'thumbnail_path' => 'thumbnails/' . $thumbnailName,
+            ]);
+    
+            $videos = $user->videos()->get();
+    
+            return view('video.myvideo', ['videos' => $videos])->with('success', 'Видео успешно загружено!');
+        }
+    
+        return back()->with('error', 'Ошибка при загрузке видео или превью');
     }
+    
+    
     
     
 

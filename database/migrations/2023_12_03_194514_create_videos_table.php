@@ -18,12 +18,15 @@ return new class extends Migration
             $table->string('description');
             $table->string('status');
             $table->string('category')->nullable();
-            $table->string('pathtovideo')->nullable();
+            $table->string('video_path', 512)->nullable();
+            $table->string('thumbnail_path', 512)->nullable();
+    
             $table->timestamps();
-
+    
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
+    
 
     /**
      * Reverse the migrations.

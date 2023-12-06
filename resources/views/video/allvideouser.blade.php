@@ -33,11 +33,10 @@
 
                                     @if ($video->user_id !== NULL)
                                     
-                                        <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
-                                           
-                                            <img class="avatar" src=" {{$video->user !== null ? asset($video->user->avatar) : asset('storage/')}}"
-                                                alt="Avatar">
-                                        </a>
+                                    <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                        <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}" alt="Avatar">
+
+                                    </a>
 
                                     @endif
 
@@ -70,24 +69,49 @@
 
 
                             <div class="main_novost_middle">
-                                   <p class="txt_2">
+                                <div id="mediaContent">
+                                    <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="Thumbnail" class="videoThumbnail" data-video="{{ asset('storage/' . $video->video_path) }}" style="cursor: pointer; width: 320px; height: 240px;">
+     
+                                </div>
+                                    <p class="txt_2">
                                         {{ $video->description }}
                                     </p>
-                                </a>
+                                    @if ($video->category !== null)
+                                        <p class="txt_2">Категория: {{ $video->category }}</p>
+                                    @endif
 
-                                @if ($video->category !== null)
-                                    <p class="txt_2">Категория: {{ $video->category }}</p>
-                                @endif
                             </div>
+                            
+                            <script>
+document.querySelectorAll('.videoThumbnail').forEach(thumbnail => {
+    thumbnail.addEventListener('click', function() {
+        const videoPath = this.getAttribute('data-video');
+        const mediaContent = this.parentElement;
+        mediaContent.innerHTML = `
+            <video width="320" height="240" controls autoplay>
+                <source src="${videoPath}" type="video/mp4">
+                Ваш браузер не поддерживает видео тег.
+            </video>
+        `;
+    });
+});
 
+                            </script>
+                            
+                            
+                            
+
+
+                            
 
 
                             <div class="main_novost_down">
                                 <div class="main_novost_down">
                                     <div class="novost_down_func1">
+
+
                                         @if (!$video->likes()->where('user_id', auth()->id())->exists())
-                                            <form method="POST"
-                                                action="{{ route('video.like', ['id' => $video->id]) }}">
+                                            <form method="POST" action="{{ route('video.like', ['id' => $video->id]) }}">
                                                 @csrf
                                                 <button type="submit"
                                                     class="novost_down_func"><span>{{ $video->likes_count }}</span>ㅤ𓆩♡𓆪</button>

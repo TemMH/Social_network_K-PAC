@@ -42,7 +42,7 @@
                     ?>
 
                     @foreach ($friendRequests as $request)
-                        <div class="notificationitem_video" id="notificationitem">
+                        <div class="notificationitem_video" id="notificationitem_video">
 
                             <p>
                                 <a href="{{ route('profileuser.profile', ['id' => $request->id]) }}">
@@ -374,7 +374,7 @@ document.addEventListener('mousemove', (event) => {
                     <script>
                         function toggleNotification() {
                             const notificationBlock = document.getElementById('notificationBlock');
-                            const notificationItems = document.querySelectorAll('.notificationitem_news');
+                            const notificationItems = document.querySelectorAll('.notificationitem_video');
                             const notification_friends = document.querySelectorAll('.notification_friends_video');
 
                             notificationBlock.classList.toggle('show');

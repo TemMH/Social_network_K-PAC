@@ -102,6 +102,10 @@ Route::get('/myvideo', function () {
     return view('video.myvideo');
 })->middleware(['auth', 'verified'])->name('myvideo');
 
+Route::get('/videouser', function () {
+    return view('video.videouser');
+})->middleware(['auth', 'verified'])->name('videouser');
+
 Route::post('/newvideo', [VideoController::class, 'store'])->name('createvideo');
 
 Route::get('/allvideouser', [VideoController::class, 'allvideouser'])->name('allvideouser')->middleware(['auth', 'verified']);
@@ -115,6 +119,12 @@ Route::delete('/video/{id}/unlike', [VideoController::class, 'unlike'])->name('v
 Route::get('/myvideo', [VideoController::class, 'myvideo'])->name('myvideo')->middleware(['auth', 'verified']);
 
 Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
+
+Route::get('/videouser/{id}', [VideoController::class, 'show'])->name('videouser');
+
+Route::post('/video/{id}/comment', [VideoController::class, 'addComment'])->name('video.comment');
+
+Route::delete('/video/{videoId}/comment/{commentId}', [VideoController::class, 'deleteComment'])->name('video.comment.delete');
 
 // Store
 

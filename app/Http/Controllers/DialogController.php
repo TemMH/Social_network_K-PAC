@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Zayavka;
 use App\Models\Message;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 
@@ -49,11 +50,15 @@ class DialogController extends Controller
         return redirect()->route('dialog.show', $userId);
     }
 
-    public function sendPostToFriend(Request $request, $postId, $friendId)
+    public function sendPostToFriend(Request $request, $postId, $friendId
+    // , $videoId
+    
+    )
     {
+        // $video = Video::findOrFail($videoId);
         $post = Zayavka::findOrFail($postId);
         $friend = User::findOrFail($friendId);
-    
+
 
         $messageContent = '<a href="' . route('zayavkauser', ['id' => $post->id]) . '">Пост для тебя: ' . $post->description . '</a>';
 

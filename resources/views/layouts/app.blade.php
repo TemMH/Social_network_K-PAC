@@ -369,7 +369,7 @@
 
 
                     <!-- Video -->
-                    @if (request()->is('newvideo', 'allusers', 'login', 'register','allvideouser', 'allvideo','myvideo'))
+                    @if (request()->is('newvideo', 'allusers', 'login', 'register','allvideouser', 'allvideo','myvideo', 'videouser/*'))
                         <!-- Logo -->
                         <div class="logotype">
 
@@ -1088,7 +1088,7 @@
 
 <!-- Video -->
 
-            @if (request()->is('newvideo', 'login', 'register', 'allvideouser','myvideo'))
+            @if (request()->is('newvideo', 'login', 'register', 'allvideouser','myvideo', 'videouser/*'))
 
             <div class="triygol">
 

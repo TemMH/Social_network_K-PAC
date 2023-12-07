@@ -10,12 +10,10 @@
 
 
 
-
-
         @if (auth()->user()->permission == 'enabled')
             <a href="{{ route('newvideo') }}">
-                <div class="main_new_novo">
-                    <p class="txt_2">Добавить видео</p>
+                <div class="main_new_novo_video">
+                    <p class="txt_2">Опубликовать видео</p>
                 </div>
             </a>
         @endif
@@ -46,9 +44,9 @@
 
                                 <div class="main_novost_zagolovok">
                                     <div>
-
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
                                             <p class="txt_2">{{ $video->title }}</p>
-
+                                        </a>
                                     </div>
 
                                     <div class="flex">
@@ -137,7 +135,7 @@ document.querySelectorAll('.videoThumbnail').forEach(thumbnail => {
                                                 action="{{ route('video.delete', ['id' => $video->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit">Удалить новость</button>
+                                                <button type="submit">Удалить видео</button>
                                             </form>
 
                                         </div>
@@ -186,17 +184,17 @@ document.querySelectorAll('.videoThumbnail').forEach(thumbnail => {
                                     </script>
                                 </div>
                             </div>
-
+                            
                         </div>
-                    @endif
+                        @endif
+                        
 
-                @empty
-                    <p class= "txt_1">Новостей нет</p>
-
+                        @empty
+                        <p class= "txt_1">По запросу видео не найдено</p>
                 @endforelse
             </div>
 
-            <div class="main_filter">
+            <div class="main_filter_video">
                 <div class="main_filter1">
                     <form method="GET" action="{{ url()->current() }}">
                         @csrf
@@ -204,7 +202,7 @@ document.querySelectorAll('.videoThumbnail').forEach(thumbnail => {
                         <div class="category">
                             
                             <label for="category">Выберите категорию</label>
-                            <select class="custom-select" name="category" id="category">
+                            <select class="custom-select-video" name="category" id="category">
                                 <option value="">Все категории</option>
                                 <option value="Спорт">Спорт</option>
                                 <option value="Игры">Игры</option>
@@ -215,7 +213,7 @@ document.querySelectorAll('.videoThumbnail').forEach(thumbnail => {
 
                         <div class="sortirovka">
                             <label for="sortirovka">Выберите сортировку</label>
-                            <select class="custom-select" name="sortirovka" id="sortirovka">
+                            <select class="custom-select-video" name="sortirovka" id="sortirovka">
                                 <option value="recent">Сначала недавние</option>
                                 <option value="old">Сначала старые</option>
                                 <option value="popular">Сначала популярные</option>

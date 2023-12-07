@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreignId('zayavka_id');
-            // $table->foreignId('video_id');
+            $table->foreignId('zayavka_id')->nullable();
+            $table->foreignId('video_id')->nullable();
             $table->text('content');
             $table->timestamps();
 

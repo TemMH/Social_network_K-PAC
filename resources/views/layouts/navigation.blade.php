@@ -233,7 +233,7 @@ document.addEventListener('mousemove', (event) => {
 
     <!-- Video -->
 
-    @if (request()->is('newvideo','login','register','allvideouser','myvideo'))
+    @if (request()->is('newvideo','login','register','allvideouser','myvideo', 'videouser/*'))
 
 
     <div class="header_up_video">

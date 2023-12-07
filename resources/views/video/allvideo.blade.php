@@ -9,9 +9,9 @@
     <div class="main">
 
         <a href="{{ route('newvideo') }}">
-            <div class="main_new_novo">
+            <div class="main_new_novo_neutral">
 
-                <p class="txt_2">Предложите свою новость</p>
+                <p class="txt_2">Опубликовать свою видео</p>
 
             </div>
         </a>

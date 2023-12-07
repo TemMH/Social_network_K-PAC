@@ -23,7 +23,7 @@ class VideoController extends Controller
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
             'video' => 'required|file|mimes:mp4|max:500000',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|aspect_ratio',
         ]);
     
         $user = auth()->user();
@@ -58,8 +58,30 @@ class VideoController extends Controller
     
     
 
-
+    public function addComment(Request $request, $id)
+    {
+        $video = Video::findOrFail($id);
+        $video->addComment($request->input('comment'));
     
+        return redirect()->back();
+    }
+    
+    public function deleteComment($videoId, $commentId)
+{
+    $video = Video::findOrFail($videoId);
+    $comment = Comment::findOrFail($commentId);
+
+
+    if ($comment->video_id !== $video->id) {
+        abort(403, 'Этот комментарий не принадлежит указанной заявке.');
+    }
+
+
+    $comment->delete();
+
+    return redirect()->back();
+}
+
 
     public function allvideouser(Request $request)
     {
@@ -90,7 +112,13 @@ class VideoController extends Controller
         return view('video.allvideouser', ['videos' => $videos]);
     }
     
+    public function show($id)
+    {
+        
+        $video = Video::with('comments.user')->findOrFail($id);
     
+        return view('video.videouser', ['video' => $video]);
+    }
 
     public function allvideo(User $user)
     {

@@ -132,6 +132,10 @@ Route::get('/allstoreuser', function () {
     return view('store.allstoreuser');
 })->middleware(['auth', 'verified'])->name('allstoreuser');
 
+Route::get('/dashboardstore', function () {
+    return view('store.dashboardstore');
+})->middleware(['auth', 'verified'])->name('dashboardstore');
+
 
 
 
@@ -250,8 +254,78 @@ require __DIR__ . '/auth.php';
 //Пароль приложений    swdw dlmi moue wrpy
 
 
-//Проверка на какой странице сейчас находишься
 
-//              @if(request()->is('myzayavka'))
-//              <!-- Код элемента, который не нужно скрывать -->
-//              @endif
+
+// Проверка погоды и валюты доллар/евро
+
+//  <div class="Weather">
+
+//     @php
+        
+//         $apiKey = '8523a49e9e99f6888cc6d56ee02f0214';
+
+        
+//         $city = 'Иркутске';
+
+       
+//         $url = 'https://api.openweathermap.org/data/2.5/weather?q=Irkutsk,ru&APPID=8523a49e9e99f6888cc6d56ee02f0214';
+
+        
+//         $response = file_get_contents($url);
+
+       
+//         $weatherData = json_decode($response, true);
+
+
+//         $temperatureKelvin = $weatherData['main']['temp'];
+
+//         $temperatureCelsius = $temperatureKelvin - 273.15;
+//     @endphp
+
+//     <p class="txt_2">{{ $temperatureCelsius }} &#8451; В {{ $city }}</p>
+// </div>
+
+// <div class="money">
+//     <div class="test1">
+//         @php
+         
+//             $url = 'https://api.exchangerate-api.com/v4/latest/USD';
+
+          
+//             $response = file_get_contents($url);
+
+     
+//             $exchangeRates = json_decode($response, true);
+
+         
+//             $rubRate = $exchangeRates['rates']['RUB'];
+
+//         @endphp
+
+
+//         <p class="txt_2">$ {{ $rubRate }}</p>
+
+//     </div>
+//     <div class="test2">
+//         <p class="txt_2">ㅤ|ㅤ</p>
+//     </div>
+//     <div class="test3">
+//         @php
+       
+//             $url = 'https://api.exchangerate-api.com/v4/latest/EUR';
+
+
+//             $response = file_get_contents($url);
+
+//             $exchangeRates = json_decode($response, true);
+
+
+//             $rubRate = $exchangeRates['rates']['RUB'];
+
+//         @endphp
+
+
+//         <p class="txt_2">€ {{ $rubRate }}</p>
+//     </div>
+
+// </div> 

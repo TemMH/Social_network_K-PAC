@@ -41,6 +41,18 @@ video {
 
 }
 
+.header_up_store {
+
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    height: 40px;
+
+    background-color: #FB7A00;
+
+}
+
 .header-down {
 
 
@@ -145,6 +157,25 @@ video {
     margin-left: auto;
 
     width: 1280px;
+    height: auto;
+    background-color: rgba(26, 26, 29, 1);
+    border-radius: 3px;
+    box-shadow: 3px 4px 4px #00000040;
+    padding-top: 50px;
+
+    padding-left: 128px;
+    padding-right: 128px;
+    padding-bottom: 50px;
+}
+
+.main_allvideo_user {
+
+    margin-top: -116px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+
+    width: 1440px;
     height: auto;
     background-color: rgba(26, 26, 29, 1);
     border-radius: 3px;
@@ -355,11 +386,11 @@ html {
 
 }
 
-.main_novost {
+.main_novost_allvideo {
 
-    height: auto;
-    width: 740px;
-    min-height: 220px;
+    height: 220px;
+    width: 280px;
+
 
     background-color: rgba(19, 19, 19, 1);
     border: 1px solid;
@@ -367,10 +398,34 @@ html {
     border-radius: 3px;
     box-shadow: 3px 4px 4px #00000040;
 
-    padding: 20px;
 
-    margin-right: auto;
-    margin-left: auto;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 50px;
+
+    color: #D9D9D9;
+
+}
+
+.main_novost_video {
+
+    height: auto;
+    width: 740px;
+    min-height: 220px;
+
+
+    background-color: rgba(19, 19, 19, 1);
+    border: 1px solid;
+    border-color: #950740;
+    border-radius: 3px;
+    box-shadow: 3px 4px 4px #00000040;
+
+
+
 
     display: flex;
     flex-direction: column;
@@ -453,7 +508,7 @@ html {
 
 }
 
-.novost_down_func {
+.novost_down_func_video {
 
     height: 30px;
     width: 90px;
@@ -477,14 +532,16 @@ html {
     transition: border-color 0.3s, background-color 0.3s;
 }
 
-.novost_down_func:hover {
+
+
+.novost_down_func_video:hover {
     border-color: #950740;
     background-color: #950740;
 
     box-shadow: 0 0 10px 5px #950740;
 }
 
-.novost_down_func:active {
+.novost_down_func_video:active {
     background-color: #D9D9D9;
 }
 
@@ -1548,13 +1605,13 @@ html {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    /* Добавим небольшую иконку для кастомной стрелки */
+
     background-color: #1A1A1D;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%23000" d="M6 8L0 0h12z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px top 50%;
     background-size: 12px auto;
-    /* Остальные стили для внешнего вида */
+
     padding: 8px 15px;
     border: 1px solid #950740;
     border-radius: 5px;
@@ -1568,20 +1625,16 @@ html {
 
 
 
-
-
-
-/* Стили при наведении */
 .custom-select-video:hover {
     border-color: #aaa;
 }
 
-/* Стили при фокусе */
+
 .custom-select-video:focus {
     border-color: #555;
 }
 
-/* Стили для опций */
+
 .custom-select-video option {
     background-color: #fff;
     color: #333;
@@ -1760,11 +1813,49 @@ html {
 
 }
 
+.novost_down_func_news {
+
+    height: 30px;
+    width: 90px;
+
+    margin-right: 30px;
+
+    background-color: rgba(19, 19, 19, 1);
+    border: 1px solid;
+    border-color: #53B8A9;
+    border-radius: 20px;
+    box-shadow: 3px 4px 4px #00000040;
+    padding: 5px;
 
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 
 
+    transition: border-color 0.3s, background-color 0.3s;
+}
 
+.novost_down_func_news:hover {
+    border-color: #53B8A9;
+    background-color: #53B8A9;
+
+    box-shadow: 0 0 10px 5px #53B8A9;
+}
+
+.novost_down_func_news:active {
+    background-color: #D9D9D9;
+}
+
+
+.main_novost_middle_all {
+
+
+    max-width: 700px;
+    height: auto;
+
+}
 
 
 /* neutral */
@@ -1800,3 +1891,56 @@ html {
 
 }
 
+.main_novost_news {
+
+    height: auto;
+    width: 740px;
+    min-height: 220px;
+
+    background-color: rgba(19, 19, 19, 1);
+    border: 1px solid;
+    border-color: #53B8A9;
+    border-radius: 3px;
+    box-shadow: 3px 4px 4px #00000040;
+
+    padding: 20px;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 50px;
+
+    color: #D9D9D9;
+
+}
+
+.main_novost_neutral {
+
+    height: auto;
+    width: 740px;
+    min-height: 220px;
+
+    background-color: rgba(19, 19, 19, 1);
+    border: 1px solid;
+    border-color: #53B8A9;
+    border-radius: 3px;
+    box-shadow: 3px 4px 4px #00000040;
+
+    padding: 20px;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 50px;
+
+    color: #D9D9D9;
+
+}

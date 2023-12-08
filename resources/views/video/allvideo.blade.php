@@ -21,7 +21,7 @@
         <div class="main_myosnova">
             @foreach ($videos as $video)
                 @if ($video->status == 'new')
-                    <div class="main_novost">
+                    <div class="main_novost_neutral">
                         <form method="POST" action="{{ route('statuseditvideo', ['id' => $video->id]) }}">
                             @csrf
                             <div class="main_novost_top">

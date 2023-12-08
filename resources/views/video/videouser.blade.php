@@ -84,13 +84,13 @@ mediaContent.innerHTML = `
                                 @if (!$video->likes()->where('user_id', auth()->id())->exists())
                                     <form method="POST" action="{{ route('video.like', ['id' => $video->id]) }}">
                                         @csrf
-                                        <button class="novost_down_func" type="submit">𓆩♡𓆪</button>
+                                        <button class="novost_down_func_video" type="submit">𓆩♡𓆪</button>
                                     </form>
                                 @else
                                     <form method="POST" action="{{ route('video.unlike', ['id' => $video->id]) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="novost_down_func" type="submit">❤</button>
+                                        <button class="novost_down_func_video" type="submit">❤</button>
                                     </form>
                                 @endif
                             </div>
@@ -114,7 +114,7 @@ mediaContent.innerHTML = `
                             ?>
 
                             <div class="novost_down_func1">
-                                <button class="novost_down_func"
+                                <button class="novost_down_func_video"
                                     onclick="toggleFriendsList({{ $video->id }})">📢</button>
                                 <div id="friendsList{{ $video->id }}" style="display: none;">
                                     <div class="friendsList_repost">

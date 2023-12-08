@@ -16,7 +16,7 @@
             <div class="useriii">
                 @if($users->count() > 0)
                 @foreach ($users as $user)
-                    <div class="main_novost">
+                    <div class="main_novost_neutral">
 
                         <div class="main_novost_top">
                             <div class="main_novost_img">

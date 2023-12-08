@@ -22,7 +22,7 @@
             <div class="maim_novosti">
                 @forelse ($videos as $video)
 
-                    <div class="main_novost">
+                    <div class="main_novost_video">
 
                         <div class="main_novost_top">
                             <div class="main_novost_img">
@@ -35,15 +35,14 @@
                             <div class="main_novost_zagolovok">
                                 <div>
                                     @if ($video->status == 'true')
-                                        {{-- <a href="{{ route('zayavkauser', ['id' => $video->id]) }}"> --}}
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
                                             <p class="txt_2">{{ $video->title }}</p>
-                                        {{-- </a> --}}
-                                    @endif
-                                    
-                                    @if ($video->status !== 'true')
+                                        </a>
 
-                                        <p class="txt_2">{{ $video->zagolovok }}</p>
-                                        
+                                    @else
+
+                                        <p class="txt_2">{{ $video->title }}</p>
+
                                     @endif
 
 
@@ -65,17 +64,22 @@
                         </div>
                         <div class="main_novost_middle">
 
+                            <div id="mediaContent">
+                                <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="Thumbnail" class="videoThumbnail" data-video="{{ asset('storage/' . $video->video_path) }}" style="cursor: pointer; width: 320px; height: 240px;">
+ 
+                            </div>
+
                             @if ($video->status == 'true')
-                            {{-- <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}"> --}}
+                                <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                    <p class="txt_2">{{ $video->description }}</p>
+
+                                </a>
+                            @else
+
                                 <p class="txt_2">{{ $video->description }}</p>
 
-                            {{-- </a> --}}
                             @endif
 
-
-                            @if ($video->status !== 'true')
-                                <p class="txt_2">{{ $video->description }}</p>
-                            @endif
 
 
 
@@ -85,8 +89,24 @@
 
                         </div>
 
-                       <div class="main_novost_down">
-                            <div class="novost_down_func">{{ $video->status }}</div>
+                        <script>
+                            document.querySelectorAll('.videoThumbnail').forEach(thumbnail => {
+                                thumbnail.addEventListener('click', function() {
+                                    const videoPath = this.getAttribute('data-video');
+                                    const mediaContent = this.parentElement;
+                                    mediaContent.innerHTML = `
+                                        <video width="320" height="240" controls autoplay>
+                                            <source src="${videoPath}" type="video/mp4">
+                                            Ваш браузер не поддерживает видео тег.
+                                        </video>
+                                    `;
+                                });
+                            });
+                            
+                                                        </script>
+
+                        <div class="main_novost_down">
+                            <div class="novost_down_func_video">{{ $video->status }}</div>
 
 
 
@@ -96,10 +116,9 @@
                                 <div class="novost_down_func1">
 
                                     @if (!$video->likes()->where('user_id', auth()->id())->exists())
-                                        <form method="POST"
-                                            action="{{ route('video.like', ['id' => $video->id]) }}">
+                                        <form method="POST" action="{{ route('video.like', ['id' => $video->id]) }}">
                                             @csrf
-                                            <button type="submit" class="novost_down_func">
+                                            <button type="submit" class="novost_down_func_video">
                                                 <span>{{ $video->likes_count }}</span>ㅤ𓆩♡𓆪</button>
                                         </form>
                                     @else
@@ -107,7 +126,7 @@
                                             action="{{ route('video.unlike', ['id' => $video->id]) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="novost_down_func">
+                                            <button type="submit" class="novost_down_func_video">
                                                 <span>{{ $video->likes_count }}</span>ㅤ❤</button>
                                         </form>
                                     @endif
@@ -118,24 +137,24 @@
 
                                 <?php
                                 $friendsList = \App\Models\Friendship::where(function ($query) {
-                                    $query->where('sender_id', auth()->id())->where('status', 'accepted');
+                                $query->where('sender_id', auth()->id())->where('status', 'accepted');
                                 })
-                                    ->orWhere(function ($query) {
-                                        $query->where('recipient_id', auth()->id())->where('status', 'accepted');
-                                    })
-                                    ->get();
-                                
+                                ->orWhere(function ($query) {
+                                $query->where('recipient_id', auth()->id())->where('status', 'accepted');
+                                })
+                                ->get();
+
                                 $friendIds = $friendsList
-                                    ->pluck('sender_id')
-                                    ->merge($friendsList->pluck('recipient_id'))
-                                    ->unique();
-                                
+                                ->pluck('sender_id')
+                                ->merge($friendsList->pluck('recipient_id'))
+                                ->unique();
+
                                 $friends = \App\Models\User::whereIn('id', $friendIds)->get();
                                 ?>
 
                                 <div class="novost_down_func1">
                                     <button onclick="toggleFriendsList({{ $video->id }})"
-                                        class="novost_down_func">📢</button>
+                                        class="novost_down_func_video">📢</button>
 
                                 </div>
                                 <div id="friendsList{{ $video->id }}" style="display: none;">
@@ -153,14 +172,16 @@
                                 <script>
                                     function toggleFriendsList(postId) {
                                         const friendsList = document.getElementById(`friendsList${postId}`);
-                                        friendsList.style.display = friendsList.style.display === 'none' ? 'block' : 'none';
+                                        friendsList.style.display = friendsList.style.display === 'none' ? 'block' :
+                                            'none';
                                     }
+
                                 </script>
                             @endif
 
 
 
-                        </div> 
+                        </div>
                     </div>
 
 

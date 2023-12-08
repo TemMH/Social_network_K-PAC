@@ -24,7 +24,7 @@
 
                 @forelse ($zayavkas as $zayavka)
                     @if ($zayavka->status == 'true')
-                        <div class="main_novost">
+                        <div class="main_novost_news">
 
                             @csrf
                             <div class="main_novost_top">
@@ -98,14 +98,14 @@
                                                 action="{{ route('zayavka.like', ['id' => $zayavka->id]) }}">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="novost_down_func"><span>{{ $zayavka->likes_count }}</span>ㅤ𓆩♡𓆪</button>
+                                                    class="novost_down_func_news"><span>{{ $zayavka->likes_count }}</span>ㅤ𓆩♡𓆪</button>
                                             </form>
                                         @else
                                             <form method="POST"
                                                 action="{{ route('zayavka.unlike', ['id' => $zayavka->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="novost_down_func">
+                                                <button type="submit" class="novost_down_func_news">
                                                     <span>{{ $zayavka->likes_count }}</span>ㅤ❤</button>
                                             </form>
                                         @endif
@@ -114,7 +114,7 @@
                                     </div>
 
                                     @if (auth()->user()->role == 'Admin')
-                                        <div class="novost_down_func">
+                                        <div class="novost_down_func_news">
 
 
                                             <form method="POST"
@@ -146,7 +146,7 @@
 
                                     <div class="novost_down_func1">
                                         <button onclick="toggleFriendsList({{ $zayavka->id }})"
-                                            class="novost_down_func">📢</button>
+                                            class="novost_down_func_news">📢</button>
 
                                     </div>
                                     <div id="friendsList{{ $zayavka->id }}" style="display: none;">

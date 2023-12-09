@@ -18,163 +18,184 @@
             </a>
         @endif
         <div class="main_osnova">
-            <div class="main_novosti">
+            <div class="main_novosti_allvideo">
 
-                @forelse ($videos as $video)
-                    @if ($video->status == 'true')
-                    
-                        <div class="main_novost_allvideo">
-
+                @php $count = 0; @endphp
+                @for ($i = 0; $i < count($videos); $i += 4)
+                    <div class="row_allvideo">
+                        @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
+                            @php $video = $videos[$j]; @endphp
+                            @if ($video->status == 'true') <div
+                            class="main_novost_allvideo">
+                            <a href="{{ route('videouser', ['id' => $video->id]) }}">
                             @csrf
 
 
 
 
                             <div class="main_novost_middle_all">
-                                <div id="mediaContent">
-                                    <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="Thumbnail" class="videoThumbnail" data-video="{{ asset('storage/' . $video->video_path) }}" style="cursor: pointer; width: 280px; height: 160px;">
-     
-                                </div>
-                                    <p class="txt_2">
-                                        {{ $video->description }}
-                                    </p>
-                                    @if ($video->category !== null)
-                                        <p class="txt_2">Категория: {{ $video->category }}</p>
-                                    @endif
+                            <div id="mediaContent">
+                            <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                            alt="Thumbnail" class="videoThumbnail"
+                            data-video="{{ asset('storage/' . $video->video_path) }}" style="cursor:
+                            pointer; width: 280px; height: 160px;">
+
+                            </div>
 
                             </div>
 
 
-                            <div class="main_novost_down">
-                                <div class="main_novost_down">
-                                    <div class="novost_down_func1">
+
+                            <div class="main_video_info">
+
+                            <div class="main_video_info_1">
+
+                            {{-- Аватар пользователя --}}
+
+                            <div class="main_novost_img">
+
+                            @if ($video->user_id !== null)
+
+                                <a
+                                href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                <img class="avatar"
+                                src="{{ asset('storage/' . $video->user->avatar) }}"
+                                alt="Avatar">
+
+                                </a> @endif
 
 
-                                        @if (!$video->likes()->where('user_id', auth()->id())->exists())
-                                            <form method="POST" action="{{ route('video.like', ['id' => $video->id]) }}">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="novost_down_func_video"><span>{{ $video->likes_count }}</span>ㅤ𓆩♡𓆪</button>
-                                            </form>
-                                        @else
-                                            <form method="POST"
-                                                action="{{ route('video.unlike', ['id' => $video->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="novost_down_func_video">
-                                                    <span>{{ $video->likes_count }}</span>ㅤ❤</button>
-                                            </form>
-                                        @endif
+                    </div>
 
-
-                                    </div>
-
-                                    @if (auth()->user()->role == 'Admin')
-                                        <div class="novost_down_func_video">
-
-
-                                            <form method="POST"
-                                                action="{{ route('video.delete', ['id' => $video->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit">Удалить видео</button>
-                                            </form>
-
-                                        </div>
-                                    @endif
-
-                                    <?php
-                                    $friendsList = \App\Models\Friendship::where(function ($query) {
-                                        $query->where('sender_id', auth()->id())->where('status', 'accepted');
-                                    })
-                                        ->orWhere(function ($query) {
-                                            $query->where('recipient_id', auth()->id())->where('status', 'accepted');
-                                        })
-                                        ->get();
-                                    
-                                    $friendIds = $friendsList
-                                        ->pluck('sender_id')
-                                        ->merge($friendsList->pluck('recipient_id'))
-                                        ->unique();
-                                    
-                                    $friends = \App\Models\User::whereIn('id', $friendIds)->get();
-                                    ?>
-
-                                    <div class="novost_down_func1">
-                                        <button onclick="toggleFriendsList({{ $video->id }})"
-                                            class="novost_down_func_video">📢</button>
-
-                                    </div>
-                                    <div id="friendsList{{ $video->id }}" style="display: none;">
-                                        <div class="friendsList_repost">
-                                            @foreach ($friends as $friend)
-                                                @if ($friend->id !== auth()->id())
-                                                    <a class="txt_2"
-                                                        href="{{ route('sendPostToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
-                                                        {{ $friend->name }}
-                                                    </a>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <script>
-                                        function toggleFriendsList(postId) {
-                                            const friendsList = document.getElementById(`friendsList${postId}`);
-                                            friendsList.style.display = friendsList.style.display === 'none' ? 'block' : 'none';
-                                        }
-                                    </script>
-                                </div>
-                            </div>
-                            
-                            <div class="main_novost_top">
-                                <div class="main_novost_img">
-
-                                    @if ($video->user_id !== NULL)
-                                    
-                                    <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
-                                        <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}" alt="Avatar">
-
-                                    </a>
-
-                                    @endif
-
-
-                                </div>
-
-
-                                <div class="main_novost_zagolovok">
-                                    <div>
-                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
-                                            <p class="txt_2">{{ $video->title }}</p>
-                                        </a>
-                                    </div>
-
-                                    <div class="flex">
-                                        <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
-                                           <p class="txt_2">
-                                                {{ $video->user->name }}
-                                            </p>
-                          
-                                        </a>
-                                        <p class="txt_2">ㅤ{{ $video->created_at }}</p>
-
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        @endif
-                        
-
-                        @empty
-                        <p class= "txt_1">По запросу видео не найдено</p>
-                @endforelse
             </div>
 
-            {{-- <div class="main_filter_video">
+            <div class="main_video_info_2">
+
+                {{-- Название ролика --}}
+
+                <div>
+                    <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                        <p class="txt_2">{{ $video->title }}</p>
+                    </a>
+                </div>
+
+
+
+
+                {{-- Имя пользователя --}}
+                <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                    <p class="txt_2">
+                        {{ $video->user->name }}
+                    </p>
+
+                </a>
+
+
+
+                {{-- Время --}}
+                <?php
+                $createdAt = strtotime($video->created_at);
+
+                $currentDate = strtotime(date('Y-m-d H:i:s'));
+
+                $timeDiff = $currentDate - $createdAt;
+
+                if ($timeDiff >= 86400) {
+                $formattedTime = floor($timeDiff / 86400) . ' дней назад';
+                } elseif ($timeDiff >= 3600) {
+                $formattedTime = floor($timeDiff / 3600) . ' часов назад';
+                } elseif ($timeDiff >= 60) {
+                $formattedTime = floor($timeDiff / 60) . ' минут назад';
+                } else {
+                $formattedTime = 'только что';
+                }
+
+                echo '<p class="txt_2">ㅤ' . $formattedTime . '</p>';
+                ?>
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+        <div class="main_novost_down">
+            <div class="main_novost_down">
+
+                @if (auth()->user()->role == 'Admin')
+                    <div class="novost_down_func_video">
+
+
+                        <form method="POST" action="{{ route('video.delete', ['id' => $video->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Удалить видео</button>
+                        </form>
+
+                    </div>
+                @endif
+
+                <?php
+                $friendsList = \App\Models\Friendship::where(function ($query) {
+                $query->where('sender_id', auth()->id())->where('status', 'accepted');
+                })
+                ->orWhere(function ($query) {
+                $query->where('recipient_id', auth()->id())->where('status', 'accepted');
+                })
+                ->get();
+
+                $friendIds = $friendsList
+                ->pluck('sender_id')
+                ->merge($friendsList->pluck('recipient_id'))
+                ->unique();
+
+                $friends = \App\Models\User::whereIn('id', $friendIds)->get();
+                ?>
+
+                <div class="novost_down_func1">
+                    <button onclick="toggleFriendsList({{ $video->id }})" class="novost_down_func_video">📢</button>
+
+                </div>
+                <div id="friendsList{{ $video->id }}" style="display: none;">
+                    <div class="friendsList_repost">
+                        @foreach ($friends as $friend)
+                            @if ($friend->id !== auth()->id())
+                                <a class="txt_2"
+                                    href="{{ route('sendPostToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
+                                    {{ $friend->name }}
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <script>
+                    function toggleFriendsList(postId) {
+                        const friendsList = document.getElementById(`friendsList${postId}`);
+                        friendsList.style.display = friendsList.style.display === 'none' ? 'block' : 'none';
+                    }
+
+                </script>
+            </div>
+        </div>
+
+
+        </a>
+    </div>
+
+
+    @endif
+    @endfor
+
+    </div>
+    @endfor
+    </div>
+
+    {{-- <div class="main_filter_video">
                 <div class="main_filter1">
                     <form method="GET" action="{{ url()->current() }}">
                         @csrf
@@ -210,7 +231,7 @@
 
 
 
-        </div>
+    </div>
 
     </div>
 

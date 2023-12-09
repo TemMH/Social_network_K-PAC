@@ -55,7 +55,21 @@ class VideoController extends Controller
     }
     
     
+    public function delete($id)
+    {
+        $video = Video::find($id);
     
+    
+        if (auth()->user()->role !== 'Admin') {
+            Session::flash('error', 'У вас нет прав на удаление этой записи');
+            return redirect()->back();
+        }
+    
+        $video->delete();
+    
+
+        return redirect()->back();
+    }
     
 
     public function addComment(Request $request, $id)

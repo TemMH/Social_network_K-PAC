@@ -126,6 +126,8 @@ Route::post('/video/{id}/comment', [VideoController::class, 'addComment'])->name
 
 Route::delete('/video/{videoId}/comment/{commentId}', [VideoController::class, 'deleteComment'])->name('video.comment.delete');
 
+Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
+
 // Store
 
 Route::get('/allstoreuser', function () {

@@ -183,6 +183,7 @@ document.addEventListener('mousemove', (event) => {
 });
             
             </script>
+
                 </div>
                 <button class="button_notification" onclick="toggleNotification()">
                     <p>Ув</p>
@@ -379,6 +380,9 @@ document.addEventListener('mousemove', (event) => {
                     </script>
 
 
+
+
+
                 </div>
                 <button class="button_notification" onclick="toggleNotification()">
                     <p>Ув</p>
@@ -410,7 +414,7 @@ document.addEventListener('mousemove', (event) => {
     @if (request()->is('newvideo','login','register','allvideouser','myvideo', 'videouser/*'))
 
 
-    <div class="header_up_video">
+    <div class="header_up_video" id="header_video">
 
         <div class="datetime">
 
@@ -564,6 +568,31 @@ document.addEventListener('mousemove', (event) => {
                     </script>
 
 
+<script>
+
+    const header = document.getElementById('header_video');
+    const gradientColors = [
+        '#950740',
+        '#BB1756',
+        '#950740' 
+    ];
+    
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = event.clientX / window.innerWidth * 1;
+        const colorStop = [
+            0,
+            (1 - mouseX) * 100,
+            100
+        ];
+    
+        header.style.transition = 'background 10s ease'; 
+        header.style.background = `linear-gradient(190deg, ${gradientColors[0]} ${colorStop[0]}%, ${gradientColors[1]} ${colorStop[1]}%, ${gradientColors[2]} ${colorStop[2]}%)`;
+    });
+                
+                </script>
+
+
+
                 </div>
                 <button class="button_notification" onclick="toggleNotification()">
                     <p>Ув</p>
@@ -594,7 +623,7 @@ document.addEventListener('mousemove', (event) => {
     @if (request()->is('myzayavka', 'allzayavkauser', 'dashboard', '/', 'newzayavka'))
 
 
-    <div class="header_up_news">
+    <div class="header_up_news" id="header_news">
 
         <div class="datetime">
 
@@ -746,6 +775,30 @@ document.addEventListener('mousemove', (event) => {
                             });
                         }
                     </script>
+
+
+<script>
+
+    const header = document.getElementById('header_news');
+    const gradientColors = [
+        '#159983',
+        '#53B8A9',
+        '#159983' 
+    ];
+    
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = event.clientX / window.innerWidth * 1;
+        const colorStop = [
+            0,
+            (1 - mouseX) * 100,
+            100
+        ];
+    
+        header.style.transition = 'background 10s ease'; 
+        header.style.background = `linear-gradient(190deg, ${gradientColors[0]} ${colorStop[0]}%, ${gradientColors[1]} ${colorStop[1]}%, ${gradientColors[2]} ${colorStop[2]}%)`;
+    });
+                
+                </script>
 
 
                 </div>

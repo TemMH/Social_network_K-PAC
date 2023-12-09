@@ -357,11 +357,26 @@ html {
 
 }
 
+
 .main_novosti {
 
     width: 740px;
     height: auto;
     display: block;
+
+}
+
+.main_novosti_allvideo {
+
+    width: 1184px;
+    height: auto;
+
+
+}
+.row_allvideo{
+
+display: flex;
+justify-content: space-between;
 
 }
 
@@ -1486,6 +1501,45 @@ html {
     resize: none;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.main_video_info{
+
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.main_video_info_2{
+
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* News */

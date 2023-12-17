@@ -50,12 +50,9 @@ class DialogController extends Controller
         return redirect()->route('dialog.show', $userId);
     }
 
-    public function sendPostToFriend(Request $request, $postId, $friendId
-    // , $videoId
-    
-    )
+    public function sendPostToFriend(Request $request, $postId, $friendId)
     {
-        // $video = Video::findOrFail($videoId);
+
         $post = Zayavka::findOrFail($postId);
         $friend = User::findOrFail($friendId);
 
@@ -75,6 +72,24 @@ class DialogController extends Controller
         return redirect()->back()->with('success', 'Пост отправлен пользователю ' . $friend->name);
     }
     
+    public function sendVideoToFriend(Request $request, $videoId, $friendId)
+{
+    $video = Video::findOrFail($videoId);
+    $friend = User::findOrFail($friendId);
+
+
+
+    $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
+
+    $message = Message::create([
+        'content' => $messageContent,
+        'sender_id' => auth()->id(),
+        'recipient_id' => $friend->id,
+    ]);
+
+    return redirect()->back()->with('success', 'Видео отправлено пользователю ' . $friend->name);
+}
+
 
 
 }

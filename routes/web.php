@@ -128,6 +128,9 @@ Route::delete('/video/{videoId}/comment/{commentId}', [VideoController::class, '
 
 Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
 
+Route::get('/sendVideoToFriend/{postId}/{friendId}', [DialogController::class, 'sendVideoToFriend'])
+    ->name('sendVideoToFriend');
+
 // Store
 
 Route::get('/allstoreuser', function () {

@@ -92,26 +92,53 @@
 
 
 
-                {{-- Время --}}
-                <?php
-                $createdAt = strtotime($video->created_at);
-
-                $currentDate = strtotime(date('Y-m-d H:i:s'));
-
-                $timeDiff = $currentDate - $createdAt;
-
-                if ($timeDiff >= 86400) {
-                $formattedTime = floor($timeDiff / 86400) . ' дней назад';
-                } elseif ($timeDiff >= 3600) {
-                $formattedTime = floor($timeDiff / 3600) . ' часов назад';
-                } elseif ($timeDiff >= 60) {
-                $formattedTime = floor($timeDiff / 60) . ' минут назад';
-                } else {
-                $formattedTime = 'только что';
+                @if (!function_exists('pluralForm'))
+                @php
+                function pluralForm($number, $one, $two, $five)
+                {
+                    $number = abs($number) % 100;
+                    $remainder = $number % 10;
+                
+                    if ($number > 10 && $number < 20) {
+                        return $five;
+                    }
+                
+                    if ($remainder > 1 && $remainder < 5) {
+                        return $two;
+                    }
+                
+                    if ($remainder == 1) {
+                        return $one;
+                    }
+                
+                    return $five;
                 }
-
-                echo '<p class="txt_2">ㅤ' . $formattedTime . '</p>';
-                ?>
+                @endphp
+            @endif
+            
+            @php
+            $createdAt = strtotime($video->created_at);
+            $currentDate = strtotime(date('Y-m-d H:i:s'));
+            $timeDiff = $currentDate - $createdAt;
+            
+            if ($timeDiff >= 86400) {
+                $days = floor($timeDiff / 86400);
+                $formattedTime = $days . ' ' . pluralForm($days, 'день', 'дня', 'дней') . ' назад';
+            } elseif ($timeDiff >= 3600) {
+                $hours = floor($timeDiff / 3600);
+                $formattedTime = $hours . ' ' . pluralForm($hours, 'час', 'часа', 'часов') . ' назад';
+            } elseif ($timeDiff >= 60) {
+                $minutes = floor($timeDiff / 60);
+                $formattedTime = $minutes . ' ' . pluralForm($minutes, 'минута', 'минуты', 'минут') . ' назад';
+            } else {
+                $formattedTime = 'только что';
+            }
+            @endphp
+            
+            <p class="txt_2">ㅤ{{ $formattedTime }}</p>
+            
+                
+                
 
             </div>
 
@@ -165,7 +192,7 @@
                         @foreach ($friends as $friend)
                             @if ($friend->id !== auth()->id())
                                 <a class="txt_2"
-                                    href="{{ route('sendPostToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
+                                    href="{{ route('sendVideoToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
                                     {{ $friend->name }}
                                 </a>
                             @endif

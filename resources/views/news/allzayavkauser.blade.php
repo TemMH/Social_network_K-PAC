@@ -31,7 +31,7 @@
                                 <div class="main_novost_img">
 
                                     @if ($zayavka->user_id !== null)
-                                <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                    <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
                                     <img class="avatar" src="{{ asset('storage/' . $zayavka->user->avatar) }}"
                                         alt="Avatar">
                                 </a>
@@ -49,7 +49,7 @@
                                     </div>
 
                                     <div class="flex">
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
                                             <p class="txt_2">
 
 {{--                                                 

@@ -26,7 +26,7 @@
                             @csrf
                             <div class="main_novost_top">
                                 <div class="main_novost_img">
-                                    <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                    <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
                                         <img class="avatar" src="{{ asset('storage/' . $zayavka->user->avatar) }}"
                                             alt="Avatar">
                                     </a>
@@ -40,7 +40,7 @@
                                         </a>
                                     </div>
                                     <div class="flex">
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
                                             <p class="txt_2">{{ $zayavka->name }}</p>
                                         </a>
                                         <p class="txt_2">ㅤ{{ $zayavka->created_at }}</p>

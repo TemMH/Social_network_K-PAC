@@ -840,9 +840,9 @@
 
 
 
+<!-- Previous/Toolbar/Video-News -->
 
-
-@if (request()->is('profileuser','allusers','profileuser/*') && request()->has('previous') && request()->get('previous') === 'video')
+@if (request()->is('profileuser','allusers','profileuser/*','messages') && request()->has('previous') && request()->get('previous') === 'video')
 
 
                            <!-- Logo -->
@@ -1089,7 +1089,27 @@
                             </div>
                         @endif
 
-@elseif (request()->is('profileuser','allusers','profileuser/*') && request()->has('previous') && request()->get('previous') === 'news')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- News -->
+
+@elseif (request()->is('profileuser','allusers','profileuser/*','messages') && request()->has('previous') && request()->get('previous') === 'news')
 
                        <!-- Logo -->
                        <div class="logotype">
@@ -1463,6 +1483,44 @@
 
 
 
+    <!-- Previous/All/Store -->
+
+    @if (request()->is('messages') && request()->has('previous') && request()->get('previous') === 'store')
+
+    <div class="triygol">
+
+        <img class="image" src="/uploads/triyglev_store.png" />
+        <img class="image" src="/uploads/triygright_store.png" />
+
+
+    </div>
+
+    <!-- Previous/All/Video -->
+
+    @elseif (request()->is('messages') && request()->has('previous') && request()->get('previous') === 'video')
+
+    <div class="triygol">
+
+        <img class="image" src="/uploads/triyglev_video.png" />
+        <img class="image" src="/uploads/triygright_video.png" />
+
+
+    </div>
+    
+
+    <!-- Previous/All/News -->
+
+    @elseif (request()->is('messages') && request()->has('previous') && request()->get('previous') === 'news')
+
+    <div class="triygol">
+
+        <img class="image" src="/uploads/triyglev_news.png" />
+        <img class="image" src="/uploads/triygright_news.png" />
+
+
+    </div>
+
+    @endif
 
 
 

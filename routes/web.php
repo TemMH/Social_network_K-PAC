@@ -160,7 +160,9 @@ Route::get('/confirmation', function () {
     return view('confirmation');
 })->middleware(['auth', 'verified'])->name('confirmation');
 
-
+Route::get('/messages', function () {
+    return view('messages');
+})->middleware(['auth', 'verified'])->name('messages');
 
 
 

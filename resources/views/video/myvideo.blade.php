@@ -26,7 +26,7 @@
 
                         <div class="main_novost_top">
                             <div class="main_novost_img">
-                                <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                <a href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
                                     <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}"
                                         alt="Avatar">
                                 </a>
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="flex">
-                                    <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                    <a href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
                                         <p class="txt_2">
                                             {{ $video->user->name }}
                                         </p>

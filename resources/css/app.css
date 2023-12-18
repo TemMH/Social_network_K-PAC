@@ -1998,3 +1998,55 @@ justify-content: space-between;
     color: #D9D9D9;
 
 }
+
+
+
+
+/* messages */
+
+.messages_main{
+
+    width: 1760px;
+    height: 950px;
+    background-color: rgba(26, 26, 29, 1);
+    border-radius: 3px;
+    box-shadow: 3px 4px 4px #00000040;
+    margin-top: -116px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    display: flex;
+
+}
+
+.message_left{
+
+    background-color: #53B8A9;
+    width: 30%;
+height: 100%;
+margin-left: 20px;
+margin-right: 10px;
+
+}
+
+.message_right{
+
+    background-color: #FB7A00;
+    width: 70%;
+height: 100%;
+margin-left: 10px;
+margin-right: 20px;
+}
+
+.messages_chat{
+
+    width: 90%;
+    height: 200px;
+    background-color: aqua;
+    margin: 0 auto;
+
+
+}

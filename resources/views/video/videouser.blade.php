@@ -141,7 +141,7 @@ mediaContent.innerHTML = `
                         <div class="main_zayavkauser_watch">
 
                             <p>Автор:</p>
-                            <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                            <a href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
                                 {{ $video->user->name }}
 
                             </a>
@@ -192,7 +192,7 @@ mediaContent.innerHTML = `
             <div class="zayavkauser_comment_show">
 
                 <div class="main_novost_top">
-                    <a href="{{ route('profileuser.profile', ['id' => $comment->user_id]) }}">
+                    <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                         <div class="main_novost_img">
 
                             <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}" alt="Avatar">
@@ -203,7 +203,7 @@ mediaContent.innerHTML = `
 
                     <div class="main_novost_zagolovok">
                         <div>
-                            <a href="{{ route('profileuser.profile', ['id' => $comment->user_id]) }}">
+                            <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                 <p class="txt_2">{{ $comment->user->name }}</p>
                             </a>
                         </div>

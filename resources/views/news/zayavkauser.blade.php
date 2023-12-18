@@ -104,7 +104,7 @@
                         <div class="main_zayavkauser_watch">
 
                             <p>Автор:</p>
-                            <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                            <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
                                 {{ $zayavka->name }}
 
                             </a>
@@ -155,7 +155,7 @@
             <div class="zayavkauser_comment_show">
 
                 <div class="main_novost_top">
-                    <a href="{{ route('profileuser.profile', ['id' => $comment->user_id]) }}">
+                    <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
                         <div class="main_novost_img">
 
                             <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}" alt="Avatar">
@@ -166,7 +166,7 @@
 
                     <div class="main_novost_zagolovok">
                         <div>
-                            <a href="{{ route('profileuser.profile', ['id' => $comment->user_id]) }}">
+                            <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
                                 <p class="txt_2">{{ $comment->user->name }}</p>
                             </a>
                         </div>

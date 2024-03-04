@@ -192,7 +192,7 @@ class VideoController extends Controller
         if (!$video->likes()->where('user_id', auth()->id())->exists()) {
             $like = new Like([
                 'user_id' => auth()->id(),
-                'zayavka_id' => null,
+                'statement_id' => null,
             ]);
             $video->likes()->save($like);
         }

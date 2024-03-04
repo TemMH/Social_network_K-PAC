@@ -25,7 +25,7 @@
                                 </a>
                             </div>
 
-                            <div class="main_novost_zagolovok">
+                            <div class="main_novost_title">
                                 <div> <a href="{{ route('profileuser.profile', ['id' => $user->id]) }}">
 
                                         <p class="txt_2">{{ $user->name }}</p>

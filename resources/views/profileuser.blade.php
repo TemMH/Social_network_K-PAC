@@ -139,17 +139,17 @@
 
             <div class="profile_novosti_osnova">
 
-                @foreach ($zayavkas as $zayavka)
-                    @if ($zayavka->status == 'true')
+                @foreach ($statements as $statement)
+                    @if ($statement->status == 'true')
                         <div class="profile_novost_back">
-                            <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
+                            <a href="{{ route('statementuser', ['id' => $statement->id]) }}">
 
                                 <div class="profile_novost_up">
-                                    <p class="txt_2">{{ $zayavka->zagolovok }}</p>
+                                    <p class="txt_2">{{ $statement->title }}</p>
 
                                 </div>
                                 <div class="profile_novost_middle">
-                                    <p class="txt_2">{{ $zayavka->description }}</p>
+                                    <p class="txt_2">{{ $statement->description }}</p>
                                 </div>
 
 
@@ -159,26 +159,26 @@
                             </a>
                             <div class="profile_novost_back_dovn">
                                 <div class="profile_novost_back_dovn_dop">
-                                    <p class="txt_2">{{ $zayavka->created_at }}</p>
+                                    <p class="txt_2">{{ $statement->created_at }}</p>
                                 </div>
                                 <div class="profile_novost_back_dovn_dop">
                                     <div class="novost_down_func1">
-                                        @if (!$zayavka->likes()->where('user_id', auth()->id())->exists())
+                                        @if (!$statement->likes()->where('user_id', auth()->id())->exists())
                                             <form method="POST"
-                                                action="{{ route('zayavka.like', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('statement.like', ['id' => $statement->id]) }}">
                                                 @csrf
                                                 <button class="novost_down_func" type="submit">𓆩♡𓆪</button>
                                             </form>
                                         @else
                                             <form method="POST"
-                                                action="{{ route('zayavka.unlike', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('statement.unlike', ['id' => $statement->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="novost_down_func" type="submit">❤</button>
                                             </form>
                                         @endif
 
-                                        <span>{{ $zayavka->likes_count }}</span>
+                                        <span>{{ $statement->likes_count }}</span>
                                     </div>
 
 
@@ -201,13 +201,13 @@
                                     ?>
 
                                     <div class="novost_down_func1">
-                                        <button class="novost_down_func" onclick="toggleFriendsList({{ $zayavka->id }})">📢</button>
-                                        <div id="friendsList{{ $zayavka->id }}" style="display: none;">
+                                        <button class="novost_down_func" onclick="toggleFriendsList({{ $statement->id }})">📢</button>
+                                        <div id="friendsList{{ $statement->id }}" style="display: none;">
                                             <div class="friendsList_repost">
                                                 @foreach ($friends as $friend)
                                                     @if ($friend->id !== auth()->id())
                                                         <a
-                                                            href="{{ route('sendPostToFriend', ['postId' => $zayavka->id, 'friendId' => $friend->id]) }}">
+                                                            href="{{ route('sendPostToFriend', ['postId' => $statement->id, 'friendId' => $friend->id]) }}">
                                                             {{ $friend->name }}
                                                         </a>
                                                     @endif

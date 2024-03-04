@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Zayavka extends Model
+class Statement extends Model
 {
     use HasFactory;
 
 
     protected $fillable = [
-        'zayavka_id',
+        'statement_id',
         'name',
-        'zagolovok',
+        'title',
         'description',
         'user_id',
         'status',

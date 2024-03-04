@@ -5,7 +5,7 @@
     </x-slot>
 
     <div class="main">
-        <a href="{{ route('allzayavkauser') }}">
+        <a href="{{ route('allstatementuser') }}">
             <div class="main_new_novo">
                 <p class="txt_2">Перейти к новостям</p>
             </div>
@@ -14,7 +14,7 @@
         <div class="main_osnova">
             <div class="main_novost">
                 <div class="main_novost_top">
-                    <div class="main_novost_zagolovok">
+                    <div class="main_novost_title">
                     </div>
                 </div>
                 <div class="main_novost_middle">

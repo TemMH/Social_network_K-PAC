@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\zayavka;
+use App\Models\Statement;
 use App\Models\Like;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -11,43 +11,43 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
-class ZayavkaController extends Controller
+class StatementController extends Controller
 {
     public function create(): View
     {
-        return view('/allzayavkauser');
+        return view('/allstatementuser');
     }
     public function store(Request $request)
     {
         $request->validate([
-            'zagolovok' => 'required|string|max:50',
+            'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
         ]);
 
 
-        Zayavka::create([
+        Statement::create([
 
             'name' => auth()->user()->name,
-            'zagolovok' => $request->zagolovok,
+            'title' => $request->title,
             'user_id' =>  auth()->id(),
             'description' => $request->description,
             'status' => 'new',
             'category'=> $request->category,
         ]);
 
-        $zayavkas = Zayavka::where('user_id', auth()->id())->get();
+        $statements = Statement::where('user_id', auth()->id())->get();
 
-        return view('news.myzayavka', ['zayavkas' => $zayavkas]);
+        return view('news.mystatement', ['statements' => $statements]);
     }
 
 
     public function like(Request $request, $id)
     {
-        $zayavka = Zayavka::findOrFail($id);
+        $statement = Statement::findOrFail($id);
 
-        if (!$zayavka->likes()->where('user_id', auth()->id())->exists()) {
+        if (!$statement->likes()->where('user_id', auth()->id())->exists()) {
             $like = new Like(['user_id' => auth()->id()]);
-            $zayavka->likes()->save($like);
+            $statement->likes()->save($like);
         }
 
         return redirect()->back();
@@ -55,8 +55,8 @@ class ZayavkaController extends Controller
 
     public function unlike(Request $request, $id)
     {
-        $zayavka = Zayavka::findOrFail($id);
-        $zayavka->likes()->where('user_id', auth()->id())->delete();
+        $statement = Statement::findOrFail($id);
+        $statement->likes()->where('user_id', auth()->id())->delete();
 
         return redirect()->back();
     }
@@ -65,27 +65,27 @@ class ZayavkaController extends Controller
     public function show($id)
     {
         
-        $zayavka = Zayavka::with('comments.user')->findOrFail($id);
+        $statement = Statement::with('comments.user')->findOrFail($id);
     
-        return view('news.zayavkauser', ['zayavka' => $zayavka]);
+        return view('news.statementuser', ['statement' => $statement]);
     }
 
     
     public function addComment(Request $request, $id)
     {
-        $zayavka = Zayavka::findOrFail($id);
-        $zayavka->addComment($request->input('comment'));
+        $statement = Statement::findOrFail($id);
+        $statement->addComment($request->input('comment'));
     
         return redirect()->back();
     }
 
-    public function deleteComment($zayavkaId, $commentId)
+    public function deleteComment($statementId, $commentId)
 {
-    $zayavka = Zayavka::findOrFail($zayavkaId);
+    $statement = Statement::findOrFail($statementId);
     $comment = Comment::findOrFail($commentId);
 
 
-    if ($comment->zayavka_id !== $zayavka->id) {
+    if ($comment->statement_id !== $statement->id) {
         abort(403, 'Этот комментарий не принадлежит указанной заявке.');
     }
 
@@ -98,7 +98,7 @@ class ZayavkaController extends Controller
 
     public function delete($id)
     {
-        $zayavka = Zayavka::find($id);
+        $statement = Statement::find($id);
     
     
         if (auth()->user()->role !== 'Admin') {
@@ -106,7 +106,7 @@ class ZayavkaController extends Controller
             return redirect()->back();
         }
     
-        $zayavka->delete();
+        $statement->delete();
     
 
         return redirect()->back();
@@ -116,13 +116,13 @@ class ZayavkaController extends Controller
     {
         $searchTerm = $request->input('search');
     
-        $zayavkas = Zayavka::where('status', 'true')
-            ->where('zagolovok', 'LIKE', '%' . $searchTerm . '%')
-            ->select('id', 'zagolovok')
+        $statements = Statement::where('status', 'true')
+            ->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->select('id', 'title')
             ->limit(5)
             ->get();
     
-        return response()->json(['zayavkas' => $zayavkas]);
+        return response()->json(['statements' => $statements]);
     }
     
     

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
-use App\Models\Zayavka;
+use App\Models\Statement;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -67,17 +67,17 @@ class ProfileController extends Controller
 
         $users = User::where('id', auth()->id())->get();
 
-        $zayavkas = Zayavka::where('user_id', auth()->id())->take(3)->get();
+        $statements = Statement::where('user_id', auth()->id())->take(3)->get();
 
-        return view('profileuser', ['users' => $users, 'zayavkas' => $zayavkas]);
+        return view('profileuser', ['users' => $users, 'statements' => $statements]);
     }
 
     public function UserProfile($id)
     {
         $user = User::findOrFail($id);
-        $zayavkas = Zayavka::where('user_id', $id)->take(3)->get();
+        $statements = Statement::where('user_id', $id)->take(3)->get();
 
-        return view('profileuser', ['user' => $user, 'zayavkas' => $zayavkas, 'users' => [$user]]);
+        return view('profileuser', ['user' => $user, 'statements' => $statements, 'users' => [$user]]);
     }
 
     public function getAllUsers()

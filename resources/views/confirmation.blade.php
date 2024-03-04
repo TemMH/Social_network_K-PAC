@@ -17,7 +17,7 @@
             <div class="main_osnova">
                 <div class="main_novost">
                     <div class="main_novost_top">
-                        <div class="main_novost_zagolovok">
+                        <div class="main_novost_title">
                         </div>
                     </div>
                     <div class="main_novost_middle">
@@ -37,7 +37,7 @@
             <div class="main_osnova">
                 <div class="main_novost">
                     <div class="main_novost_top">
-                        <div class="main_novost_zagolovok">
+                        <div class="main_novost_title">
                         </div>
                     </div>
                     <div class="main_novost_middle">
@@ -57,7 +57,7 @@
         <div class="main_osnova">
             <div class="main_novost">
                 <div class="main_novost_top">
-                    <div class="main_novost_zagolovok">
+                    <div class="main_novost_title">
                     </div>
                 </div>
                 <div class="main_novost_middle">

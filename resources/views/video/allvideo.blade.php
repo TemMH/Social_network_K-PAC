@@ -34,7 +34,7 @@
 
 
 
-                                <div class="main_novost_zagolovok">
+                                <div class="main_novost_title">
                                     <div> 
                                         {{-- <a href="{{ route('videouser', ['id' => $video->id]) }}"> --}}
                                             <p class="txt_2">{{ $video->title }}</p>

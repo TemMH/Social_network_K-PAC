@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\myZayavkaController;
+use App\Http\Controllers\myStatementController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ZayavkaController;
+use App\Http\Controllers\StatementController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendshipController;
@@ -32,55 +32,55 @@ Route::get('/', function () {
 
 
 
-Route::get('/newzayavka', function () {
-    return view('news.newzayavka');
-})->middleware(['auth', 'verified'])->name('newzayavka');
+Route::get('/newstatement', function () {
+    return view('news.newstatement');
+})->middleware(['auth', 'verified'])->name('newstatement');
 
-Route::get('/allzayavka', function () {
-    return view('news.allzayavka');
-})->middleware(['auth', 'verified'])->name('allzayavka');
+Route::get('/allstatement', function () {
+    return view('news.allstatement');
+})->middleware(['auth', 'verified'])->name('allstatement');
 
-Route::get('/allzayavkauser', function () {
-    return view('news.allzayavkauser');
-})->middleware(['auth', 'verified'])->name('allzayavkauser');
+Route::get('/allstatementuser', function () {
+    return view('news.allstatementuser');
+})->middleware(['auth', 'verified'])->name('allstatementuser');
 
-Route::get('/zayavkauser', function () {
-    return view('news.zayavkauser');
-})->middleware(['auth', 'verified'])->name('zayavkauser');
-
-
+Route::get('/statementuser', function () {
+    return view('news.statementuser');
+})->middleware(['auth', 'verified'])->name('statementuser');
 
 
 
-Route::post('/newzayavka', [ZayavkaController::class, 'store'])->name('test');
 
-Route::get('/myzayavka', [myZayavkaController::class, 'myzayavka'])->name('myzayavka')->middleware(['auth', 'verified']);
 
-Route::get('/allzayavka', [myZayavkaController::class, 'allzayavka'])->name('allzayavka')->middleware(['auth', 'verified']);
+Route::post('/newstatement', [StatementController::class, 'store'])->name('test');
 
-Route::post('/allzayavka/{id}', [myZayavkaController::class, 'updatenews'])->name('statuseditnews');
+Route::get('/mystatement', [myStatementController::class, 'mystatement'])->name('mystatement')->middleware(['auth', 'verified']);
 
-Route::delete('/zayavka/delete/{id}', [ZayavkaController::class, 'delete'])->name('zayavka.delete');
+Route::get('/allstatement', [myStatementController::class, 'allstatement'])->name('allstatement')->middleware(['auth', 'verified']);
 
-Route::post('/zayavka/{id}/like', [ZayavkaController::class, 'like'])->name('zayavka.like');
-Route::delete('/zayavka/{id}/unlike', [ZayavkaController::class, 'unlike'])->name('zayavka.unlike');
+Route::post('/allstatement/{id}', [myStatementController::class, 'updatenews'])->name('statuseditnews');
 
-Route::get('/zayavkauser/{id}', [ZayavkaController::class, 'show'])->name('zayavkauser');
+Route::delete('/statement/delete/{id}', [StatementController::class, 'delete'])->name('statement.delete');
 
-Route::get('/allzayavkauser', [myZayavkaController::class, 'allzayavkauser'])->name('allzayavkauser')->middleware(['auth', 'verified']);
+Route::post('/statement/{id}/like', [StatementController::class, 'like'])->name('statement.like');
+Route::delete('/statement/{id}/unlike', [StatementController::class, 'unlike'])->name('statement.unlike');
 
-Route::post('/zayavka/{id}/comment', [ZayavkaController::class, 'addComment'])->name('zayavka.comment');
+Route::get('/statementuser/{id}', [StatementController::class, 'show'])->name('statementuser');
 
-Route::delete('/zayavka/{zayavkaId}/comment/{commentId}', [ZayavkaController::class, 'deleteComment'])->name('zayavka.comment.delete');
+Route::get('/allstatementuser', [myStatementController::class, 'allstatementuser'])->name('allstatementuser')->middleware(['auth', 'verified']);
 
-// Route::get('/sort', [myZayavkaController::class, 'sortMethod'])->name('sort');
-// Route::get('/mysort', [myZayavkaController::class, 'mysortMethod'])->name('mysort');
+Route::post('/statement/{id}/comment', [StatementController::class, 'addComment'])->name('statement.comment');
 
-Route::get('/zayavka/{id}/edit', [myZayavkaController::class, 'edit'])->name('zayavka.edit');
+Route::delete('/statement/{statementId}/comment/{commentId}', [StatementController::class, 'deleteComment'])->name('statement.comment.delete');
 
-Route::put('/zayavka/{id}/updatetest', [myZayavkaController::class, 'updatetest'])->name('zayavka.updatetest');
+// Route::get('/sort', [myStatementController::class, 'sortMethod'])->name('sort');
+// Route::get('/mysort', [myStatementController::class, 'mysortMethod'])->name('mysort');
 
-Route::get('zayavka', [ZayavkaController::class, 'create'])->name('zayavka');
+Route::get('/statement/{id}/edit', [myStatementController::class, 'edit'])->name('statement.edit');
+
+Route::put('/statement/{id}/updatetest', [myStatementController::class, 'updatetest'])->name('statement.updatetest');
+
+Route::get('statement', [StatementController::class, 'create'])->name('statement');
 
 
 
@@ -176,9 +176,9 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::post('/alluser/{id}', [myZayavkaController::class, 'updatepermission'])->name('permissionedit');
+Route::post('/alluser/{id}', [myStatementController::class, 'updatepermission'])->name('permissionedit');
 
-Route::delete('/deleteUser/{id}', [myZayavkaController::class, 'deleteUser'])->name('deleteUser');
+Route::delete('/deleteUser/{id}', [myStatementController::class, 'deleteUser'])->name('deleteUser');
 
 
 
@@ -243,7 +243,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/zayavka/autocomplete', [ZayavkaController::class, 'autocomplete'])->name('zayavka.autocomplete');
+Route::get('/statement/autocomplete', [StatementController::class, 'autocomplete'])->name('statement.autocomplete');
 
 
 Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('usersort');

@@ -31,13 +31,17 @@ video {
 
 .header_up_news {
 
+    margin-right: -100%;
+
+    width: 124px;
+height: 100%;
+
     display: flex;
     justify-content: space-between;
 
-    width: 100%;
-    height: 40px;
 
     background-color: #159983;
+position: absolute;
 
 }
 
@@ -56,8 +60,8 @@ video {
 .header-down {
 
 
-    width: 100%;
-    height: 124px;
+    width: 3%;
+
 
     background-color: #1A1A1D;
     box-shadow: 0px 35px 55px 0px rgba(0, 0, 0, 0.25);
@@ -65,10 +69,25 @@ video {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: absolute;
+    /* position: absolute; */
 
 }
 
+.header-down1 {
+
+
+    width: 3%;
+
+
+    background-color: #1A1A1D;
+    box-shadow: 0px 35px 55px 0px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* position: absolute; */
+
+}
 
 
 .logo {
@@ -88,6 +107,7 @@ video {
 
 .head-flex {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 
@@ -151,7 +171,7 @@ video {
 
 .main {
 
-    margin-top: -116px;
+
     margin-right: auto;
     margin-bottom: 0px;
     margin-left: auto;
@@ -170,7 +190,6 @@ video {
 
 .main_allvideo_user {
 
-    margin-top: -116px;
     margin-right: auto;
     margin-bottom: 0px;
     margin-left: auto;
@@ -196,6 +215,9 @@ html {
 
 
 .backgroundall {
+
+    display: flex;
+justify-content: space-between;
 
     min-height: 100vh;
     background-color: #2C2C30;
@@ -709,7 +731,7 @@ justify-content: space-between;
 
 }
 
-.main_zayavkauser {
+.main_statementuser {
 
     min-height: 400px;
     width: 100%;
@@ -734,7 +756,7 @@ justify-content: space-between;
 
 }
 
-.main_spec_zayavkauser {
+.main_spec_statementuser {
 
 
     margin-top: -109px;
@@ -752,7 +774,7 @@ justify-content: space-between;
     padding-bottom: 50px;
 }
 
-.main_zayavkauser_func {
+.main_statementuser_func {
 
     display: flex;
     justify-content: space-between;
@@ -766,7 +788,7 @@ justify-content: space-between;
 
 }
 
-.main_zayavkauser_line {
+.main_statementuser_line {
 
     height: 1px;
     background-color: #950740;
@@ -774,7 +796,7 @@ justify-content: space-between;
 
 }
 
-.main_zayavkauser_osnova {
+.main_statementuser_osnova {
 
     display: flex;
     flex-direction: column;
@@ -782,7 +804,7 @@ justify-content: space-between;
 
 }
 
-.zayavkauser_comment {
+.statementuser_comment {
 
     height: auto;
     width: 740px;
@@ -828,7 +850,7 @@ justify-content: space-between;
 
 }
 
-.zayavkauser_comment_show {
+.statementuser_comment_show {
 
     height: auto;
     width: 740px;
@@ -1046,7 +1068,7 @@ justify-content: space-between;
     width: 0;
 }
 
-.main_osnova_zayavka {
+.main_osnova_statement {
 
 
     margin-top: 50px;

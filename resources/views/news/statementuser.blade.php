@@ -6,51 +6,51 @@
 
 
 
-    <div class="main_spec_zayavkauser">
+    <div class="main_spec_statementuser">
 
 
-        <div class="main_osnova_zayavka">
+        <div class="main_osnova_statement">
 
-            <div class="main_zayavkauser">
+            <div class="main_statementuser">
 
 
-                <div class="main_zayavkauser_info">
+                <div class="main_statementuser_info">
 
-                    <p class="txt_1">{{ $zayavka->zagolovok }}</p>
+                    <p class="txt_1">{{ $statement->title }}</p>
 
-                    <div class="main_zayavkauser_line">
+                    <div class="main_statementuser_line">
 
                     </div>
                 </div>
 
 
 
-                <div class="main_zayavkauser_osnova">
+                <div class="main_statementuser_osnova">
 
-                    <div class="main_zayavkauser_desc">
-                        <p class="txt_2">{{ $zayavka->description }}</p>
+                    <div class="main_statementuser_desc">
+                        <p class="txt_2">{{ $statement->description }}</p>
                     </div>
 
 
                 </div>
                 <div class="main_zzz">
-                    <div class="main_zayavkauser_line">
+                    <div class="main_statementuser_line">
 
                     </div>
 
-                    <div class="main_zayavkauser_func">
+                    <div class="main_statementuser_func">
 
                         <div class="novost_down_func_obsh">
 
                             <div class="novost_down_func1">
 
-                                @if (!$zayavka->likes()->where('user_id', auth()->id())->exists())
-                                    <form method="POST" action="{{ route('zayavka.like', ['id' => $zayavka->id]) }}">
+                                @if (!$statement->likes()->where('user_id', auth()->id())->exists())
+                                    <form method="POST" action="{{ route('statement.like', ['id' => $statement->id]) }}">
                                         @csrf
                                         <button class="novost_down_func" type="submit">𓆩♡𓆪</button>
                                     </form>
                                 @else
-                                    <form method="POST" action="{{ route('zayavka.unlike', ['id' => $zayavka->id]) }}">
+                                    <form method="POST" action="{{ route('statement.unlike', ['id' => $statement->id]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="novost_down_func" type="submit">❤</button>
@@ -78,13 +78,13 @@
 
                             <div class="novost_down_func1">
                                 <button class="novost_down_func"
-                                    onclick="toggleFriendsList({{ $zayavka->id }})">📢</button>
-                                <div id="friendsList{{ $zayavka->id }}" style="display: none;">
+                                    onclick="toggleFriendsList({{ $statement->id }})">📢</button>
+                                <div id="friendsList{{ $statement->id }}" style="display: none;">
                                     <div class="friendsList_repost">
                                         @foreach ($friends as $friend)
                                             @if ($friend->id !== auth()->id())
                                                 <a
-                                                    href="{{ route('sendPostToFriend', ['postId' => $zayavka->id, 'friendId' => $friend->id]) }}">
+                                                    href="{{ route('sendPostToFriend', ['postId' => $statement->id, 'friendId' => $friend->id]) }}">
                                                     {{ $friend->name }}
                                                 </a>
                                             @endif
@@ -101,11 +101,11 @@
                             </script>
 
                         </div>
-                        <div class="main_zayavkauser_watch">
+                        <div class="main_statementuser_watch">
 
                             <p>Автор:</p>
-                            <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
-                                {{ $zayavka->name }}
+                            <a href="{{ route('profileuser.profile', ['id' => $statement->user_id, 'previous' => 'news']) }}">
+                                {{ $statement->name }}
 
                             </a>
 
@@ -121,8 +121,8 @@
 
 
 
-        <form method="POST" action="{{ route('zayavka.comment', ['id' => $zayavka->id]) }}">
-            <div class="zayavkauser_comment">
+        <form method="POST" action="{{ route('statement.comment', ['id' => $statement->id]) }}">
+            <div class="statementuser_comment">
 
                 @csrf
 
@@ -151,8 +151,8 @@
 
 
 
-        @foreach ($zayavka->comments as $comment)
-            <div class="zayavkauser_comment_show">
+        @foreach ($statement->comments as $comment)
+            <div class="statementuser_comment_show">
 
                 <div class="main_novost_top">
                     <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
@@ -164,7 +164,7 @@
                     </a>
 
 
-                    <div class="main_novost_zagolovok">
+                    <div class="main_novost_title">
                         <div>
                             <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
                                 <p class="txt_2">{{ $comment->user->name }}</p>
@@ -185,7 +185,7 @@
 
                 @if (auth()->user()->role == 'Admin')
                     <form method="POST"
-                        action="{{ route('zayavka.comment.delete', ['zayavkaId' => $zayavka->id, 'commentId' => $comment->id]) }}">
+                        action="{{ route('statement.comment.delete', ['statementId' => $statement->id, 'commentId' => $comment->id]) }}">
                         @csrf
                         @method('DELETE')
                         <button class="novost_down_func" type="submit">Удалить комментарий</button>

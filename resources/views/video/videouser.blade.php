@@ -6,28 +6,28 @@
 
 
 
-    <div class="main_spec_zayavkauser">
+    <div class="main_spec_statementuser">
 
 
-        <div class="main_osnova_zayavka">
+        <div class="main_osnova_statement">
 
-            <div class="main_zayavkauser">
+            <div class="main_statementuser">
 
 
-                <div class="main_zayavkauser_info">
+                <div class="main_statementuser_info">
 
                     <p class="txt_1">{{ $video->title }}</p>
 
-                    <div class="main_zayavkauser_line">
+                    <div class="main_statementuser_line">
 
                     </div>
                 </div>
 
 
 
-                <div class="main_zayavkauser_osnova">
+                <div class="main_statementuser_osnova">
 
-                    <div class="main_zayavkauser_desc">
+                    <div class="main_statementuser_desc">
 
 
 
@@ -69,13 +69,13 @@ mediaContent.innerHTML = `
 
                 </div>
                 <div class="main_zzz">
-                    <div class="main_zayavkauser_line">
+                    <div class="main_statementuser_line">
 
                     </div>
 
                     <p class="txt_2">{{ $video->description }}</p>
 
-                    <div class="main_zayavkauser_func">
+                    <div class="main_statementuser_func">
 
                         <div class="novost_down_func_obsh">
 
@@ -138,7 +138,7 @@ mediaContent.innerHTML = `
                             </script>
 
                         </div>
-                        <div class="main_zayavkauser_watch">
+                        <div class="main_statementuser_watch">
 
                             <p>Автор:</p>
                             <a href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
@@ -159,7 +159,7 @@ mediaContent.innerHTML = `
 
 
         <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}">
-            <div class="zayavkauser_comment">
+            <div class="statementuser_comment">
 
                 @csrf
 
@@ -189,7 +189,7 @@ mediaContent.innerHTML = `
 
 
         @foreach ($video->comments as $comment)
-            <div class="zayavkauser_comment_show">
+            <div class="statementuser_comment_show">
 
                 <div class="main_novost_top">
                     <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
@@ -201,7 +201,7 @@ mediaContent.innerHTML = `
                     </a>
 
 
-                    <div class="main_novost_zagolovok">
+                    <div class="main_novost_title">
                         <div>
                             <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                 <p class="txt_2">{{ $comment->user->name }}</p>

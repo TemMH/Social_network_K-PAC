@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-    protected $fillable = ['user_id', 'zayavka_id', 'video_id'];
+    protected $fillable = ['user_id', 'statement_id', 'video_id'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function zayavka()
+    public function statement()
     {
-        return $this->belongsTo(Zayavka::class);
+        return $this->belongsTo(Statement::class);
     }
 
     public function video()

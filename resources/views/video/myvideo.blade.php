@@ -32,7 +32,7 @@
                                 </a>
                             </div>
 
-                            <div class="main_novost_zagolovok">
+                            <div class="main_novost_title">
                                 <div>
                                     @if ($video->status == 'true')
                                         <a href="{{ route('videouser', ['id' => $video->id]) }}">

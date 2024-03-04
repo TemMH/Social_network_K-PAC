@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Zayavka;
+use App\Models\Statement;
 use App\Models\Message;
 use App\Models\User;
 use App\Models\Video;
@@ -53,11 +53,11 @@ class DialogController extends Controller
     public function sendPostToFriend(Request $request, $postId, $friendId)
     {
 
-        $post = Zayavka::findOrFail($postId);
+        $post = Statement::findOrFail($postId);
         $friend = User::findOrFail($friendId);
 
 
-        $messageContent = '<a href="' . route('zayavkauser', ['id' => $post->id]) . '">Пост для тебя: ' . $post->description . '</a>';
+        $messageContent = '<a href="' . route('statementuser', ['id' => $post->id]) . '">Пост для тебя: ' . $post->description . '</a>';
 
         
 

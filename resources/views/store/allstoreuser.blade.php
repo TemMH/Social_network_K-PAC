@@ -15,7 +15,7 @@
  --}}
 
         @if (auth()->user()->permission == 'enabled')
-            <a href="{{ route('newzayavka') }}">
+            <a href="{{ route('newstatement') }}">
                 <div class="main_new_novo">
                     <p class="txt_2">Добавить товар</p>
                 </div>
@@ -24,8 +24,8 @@
         <div class="main_osnova">
             <div class="main_novosti">
 
-                @forelse ($zayavkas as $zayavka)
-                    @if ($zayavka->status == 'true')
+                @forelse ($statements as $statement)
+                    @if ($statement->status == 'true')
                     
                         <div class="main_novost">
 
@@ -33,11 +33,11 @@
                             <div class="main_novost_top">
                                 <div class="main_novost_img">
 
-                                    @if ($zayavka->user_id !== NULL)
+                                    @if ($statement->user_id !== NULL)
                                     
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                        <a href="{{ route('profileuser.profile', ['id' => $statement->user_id]) }}">
                                            
-                                            <img class="avatar" src=" {{$zayavka->user !== null ? asset($zayavka->user->avatar) : asset('storage/')}}"
+                                            <img class="avatar" src=" {{$statement->user !== null ? asset($statement->user->avatar) : asset('storage/')}}"
                                                 alt="Avatar">
                                         </a>
 
@@ -47,21 +47,21 @@
                                 </div>
 
 
-                                <div class="main_novost_zagolovok">
+                                <div class="main_novost_title">
                                     <div>
-                                        <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
-                                            <p class="txt_2">{{ $zayavka->zagolovok }}</p>
+                                        <a href="{{ route('statementuser', ['id' => $statement->id]) }}">
+                                            <p class="txt_2">{{ $statement->title }}</p>
                                         </a>
                                     </div>
 
                                     <div class="flex">
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id]) }}">
+                                        <a href="{{ route('profileuser.profile', ['id' => $statement->user_id]) }}">
                                             <p class="txt_2">
-                                                {{ $zayavka->name }}
+                                                {{ $statement->name }}
                                             </p>
                                         </a>
 
-                                        <p class="txt_2">ㅤ{{ $zayavka->created_at }}</p>
+                                        <p class="txt_2">ㅤ{{ $statement->created_at }}</p>
 
 
                                     </div>
@@ -72,14 +72,14 @@
 
 
                             <div class="main_novost_middle">
-                                <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
+                                <a href="{{ route('statementuser', ['id' => $statement->id]) }}">
                                     <p class="txt_2">
-                                        {{ $zayavka->description }}
+                                        {{ $statement->description }}
                                     </p>
                                 </a>
 
-                                @if ($zayavka->category !== null)
-                                    <p class="txt_2">Категория: {{ $zayavka->category }}</p>
+                                @if ($statement->category !== null)
+                                    <p class="txt_2">Категория: {{ $statement->category }}</p>
                                 @endif
                             </div>
 
@@ -88,20 +88,20 @@
                             <div class="main_novost_down">
                                 <div class="main_novost_down">
                                     <div class="novost_down_func1">
-                                        @if (!$zayavka->likes()->where('user_id', auth()->id())->exists())
+                                        @if (!$statement->likes()->where('user_id', auth()->id())->exists())
                                             <form method="POST"
-                                                action="{{ route('zayavka.like', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('statement.like', ['id' => $statement->id]) }}">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="novost_down_func"><span>{{ $zayavka->likes_count }}</span>ㅤ𓆩♡𓆪</button>
+                                                    class="novost_down_func"><span>{{ $statement->likes_count }}</span>ㅤ𓆩♡𓆪</button>
                                             </form>
                                         @else
                                             <form method="POST"
-                                                action="{{ route('zayavka.unlike', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('statement.unlike', ['id' => $statement->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="novost_down_func">
-                                                    <span>{{ $zayavka->likes_count }}</span>ㅤ❤</button>
+                                                    <span>{{ $statement->likes_count }}</span>ㅤ❤</button>
                                             </form>
                                         @endif
 
@@ -113,7 +113,7 @@
 
 
                                             <form method="POST"
-                                                action="{{ route('zayavka.delete', ['id' => $zayavka->id]) }}">
+                                                action="{{ route('statement.delete', ['id' => $statement->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit">Удалить новость</button>
@@ -140,16 +140,16 @@
                                     ?>
 
                                     <div class="novost_down_func1">
-                                        <button onclick="toggleFriendsList({{ $zayavka->id }})"
+                                        <button onclick="toggleFriendsList({{ $statement->id }})"
                                             class="novost_down_func">📢</button>
 
                                     </div>
-                                    <div id="friendsList{{ $zayavka->id }}" style="display: none;">
+                                    <div id="friendsList{{ $statement->id }}" style="display: none;">
                                         <div class="friendsList_repost">
                                             @foreach ($friends as $friend)
                                                 @if ($friend->id !== auth()->id())
                                                     <a class="txt_2"
-                                                        href="{{ route('sendPostToFriend', ['postId' => $zayavka->id, 'friendId' => $friend->id]) }}">
+                                                        href="{{ route('sendPostToFriend', ['postId' => $statement->id, 'friendId' => $friend->id]) }}">
                                                         {{ $friend->name }}
                                                     </a>
                                                 @endif

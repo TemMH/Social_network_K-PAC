@@ -8,7 +8,7 @@
 
     <div class="main">
 
-        <a href="{{ route('newzayavka') }}">
+        <a href="{{ route('newstatement') }}">
             <div class="main_new_novo">
 
                 <p class="txt_2">Предложите свою новость</p>
@@ -19,49 +19,49 @@
 
 
         <div class="main_myosnova">
-            @foreach ($zayavkas as $zayavka)
-                @if ($zayavka->status == 'new')
+            @foreach ($statements as $statement)
+                @if ($statement->status == 'new')
                     <div class="main_novost">
-                        <form method="POST" action="{{ route('statuseditnews', ['id' => $zayavka->id]) }}">
+                        <form method="POST" action="{{ route('statuseditnews', ['id' => $statement->id]) }}">
                             @csrf
                             <div class="main_novost_top">
                                 <div class="main_novost_img">
-                                    <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
-                                        <img class="avatar" src="{{ asset('storage/' . $zayavka->user->avatar) }}"
+                                    <a href="{{ route('profileuser.profile', ['id' => $statement->user_id, 'previous' => 'news']) }}">
+                                        <img class="avatar" src="{{ asset('storage/' . $statement->user->avatar) }}"
                                             alt="Avatar">
                                     </a>
                                 </div>
 
 
 
-                                <div class="main_novost_zagolovok">
-                                    <div> <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
-                                            <p class="txt_2">{{ $zayavka->zagolovok }}</p>
+                                <div class="main_novost_title">
+                                    <div> <a href="{{ route('statementuser', ['id' => $statement->id]) }}">
+                                            <p class="txt_2">{{ $statement->title }}</p>
                                         </a>
                                     </div>
                                     <div class="flex">
-                                        <a href="{{ route('profileuser.profile', ['id' => $zayavka->user_id, 'previous' => 'news']) }}">
-                                            <p class="txt_2">{{ $zayavka->name }}</p>
+                                        <a href="{{ route('profileuser.profile', ['id' => $statement->user_id, 'previous' => 'news']) }}">
+                                            <p class="txt_2">{{ $statement->name }}</p>
                                         </a>
-                                        <p class="txt_2">ㅤ{{ $zayavka->created_at }}</p>
+                                        <p class="txt_2">ㅤ{{ $statement->created_at }}</p>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="main_novost_middle">
-                                <a href="{{ route('zayavkauser', ['id' => $zayavka->id]) }}">
-                                    <p class="txt_2">{{ $zayavka->description }}</p>
+                                <a href="{{ route('statementuser', ['id' => $statement->id]) }}">
+                                    <p class="txt_2">{{ $statement->description }}</p>
                                 </a>
 
-                                @if ($zayavka->category !== null)
-                                    <p class="txt_2">Категория: {{ $zayavka->category }}</p>
+                                @if ($statement->category !== null)
+                                    <p class="txt_2">Категория: {{ $statement->category }}</p>
                                 @endif
                             </div>
                             <div class="main_novost_down">
                                 <div class="novost_down_func">
-                                    <p> {{ $zayavka->status }}</p>
+                                    <p> {{ $statement->status }}</p>
                                 </div>
-                                <input type="hidden" name="id" value={{ $zayavka->id }}>
+                                <input type="hidden" name="id" value={{ $statement->id }}>
                                 <div class="status">
                                     <label class="txt_2" for="status">Выберите статус</label>
                                     <select class="custom-select" name="status" id="status">

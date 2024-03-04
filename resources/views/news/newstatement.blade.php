@@ -14,10 +14,10 @@
                 <div class="main_news">
 
                     <div>
-                        <x-input-label class="txt_2" for="zagolovok" :value="__('Заголовок статьи')" />
-                        <x-text-input id="zagolovok" class="block mt-1 w-full" type="text" name="zagolovok"
-                            :value="old('zagolovok')" required autofocus autocomplete="zagolovok" />
-                        <x-input-error :messages="$errors->get('zagolovok')" class="mt-2" />
+                        <x-input-label class="txt_2" for="title" :value="__('Заголовок статьи')" />
+                        <x-text-input id="title" class="block mt-1 w-full" type="text" name="title"
+                            :value="old('title')" required autofocus autocomplete="title" />
+                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
 
 

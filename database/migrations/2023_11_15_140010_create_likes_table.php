@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('zayavka_id')->nullable();
+            $table->foreignId('statement_id')->nullable();
             $table->foreignId('video_id')->nullable();
             $table->timestamps();
     
-            $table->unique(['user_id', 'zayavka_id', 'video_id']);
+            $table->unique(['user_id', 'statement_id', 'video_id']);
         });
     }
 

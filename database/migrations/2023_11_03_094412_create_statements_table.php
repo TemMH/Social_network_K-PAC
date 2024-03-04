@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zayavkas', function (Blueprint $table) {
+        Schema::create('statements', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('zagolovok')->unique();
+            $table->string('title')->unique();
             $table->string('description');
             $table->string('category')->nullable();
 
@@ -33,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zayavkas');
+        Schema::dropIfExists('statements');
     }
     
 };

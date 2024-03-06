@@ -329,7 +329,7 @@
                             <a href="/login">
 
 
-                                <img class="avatar" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
+                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
                             </a>
                         @endif
 

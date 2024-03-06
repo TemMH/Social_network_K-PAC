@@ -74,10 +74,6 @@
                         {{ $video->user->name }}
 
                     </a></p>
-
-                    <div class="novost_down_func1">
-                        <button class="novost_down_func_video" onclick="">Подписаться</button>
-                    </div>
             </div>
 
 
@@ -254,7 +250,7 @@
         </div>
     @endforeach
 
-    </div>
+</div>
 
 
 </x-app-layout>

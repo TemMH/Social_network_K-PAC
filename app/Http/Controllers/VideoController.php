@@ -134,6 +134,14 @@ class VideoController extends Controller
         return view('video.videouser', ['video' => $video]);
     }
 
+    public function showshorts($id)
+    {
+        
+        $video = Video::with('comments.user')->findOrFail($id);
+    
+        return view('video.shortsvideouser', ['video' => $video]);
+    }
+
     public function allvideo(User $user)
     {
 

@@ -143,9 +143,9 @@ Route::get('/allstoreuser', function () {
     return view('store.allstoreuser');
 })->middleware(['auth', 'verified'])->name('allstoreuser');
 
-Route::get('/dashboardstore', function () {
-    return view('store.dashboardstore');
-})->middleware(['auth', 'verified'])->name('dashboardstore');
+Route::get('/messenger', function () {
+    return view('messenger.messenger');
+})->middleware(['auth', 'verified'])->name('messenger');
 
 
 

@@ -22,7 +22,7 @@
             {{-- ACTIV --}}
             <div class="message_dialogs">
 
-                <div class="message_dialog">
+                <div class="message_dialog_activ">
 
                     <div class="message_dialog_author_info">
 
@@ -139,9 +139,9 @@
                         messageHistoryField.scrollTop = messageHistoryField.scrollHeight;
                     };
                 </script>
-                
+
                 <div class="message_history_dialog_field">
-                    <div class="message_history_field">
+                    <div class="message_history_field" id="messageHistoryField">
 
                         @foreach ($messages as $message)
                             @if ($message->sender_id === auth()->id())
@@ -198,22 +198,135 @@
 
 
 
-            <form action="{{ route('message.send', $user->id) }}" class="message_history_input" method="POST">
+            <form id="sendMessageForm" action="{{ route('message.send', $user->id) }}" class="message_history_input"
+                method="POST">
                 @csrf
                 <div class="message_history_input_search_container">
-
                     <input type="text" id="message" type="text" name="message" required autofocus
                         autocomplete="message" class="message_history_input_container"
                         placeholder="Напишите сообщение...">
-
                 </div>
-
                 <div class="message_history_input_send">
-
                     <button class="novost_down_func_video" type="submit">Отправить</button>
-
                 </div>
             </form>
+
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+            <script>
+                $(document).ready(function() {
+
+                    var newMessageSent = false;
+
+
+                    $('#sendMessageForm').submit(function(event) {
+                        event.preventDefault();
+                        var formData = $(this).serialize();
+
+                        $.ajax({
+                            url: $(this).attr('action'),
+                            type: 'POST',
+                            data: formData,
+                            success: function(response) {
+
+                                getMessages();
+                                newMessageSent = true;
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+
+
+
+                    var previousMessageCount = 0;
+
+
+                    function getMessages() {
+                        $.ajax({
+                            url: "{{ route('messages.get', $user->id) }}",
+                            type: "GET",
+                            success: function(response) {
+                                var currentMessageCount = response.length;
+
+
+                                $('#messageHistoryField').empty();
+
+                                $.each(response, function(index, message) {
+                                    var messageHtml = '';
+                                    if (message.sender_id === {{ auth()->id() }}) {
+                                        messageHtml =
+                                            '<div class="message_history_dialog_field_right">' +
+                                            '<div class="message_history_dialog_field_width">' +
+                                            '<p class="txt_2" style="display: flex; justify-content:flex-end;">' +
+                                            message.created_at + ' Вы</p>' +
+                                            '<div class="message_history_dialog_field_right_rama">' +
+                                            '<div class="message_history_dialog_field_right_content">' +
+                                            '<div class="txt_2">' + message.content + '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>';
+                                    } else {
+                                        messageHtml =
+                                            '<div class="message_history_dialog_field_left">' +
+                                            '<div class="message_history_dialog_field_width">' +
+                                            '<p class="txt_2">{{ $user->name }} ' + message
+                                            .created_at + '</p>' +
+                                            '<div class="message_history_dialog_field_left_rama">' +
+                                            '<div class="message_history_dialog_field_left_content">' +
+                                            '<div class="txt_2">' + message.content + '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>';
+                                    }
+                                    $('#messageHistoryField').append(messageHtml);
+                                });
+
+                                if (currentMessageCount > previousMessageCount) {
+                                    $(".message_history_field").animate({
+                                        scrollTop: $('.message_history_field')[0].scrollHeight
+                                    }, "fast");
+                                }
+
+                                previousMessageCount = currentMessageCount;
+                            },
+                            error: function(xhr) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    }
+
+
+
+                    pollMessages();
+
+                    function pollMessages() {
+                        setInterval(function() {
+                                getMessages();
+
+                                if (newMessageSent) {
+                                    $(".message_history_field").animate({
+                                        scrollTop: $('.message_history_field')[0].scrollHeight
+                                    }, "fast");
+
+                                    newMessageSent = false;
+                                }
+                            },
+                            1000
+                        );
+                    }
+                });
+            </script>
+
+
+
+
 
         </div>
     </div>

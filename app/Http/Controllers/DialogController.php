@@ -30,6 +30,7 @@ public function show($userId)
             ->where('recipient_id', auth()->id());
     })->get();
 
+    // Получаем последнее сообщение
     $lastMessage = $messages->last();
 
     return view('messenger.messenger', compact('user', 'messages', 'lastMessage'));
@@ -50,6 +51,21 @@ public function show($userId)
 
         return redirect()->route('messenger.show', $userId);
     }
+
+    public function getMessages(Request $request, $userId)
+    {
+        $messages = Message::where(function ($query) use ($userId) {
+            $query->where('sender_id', auth()->id())
+                ->where('recipient_id', $userId);
+        })->orWhere(function ($query) use ($userId) {
+            $query->where('sender_id', $userId)
+                ->where('recipient_id', auth()->id());
+        })->get();
+    
+        return response()->json($messages);
+    }
+    
+
 
     public function sendPostToFriend(Request $request, $postId, $friendId)
     {
@@ -94,3 +110,4 @@ public function show($userId)
 
 
 }
+

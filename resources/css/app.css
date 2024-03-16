@@ -2308,7 +2308,18 @@ Messages
 
     width: 90%;
     height: auto;
-    border: 1px solid #222222;
+    border: 1px solid #2D2D2D;
+    border-radius: 12px;
+    padding: 2%;
+
+}
+
+.message_dialog_activ{
+
+    background-color: #222222;
+    width: 90%;
+    height: auto;
+    border: 1px solid #2D2D2D;
     border-radius: 12px;
     padding: 2%;
 

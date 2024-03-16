@@ -22,8 +22,6 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-
-
             <header class="header">
 
 
@@ -130,6 +128,22 @@
 
                         <div class="adminpanel">
 
+                            <a href="{{ route('allvideouser') }}">
+
+                                <div class="adminpanel">
+
+                                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                                    <lord-icon src="https://cdn.lordicon.com/uwtqzoif.json" trigger="hover"
+                                        colors="primary:#777777" style="width:50px;height:50px">
+                                    </lord-icon>
+
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <div class="adminpanel">
+
                             <a href="{{ route('myvideo') }}">
 
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
@@ -140,30 +154,24 @@
                             </a>
 
                         </div>
+
                         <div class="adminpanel">
 
                             <a href="{{ route('allvideouser') }}">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/zyzoecaw.json"
-                                    trigger="hover"
-                                    colors="primary:#777777"
-                                    style="width:50px;height:50px">
+                                <lord-icon src="https://cdn.lordicon.com/zyzoecaw.json" trigger="hover"
+                                    colors="primary:#777777" style="width:50px;height:50px">
                                 </lord-icon>
                             </a>
 
                         </div>
 
-
                         <div class="adminpanel">
 
-                            <a href="{{ route('allvideouser') }}">
+                            <a href="{{ route('messenger') }}">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/kkvxgpti.json"
-                                    trigger="hover"
-                                    colors="primary:#777777"
-                                    style="width:50px;height:50px">
+                                <lord-icon src="https://cdn.lordicon.com/fdxqrdfe.json" trigger="hover"
+                                    colors="primary:#777777" style="width:50px;height:50px">
                                 </lord-icon>
                             </a>
 
@@ -173,25 +181,8 @@
 
                             <a href="{{ route('allvideouser') }}">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/fdxqrdfe.json"
-                                    trigger="hover"
-                                    colors="primary:#777777"
-                                    style="width:50px;height:50px">
-                                </lord-icon>
-                            </a>
-
-                        </div>
-
-                        <div class="adminpanel">
-
-                            <a href="{{ route('allvideouser') }}">
-                                <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/ijahpotn.json"
-                                    trigger="hover"
-                                    colors="primary:#777777"
-                                    style="width:50px;height:50px">
+                                <lord-icon src="https://cdn.lordicon.com/ijahpotn.json" trigger="hover"
+                                    colors="primary:#777777" style="width:50px;height:50px">
                                 </lord-icon>
                             </a>
 
@@ -263,12 +254,76 @@
 
                 </div>
 
+
+                <script>
+                    function toggleSearch() {
+                        const searchBlock = document.getElementById('searchBlock');
+                        const notificationBlock = document.getElementById('notificationBlock');
+
+
+                        if (notificationBlock.classList.contains('show') && window.innerWidth <= window.screen.width * 0.9) {
+                            toggleNotification();
+                        }
+
+
+                        if (searchBlock.classList.contains('show')) {
+                            searchBlock.classList.remove('show');
+                        } else {
+
+                            if (!notificationBlock.classList.contains('show') || window.innerWidth > window.screen.width * 0.9) {
+                                searchBlock.classList.add('show');
+                            }
+                        }
+                    }
+
+                    function toggleNotification() {
+                        const notificationBlock = document.getElementById('notificationBlock');
+                        const searchBlock = document.getElementById('searchBlock');
+
+
+                        if (searchBlock.classList.contains('show') && window.innerWidth <= window.screen.width * 0.9) {
+                            toggleSearch();
+                        }
+
+
+                        if (notificationBlock.classList.contains('show')) {
+                            notificationBlock.classList.remove('show');
+                        } else {
+                            if (!searchBlock.classList.contains('show') || window.innerWidth > window.screen.width * 0.9) {
+                                notificationBlock.classList.add('show');
+                            }
+                        }
+                    }
+
+                    window.addEventListener('resize', function() {
+                        const searchBlock = document.getElementById('searchBlock');
+                        const notificationBlock = document.getElementById('notificationBlock');
+
+                        searchBlock.classList.remove('show');
+                        notificationBlock.classList.remove('show');
+                    });
+                </script>
+
+
+
+
+
+
+
+
+
                 <div class="header_down">
 
-                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/lecprnjb.json" trigger="hover" colors="primary:#777777"
-                        style="width:50px;height:50px">
-                    </lord-icon>
+                    <div class="adminpanel">
+
+                        <button type="button" onclick="toggleSearch()">
+                            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                            <lord-icon src="https://cdn.lordicon.com/kkvxgpti.json" trigger="hover"
+                                colors="primary:#777777" style="width:50px;height:50px">
+                            </lord-icon>
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -276,9 +331,17 @@
 
 
             </header>
-
-
         @endif
+        <div id="searchBlock" class="search_block">
+            <!-- Контейнер для уведомлений -->
+            <div class="notification_container">
+                <!-- Пример уведомления -->
+                <div class="notification-block">
+                    <!-- Содержимое уведомления -->
+                </div>
+                <!-- Другие уведомления... -->
+            </div>
+        </div>
 
 
 
@@ -295,6 +358,65 @@
 
 
 
+        <?php
+        $friendRequests = \App\Models\Friendship::where('recipient_id', auth()->id())->where('status', 'pending')->get();
+        ?>
+
+
+
+        <div id="notificationBlock" class="notification_block">
+
+
+
+            @foreach ($friendRequests as $request)
+                <div class="notification_container">
+
+                    <div class="notication_top">
+                        <div class="notification_image">
+
+                            <p>ава</p>
+
+                        </div>
+
+                        <div class="notification_content">
+
+                            <div class="">
+                                <a href="{{ route('profileuser.profile', ['id' => $request->id]) }}">
+                                    {{ $request->sender->name }}
+                                </a>
+
+                                отправил вам запрос в друзья
+                            </div>
+
+                            <div class="">
+                                дата
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="notification_actions">
+                        <div>
+                            <form action="{{ route('accept-friend-request', $request->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="accept-btn">Принять</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            <form action="{{ route('reject-friend-request', $request->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="reject-btn">Отказать</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            @endforeach
+
+        </div>
 
 
         @if (isset($header))
@@ -322,27 +444,36 @@
                                         height="50px">
                                 @endif
 
-
-
                             </a>
                         @else
                             <a href="/login">
 
 
-                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
+                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px"
+                                    height="50px">
                             </a>
                         @endif
 
 
                     </div>
-                    <div class="notification">
 
-                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                        <lord-icon src="https://cdn.lordicon.com/vspbqszr.json" trigger="hover" state="loop-bell"
-                            colors="primary:#777777" style="width:50px;height:50px">
-                        </lord-icon>
 
+
+
+
+                    <div class="adminpanel">
+
+                        <button type="button" onclick="toggleNotification()">
+
+                            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                            <lord-icon src="https://cdn.lordicon.com/vspbqszr.json" trigger="hover" state="loop-bell"
+                                colors="primary:#777777" style="width:50px;height:50px">
+                            </lord-icon>
+
+                        </button>
                     </div>
+
+
 
 
                     <svg fill="#777777" width="50px" height="50px" viewBox="0 -6 44 44"
@@ -356,11 +487,49 @@
                         </g>
                     </svg>
 
-                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                    <?php
+                    $friendsList = \App\Models\Friendship::where(function ($query) {
+                        $query->where('sender_id', auth()->id())->where('status', 'accepted');
+                    })
+                        ->orWhere(function ($query) {
+                            $query->where('recipient_id', auth()->id())->where('status', 'accepted');
+                        })
+                        ->get();
+                    
+                    $friendIds = $friendsList->pluck('sender_id')->merge($friendsList->pluck('recipient_id'))->unique();
+                    
+                    $friends = \App\Models\User::whereIn('id', $friendIds)->get();
+                    ?>
+
+                    @foreach ($friends as $friend)
+                        @if ($friend->id !== auth()->id())
+                            <a href="{{ route('profileuser.profile', ['id' => $friend->id]) }}">
+
+                                @if ($friend->avatar !== null)
+                                    <img class="avatar_mini" src="{{ asset('storage/' . $friend->avatar) }}"
+                                        alt="Avatar">
+                                @else
+                                    <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                @endif
+
+                            </a>
+                        @endif
+                    @endforeach
+
+
+                    {{-- ЛАЙК
+                        
+                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
                     <lord-icon src="https://cdn.lordicon.com/xyboiuok.json" trigger="click" state="morph-heart"
                         colors="primary:#777777,secondary:#c71f16" style="width:50px;height:50px">
-                    </lord-icon>
+                    </lord-icon> --}}
 
+                    {{-- Настройки
+                        
+                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                    <lord-icon src="https://cdn.lordicon.com/lecprnjb.json" trigger="hover"
+                        colors="primary:#777777" style="width:50px;height:50px">
+                    </lord-icon> --}}
 
                 </div>
 

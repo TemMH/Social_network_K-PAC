@@ -1666,13 +1666,10 @@ html {
     border-top-width: 0px;
     border-top-style: solid;
 
-    transition: height 0.5s ease;
+
 }
 
-.field_notification_news.show {
-    top: 164px;
-    height: 600px;
-}
+
 
 .notification_line_news {
 
@@ -1684,37 +1681,7 @@ html {
 }
 
 
-.notificationitem_news {
-    height: 0px;
-    overflow: hidden;
 
-}
-
-.notificationitem_news.show {
-
-
-    width: 360px;
-
-    min-height: 70px;
-    height: auto;
-    background-color: rgba(19, 19, 19, 1);
-    border: 1px solid;
-    border-color: #53B8A9;
-    border-radius: 3px;
-    box-shadow: 3px 4px 4px #00000040;
-    padding: 10px;
-    margin: 0 auto;
-
-    margin-top: 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    color: #D9D9D9;
-
-}
 
 
 .notification_friends_news {
@@ -2249,7 +2216,14 @@ video {
 
 }
 
-.main_shortvideo_right {}
+.main_shortvideo_content {
+    position: relative;
+    margin: 0.5% auto;
+    width: 99%;
+    height: auto;
+    border-radius: 12px;
+
+}
 
 .new_comment {
 
@@ -2277,6 +2251,15 @@ video {
 
 }
 
+.test_shortvideo_rama{
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+}
 
 /* 
 
@@ -2445,12 +2428,6 @@ Messages
 
 }
 
-
-
-
-
-
-
 .message_history_dialog_field {
 
     height: 100%;
@@ -2549,5 +2526,93 @@ Messages
     max-width: 100%;
     height: auto;
     text-align: start;
+
+}
+
+/* NOTIFICATIONS */
+
+.notification_block {
+
+    pointer-events: none;
+    background-color: #1a1a1a;
+    border-left: 0px solid #2D2D2D;
+    padding: 0px;
+    height: 100vh;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out, border-left 0.2s ease-in-out;
+}
+
+.notification_block.show {
+
+    border-left: 1px solid #2D2D2D;
+    background-color: #1a1a1a;
+    pointer-events: auto;
+    position: relative;
+    width: 30%;
+
+}
+
+.notification_container{
+
+    margin: 2% auto;
+    width: 90%;
+    height: auto;
+    padding: 2%;
+    background-color: #1A1A1A;
+    border: 1px solid #222222;
+    border-radius: 12px;
+    display: block;
+    
+}
+
+.notification_image{
+
+    width: 10%;
+
+}
+
+.notification_content{
+
+    width: 90%;
+
+}
+
+.notication_top{
+
+    display: flex;
+
+}
+
+.notification_actions{
+
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
+/* SEARCH */
+
+.search_block {
+
+    pointer-events: none;
+
+    background-color: #1a1a1a;
+    border-right: 0px solid #2D2D2D;
+    padding: 0px;
+    height: 100vh;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out, border-right 0.2s ease-in-out;
+}
+
+.search_block.show {
+
+    border-right: 1px solid #2D2D2D;
+    background-color: #1a1a1a;
+    pointer-events: auto;
+    position: relative;
+    width: 30%;
 
 }

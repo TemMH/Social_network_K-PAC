@@ -15,8 +15,8 @@
 
 
 
-
-    <div class="main_video_content">
+<div class="test_shortvideo_rama">
+    <div class="main_shortvideo_content">
 
 
 
@@ -136,7 +136,8 @@
         </div>
 
         <div class="main_shortvideo_desc_right">
-
+            
+{{-- РАЗДЕЛИТЬ КОММЕНТЫ С ИНПУТОМ (КОМЕНТЫ В overflow) --}}
 
             @foreach ($video->comments as $comment)
                 <div class="statementuser_comment_show_shortvideo">
@@ -240,6 +241,6 @@
 
 
     </div>
-
+</div>
 
 </x-app-layout>

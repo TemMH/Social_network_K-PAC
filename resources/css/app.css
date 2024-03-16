@@ -2310,6 +2310,7 @@ Messages
     height: auto;
     border: 1px solid #222222;
     border-radius: 12px;
+    padding: 2%;
 
 }
 
@@ -2505,7 +2506,7 @@ Messages
 
 .message_history_dialog_field_left {
 
-    width: 40%;
+    width: 100%;
     display: flex;
     justify-content: flex-start;
 
@@ -2528,6 +2529,38 @@ Messages
     text-align: start;
 
 }
+
+.message_history_dialog_field_width{
+
+    max-width:40%;
+    min-width: 10%;
+
+}
+
+.message_dialog_author_info{
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
+
+}
+
+.message_dialog_last{
+
+    width: 100%;
+    word-break: break-all;
+    overflow: hidden;
+
+}
+.message_dialog_last p {
+
+    line-height: 1.2em; 
+    max-height: 2.4em; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-wrap: break-word; 
+}
+
 
 /* NOTIFICATIONS */
 

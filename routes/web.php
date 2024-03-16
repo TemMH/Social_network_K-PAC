@@ -228,10 +228,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dialog/{userId}', [DialogController::class, 'show'])->name('dialog.show');
-    Route::post('/dialog/{userId}/send', [DialogController::class, 'sendMessage'])->name('dialog.send');
-});
+
 
 
 Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 'sendPostToFriend'])
@@ -255,6 +252,13 @@ Route::get('/statement/autocomplete', [StatementController::class, 'autocomplete
 Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('usersort');
 
 
+Route::middleware('auth')->group(function () {
+    Route::get('/messenger/{userId}', [DialogController::class, 'show'])->name('messenger.show');
+    Route::post('/messenger/{userId}/send', [DialogController::class, 'sendMessage'])->name('message.send');
+    Route::get('/messages/{userId}',[DialogController::class, 'getMessages'])->name('messages.get');
+
+
+});
 
 
 

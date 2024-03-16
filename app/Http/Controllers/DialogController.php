@@ -14,26 +14,27 @@ use Illuminate\Support\Facades\Mail;
 
 class DialogController extends Controller
 {
-    public function show($userId)
-    {
-        $user = User::findOrFail($userId);
+public function show($userId)
+{
+    $user = User::findOrFail($userId);
 
-        if (!auth()->user()->areFriends($userId)) {
-            abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
-        }
-
-        $messages = Message::where(function ($query) use ($userId) {
-            $query->where('sender_id', auth()->id())
-                ->where('recipient_id', $userId);
-        })->orWhere(function ($query) use ($userId) {
-            $query->where('sender_id', $userId)
-                ->where('recipient_id', auth()->id());
-        })->get();
-
-        $messages = $messages->sortBy('created_at');
-
-        return view('dialog', compact('user', 'messages'));
+    if (!auth()->user()->areFriends($userId)) {
+        abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
     }
+
+    $messages = Message::where(function ($query) use ($userId) {
+        $query->where('sender_id', auth()->id())
+            ->where('recipient_id', $userId);
+    })->orWhere(function ($query) use ($userId) {
+        $query->where('sender_id', $userId)
+            ->where('recipient_id', auth()->id());
+    })->get();
+
+    $lastMessage = $messages->last();
+
+    return view('messenger.messenger', compact('user', 'messages', 'lastMessage'));
+}
+
 
     public function sendMessage(Request $request, $userId)
     {
@@ -47,7 +48,7 @@ class DialogController extends Controller
             'content' => $request->input('message'),
         ]);
 
-        return redirect()->route('dialog.show', $userId);
+        return redirect()->route('messenger.show', $userId);
     }
 
     public function sendPostToFriend(Request $request, $postId, $friendId)

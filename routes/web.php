@@ -253,12 +253,12 @@ Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('use
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/messenger', [DialogController::class, 'showMessenger'])->name('messenger');
     Route::get('/messenger/{userId}', [DialogController::class, 'show'])->name('messenger.show');
     Route::post('/messenger/{userId}/send', [DialogController::class, 'sendMessage'])->name('message.send');
     Route::get('/messages/{userId}',[DialogController::class, 'getMessages'])->name('messages.get');
-
-
 });
+
 
 
 

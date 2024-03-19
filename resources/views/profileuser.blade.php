@@ -63,7 +63,7 @@
                         $user->id != auth()->id() &&
                             auth()->user()->areFriends($user->id))
                         <div class="profile_info_left_message">
-                            <a href="{{ route('dialog.show', ['userId' => $user->id]) }}" class="message"><p class="txt_2">Открыть диалог</p></a>
+                            <a href="{{ route('messenger.show', ['userId' => $user->id]) }}" class="message"><p class="txt_2">Открыть диалог</p></a>
                         </div>
                     @endif
 

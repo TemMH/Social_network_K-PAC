@@ -2314,7 +2314,8 @@ Messages
 
 }
 
-.message_dialog_activ{
+
+.message_dialog.active{
 
     background-color: #222222;
     width: 90%;

@@ -8,33 +8,64 @@ use App\Models\Message;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 use Illuminate\Support\Facades\Mail;
 
 class DialogController extends Controller
 {
-public function show($userId)
-{
-    $user = User::findOrFail($userId);
+    public function show($userId = null)
+    {
+        $user = User::findOrFail($userId);
 
-    if (!auth()->user()->areFriends($userId)) {
-        abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
+        if (!auth()->user()->areFriends($userId)) {
+            abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
+        }
+
+        $dialogs = Message::select('sender_id', 'recipient_id')
+            ->where('sender_id', auth()->id())
+            ->orWhere('recipient_id', auth()->id())
+            ->groupBy('sender_id', 'recipient_id')
+            ->get();
+
+
+        $dialogs = $dialogs->filter(function ($dialog) {
+            return $dialog->sender_id != $dialog->recipient_id;
+        });
+
+        foreach ($dialogs as $dialog) {
+            $lastMessage = Message::where(function ($query) use ($dialog) {
+                $query->where('sender_id', $dialog->sender_id)
+                    ->where('recipient_id', $dialog->recipient_id);
+            })->orWhere(function ($query) use ($dialog) {
+                $query->where('sender_id', $dialog->recipient_id)
+                    ->where('recipient_id', $dialog->sender_id);
+            })->orderByDesc('created_at')->first();
+
+            $dialog->lastMessage = $lastMessage;
+            $dialog->user = User::find($dialog->sender_id);
+        }
+
+
+        if ($userId === null) {
+            return view('messenger.messenger', compact('dialogs', 'user'));
+        } else {
+            $messages = Message::where(function ($query) use ($userId) {
+                $query->where('sender_id', auth()->id())
+                    ->where('recipient_id', $userId);
+            })->orWhere(function ($query) use ($userId) {
+                $query->where('sender_id', $userId)
+                    ->where('recipient_id', auth()->id());
+            })->get();
+
+
+            $lastMessage = $messages->last();
+
+            return view('messenger.messenger', compact('user', 'messages', 'lastMessage', 'dialogs'));
+        }
     }
 
-    $messages = Message::where(function ($query) use ($userId) {
-        $query->where('sender_id', auth()->id())
-            ->where('recipient_id', $userId);
-    })->orWhere(function ($query) use ($userId) {
-        $query->where('sender_id', $userId)
-            ->where('recipient_id', auth()->id());
-    })->get();
-
-    // Получаем последнее сообщение
-    $lastMessage = $messages->last();
-
-    return view('messenger.messenger', compact('user', 'messages', 'lastMessage'));
-}
 
 
     public function sendMessage(Request $request, $userId)
@@ -61,10 +92,45 @@ public function show($userId)
             $query->where('sender_id', $userId)
                 ->where('recipient_id', auth()->id());
         })->get();
-    
+
         return response()->json($messages);
     }
-    
+
+    public function showMessenger()
+    {
+
+        $user = Auth::user();
+
+
+        $dialogs = Message::select('sender_id', 'recipient_id')
+            ->where('sender_id', auth()->id())
+            ->orWhere('recipient_id', auth()->id())
+            ->groupBy('sender_id', 'recipient_id')
+            ->get();
+
+
+        $dialogs = $dialogs->filter(function ($dialog) {
+            return $dialog->sender_id != $dialog->recipient_id;
+        });
+
+
+
+
+        foreach ($dialogs as $dialog) {
+            $lastMessage = Message::where(function ($query) use ($dialog) {
+                $query->where('sender_id', $dialog->sender_id)
+                    ->where('recipient_id', $dialog->recipient_id);
+            })->orWhere(function ($query) use ($dialog) {
+                $query->where('sender_id', $dialog->recipient_id)
+                    ->where('recipient_id', $dialog->sender_id);
+            })->orderByDesc('created_at')->first();
+
+            $dialog->lastMessage = $lastMessage;
+            $dialog->user = User::find($dialog->sender_id);
+        }
+
+        return view('messenger.messenger', compact('dialogs', 'user'));
+    }
 
 
     public function sendPostToFriend(Request $request, $postId, $friendId)
@@ -76,38 +142,34 @@ public function show($userId)
 
         $messageContent = '<a href="' . route('statementuser', ['id' => $post->id]) . '">Пост для тебя: ' . $post->description . '</a>';
 
-        
+
 
         $message = Message::create([
             'content' => $messageContent,
-            'sender_id' => auth()->id(), 
-            'recipient_id' => $friend->id, 
+            'sender_id' => auth()->id(),
+            'recipient_id' => $friend->id,
         ]);
-    
 
-    
+
+
         return redirect()->back()->with('success', 'Пост отправлен пользователю ' . $friend->name);
     }
-    
+
     public function sendVideoToFriend(Request $request, $videoId, $friendId)
-{
-    $video = Video::findOrFail($videoId);
-    $friend = User::findOrFail($friendId);
+    {
+        $video = Video::findOrFail($videoId);
+        $friend = User::findOrFail($friendId);
 
 
 
-    $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
+        $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
 
-    $message = Message::create([
-        'content' => $messageContent,
-        'sender_id' => auth()->id(),
-        'recipient_id' => $friend->id,
-    ]);
+        $message = Message::create([
+            'content' => $messageContent,
+            'sender_id' => auth()->id(),
+            'recipient_id' => $friend->id,
+        ]);
 
-    return redirect()->back()->with('success', 'Видео отправлено пользователю ' . $friend->name);
+        return redirect()->back()->with('success', 'Видео отправлено пользователю ' . $friend->name);
+    }
 }
-
-
-
-}
-

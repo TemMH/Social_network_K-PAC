@@ -144,7 +144,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('myvideo') }}">
+                            <a href="{{ route('allshortsvideouser') }}">
 
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/eouimtlu.json" trigger="hover"

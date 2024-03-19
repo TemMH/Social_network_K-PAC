@@ -2219,6 +2219,10 @@ video {
 .main_shortvideo_content {
     position: relative;
     margin: 0.5% auto;
+    margin-top: 0.25%;
+    margin-right: auto;
+    margin-bottom: 0.5%;
+    margin-left: auto;
     width: 99%;
     height: auto;
     border-radius: 12px;
@@ -2251,14 +2255,14 @@ video {
 
 }
 
-.test_shortvideo_rama{
-
+.test_shortvideo_rama {
     width: 100%;
     height: 100%;
-
+    overflow-y: scroll;
+    max-height: 100vh;
     display: flex;
-    align-items: center;
-
+    flex-direction: column;
+    /* overflow: hidden; */
 }
 
 /* 

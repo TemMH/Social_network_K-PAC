@@ -191,6 +191,35 @@ class VideoController extends Controller
     }
     
 
+
+    public function allshortsvideouser(Request $request)
+    {
+        $category = $request->input('category');
+        $sort = $request->input('sortirovka');
+    
+        $videos = Video::where('status', 'true')->withCount('likes');
+    
+        if ($category) {
+            $videos->where('category', $category);
+        }
+    
+        switch ($sort) {
+            case 'old':
+                $videos->orderBy('created_at', 'asc');
+                break;
+            case 'popular':
+                $videos->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case 'recent':
+            default:
+                $videos->orderBy('created_at', 'desc');
+                break;
+        }
+    
+        $videos = $videos->get();
+    
+        return view('video.shortsvideouser', ['videos' => $videos]);
+    }
     
 
     public function like(Request $request, $id)

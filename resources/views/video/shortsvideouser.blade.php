@@ -116,99 +116,104 @@
 
 
                     </div>
+                    <div class="main_shortvideo_right">
 
-                    <div class="main_shortvideo_desc_right">
+                        <button class="shortvideo_toggleComments" >Показать комментарии</button>
+                        <div class="main_shortvideo_desc_right">
 
-                        {{-- РАЗДЕЛИТЬ КОММЕНТЫ С ИНПУТОМ (КОМЕНТЫ В overflow) --}}
-                        <div class="shortvideo_comments">
-                            @foreach ($video->comments as $comment)
-                                <div class="statementuser_comment_show_shortvideo">
 
-                                    <div class="main_novost_top">
-                                        <a
-                                            href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
-                                            <div class="main_novost_img">
+                            <div class="shortvideo_comments">
+                                @foreach ($video->comments as $comment)
+                                    <div class="statementuser_comment_show_shortvideo">
 
-                                                <img class="avatar"
-                                                    src="{{ asset('storage/' . $comment->user->avatar) }}"
-                                                    alt="Avatar">
+                                        <div class="main_novost_top">
+                                            <a
+                                                href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                                <div class="main_novost_img">
 
+                                                    <img class="avatar"
+                                                        src="{{ asset('storage/' . $comment->user->avatar) }}"
+                                                        alt="Avatar">
+
+                                                </div>
+                                            </a>
+
+
+                                            <div class="main_novost_title">
+                                                <div>
+                                                    <a
+                                                        href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                                        <p class="txt_2">{{ $comment->user->name }}</p>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <p class="txt_2">{{ $comment->created_at }}</p>
+                                                </div>
                                             </div>
-                                        </a>
+
+                                        </div>
+
+                                        <div class="main_comment_show">
+                                            <p class="txt_2">{{ $comment->content }}</p>
+                                        </div>
 
 
-                                        <div class="main_novost_title">
-                                            <div>
-                                                <a
-                                                    href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
-                                                    <p class="txt_2">{{ $comment->user->name }}</p>
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <p class="txt_2">{{ $comment->created_at }}</p>
-                                            </div>
+
+                                        @if (auth()->user()->role == 'Admin')
+                                            <form method="POST"
+                                                action="{{ route('video.comment.delete', ['videoId' => $video->id, 'commentId' => $comment->id]) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="novost_down_func" type="submit">Удалить
+                                                    комментарий</button>
+                                            </form>
+                                        @endif
+
+
+
+
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="new_comment">
+
+
+                                <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}">
+                                    <div class="shortvideo_form_comment">
+
+                                        @csrf
+
+
+
+
+                                        <textarea class="form_field_comment_shortvideo" name="comment"></textarea>
+
+
+
+                                        <div class="submit_comment">
+                                            <button class="txt_2">
+                                                Отправить
+                                            </button>
+
+
                                         </div>
 
                                     </div>
+                                </form>
 
-                                    <div class="main_comment_show">
-                                        <p class="txt_2">{{ $comment->content }}</p>
-                                    </div>
-
+                            </div>
 
 
-                                    @if (auth()->user()->role == 'Admin')
-                                        <form method="POST"
-                                            action="{{ route('video.comment.delete', ['videoId' => $video->id, 'commentId' => $comment->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="novost_down_func" type="submit">Удалить комментарий</button>
-                                        </form>
-                                    @endif
-
-
-
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <div class="new_comment">
-
-
-                            <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}">
-                                <div class="shortvideo_form_comment">
-
-                                    @csrf
-
-
-
-
-                                    <textarea class="form_field_comment_shortvideo" name="comment"></textarea>
-
-
-
-                                    <div class="submit_comment">
-                                        <button class="txt_2">
-                                            Отправить
-                                        </button>
-
-
-                                    </div>
-
-                                </div>
-                            </form>
 
                         </div>
-
-
-
                     </div>
-
 
                     <div id="mediaContent">
                         <div class="main_shortvideo_content current-video">
+                            
 
-                            <video width="320" height="240" controls autoplay>
+                            <video loop width="320" height="240" controls autoplay style="object-fit:contain">
                                 <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
                                 Ваш браузер не поддерживает видео тег.
                             </video>
@@ -222,42 +227,25 @@
         @endforeach
 
 
+
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var videos = document.querySelectorAll('.main_shortvideo_content');
-                var currentIndex = 0;
+            document.querySelectorAll('.shortvideo_toggleComments').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var comments = this.nextElementSibling;
+                    var isActive = comments.classList.contains('active');
 
-                function showNextVideo() {
-                    if (currentIndex < videos.length - 1) {
-                        videos[currentIndex].classList.remove('visible');
-                        currentIndex++;
-                        videos[currentIndex].classList.add('visible');
-                        videos[currentIndex].scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
 
-                function showPreviousVideo() {
-                    if (currentIndex > 0) {
-                        videos[currentIndex].classList.remove('visible');
-                        currentIndex--;
-                        videos[currentIndex].classList.add('visible');
-                        videos[currentIndex].scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-
-                document.addEventListener('wheel', function(event) {
-                    if (event.deltaY > 0) {
-                        showNextVideo();
+                    if (isActive) {
+                        comments.classList.remove('active');
+                        this.textContent = 'Показать комментарии';
                     } else {
-                        showPreviousVideo();
+                        comments.classList.add('active');
+                        this.textContent = 'Скрыть комментарии';
                     }
                 });
             });
         </script>
+
 
 
     </div>

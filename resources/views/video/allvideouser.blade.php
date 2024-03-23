@@ -6,238 +6,215 @@
 
 
 
-    <div class="main_allvideo_user">
 
 
+    <div class="longvideos_field">
 
-        @if (auth()->user()->permission == 'enabled')
-            <a href="{{ route('newvideo') }}">
-                <div class="main_new_novo_video">
-                    <p class="txt_2">Опубликовать видео</p>
-                </div>
-            </a>
-        @endif
-        <div class="main_osnova">
-            <div class="main_novosti_allvideo">
-
-                @php $count = 0; @endphp
-                @for ($i = 0; $i < count($videos); $i += 4)
-                    <div class="row_allvideo">
-                        @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
-                            @php $video = $videos[$j]; @endphp
-                            @if ($video->status == 'true') <div
-                            class="main_novost_allvideo">
-                            <a href="{{ route('videouser', ['id' => $video->id]) }}">
-                            @csrf
+        <div class="longvideos_thumbnail">
 
 
+            <div class="blurred_bottom"></div>
+            <div class="longvideos_thumbnail_info">
+                <div class="longvideos_thumbnail_top">
 
 
-                            <div class="main_novost_middle_all">
-                            <div id="mediaContent">
-                            <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
-                            alt="Thumbnail" class="videoThumbnail"
-                            data-video="{{ asset('storage/' . $video->video_path) }}" style="cursor:
-                            pointer; width: 280px; height: 160px;">
+                    <h1 class="longvideos_thumbnail_title">TESTTESTTESTTESTTEST</h1>
 
-                            </div>
+                    <div class="longvideos_thumbnail_dopinfoo">
 
-                            </div>
-
-
-
-                            <div class="main_video_info">
-
-                            <div class="main_video_info_1">
-
-                            {{-- Аватар пользователя --}}
-
-                            <div class="main_novost_img">
-
-                            @if ($video->user_id !== null)
-
-                                <a
-                                href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
-                                <img class="avatar"
-                                src="{{ asset('storage/' . $video->user->avatar) }}"
-                                alt="Avatar">
-
-                                </a> @endif
-
+                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
+                        <p>НИКНЕЙМ</p>
+                        <p>00.00.0000</p>
 
                     </div>
 
+                </div>
+
+                <div class="longvideos_thumbnail_description">
+                    <p>ОПИСАНИЕ С РАСКРЫВАЮЩИМ СПИСКОМ</p>
+                </div>
+
             </div>
 
-            <div class="main_video_info_2">
+            <div style="position: absolute" class=""></div>
+            {{-- object-fit: cover; --}}
+            <img src="http://127.0.0.1:8000/storage/thumbnails/thumbnail_1710888252.jpg" alt="Thumbnail"
+                style="object-fit: cover;" class="videoThumbnail">
 
-                {{-- Название ролика --}}
+        </div>
 
-                <div>
-                    <a href="{{ route('videouser', ['id' => $video->id]) }}">
-                        <p class="txt_2">{{ $video->title }}</p>
-                    </a>
+        <div class="longvideos_selections">
+
+            <div class="longvideos_categories">
+
+                <div class="category">
+                    <select class="custom-select-video" name="category" id="category">
+                        <option value="">Все категории</option>
+                        <option value="Спорт">Спорт</option>
+                        <option value="Игры">Игры</option>
+                        <option value="Экономика">Экономика</option>
+                        <option value="Транспорт">Транспорт</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="longvideos_scroll_lock">
+
+
+
+                <div class="longvideos_scroll_sorting_block">
+
+                    <div class="longvideos_scroll_sorting_block_name">Недавние</div>
+                    <div class="longvideos_scroll_sorting_block_videos">
+                        @php $count = 0; @endphp
+                        @for ($i = 0; $i < count($videos); $i += 4)
+
+                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
+                                @php $video = $videos[$j]; @endphp
+                                @if ($video->status == 'true')
+                                    <div class="main_novost_allvideo">
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                            @csrf
+
+                                            <div class="longvideos_video_thumbnail">
+
+                                                <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                                    style="cursor:pointer;">
+                                                <div class="longvideos_video_thumbnail_title">
+                                                    <p class="txt_2">{{ $video->title }}</p>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                @endif
+                            @endfor
+
+                        @endfor
+                    </div>
+                </div>
+
+                <div class="longvideos_scroll_sorting_block">
+
+                    <div class="longvideos_scroll_sorting_block_name">Тренд</div>
+                    <div class="longvideos_scroll_sorting_block_videos">
+                        @php $count = 0; @endphp
+                        @for ($i = 0; $i < count($videos); $i += 4)
+
+                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
+                                @php $video = $videos[$j]; @endphp
+                                @if ($video->status == 'true')
+                                    <div class="main_novost_allvideo">
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                            @csrf
+
+                                            <div class="longvideos_video_thumbnail">
+
+                                                <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                                    style="cursor:pointer;">
+                                                <div class="longvideos_video_thumbnail_title">
+                                                    <p class="txt_2">{{ $video->title }}</p>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                @endif
+                            @endfor
+
+                        @endfor
+                    </div>
+                </div>
+                <div class="longvideos_scroll_sorting_block">
+
+                    <div class="longvideos_scroll_sorting_block_name">Популярные</div>
+                    <div class="longvideos_scroll_sorting_block_videos">
+                        @php $count = 0; @endphp
+                        @for ($i = 0; $i < count($videos); $i += 4)
+
+                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
+                                @php $video = $videos[$j]; @endphp
+                                @if ($video->status == 'true')
+                                    <div class="main_novost_allvideo">
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                            @csrf
+
+                                            <div class="longvideos_video_thumbnail">
+
+                                                <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                                    style="cursor:pointer;">
+                                                <div class="longvideos_video_thumbnail_title">
+                                                    <p class="txt_2">{{ $video->title }}</p>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                @endif
+                            @endfor
+
+                        @endfor
+                    </div>
+                </div>
+                <div class="longvideos_scroll_sorting_block">
+
+                    <div class="longvideos_scroll_sorting_block_name">Просмотрено</div>
+                    <div class="longvideos_scroll_sorting_block_videos">
+                        @php $count = 0; @endphp
+                        @for ($i = 0; $i < count($videos); $i += 4)
+
+                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
+                                @php $video = $videos[$j]; @endphp
+                                @if ($video->status == 'true')
+                                    <div class="main_novost_allvideo">
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                            @csrf
+
+                                            <div class="longvideos_video_thumbnail">
+
+                                                <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
+                                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                                    style="cursor:pointer;">
+                                                <div class="longvideos_video_thumbnail_title">
+                                                    <p class="txt_2">{{ $video->title }}</p>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                @endif
+                            @endfor
+
+                        @endfor
+                    </div>
                 </div>
 
 
 
 
-                {{-- Имя пользователя --}}
-                <a href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
-                    <p class="txt_2">
-                        {{ $video->user->name }}
-                    </p>
-
-                </a>
-
-
-
-                @if (!function_exists('pluralForm'))
-                @php
-                function pluralForm($number, $one, $two, $five)
-                {
-                    $number = abs($number) % 100;
-                    $remainder = $number % 10;
-                
-                    if ($number > 10 && $number < 20) {
-                        return $five;
-                    }
-                
-                    if ($remainder > 1 && $remainder < 5) {
-                        return $two;
-                    }
-                
-                    if ($remainder == 1) {
-                        return $one;
-                    }
-                
-                    return $five;
-                }
-                @endphp
-            @endif
-            
-            @php
-            $createdAt = strtotime($video->created_at);
-            $currentDate = strtotime(date('Y-m-d H:i:s'));
-            $timeDiff = $currentDate - $createdAt;
-            
-            if ($timeDiff >= 86400) {
-                $days = floor($timeDiff / 86400);
-                $formattedTime = $days . ' ' . pluralForm($days, 'день', 'дня', 'дней') . ' назад';
-            } elseif ($timeDiff >= 3600) {
-                $hours = floor($timeDiff / 3600);
-                $formattedTime = $hours . ' ' . pluralForm($hours, 'час', 'часа', 'часов') . ' назад';
-            } elseif ($timeDiff >= 60) {
-                $minutes = floor($timeDiff / 60);
-                $formattedTime = $minutes . ' ' . pluralForm($minutes, 'минута', 'минуты', 'минут') . ' назад';
-            } else {
-                $formattedTime = 'только что';
-            }
-            @endphp
-            
-            <p class="txt_2">ㅤ{{ $formattedTime }}</p>
-            
-                
-                
 
             </div>
-
-
-
 
 
         </div>
 
 
 
-        <div class="main_novost_down">
-            <div class="main_novost_down">
 
-                @if (auth()->user()->role == 'Admin')
-                    <div class="novost_down_func_video">
+</x-app-layout>
 
 
-                        <form method="POST" action="{{ route('video.delete', ['id' => $video->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Удалить видео</button>
-                        </form>
-
-                    </div>
-                @endif
-
-                <?php
-                $friendsList = \App\Models\Friendship::where(function ($query) {
-                $query->where('sender_id', auth()->id())->where('status', 'accepted');
-                })
-                ->orWhere(function ($query) {
-                $query->where('recipient_id', auth()->id())->where('status', 'accepted');
-                })
-                ->get();
-
-                $friendIds = $friendsList
-                ->pluck('sender_id')
-                ->merge($friendsList->pluck('recipient_id'))
-                ->unique();
-
-                $friends = \App\Models\User::whereIn('id', $friendIds)->get();
-                ?>
-
-                <div class="novost_down_func1">
-                    <button onclick="toggleFriendsList({{ $video->id }})" class="novost_down_func_video">📢</button>
-
-                </div>
-                <div id="friendsList{{ $video->id }}" style="display: none;">
-                    <div class="friendsList_repost">
-                        @foreach ($friends as $friend)
-                            @if ($friend->id !== auth()->id())
-                                <a class="txt_2"
-                                    href="{{ route('sendVideoToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
-                                    {{ $friend->name }}
-                                </a>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-
-                <script>
-                    function toggleFriendsList(postId) {
-                        const friendsList = document.getElementById(`friendsList${postId}`);
-                        friendsList.style.display = friendsList.style.display === 'none' ? 'block' : 'none';
-                    }
-
-                </script>
-            </div>
-        </div>
-
-
-        </a>
-    </div>
-
-
-    @endif
-    @endfor
-
-    </div>
-    @endfor
-    </div>
-
-    {{-- <div class="main_filter_video">
+{{-- Категории-сортировка
+    
+    <div class="main_filter_video">
                 <div class="main_filter1">
                     <form method="GET" action="{{ url()->current() }}">
                         @csrf
 
-                        <div class="category">
-                            
-                            <label for="category">Выберите категорию</label>
-                            <select class="custom-select-video" name="category" id="category">
-                                <option value="">Все категории</option>
-                                <option value="Спорт">Спорт</option>
-                                <option value="Игры">Игры</option>
-                                <option value="Экономика">Экономика</option>
-                                <option value="Транспорт">Транспорт</option>
-                            </select>
-                        </div>
+
 
                         <div class="sortirovka">
                             <label for="sortirovka">Выберите сортировку</label>
@@ -253,15 +230,84 @@
                         </div>
                     </form>
                 </div>
-            </div> --}}
+            </div>
+            
+            
+--}}
+
+{{-- 
+                
+                @if (auth()->user()->permission == 'enabled')
+            <a href="{{ route('newvideo') }}">
+                <div class="main_new_novo_video">
+                    <p class="txt_2">Опубликовать видео</p>
+                </div>
+            </a>
+        @endif 
+        
+        
+--}}
 
 
 
 
-    </div>
+{{-- Скоректированная дата
+            
+            
+            <div class="main_video_info_2">
 
-    </div>
+            @if (!function_exists('pluralForm'))
+                @php
+                    function pluralForm($number, $one, $two, $five)
+                    {
+                        $number = abs($number) % 100;
+                        $remainder = $number % 10;
 
+                        if ($number > 10 && $number < 20) {
+                            return $five;
+                        }
 
+                        if ($remainder > 1 && $remainder < 5) {
+                            return $two;
+                        }
 
-</x-app-layout>
+                        if ($remainder == 1) {
+                            return $one;
+                        }
+
+                        return $five;
+                    }
+                @endphp
+            @endif
+
+            @php
+                $createdAt = strtotime($video->created_at);
+                $currentDate = strtotime(date('Y-m-d H:i:s'));
+                $timeDiff = $currentDate - $createdAt;
+
+                if ($timeDiff >= 86400) {
+                    $days = floor($timeDiff / 86400);
+                    $formattedTime =
+                        $days . ' ' . pluralForm($days, 'день', 'дня', 'дней') . ' назад';
+                } elseif ($timeDiff >= 3600) {
+                    $hours = floor($timeDiff / 3600);
+                    $formattedTime =
+                        $hours . ' ' . pluralForm($hours, 'час', 'часа', 'часов') . ' назад';
+                } elseif ($timeDiff >= 60) {
+                    $minutes = floor($timeDiff / 60);
+                    $formattedTime =
+                        $minutes .
+                        ' ' .
+                        pluralForm($minutes, 'минута', 'минуты', 'минут') .
+                        ' назад';
+                } else {
+                    $formattedTime = 'только что';
+                }
+            @endphp
+
+            <p class="txt_2">ㅤ{{ $formattedTime }}</p>
+
+        </div> 
+        
+        
+--}}

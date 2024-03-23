@@ -101,7 +101,7 @@
                             <div class="main_statementuser_info">
 
                                 <p class="txt_1">{{ $video->title }}</p>
-
+                                {{-- ОПИСАНИЕ РОЛИКА ШРИФТ МЕНЬШЕ + ДОБАВИТЬ ТЁМНЫЙ ФОН --}}
                             </div>
                         </div>
                     </div>
@@ -301,50 +301,47 @@
         });
     </script>
 
-<script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const videos = document.querySelectorAll("video");
 
-document.addEventListener("DOMContentLoaded", function() {
-    const videos = document.querySelectorAll("video");
-
-    function updateAddressBar(videoId) {
-        window.history.replaceState(null, null, `?videoId=${videoId}`);
-    }
-
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5
-    };
-
-    function handleIntersection(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const video = entry.target;
-                const shortVideoRama = video.closest('.shortvideo_rama');
-                if (shortVideoRama) {
-                    shortVideoRama.classList.add('active');
-                    const videoId = shortVideoRama.dataset.videoId;
-                    updateAddressBar(videoId);
-                }
-            } else {
-                const video = entry.target;
-                const shortVideoRama = video.closest('.shortvideo_rama');
-                if (shortVideoRama) {
-                    shortVideoRama.classList.remove('active');
-                }
+            function updateAddressBar(videoId) {
+                window.history.replaceState(null, null, `?videoId=${videoId}`);
             }
+
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            function handleIntersection(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const video = entry.target;
+                        const shortVideoRama = video.closest('.shortvideo_rama');
+                        if (shortVideoRama) {
+                            shortVideoRama.classList.add('active');
+                            const videoId = shortVideoRama.dataset.videoId;
+                            updateAddressBar(videoId);
+                        }
+                    } else {
+                        const video = entry.target;
+                        const shortVideoRama = video.closest('.shortvideo_rama');
+                        if (shortVideoRama) {
+                            shortVideoRama.classList.remove('active');
+                        }
+                    }
+                });
+            }
+
+            const observer = new IntersectionObserver(handleIntersection, options);
+
+            videos.forEach(video => {
+                observer.observe(video);
+            });
         });
-    }
-
-    const observer = new IntersectionObserver(handleIntersection, options);
-
-    videos.forEach(video => {
-        observer.observe(video);
-    });
-});
-
-
-</script>
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -417,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                         changePlaybackSpeed(rightActiveVideo, rightActiveVideo
                                             .parentElement.querySelector(".speed-btn"));
                                         speedChanged =
-                                        true;
+                                            true;
                                     }
                                 }
                                 break;

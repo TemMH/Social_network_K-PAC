@@ -318,29 +318,29 @@
         });
     </script>
 
-<script>
-    function toggleTheaterAndFullScreen() {
-        const shortVideoRamaScroll = document.querySelector(".shortvideo_rama_scroll");
-        shortVideoRamaScroll.classList.toggle("theater");
-        toggleFullScreen();
-    }
+    <script>
+        function toggleTheaterAndFullScreen() {
+            const shortVideoRamaScroll = document.querySelector(".shortvideo_rama_scroll");
+            shortVideoRamaScroll.classList.toggle("theater");
+            toggleFullScreen();
+        }
 
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
             }
         }
-    }
 
-    document.addEventListener("keydown", function(event) {
-        if (event.keyCode === 70) { // Клавиша F
-            toggleTheaterAndFullScreen();
-        }
-    });
-</script> 
+        document.addEventListener("keydown", function(event) {
+            if (event.keyCode === 70) { // Клавиша F
+                toggleTheaterAndFullScreen();
+            }
+        });
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

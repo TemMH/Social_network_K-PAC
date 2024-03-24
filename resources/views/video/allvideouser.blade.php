@@ -18,28 +18,40 @@
                 <div class="longvideos_thumbnail_top">
 
 
-                    <h1 class="longvideos_thumbnail_title">TESTTESTTESTTESTTEST</h1>
+                    <h1 class="longvideos_thumbnail_title"></h1>
 
-                    <div class="longvideos_thumbnail_dopinfoo">
+                    <div class="longvideos_thumbnail_dopinfo">
 
-                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
-                        <p>НИКНЕЙМ</p>
-                        <p>00.00.0000</p>
+                        <div class="longvideos_thumbnail_avatar">
+
+                        </div>
+                        <div class="longvideos_thumbnail_name">
+                            <p class="longvideos_thumbnail_name"></p>
+                        </div>
+                        <div class="longvideos_thumbnail_created_at">
+                            <p class="longvideos_thumbnail_created_at"></p>
+                        </div>
+
+
 
                     </div>
 
                 </div>
 
                 <div class="longvideos_thumbnail_description">
-                    <p>ОПИСАНИЕ С РАСКРЫВАЮЩИМ СПИСКОМ</p>
+                    Раскрывающийся список
+
+                    <div class="longvideos_thumbnail_description_text">
+                        
+                    <p class="longvideos_thumbnail_description_text"></p>
+                </div>
                 </div>
 
             </div>
 
             <div style="position: absolute" class=""></div>
-            {{-- object-fit: cover; --}}
-            <img src="http://127.0.0.1:8000/storage/thumbnails/thumbnail_1710888252.jpg" alt="Thumbnail"
-                style="object-fit: cover;" class="videoThumbnail">
+
+            <img src="" alt="Thumbnail" style="object-fit: cover;" class="videoThumbnail_main">
 
         </div>
 
@@ -66,32 +78,45 @@
 
                     <div class="longvideos_scroll_sorting_block_name">Недавние</div>
                     <div class="longvideos_scroll_sorting_block_videos">
-                        @php $count = 0; @endphp
-                        @for ($i = 0; $i < count($videos); $i += 4)
 
-                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
-                                @php $video = $videos[$j]; @endphp
-                                @if ($video->status == 'true')
+                        @for ($i = 0; $i < min(count($videos), 4); $i++)
+                            @php $video = $videos[$i]; @endphp
+                            @if ($video->status == 'true')
+                                <div class="longvideos_scroll_sorting_block_videos_fixed">
                                     <div class="main_novost_allvideo">
                                         <a href="{{ route('videouser', ['id' => $video->id]) }}">
                                             @csrf
 
                                             <div class="longvideos_video_thumbnail">
-
                                                 <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
                                                     alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
                                                     style="cursor:pointer;">
                                                 <div class="longvideos_video_thumbnail_title">
                                                     <p class="txt_2">{{ $video->title }}</p>
                                                 </div>
+                                                <div class="longvideos_thumbnail_dopinfo_formain">
+                                                    <p class="lv_name">{{ $video->user->name }}</p>
+                                                    <p class="lv_avatar">
+                                                        @if ($video->user->avatar !== null)
+                                                            <img class="avatar"
+                                                                src="{{ asset('storage/' . $video->user->avatar) }}"
+                                                                alt="Avatar">
+                                                        @else
+                                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                                alt="Avatar">
+                                                        @endif
+                                                    </p>
+                                                    <p class="lv_description">{{ $video->description }}</p>
+                                                    <p class="lv_created_at">{{ $video->created_at }}</p>
+                                                </div>
                                             </div>
 
                                         </a>
                                     </div>
-                                @endif
-                            @endfor
-
+                                </div>
+                            @endif
                         @endfor
+
                     </div>
                 </div>
 
@@ -99,96 +124,132 @@
 
                     <div class="longvideos_scroll_sorting_block_name">Тренд</div>
                     <div class="longvideos_scroll_sorting_block_videos">
-                        @php $count = 0; @endphp
-                        @for ($i = 0; $i < count($videos); $i += 4)
-
-                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
-                                @php $video = $videos[$j]; @endphp
-                                @if ($video->status == 'true')
+                        @for ($i = 0; $i < min(count($videos), 4); $i++)
+                            @php $video = $videos[$i]; @endphp
+                            @if ($video->status == 'true')
+                                <div class="longvideos_scroll_sorting_block_videos_fixed">
                                     <div class="main_novost_allvideo">
                                         <a href="{{ route('videouser', ['id' => $video->id]) }}">
                                             @csrf
 
                                             <div class="longvideos_video_thumbnail">
-
                                                 <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
                                                     alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
                                                     style="cursor:pointer;">
                                                 <div class="longvideos_video_thumbnail_title">
                                                     <p class="txt_2">{{ $video->title }}</p>
                                                 </div>
+                                                <div class="longvideos_thumbnail_dopinfo_formain">
+                                                    <p class="lv_name">{{ $video->user->name }}</p>
+                                                    <p class="lv_avatar">
+                                                        @if ($video->user->avatar !== null)
+                                                            <img class="avatar"
+                                                                src="{{ asset('storage/' . $video->user->avatar) }}"
+                                                                alt="Avatar">
+                                                        @else
+                                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                                alt="Avatar">
+                                                        @endif
+                                                    </p>
+                                                    <p class="lv_description">{{ $video->description }}</p>
+                                                    <p class="lv_created_at">{{ $video->created_at }}</p>
+                                                </div>
                                             </div>
 
                                         </a>
                                     </div>
-                                @endif
-                            @endfor
-
+                                </div>
+                            @endif
                         @endfor
+
                     </div>
                 </div>
                 <div class="longvideos_scroll_sorting_block">
 
                     <div class="longvideos_scroll_sorting_block_name">Популярные</div>
                     <div class="longvideos_scroll_sorting_block_videos">
-                        @php $count = 0; @endphp
-                        @for ($i = 0; $i < count($videos); $i += 4)
-
-                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
-                                @php $video = $videos[$j]; @endphp
-                                @if ($video->status == 'true')
+                        @for ($i = 0; $i < min(count($videos), 4); $i++)
+                            @php $video = $videos[$i]; @endphp
+                            @if ($video->status == 'true')
+                                <div class="longvideos_scroll_sorting_block_videos_fixed">
                                     <div class="main_novost_allvideo">
                                         <a href="{{ route('videouser', ['id' => $video->id]) }}">
                                             @csrf
 
                                             <div class="longvideos_video_thumbnail">
-
                                                 <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
                                                     alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
                                                     style="cursor:pointer;">
                                                 <div class="longvideos_video_thumbnail_title">
                                                     <p class="txt_2">{{ $video->title }}</p>
                                                 </div>
+                                                <div class="longvideos_thumbnail_dopinfo_formain">
+                                                    <p class="lv_name">{{ $video->user->name }}</p>
+                                                    <p class="lv_avatar">
+                                                        @if ($video->user->avatar !== null)
+                                                            <img class="avatar"
+                                                                src="{{ asset('storage/' . $video->user->avatar) }}"
+                                                                alt="Avatar">
+                                                        @else
+                                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                                alt="Avatar">
+                                                        @endif
+                                                    </p>
+                                                    <p class="lv_description">{{ $video->description }}</p>
+                                                    <p class="lv_created_at">{{ $video->created_at }}</p>
+                                                </div>
                                             </div>
 
                                         </a>
                                     </div>
-                                @endif
-                            @endfor
-
+                                </div>
+                            @endif
                         @endfor
+
                     </div>
                 </div>
                 <div class="longvideos_scroll_sorting_block">
 
                     <div class="longvideos_scroll_sorting_block_name">Просмотрено</div>
                     <div class="longvideos_scroll_sorting_block_videos">
-                        @php $count = 0; @endphp
-                        @for ($i = 0; $i < count($videos); $i += 4)
-
-                            @for ($j = $i; $j < $i + 4 && $j < count($videos); $j++)
-                                @php $video = $videos[$j]; @endphp
-                                @if ($video->status == 'true')
+                        @for ($i = 0; $i < min(count($videos), 4); $i++)
+                            @php $video = $videos[$i]; @endphp
+                            @if ($video->status == 'true')
+                                <div class="longvideos_scroll_sorting_block_videos_fixed">
                                     <div class="main_novost_allvideo">
                                         <a href="{{ route('videouser', ['id' => $video->id]) }}">
                                             @csrf
 
                                             <div class="longvideos_video_thumbnail">
-
                                                 <img src="{{ asset('storage/' . $video->thumbnail_path) }}"
-                                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
-                                                    style="cursor:pointer;">
+                                                    alt="Thumbnail" style="object-fit:contain;"
+                                                    class="videoThumbnail" style="cursor:pointer;">
                                                 <div class="longvideos_video_thumbnail_title">
                                                     <p class="txt_2">{{ $video->title }}</p>
+                                                </div>
+                                                <div class="longvideos_thumbnail_dopinfo_formain">
+                                                    <p class="lv_name">{{ $video->user->name }}</p>
+                                                    <p class="lv_avatar">
+                                                        @if ($video->user->avatar !== null)
+                                                            <img class="avatar"
+                                                                src="{{ asset('storage/' . $video->user->avatar) }}"
+                                                                alt="Avatar">
+                                                        @else
+                                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                                alt="Avatar">
+                                                        @endif
+                                                    </p>
+                                                    <p class="lv_description">{{ $video->description }}</p>
+                                                    <p class="lv_created_at">{{ $video->created_at }}</p>
                                                 </div>
                                             </div>
 
                                         </a>
                                     </div>
-                                @endif
-                            @endfor
-
+                                </div>
+                            @endif
                         @endfor
+
                     </div>
                 </div>
 
@@ -200,6 +261,104 @@
 
 
         </div>
+
+
+        <script>
+            let lastThumbnailSrc = "";
+            let lastTitle = "";
+            let lastAvatar = "";
+            let lastName = "";
+            let lastDescription = "";
+            let lastCreatedAt = "";
+        
+            const hoverThumbnail = document.querySelector('.videoThumbnail_main');
+            const hoverTitle = document.querySelector('.longvideos_thumbnail_title');
+            const hoverAvatar = document.querySelector('.longvideos_thumbnail_avatar');
+            const hoverName = document.querySelector('.longvideos_thumbnail_name p');
+            const hoverDescription = document.querySelector('.longvideos_thumbnail_description_text');
+
+            const hoverCreatedAt = document.querySelector('.longvideos_thumbnail_created_at p');
+        
+            document.addEventListener("DOMContentLoaded", function() {
+                const mainNovostAllVideos = document.querySelectorAll('.main_novost_allvideo');
+                let isHovered = false;
+        
+                mainNovostAllVideos.forEach(videoElement => {
+                    videoElement.addEventListener('mouseenter', () => {
+                        isHovered = true;
+                        const thumbnail = videoElement.querySelector('.videoThumbnail');
+                        lastThumbnailSrc = thumbnail.getAttribute('src');
+                        const title = videoElement.querySelector('.longvideos_video_thumbnail_title .txt_2').textContent;
+                        lastTitle = title;
+                        const avatar = videoElement.querySelector('.lv_avatar').textContent;
+                        lastAvatar = avatar;
+                        const name = videoElement.querySelector('.lv_name').textContent;
+                        lastName = name;
+                        const description = videoElement.querySelector('.lv_description').textContent;
+                        lastDescription = description;
+                        const createdAt = videoElement.querySelector('.lv_created_at').textContent;
+                        lastCreatedAt = createdAt;
+        
+                        hoverThumbnail.classList.add('hide');
+                        hoverTitle.classList.add('hide');
+                        hoverAvatar.classList.add('hide');
+                        hoverName.classList.add('hide');
+                        hoverDescription.classList.add('hide');
+                        hoverCreatedAt.classList.add('hide');
+        
+                        hoverThumbnail.addEventListener('transitionend', updateThumbnail);
+                        hoverTitle.addEventListener('transitionend', updateTitle);
+                        hoverAvatar.addEventListener('transitionend', updateAvatar);
+                        hoverName.addEventListener('transitionend', updateName);
+                        hoverDescription.addEventListener('transitionend', updateDescription);
+                        hoverCreatedAt.addEventListener('transitionend', updateCreatedAt);
+                    });
+        
+                    videoElement.addEventListener('mouseleave', () => {
+                        isHovered = false;
+                    });
+                });
+            });
+        
+            function updateThumbnail() {
+                hoverThumbnail.setAttribute('src', lastThumbnailSrc);
+                hoverThumbnail.classList.remove('hide');
+                hoverThumbnail.removeEventListener('transitionend', updateThumbnail);
+            }
+        
+            function updateTitle() {
+                hoverTitle.textContent = lastTitle;
+                hoverTitle.classList.remove('hide');
+                hoverTitle.removeEventListener('transitionend', updateTitle);
+            }
+        
+            function updateAvatar() {
+                hoverAvatar.textContent = lastAvatar;
+                hoverAvatar.classList.remove('hide');
+                hoverAvatar.removeEventListener('transitionend', updateAvatar);
+            }
+        
+            function updateName() {
+                hoverName.textContent = lastName;
+                hoverName.classList.remove('hide');
+                hoverName.removeEventListener('transitionend', updateName);
+            }
+        
+            function updateDescription() {
+                hoverDescription.textContent = lastDescription;
+                hoverDescription.classList.remove('hide');
+                hoverDescription.removeEventListener('transitionend', updateDescription);
+            }
+        
+            function updateCreatedAt() {
+                hoverCreatedAt.textContent = lastCreatedAt;
+                hoverCreatedAt.classList.remove('hide');
+                hoverCreatedAt.removeEventListener('transitionend', updateCreatedAt);
+            }
+        </script>
+        
+
+
 
 
 

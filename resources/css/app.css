@@ -1966,8 +1966,66 @@ main {
 .videoThumbnail {
 
     border-radius: 12px;
+    
 
 }
+
+.videoThumbnail_main{
+
+    border-radius: 12px;
+
+}
+
+.videoThumbnail_main {
+    transition: opacity 0.4s ease-in-out;
+    
+}
+
+.longvideos_thumbnail_title {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.longvideos_thumbnail_avatar {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.longvideos_thumbnail_name {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.longvideos_thumbnail_created_at {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.longvideos_thumbnail_description {
+    transition: opacity 0.4s ease-in-out;
+}
+
+
+.videoThumbnail_main.hide {
+    opacity: 0;
+}
+
+.longvideos_thumbnail_title.hide {
+    opacity: 0;
+}
+
+.longvideos_thumbnail_avatar.hide {
+    opacity: 0;
+}
+
+.longvideos_thumbnail_created_at.hide {
+    opacity: 0;
+}
+
+.longvideos_thumbnail_name.hide {
+    opacity: 0;
+}
+
+.longvideos_thumbnail_description.hide {
+    opacity: 0;
+}
+
 
 video {
 
@@ -2910,7 +2968,8 @@ video {
     width: 100%;
     height: 100%;
     position: absolute;
-    background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, #1A1A1A 100%)
+    background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, #1A1A1A 100%);
+    z-index: 2;
 }
 
 .longvideos_selections {
@@ -2918,7 +2977,7 @@ video {
     width: 100%;
     height: 35vh;
     margin-top: -10%;
-
+    z-index: 3;
 }
 
 .longvideos_categories {
@@ -2929,7 +2988,7 @@ video {
 
 .longvideos_scroll_sorting_block {
 
-    /* height: 60%; */
+    /* height: 50%; */
     width: 100%;
     position: relative;
     scroll-snap-align: start;
@@ -2999,7 +3058,9 @@ video {
 
     display: flex;
     justify-content: space-around;
+    align-items: center;
     margin: 1% auto;
+    /* height: 90%; */
 
 
 }
@@ -3008,17 +3069,32 @@ video {
 .main_novost_allvideo {
 
     height: auto;
-    width: 15%;
+    width: 90%;
     /* background-color: rgba(19, 19, 19, 1); */
     /* border: 1px solid; */
     /* border-color: #950740; */
     border-radius: 12px;
     display: flex;
+    align-items: center;
     flex-direction: column;
+    margin: 0 auto;
     justify-content: space-between;
     color: #D9D9D9;
 
+    transition: margin-bottom 0.3s, border 0.4s, box-shadow 0.4s ease-in-out;
+
+
 }
+
+.main_novost_allvideo:hover{
+
+
+border: 1px solid #777777;
+box-shadow: 0px 3px 5px #777777;
+margin-bottom: 2%;
+/* width: 100%; */
+}
+
 
 .longvideos_video_thumbnail {
 
@@ -3077,12 +3153,29 @@ video {
     min-width: 15%;
     bottom: 20%;
     left: 2%;
-
+    z-index: 3;
 }
 
-.longvideos_thumbnail_dopinfoo{
+.longvideos_thumbnail_dopinfo{
 
     display: flex;
     align-items:center;
+
+}
+
+.longvideos_scroll_sorting_block_videos_fixed{
+
+    width: 17%;
+    height: auto;
+    aspect-ratio: 16/9;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.longvideos_thumbnail_dopinfo_formain{
+
+    display: none;
 
 }

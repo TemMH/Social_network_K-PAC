@@ -12,14 +12,24 @@
                         <div class="main_shortvideo_left">
                             <div class="main_shortvideo_func">
                                 <div class="author">
-                                    <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}"
-                                        alt="Avatar">
+
+
+
+                                    @if ($video->user->avatar !== null)
+                                        <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}"
+                                            alt="Avatar">
+                                    @else
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                    @endif
 
                                     <p class="txt_2"> <a
                                             href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
                                             {{ $video->user->name }}
 
                                         </a></p>
+
+
+
 
                                     <div class="novost_down_func1">
                                         <button class="novost_down_func_video" onclick="">Подписаться</button>
@@ -122,9 +132,16 @@
                                                 href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                                 <div class="main_novost_img">
 
-                                                    <img class="avatar"
-                                                        src="{{ asset('storage/' . $comment->user->avatar) }}"
-                                                        alt="Avatar">
+                                                    @if ($comment->user->avatar !== null)
+                                                        <img src="{{ asset('storage/' . $friend->avatar) }}"
+                                                            alt="Avatar">
+                                                    @else
+                                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                            alt="Avatar">
+                                                    @endif
+
+
+
 
                                                 </div>
                                             </a>
@@ -301,47 +318,29 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const videos = document.querySelectorAll("video");
+<script>
+    function toggleTheaterAndFullScreen() {
+        const shortVideoRamaScroll = document.querySelector(".shortvideo_rama_scroll");
+        shortVideoRamaScroll.classList.toggle("theater");
+        toggleFullScreen();
+    }
 
-            function updateAddressBar(videoId) {
-                window.history.replaceState(null, null, `?videoId=${videoId}`);
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
             }
+        }
+    }
 
-            const options = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.5
-            };
-
-            function handleIntersection(entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const video = entry.target;
-                        const shortVideoRama = video.closest('.shortvideo_rama');
-                        if (shortVideoRama) {
-                            shortVideoRama.classList.add('active');
-                            const videoId = shortVideoRama.dataset.videoId;
-                            updateAddressBar(videoId);
-                        }
-                    } else {
-                        const video = entry.target;
-                        const shortVideoRama = video.closest('.shortvideo_rama');
-                        if (shortVideoRama) {
-                            shortVideoRama.classList.remove('active');
-                        }
-                    }
-                });
-            }
-
-            const observer = new IntersectionObserver(handleIntersection, options);
-
-            videos.forEach(video => {
-                observer.observe(video);
-            });
-        });
-    </script>
+    document.addEventListener("keydown", function(event) {
+        if (event.keyCode === 70) { // Клавиша F
+            toggleTheaterAndFullScreen();
+        }
+    });
+</script> 
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -361,9 +360,19 @@
 
             let speedChanged = false;
 
+
+
             document.addEventListener("keydown", function(event) {
                 if (event.keyCode === 32) {
                     event.preventDefault();
+                    const activeVideo = document.querySelector(".shortvideo_rama.active video");
+                    if (activeVideo) {
+                        if (activeVideo.paused) {
+                            activeVideo.play();
+                        } else {
+                            activeVideo.pause();
+                        }
+                    }
                 }
             });
 
@@ -392,15 +401,7 @@
                         const activeVideo = document.querySelector(".shortvideo_rama.active video");
 
                         switch (event.keyCode) {
-                            case 32: // Пробел
-                                if (activeVideo) {
-                                    if (activeVideo.paused) {
-                                        activeVideo.play();
-                                    } else {
-                                        activeVideo.pause();
-                                    }
-                                }
-                                break;
+
                             case 37: // Стрелка влево
                                 if (activeVideo && activeVideo.currentTime >= 1) {
                                     activeVideo.currentTime -= 1;
@@ -418,14 +419,17 @@
                                     }
                                 }
                                 break;
-                            case 70: // Клавиша F
-                                toggleTheaterAndFullScreen();
-                                break;
                             case 77: // Клавиша M
                                 video.muted = !video.muted;
                                 break;
                         }
                     }
+                });
+
+
+
+                theaterBtns.forEach(function(theaterBtn) {
+                    theaterBtn.addEventListener("click", toggleTheaterAndFullScreen);
                 });
 
                 document.addEventListener("keyup", function(event) {
@@ -445,14 +449,7 @@
                     }
                 });
 
-                function toggleTheaterAndFullScreen() {
-                    shortVideoRamaScroll.classList.toggle("theater");
-                    toggleFullScreen();
-                }
 
-                theaterBtns.forEach(function(theaterBtn) {
-                    theaterBtn.addEventListener("click", toggleTheaterAndFullScreen);
-                });
 
                 volumeBtn.addEventListener("click", function() {
                     if (video.muted) {
@@ -501,6 +498,10 @@
         document.addEventListener("DOMContentLoaded", function() {
             const videos = document.querySelectorAll("video");
 
+            function updateAddressBar(videoId) {
+                window.history.replaceState(null, null, `?videoId=${videoId}`);
+            }
+
             const options = {
                 root: null,
                 rootMargin: '0px',
@@ -509,23 +510,21 @@
 
             function handleIntersection(entries, observer) {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const video = entry.target;
-                        const shortVideoRama = video.closest('.shortvideo_rama');
-                        if (shortVideoRama) {
+                    const video = entry.target;
+                    const shortVideoRama = video.closest('.shortvideo_rama');
+                    if (shortVideoRama) {
+                        if (entry.isIntersecting) {
+                            video.play();
                             shortVideoRama.classList.add('active');
-                        }
-                    } else {
-                        const video = entry.target;
-                        const shortVideoRama = video.closest('.shortvideo_rama');
-                        if (shortVideoRama) {
+                            const videoId = shortVideoRama.dataset.videoId;
+                            updateAddressBar(videoId);
+                        } else {
+                            video.pause();
                             shortVideoRama.classList.remove('active');
                         }
                     }
                 });
             }
-
-
 
             const observer = new IntersectionObserver(handleIntersection, options);
 
@@ -534,5 +533,6 @@
             });
         });
     </script>
+
 
 </x-app-layout>

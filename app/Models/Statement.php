@@ -12,12 +12,11 @@ class Statement extends Model
 
     protected $fillable = [
         'statement_id',
-        'name',
         'title',
         'description',
-        'user_id',
         'status',
         'category',
+        'photo_path',
     ];
 
     public function likes()
@@ -32,9 +31,9 @@ class Statement extends Model
     }
 
     public function user()
-{
-    return $this->belongsTo(User::class, 'user_id');
-}
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function addComment($comment)
     {

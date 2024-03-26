@@ -116,4 +116,9 @@ class User extends Authenticatable
         return $this->hasMany(Video::class);
     }
 
+    public function statements()
+    {
+        return $this->hasMany(Statement::class);
+    }
+
 }

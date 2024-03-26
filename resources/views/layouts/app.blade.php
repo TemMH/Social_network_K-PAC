@@ -157,7 +157,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allvideouser') }}">
+                            <a href="{{ route('allstatementuser') }}">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/zyzoecaw.json" trigger="hover"
                                     colors="primary:#777777" style="width:50px;height:50px">

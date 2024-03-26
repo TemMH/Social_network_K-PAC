@@ -52,7 +52,7 @@ Route::get('/statementuser', function () {
 
 
 
-Route::post('/newstatement', [StatementController::class, 'store'])->name('test');
+Route::post('/newstatement', [StatementController::class, 'store'])->name('createstatement');
 
 Route::get('/mystatement', [myStatementController::class, 'mystatement'])->name('mystatement')->middleware(['auth', 'verified']);
 
@@ -80,7 +80,7 @@ Route::get('/statement/{id}/edit', [myStatementController::class, 'edit'])->name
 
 Route::put('/statement/{id}/updatetest', [myStatementController::class, 'updatetest'])->name('statement.updatetest');
 
-Route::get('statement', [StatementController::class, 'create'])->name('statement');
+// Route::get('statement', [StatementController::class, 'create'])->name('statement');
 
 
 

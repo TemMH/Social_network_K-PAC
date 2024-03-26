@@ -23,7 +23,7 @@ class VideoController extends Controller
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
             'video' => 'required|file|mimes:mp4|max:500000',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|aspect_ratio',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048|aspect_ratio',
         ]);
     
         $user = auth()->user();
@@ -40,7 +40,7 @@ class VideoController extends Controller
             $video = $user->videos()->create([
                 'title' => $request->title,
                 'description' => $request->description,
-                'status' => 'new',
+                'status' => 'true',
                 'category' => $request->category,
                 'video_path' => 'videos/' . $videoName,
                 'thumbnail_path' => 'thumbnails/' . $thumbnailName,

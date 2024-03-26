@@ -9,7 +9,7 @@
     <div class="main">
 
         <div class="main_osnova">
-            <form method="POST" action="{{ route('test') }}">
+            <form method="POST" action="{{ route('createstatement') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="main_news">
 
@@ -18,6 +18,14 @@
                         <x-text-input id="title" class="block mt-1 w-full" type="text" name="title"
                             :value="old('title')" required autofocus autocomplete="title" />
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                    </div>
+
+
+                    <div>
+                        <label for="photo" class="txt_2">{{ __('Загрузите фото для статьи') }}</label>
+                        <input type="file" id="photo" name="photo" accept="image/*" required />
+                        <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+
                     </div>
 
 

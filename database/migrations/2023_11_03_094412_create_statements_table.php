@@ -13,18 +13,16 @@ return new class extends Migration
     {
         Schema::create('statements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('user_id');
             $table->string('title')->unique();
             $table->string('description');
-            $table->string('category')->nullable();
-
-            $table->string('user_id');
-
-
             $table->string('status');
-            
-            $table->rememberToken();
+            $table->string('category')->nullable();
+            $table->string('photo_path', 512)->nullable();
+
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

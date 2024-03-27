@@ -84,6 +84,11 @@ Route::put('/statement/{id}/updatetest', [myStatementController::class, 'updatet
 
 
 
+Route::get('/statement/{id}/details', [StatementController::class, 'getStatementDetails'])->name('statement.details');
+
+
+
+
 // Video
 
 Route::get('/allvideouser', function () {

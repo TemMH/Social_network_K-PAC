@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
-
+use Illuminate\Support\Facades\Auth;
 
 class StatementController extends Controller
 {
@@ -61,22 +61,24 @@ class StatementController extends Controller
     public function like(Request $request, $id)
     {
         $statement = Statement::findOrFail($id);
-
+    
         if (!$statement->likes()->where('user_id', auth()->id())->exists()) {
             $like = new Like(['user_id' => auth()->id()]);
             $statement->likes()->save($like);
         }
-
-        return redirect()->back();
+    
+        return response()->json(['message' => 'Liked successfully', 'likes_count' => $statement->likes()->count()]);
     }
+    
 
     public function unlike(Request $request, $id)
     {
         $statement = Statement::findOrFail($id);
         $statement->likes()->where('user_id', auth()->id())->delete();
-
-        return redirect()->back();
+    
+        return response()->json(['message' => 'Unliked successfully', 'likes_count' => $statement->likes()->count()]);
     }
+    
 
 
     public function show($id)
@@ -112,6 +114,40 @@ class StatementController extends Controller
         return redirect()->back();
     }
 
+    public function getStatementDetails($id)
+    {
+        $statement = Statement::with('user')->findOrFail($id);
+        $photoUrl = asset('storage/' . $statement->photo_path);
+        $comments = Comment::where('statement_id', $id)->get();
+        $user = Auth::user();
+        $likeUrl = route('statement.like', ['id' => $statement->id]);
+        $unlikeUrl = route('statement.unlike', ['id' => $statement->id]);
+        $createcomment = route('statement.comment', ['id' => $statement->id]) ;
+    
+        ob_start();
+        if (!$statement->likes()->where('user_id', auth()->id())->exists()) {
+            ?>
+            <button type="submit" class="novost_down_func_news">♡</button>
+            <?php
+        } else {
+            ?>
+            <button type="submit" class="novost_down_func_news">❤</button>
+            <?php
+        }
+        $likeButtonHtml = ob_get_clean();
+    
+        return response()->json([
+            'statement' => $statement,
+            'user' => $user,
+            'photo_url' => $photoUrl,
+            'like_button_html' => $likeButtonHtml,
+            'like_url' => $likeUrl,
+            'unlike_url' => $unlikeUrl,
+            'comments' => $comments,
+            'createcomment' => $createcomment,
+        ]);
+    }
+    
 
     public function delete($id)
     {

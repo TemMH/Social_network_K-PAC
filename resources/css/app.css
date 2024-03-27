@@ -2177,6 +2177,7 @@ video {
 
     width: 100%;
     height: 100%;
+    aspect-ratio: 16/9;
     overflow: hidden;
     scroll-snap-align: center;
     scroll-snap-stop: always;
@@ -3285,7 +3286,7 @@ video {
 .statement_block {
     position: relative;
     overflow: hidden;
-
+    cursor: pointer;
 
 
     margin-bottom: 3%;
@@ -3297,8 +3298,24 @@ video {
 
 .statement_block_top {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin: 2% auto;
+
+}
+
+.statement_block_top_info_left{
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.statement_block_top_info_right{
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
 }
 
@@ -3312,6 +3329,14 @@ video {
     width: 100%;
     margin: 2% auto;
     object-fit: contain;
+
+}
+
+.statement_block_top_info_right_like{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
 
@@ -3377,14 +3402,21 @@ video {
 
 .statement_field_open{
 
+    display: none;
+
+}
+
+.statement_field_open.opened{
+
     position: absolute;
     left: 0;
     top: 0;
     z-index: 10;
     width: 100vw;
     height: 100vh;
-    background-color: #1A1A1A;
-    opacity: 0.9;
+
+    background-color: rgba(26,26,26,0.9); /* #1A1A1A */
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3398,18 +3430,31 @@ video {
     min-height: 60%;
     max-height: 80%;
     border-radius: 12px;
-    background-color: #159983;
+    background-color: #222222;
+    border: 1px solid #484848;
     overflow-y: scroll;
     padding: 0 1%;
-
+    z-index: 12;
+    
+    margin-left: 3%;
 
 
 }
 
 .statement_block_top_open {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1% auto;
+
+}
+
+.statement_block_top_info_left_open{
+
     display: flex;
     justify-content: flex-start;
-    margin: 1% auto;
+    align-items: center;
 
 }
 
@@ -3421,6 +3466,7 @@ video {
 .statement_block_middle_open {
 
     width: 100%;
+    aspect-ratio: 16/9;
     margin: 1% auto;
     object-fit: contain;
 
@@ -3437,4 +3483,24 @@ video {
     display: flex;
     flex-direction: column;
     margin: 1% auto;
+}
+
+.statement_block_close{
+
+    width: 2%;
+    margin-left: 1%;
+    height: 80%;
+
+}
+
+.statement_block_btn_close{
+
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: #222222;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

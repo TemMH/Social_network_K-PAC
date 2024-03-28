@@ -6,10 +6,141 @@
 
 
 
-    <div class="main_spec_statementuser">
+    <div class="full_statement_field">
+
+        <div class="full_statement_block">
+
+            <div class="full_statement_block_user">
+
+                <div class="full_statement_block_user_avater"></div>
+
+                <div class="full_statement_block_user_info">
+
+                    <div class="full_statement_block_user_info_name"></div>
+
+                    <div class="full_statement_block_user_info_condition"></div>
 
 
-        <div class="main_osnova_statement">
+                </div>
+
+            </div>
+            <div class="full_statement_block_buttons"></div>
+
+        </div>
+
+
+        <div class="full_statement_content">
+
+
+            <div class="full_statement_content_statement">
+
+                <div class="full_statement_content_statement_top">
+
+                    <div class="full_statement_content_statement_top_title">
+
+
+
+                    </div>
+
+                    <div class="full_statement_content_statement_top_category">
+
+
+
+                    </div>
+
+                </div>
+                <div class="full_statement_content_statement_middle">
+
+
+                </div>
+
+                <div class="full_statement_content_statement_down">
+
+                    <div class="full_statement_content_statement_down_description">
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="full_statement_content_commentsblock">
+
+<div class="full_statement_content_comments">
+                @foreach ($statement->comments as $comment)
+                    <div class="statementuser_comment_show">
+
+                        <div class="main_novost_top">
+                            <a
+                                href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
+                                <div class="main_novost_img">
+
+                                    <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}"
+                                        alt="Avatar">
+
+                                </div>
+                            </a>
+
+
+                            <div class="main_novost_title">
+                                <div>
+                                    <a
+                                        href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
+                                        <p class="txt_2">{{ $comment->user->name }}</p>
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="txt_2">{{ $comment->created_at }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="main_comment_show">
+                            <p class="txt_2">{{ $comment->content }}</p>
+                        </div>
+
+
+
+                        @if (auth()->user()->role == 'Admin')
+                            <form method="POST"
+                                action="{{ route('statement.comment.delete', ['statementId' => $statement->id, 'commentId' => $comment->id]) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="novost_down_func" type="submit">Удалить комментарий</button>
+                            </form>
+                        @endif
+
+
+
+                    </div>
+                @endforeach
+            </div>
+
+                <form method="POST" action="{{ route('statement.comment', ['id' => $statement->id]) }}">
+
+
+                        @csrf
+
+                        <textarea class="form_field_comment" name="comment"></textarea>
+
+
+
+                        <div class="submit_comment">
+                            <button class="txt_2">
+                                Отправить
+                            </button>
+
+
+                        </div>
+
+                
+                </form>
+
+            </div>
+
+        </div>
+
+        {{-- <div class="main_osnova_statement">
 
             <div class="main_statementuser">
 
@@ -68,10 +199,7 @@
                                 })
                                 ->get();
                             
-                            $friendIds = $friendsList
-                                ->pluck('sender_id')
-                                ->merge($friendsList->pluck('recipient_id'))
-                                ->unique();
+                            $friendIds = $friendsList->pluck('sender_id')->merge($friendsList->pluck('recipient_id'))->unique();
                             
                             $friends = \App\Models\User::whereIn('id', $friendIds)->get();
                             ?>
@@ -117,85 +245,15 @@
 
             </div>
 
-        </div>
+        </div> --}}
 
 
 
-        <form method="POST" action="{{ route('statement.comment', ['id' => $statement->id]) }}">
-            <div class="statementuser_comment">
-
-                @csrf
-
-                <div class="main_novost_img">
-
-                    <img class="avatar" src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar">
-
-                </div>
 
 
 
-                <textarea class="form_field_comment" name="comment"></textarea>
 
 
-
-                <div class="submit_comment">
-                    <button class="txt_2">
-                        Отправить
-                    </button>
-
-
-                </div>
-
-            </div>
-        </form>
-
-
-
-        @foreach ($statement->comments as $comment)
-            <div class="statementuser_comment_show">
-
-                <div class="main_novost_top">
-                    <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
-                        <div class="main_novost_img">
-
-                            <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}" alt="Avatar">
-
-                        </div>
-                    </a>
-
-
-                    <div class="main_novost_title">
-                        <div>
-                            <a href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'news']) }}">
-                                <p class="txt_2">{{ $comment->user->name }}</p>
-                            </a>
-                        </div>
-                        <div>
-                            <p class="txt_2">{{ $comment->created_at }}</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="main_comment_show">
-                    <p class="txt_2">{{ $comment->content }}</p>
-                </div>
-
-
-
-                @if (auth()->user()->role == 'Admin')
-                    <form method="POST"
-                        action="{{ route('statement.comment.delete', ['statementId' => $statement->id, 'commentId' => $comment->id]) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="novost_down_func" type="submit">Удалить комментарий</button>
-                    </form>
-                @endif
-
-
-
-            </div>
-        @endforeach
     </div>
 
 

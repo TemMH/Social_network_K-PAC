@@ -118,11 +118,11 @@ class StatementController extends Controller
     {
         $statement = Statement::with('user')->findOrFail($id);
         $photoUrl = asset('storage/' . $statement->photo_path);
-        $comments = Comment::where('statement_id', $id)->get();
+        $comments = Comment::with('user')->where('statement_id', $id)->get();
         $user = Auth::user();
         $likeUrl = route('statement.like', ['id' => $statement->id]);
         $unlikeUrl = route('statement.unlike', ['id' => $statement->id]);
-        $createcomment = route('statement.comment', ['id' => $statement->id]) ;
+        $createcomment = route('statement.comment', ['id' => $statement->id]);
     
         ob_start();
         if (!$statement->likes()->where('user_id', auth()->id())->exists()) {
@@ -147,6 +147,7 @@ class StatementController extends Controller
             'createcomment' => $createcomment,
         ]);
     }
+    
     
 
     public function delete($id)

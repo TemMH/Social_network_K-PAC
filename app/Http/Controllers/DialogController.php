@@ -133,14 +133,14 @@ class DialogController extends Controller
     }
 
 
-    public function sendPostToFriend(Request $request, $postId, $friendId)
+    public function sendPostToFriend(Request $request, $statementId, $friendId)
     {
 
-        $post = Statement::findOrFail($postId);
+        $statement = Statement::findOrFail($statementId);
         $friend = User::findOrFail($friendId);
 
 
-        $messageContent = '<a href="' . route('statementuser', ['id' => $post->id]) . '">Пост для тебя: ' . $post->description . '</a>';
+        $messageContent = '<a href="' . route('statementuser', ['id' => $statement->id]) . '">Пост для тебя: ' . $statement->description . '</a>';
 
 
 

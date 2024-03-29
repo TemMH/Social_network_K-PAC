@@ -119,6 +119,7 @@ class StatementController extends Controller
         $statement = Statement::with('user')->findOrFail($id);
         $photoUrl = asset('storage/' . $statement->photo_path);
         $comments = Comment::with('user')->where('statement_id', $id)->get();
+        $statementurl = route('statementuser', ['id' => $statement->id]);
         $user = Auth::user();
         $likeUrl = route('statement.like', ['id' => $statement->id]);
         $unlikeUrl = route('statement.unlike', ['id' => $statement->id]);
@@ -127,11 +128,11 @@ class StatementController extends Controller
         ob_start();
         if (!$statement->likes()->where('user_id', auth()->id())->exists()) {
             ?>
-            <button type="submit" class="novost_down_func_news">♡</button>
+            <button type="submit" class="full_statement_btn">♡</button>
             <?php
         } else {
             ?>
-            <button type="submit" class="novost_down_func_news">❤</button>
+            <button type="submit" class="full_statement_btn">❤</button>
             <?php
         }
         $likeButtonHtml = ob_get_clean();
@@ -145,6 +146,7 @@ class StatementController extends Controller
             'unlike_url' => $unlikeUrl,
             'comments' => $comments,
             'createcomment' => $createcomment,
+            'statementurl' => $statementurl,
         ]);
     }
     

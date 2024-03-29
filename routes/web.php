@@ -144,6 +144,9 @@ Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('v
 Route::get('/sendVideoToFriend/{postId}/{friendId}', [DialogController::class, 'sendVideoToFriend'])
     ->name('sendVideoToFriend');
 
+
+    Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 'sendPostToFriend'])->name('sendPostToFriend');
+
 // Store
 
 Route::get('/allstoreuser', function () {
@@ -238,8 +241,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 'sendPostToFriend'])
-    ->name('sendPostToFriend');
+
 
 Route::get('/allusers', [ProfileController::class, 'getAllUsers'])->name('allUsers');
 

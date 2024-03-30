@@ -128,10 +128,10 @@ class VideoController extends Controller
     
     public function show($id)
     {
-        
+        $trendvideos = Video::where('status', 'true')->withCount('likes')->get();
         $video = Video::with('comments.user')->findOrFail($id);
     
-        return view('video.videouser', ['video' => $video]);
+        return view('video.videouser', ['video' => $video, 'trendvideos' => $trendvideos]);
     }
 
     public function showshorts($id)

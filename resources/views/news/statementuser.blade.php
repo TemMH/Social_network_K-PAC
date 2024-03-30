@@ -239,8 +239,11 @@
                     </div>
                     <div class="full_statement_content_statement_middle">
 
+<div class="full_statement_content_statement_middle_img">
                         <img src="{{ asset('storage/' . $statement->photo_path) }}"
                             style="object-fit: contain; border-radius:12px;">
+                        </div>
+
 
                     </div>
 

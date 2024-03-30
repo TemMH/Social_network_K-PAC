@@ -1388,12 +1388,6 @@ html {
 
 
 
-.main_video_info {
-
-    display: flex;
-    justify-content: space-between;
-
-}
 
 .main_video_info_2 {
 
@@ -1962,15 +1956,7 @@ video {
 
 }
 
-.main_video_desc {
 
-    margin: 0 auto;
-    background-color: #222222;
-    padding: 20px;
-    border-radius: 12px;
-    width: 65%;
-
-}
 
 .author {
 
@@ -2038,14 +2024,83 @@ video {
 
 }
 
-.main_video_info {
+.full_video_content_scrolled_info {
 
-    margin: 0.5% auto;
-    width: 99%;
-    height: auto;
+width: 60%;
+height: 100%;
+display: flex;
+justify-content: flex-start;
+flex-direction: column;
+
+}
+
+.full_video_comments_form{
+
+    height: 15%;
+
+}
+
+.full_video_content_scrolled_trendvideo_block{
+
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 2%;
     border-radius: 12px;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_left{
+
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 16 / 9;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_left img{
+
+    object-fit: contain;
+    border-radius: 12px;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_right_info{
+
     display: block;
 
+}
+
+.full_video_content_scrolled_trendvideo_block_right_info_stats{
+
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
+    overflow: hidden; /* Обрезаем всё за пределами блока */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+
+}
+
+.full_video_content_scrolled{
+
+    width: 98%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_right{
+
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2%;
 }
 
 .main_shortvideo_desc_left {
@@ -3121,14 +3176,7 @@ video {
 
 }
 
-.main_video_content {
-    position: relative;
-    margin: 0.5% auto;
-    width: 99%;
-    height: auto;
-    border-radius: 12px;
 
-}
 
 .videoThumbnail {
 
@@ -3256,6 +3304,143 @@ video {
     background-color: #1c1c1c;
 }
 
+
+/* Main Video */
+
+
+
+.main_video_content_scroll_lock {
+
+    width: 98%;
+    aspect-ratio: 16 / 9;
+    margin: 0.5% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+
+}
+
+.main_video_content_field{
+
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100vh;
+
+}
+
+
+.full_video_content_scrolled_info_description {
+
+
+    background-color: #222222;
+    padding: 1%;
+    border-radius: 12px;
+    width: 100%;
+
+}
+
+.full_video_content_scrolled_trendvideo{
+
+    width: 30%;
+    height: 100%;
+
+}
+
+.full_video_btn{
+
+
+    aspect-ratio: 1;
+    background-color: #222222;
+    align-items: center;
+    margin: 2%;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid #777777;
+
+}
+
+
+.full_video_block_buttons{
+
+    display: flex;
+    width: 10%;
+    justify-content: flex-end;
+
+}
+
+.full_video_comments_form_lock {
+
+    height: 10%;
+    width: 100%;
+    min-height: 60px;
+
+    padding: 1%;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    color: #D9D9D9;
+
+}
+
+.submit_comment_fullvideo{
+
+    width: 10%;
+
+}
+
+
+.full_video_btn_send{
+
+    height: 50%;
+    aspect-ratio: 1;
+    background-color: #222222;
+    align-items: center;
+    /* margin: 2%; */
+    /* padding: 2%; */
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid #777777;
+
+}
+
+.full_video_img {
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+
+}
+
+.form_field_full_video {
+
+    font-family: inherit;
+    height: 42px;
+    width: 85%;
+    border: 0;
+    border-bottom: 2px solid #777777;
+    outline: 0;
+    font-size: 1.3rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+}
 
 
 /* Statements */
@@ -3630,7 +3815,14 @@ video {
     margin: 1% auto;
     aspect-ratio: 16/9;
 
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
+
+
 
 .full_statement_comment {
 

@@ -54,7 +54,7 @@ class myStatementController extends Controller
         $category = $request->input('category');
         $sort = $request->input('sortirovka');
 
-        $statements = Statement::where('status', 'true')->withCount('likes');
+        $statements = Statement::where('status', 'true')->withCount('likes','comments');
 
         if ($category) {
             $statements->where('category', $category);

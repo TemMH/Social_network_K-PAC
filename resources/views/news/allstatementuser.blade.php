@@ -333,7 +333,7 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <span>{{ $statement->comments_count }}66</span>
+                                    <span>{{ $statement->comments_count }}</span>
 
                                 </div>
 

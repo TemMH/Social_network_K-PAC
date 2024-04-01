@@ -128,7 +128,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allvideouser') }}">
+                            <a href="{{ route('allvideouser') }}" title="Видео">
 
                                 <div class="adminpanel">
 
@@ -144,7 +144,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allshortsvideouser') }}">
+                            <a href="{{ route('allshortsvideouser') }}" title="Клипы">
 
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/eouimtlu.json" trigger="hover"
@@ -157,7 +157,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allstatementuser') }}">
+                            <a href="{{ route('allstatementuser') }}" title="Фотографии">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/zyzoecaw.json" trigger="hover"
                                     colors="primary:#777777" style="width:50px;height:50px">
@@ -168,7 +168,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('messenger') }}">
+                            <a href="{{ route('messenger') }}" title="Мессенджер">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/fdxqrdfe.json" trigger="hover"
                                     colors="primary:#777777" style="width:50px;height:50px">
@@ -179,7 +179,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allvideouser') }}">
+                            <a href="{{ route('friendfeeduser') }}" title="Лента друзей">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/ijahpotn.json" trigger="hover"
                                     colors="primary:#777777" style="width:50px;height:50px">

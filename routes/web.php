@@ -7,8 +7,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\DialogController;
-
-
+use App\Http\Controllers\FriendfeedController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -95,6 +94,7 @@ Route::get('/allvideouser', function () {
     return view('video.allvideouser');
 })->middleware(['auth', 'verified'])->name('allvideouser');
 
+
 Route::get('/allvideo', function () {
     return view('video.allvideo');
 })->middleware(['auth', 'verified'])->name('allvideo');
@@ -158,7 +158,14 @@ Route::get('/messenger', function () {
 })->middleware(['auth', 'verified'])->name('messenger');
 
 
+// FriendFeed
 
+Route::get('/friendfeeduser', function () {
+    return view('friendfeed.friendfeeduser');
+})->middleware(['auth', 'verified'])->name('friendfeeduser');
+
+
+Route::get('/friendfeeduser', [FriendfeedController::class, 'friendfeeduser'])->name('friendfeeduser')->middleware(['auth', 'verified']);
 
 
 

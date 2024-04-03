@@ -67,7 +67,7 @@ class ProfileController extends Controller
 
         $users = User::where('id', auth()->id())->get();
 
-        $statements = Statement::where('user_id', auth()->id())->take(3)->get();
+        $statements = Statement::where('user_id', auth()->id())->get();
 
         return view('profileuser', ['users' => $users, 'statements' => $statements]);
     }
@@ -75,7 +75,7 @@ class ProfileController extends Controller
     public function UserProfile($id)
     {
         $user = User::findOrFail($id);
-        $statements = Statement::where('user_id', $id)->take(3)->get();
+        $statements = Statement::where('user_id', $id)->get();
 
         return view('profileuser', ['user' => $user, 'statements' => $statements, 'users' => [$user]]);
     }

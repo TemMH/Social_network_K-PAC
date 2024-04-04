@@ -14,7 +14,7 @@
 
                     <div class="statement_block_top_avatar_open">
 
-                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png"alt="Avatar">
+                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar"> {{-- FIX SRC --}}
 
                     </div>
 
@@ -118,7 +118,7 @@
 
                         <div class="main_novost_img">
 
-                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png"alt="Avatar">
+                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
 
                         </div>
 
@@ -143,7 +143,7 @@
                         <a href="">
                             <div class="main_novost_img">
 
-                                <img class="avatar" src="" alt="Avatar">
+                                <img class="avatar_mini" src="" alt="Avatar">
 
                             </div>
                         </a>
@@ -240,7 +240,7 @@
 
                                     @if ($statement->user->avatar !== null)
                                         <a href="{{ route('profileuser.profile', ['id' => $statement->user_id]) }}">
-                                            <img class="avatar"
+                                            <img class="avatar_mini"
                                                 src="{{ asset('storage/' . $statement->user->avatar) }}"
                                                 alt="Avatar">
                                         </a>

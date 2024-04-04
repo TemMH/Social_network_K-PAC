@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
+use App\Models\Statement;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\Friendship;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
@@ -21,28 +23,58 @@ class FriendfeedController extends Controller
         $category = $request->input('category');
         $sort = $request->input('sortirovka');
     
-        $videos = Video::where('status', 'true')->withCount('likes');
+        $friendIdsAsSender = Friendship::where('sender_id', auth()->id())
+            ->where('status', 'accepted')
+            ->pluck('recipient_id')
+            ->all();
     
+        $friendIdsAsRecipient = Friendship::where('recipient_id', auth()->id())
+            ->where('status', 'accepted')
+            ->pluck('sender_id')
+            ->all();
+    
+        $friendIds = array_merge($friendIdsAsSender, $friendIdsAsRecipient);
+    
+
+        $videos = Video::whereIn('user_id', $friendIds)
+            ->where('status', 'true')
+            ->withCount('likes', 'comments');
+    
+
+        $statements = Statement::whereIn('user_id', $friendIds)
+            ->where('status', 'true')
+            ->withCount('likes', 'comments');
+    
+        
+        $feedItems = $videos->get()->merge($statements->get());
+    
+
         if ($category) {
-            $videos->where('category', $category);
+            $feedItems->where('category', $category);
         }
     
         switch ($sort) {
             case 'old':
-                $videos->orderBy('created_at', 'asc');
+                $feedItems->orderBy('created_at', 'asc');
                 break;
             case 'popular':
-                $videos->withCount('likes')->orderByDesc('likes_count');
+                $feedItems->withCount('likes')->orderByDesc('likes_count');
                 break;
             case 'recent':
             default:
-                $videos->orderBy('created_at', 'desc');
+            $feedItems = $feedItems->sortByDesc('created_at');
+
                 break;
         }
     
-        $videos = $videos->get();
+
     
-        return view('friendfeed.friendfeeduser', ['videos' => $videos]);
+
+        return view('friendfeed.friendfeeduser', compact('feedItems'));
     }
+    
+    
+    
+    
 
 }

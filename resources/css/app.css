@@ -2255,7 +2255,7 @@ flex-direction: column;
     margin-right: auto;
     margin-left: auto;
     width: 98%;
-    height: auto;
+    /* max-height: 98vh; */
     border-radius: 12px;
 
 }
@@ -2646,8 +2646,11 @@ Messages
     background-color: #1A1A1A;
     border: 1px solid #222222;
     border-radius: 12px;
-    display: block;
 
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-around;
 }
 
 .notification_image {
@@ -3316,7 +3319,8 @@ video {
 
 .main_video_content_scroll_lock {
 
-    width: 98%;
+    max-width: 98%;
+    max-height: 100vh;
     aspect-ratio: 16 / 9;
     margin: 0.5% auto;
     display: flex;
@@ -4101,7 +4105,7 @@ video {
     height: 50%;
     border-radius: 12px 12px 0px 0px;
     width: 100%;
-    background-color: #c401ff;
+    background-color: #BABABA;
 
 }
 
@@ -4172,14 +4176,30 @@ video {
 
 }
 
+.profileuser_avatar_my{
+
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+
+}
+
+.profileuser_avatar_my:hover {
+
+    opacity: 0.9;
+
+}
+
+
 .profileuser_avatar{
 
     border-radius: 50%;
     height: 100%;
     width: 100%;
 
-}
 
+}
 
 
 .profileuser_block_contents{
@@ -4377,4 +4397,8 @@ video {
 
 }
 
+.profileuser_block_contents_second_contents_flex {
+    display: flex;
+    flex-wrap: nowrap;
+}
 

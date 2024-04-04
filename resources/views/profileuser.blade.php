@@ -21,10 +21,49 @@
                             <div class="profileuser_block_header_info_avatar_frame">
 
                                 @if ($user->avatar !== null)
-                                    <img class="profileuser_avatar" src="{{ asset('storage/' . $user->avatar) }}"
-                                        alt="Avatar">
+                                    @if ($user->id == auth()->id())
+                                        <form method="POST" action="{{ route('avatar.update') }}"
+                                            class="profileuser_avatar_my" enctype="multipart/form-data">
+                                            @csrf
+
+                                            <label for="avatarInput" class="avatar-label">
+                                                <input id="avatarInput" class="txt_2" type="file" name="avatar"
+                                                    accept="image/*" style="display: none;">
+                                                <img class="profileuser_avatar_my"
+                                                    src="{{ asset('storage/' . $user->avatar) }}" id="avatarPreview">
+                                            </label>
+
+                                            <button class="txt_2" type="submit" id="submitBtn"
+                                                style="display: none;">Изменить аватар</button>
+                                            <button class="txt_2" type="button" id="cancelBtn"
+                                                style="display: none;">Отменить</button>
+                                        </form>
+                                    @else
+                                        <img class="profileuser_avatar" src="{{ asset('storage/' . $user->avatar) }}"
+                                            id="avatarPreview">
+                                    @endif
                                 @else
-                                    <img class="profileuser_avatar" src="/uploads/ProfilePhoto.png">
+                                    @if ($user->id == auth()->id())
+                                        <form method="POST" action="{{ route('avatar.update') }}"
+                                            class="profileuser_avatar_my" enctype="multipart/form-data">
+                                            @csrf
+
+                                            <label for="avatarInput" class="avatar-label">
+                                                <input id="avatarInput" class="txt_2" type="file" name="avatar"
+                                                    accept="image/*" style="display: none;">
+                                                <img class="profileuser_avatar_my" src="/uploads/ProfilePhoto.png"
+                                                    id="avatarPreview">
+                                            </label>
+
+                                            <button class="txt_2" type="submit" id="submitBtn"
+                                                style="display: none;">Изменить аватар</button>
+                                            <button class="txt_2" type="button" id="cancelBtn"
+                                                style="display: none;">Отменить</button>
+                                        </form>
+                                    @else
+                                        <img class="profileuser_avatar" src="/uploads/ProfilePhoto.png"
+                                            id="avatarPreview">
+                                    @endif
                                 @endif
 
                             </div>
@@ -52,12 +91,12 @@
                                 @if (
                                     $user->id != auth()->id() &&
                                         auth()->user()->areFriends($user->id))
+                                    <button class="full_statement_btn">
+                                        <a href="{{ route('messenger.show', ['userId' => $user->id]) }}"
+                                            class="message">
 
-<button class="full_statement_btn">
-                                    <a href="{{ route('messenger.show', ['userId' => $user->id]) }}" class="message">
 
 
-                                
                                             <svg width="100%" height="100%" viewBox="-2.4 -2.4 28.80 28.80"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -70,21 +109,21 @@
                                                         stroke-linejoin="round"></path>
                                                 </g>
                                             </svg>
-                                     
 
 
-                                    </a>
-                                </button>
+
+                                        </a>
+                                    </button>
                                 @endif
 
                                 {{-- REQUEST FRIEND --}}
 
                                 @if ($user->id !== auth()->id())
-                                    <button type="submit" class="full_statement_btn">
+                                    <form method="POST" action="{{ route('send-friend-request', $user) }}">
+                                        @csrf
 
-                                        <form method="POST" action="{{ route('send-friend-request', $user) }}">
-                                            @csrf
 
+                                        <button type="submit" class="full_statement_btn">
 
                                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -100,10 +139,9 @@
                                                 </g>
                                             </svg>
 
+                                        </button>
 
-                                        </form>
-
-                                    </button>
+                                    </form>
                                 @endif
 
 
@@ -114,7 +152,8 @@
                                 @if (
                                     $user->id != auth()->id() &&
                                         auth()->user()->areFriends($user->id))
-                                    <button class="full_statement_btn" type="button" onclick="confirmRemoveFriend()">
+                                    <button class="full_statement_btn" type="button"
+                                        onclick="confirmRemoveFriend()">
                                         <form id="removeFriendForm" method="POST"
                                             action="{{ route('friend.remove', ['friend' => $user->id]) }}">
                                             @csrf
@@ -151,14 +190,6 @@
 
 
 
-                                {{-- удалить из друзей
-                                        
-<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 18L14 18M11 21H4C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>                                        
-
-                                        --}}
-
-
-
                                 {{-- REPORT --}}
 
 
@@ -183,12 +214,13 @@
 
 
 
-                                
+
                                 {{-- SETTINGS --}}
 
                                 @if ($user->id == auth()->id())
-                                    <button class="full_statement_btn">
-                                        <a href="/profile">
+                                    <button class="full_statement_btn" onclick="location.href='/profile'"
+                                        type="button">
+
 
                                         <svg width="100%" height="100%" viewBox="0 0 1024 1024"
                                             xmlns="http://www.w3.org/2000/svg" fill="#000000">
@@ -201,7 +233,7 @@
                                                 </path>
                                             </g>
                                         </svg>
-                                    </a>
+
                                     </button>
                                 @endif
 
@@ -246,23 +278,19 @@
                         <div id="scrollContainerFirst" class="profileuser_block_contents_first_contents">
 
 
-@foreach ($statements as $statement)
-    
+                            @foreach ($statements as $statement)
+                                <div class="profileuser_content_first">
 
 
-                            <div class="profileuser_content_first">
+                                    <img src="{{ asset('storage/' . $statement->photo_path) }}">
 
 
-                                <img src="{{ asset('storage/' . $statement->photo_path) }}">
+                                    <div class="longvideos_video_thumbnail_title">
+                                        <p class="txt_2">{{ $statement->title }}</p>
+                                    </div>
 
 
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">{{$statement->title}}</p>
                                 </div>
-
-
-                            </div>
-
                             @endforeach
 
 
@@ -293,316 +321,26 @@
                     <div class="profileuser_block_contents_second">
 
 
+                        <div id="scrollContainerSecond" class="profileuser_block_contents_second_contents{{ count($videos) < 6 ? ' profileuser_block_contents_second_contents_flex' : '' }}">
 
-                        <div id="scrollContainerSecond" class="profileuser_block_contents_second_contents">
+                            @foreach ($videos as $key => $video)
+                     
 
-
-
-
-                            <div class="profileuser_content_second block1">
-
-
-                                <img src="http://127.0.0.1:8000/storage/thumbnails/thumbnail_1711782675.png">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
+                                <div class="profileuser_content_second{{ ($key + 1) % 4 == 0 || $loop->first ? ' block1' : '' }}">
+                                    <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                    <img src="{{ asset('storage/' . $video->thumbnail_path) }}">
+                                    <div class="longvideos_video_thumbnail_title">
+                                        <p class="txt_2">{{$video->title}}</p>
+                                    </div>
+                                </a>
                                 </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
-                            <div class="profileuser_content_second">
-
-
-                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711471879.jpg">
-
-
-                                <div class="longvideos_video_thumbnail_title">
-                                    <p class="txt_2">title</p>
-                                </div>
-
-
-                            </div>
-
+                       
+                            @endforeach
+                        
                         </div>
+                        
+
+
 
                     </div>
 
@@ -634,43 +372,45 @@
         });
     </script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const avatarInput = document.getElementById("avatarInput");
+            const avatarPreview = document.getElementById("avatarPreview");
+            const submitBtn = document.getElementById("submitBtn");
+            const cancelBtn = document.getElementById("cancelBtn");
 
+            avatarPreview.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                avatarInput.click();
+            });
+
+            avatarInput.addEventListener("change", function() {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                        submitBtn.style.display = "inline-block";
+                        cancelBtn.style.display = "inline-block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            cancelBtn.addEventListener("click", function() {
+                avatarInput.value = "";
+                avatarPreview.src =
+                    "{{ $user->avatar ? asset('storage/' . $user->avatar) : '/uploads/ProfilePhoto.png' }}";
+                submitBtn.style.display = "none";
+                cancelBtn.style.display = "none";
+            });
+        });
+    </script>
 
 
 
 </x-app-layout>
-
-
-
-{{-- удаление друга + диалог + изменить аватарку
-                    
-                    <div class="profile_info_right">
-
-                    <div class="profile_info_right_friend">
-
-                        @if ($user->id == auth()->id())
-                        <form method="POST" action="{{ route('avatar.update') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <input id="avatarInput" class="txt_2" type="file" name="avatar" accept="image/*">
-                            </div>
-                            <button class="txt_2" type="submit">Изменить аватар</button>
-        
-                        </form>
-                    @endif
-
-
-
-
-                    </div>
-
-                    <div class="profile_info_right_wishlist">
-
-
-
-                    </div>
-
-                </div> --}}
 
 
 
@@ -698,18 +438,3 @@
     @endif
 
 </div> --}}
-
-
-{{-- запрос в др
-                
-                
-                <div class="profile_novosti_next">
-
-
-
-
-
-
-
-
-            </div> --}}

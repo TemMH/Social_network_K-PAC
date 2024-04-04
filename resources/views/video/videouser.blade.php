@@ -134,8 +134,8 @@
 
                             @if ($video->user->avatar !== null)
                                 <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
-                                    <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}"
-                                        alt="Avatar">
+                                    <img class="avatar_mini" src="{{ asset('storage/' . $video->user->avatar) }}"
+                                        alt="Avatar" >
                                 </a>
                             @else
                                 <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">

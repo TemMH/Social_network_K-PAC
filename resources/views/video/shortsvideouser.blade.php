@@ -16,7 +16,7 @@
 
 
                                     @if ($video->user->avatar !== null)
-                                        <img class="avatar" src="{{ asset('storage/' . $video->user->avatar) }}"
+                                        <img class="avatar_mini" src="{{ asset('storage/' . $video->user->avatar) }}"
                                             alt="Avatar">
                                     @else
                                         <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
@@ -133,8 +133,8 @@
                                                 <div class="main_novost_img">
 
                                                     @if ($comment->user->avatar !== null)
-                                                        <img src="{{ asset('storage/' . $friend->avatar) }}"
-                                                            alt="Avatar">
+                                                        <img src="{{ asset('storage/' . $comment->user->avatar) }}"
+                                                            alt="Avatar" class="avatar_mini">
                                                     @else
                                                         <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
                                                             alt="Avatar">

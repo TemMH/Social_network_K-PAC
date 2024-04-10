@@ -20,9 +20,6 @@ class FriendfeedController extends Controller
     
     public function friendfeeduser(Request $request)
     {
-        $category = $request->input('category');
-        $sort = $request->input('sortirovka');
-    
         $friendIdsAsSender = Friendship::where('sender_id', auth()->id())
             ->where('status', 'accepted')
             ->pluck('recipient_id')
@@ -35,43 +32,26 @@ class FriendfeedController extends Controller
     
         $friendIds = array_merge($friendIdsAsSender, $friendIdsAsRecipient);
     
-
+        $feedItems = collect([]);
+    
         $videos = Video::whereIn('user_id', $friendIds)
             ->where('status', 'true')
-            ->withCount('likes', 'comments');
+            ->withCount('likes', 'comments')
+            ->get();
     
-
         $statements = Statement::whereIn('user_id', $friendIds)
             ->where('status', 'true')
-            ->withCount('likes', 'comments');
-    
-        
-        $feedItems = $videos->get()->merge($statements->get());
+            ->withCount('likes', 'comments')
+            ->get();
     
 
-        if ($category) {
-            $feedItems->where('category', $category);
-        }
+        $feedItems = $feedItems->merge($videos)->merge($statements);
     
-        switch ($sort) {
-            case 'old':
-                $feedItems->orderBy('created_at', 'asc');
-                break;
-            case 'popular':
-                $feedItems->withCount('likes')->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-            $feedItems = $feedItems->sortByDesc('created_at');
-
-                break;
-        }
+        $feedItems = $feedItems->sortByDesc('created_at');
     
-
-    
-
         return view('friendfeed.friendfeeduser', compact('feedItems'));
     }
+    
     
     
     

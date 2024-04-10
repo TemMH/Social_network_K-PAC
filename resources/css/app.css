@@ -3993,6 +3993,9 @@ video {
 .friendfeed_block{
 
     margin-bottom: 3%;
+    margin-bottom: 3%;
+    /* height: 100%; */
+    position: relative;
 
 }
 
@@ -4029,11 +4032,21 @@ video {
 .friendfeed_comments.open{
 
     background-color: #222222;
-    height: 40%;
+    height: auto;
+    display: block;
     border-radius: 0px 0px 12px 12px;
     border: 1px solid #484848;
     padding-top: 1%;
+    transition: display 0.3s ease-in-out, height 0.3s  ease-in-out;
 
+}
+
+
+.friendfeed_comments {
+
+     /* display: none; */
+    height: 0px; 
+    
 }
 
 .friendfeed_comment_input {
@@ -4057,12 +4070,22 @@ video {
 .friendfeed_comments_scroll{
 
     border-bottom: 1px solid #484848;
-    height: 85%;
+    max-height: 0vh;
+    width: 100%;
     overflow-y: scroll;
+    transition: max-height 0.3s  ease-in-out;
 
 }
 
+.friendfeed_comments_scroll.open{
 
+    border-bottom: 1px solid #484848;
+    max-height: 40vh;
+    width: 100%;
+    overflow-y: scroll;
+    transition: max-height 0.3s  ease-in-out;
+
+}
 
 
 

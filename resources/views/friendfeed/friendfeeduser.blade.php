@@ -11,12 +11,8 @@
 
 
 
-            @foreach ($feedItems as $feedItem)
+            @foreach ($feedItems as $index => $feedItem)
                 @if ($feedItem->user_id !== auth()->id())
-
-                
-             
-
                     <div class="friendfeed_block">
                         <div class="friendfeed_content">
 
@@ -28,13 +24,11 @@
 
 
                                         @if ($feedItem->user->avatar !== null)
-                                        <img class="avatar_mini"
-                                            src="{{ asset('storage/' . $feedItem->user->avatar) }}"
-                                            alt="Avatar">
-                                    @else
-                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
-                                            alt="Avatar">
-                                    @endif
+                                            <img class="avatar_mini"
+                                                src="{{ asset('storage/' . $feedItem->user->avatar) }}" alt="Avatar">
+                                        @else
+                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                        @endif
 
                                     </div>
 
@@ -77,7 +71,7 @@
 
                                     </button>
 
-                                    <button class="full_statement_btn">
+                                    <button id="comments_open_{{ $index }}" class="full_statement_btn">
 
                                         <svg width="100%" height="100%" viewBox="-0.96 -0.96 33.92 33.92"
                                             version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -150,13 +144,11 @@
 
 
 
-                                    @if(isset($feedItem->thumbnail_path))
-                               
-                                    <img src="{{ asset('storage/' . $feedItem->thumbnail_path) }}" alt="Thumbnail">
-                                @elseif(isset($feedItem->photo_path))
-                                   
-                                    <img src="{{ asset('storage/' . $feedItem->photo_path) }}" alt="Photo">
-                                @endif
+                                    @if (isset($feedItem->thumbnail_path))
+                                        <img src="{{ asset('storage/' . $feedItem->thumbnail_path) }}" alt="Thumbnail">
+                                    @elseif(isset($feedItem->photo_path))
+                                        <img src="{{ asset('storage/' . $feedItem->photo_path) }}" alt="Photo">
+                                    @endif
 
 
                                 </div>
@@ -183,57 +175,56 @@
 
                         </div>
 
-                        <div class="friendfeed_comments open">
+                        <div class="friendfeed_comments">
 
                             <div class="friendfeed_comments_scroll">
 
-
                                 @foreach ($feedItem->comments as $comment)
-                                    
-                                <div class="friendfeed_comments_block">
+                                    <div class="friendfeed_comments_block">
+
+                                        <div class="main_novost_top">
+                                            <a href="">
+                                                <div class="main_novost_img">
+
+                                                    @if ($comment->user->avatar !== null)
+                                                        <img class="avatar_mini"
+                                                            src="{{ asset('storage/' . $comment->user->avatar) }}"
+                                                            alt="Avatar">
+                                                    @else
+                                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                            alt="Avatar">
+                                                    @endif
+
+                                                </div>
+                                            </a>
 
 
-
-                                    <div class="main_novost_top">
-                                        <a href="">
-                                            <div class="main_novost_img">
-
-                                                @if ($comment->user->avatar !== null)
-                                                <img class="avatar_mini"
-                                                    src="{{ asset('storage/' . $comment->user->avatar) }}"
-                                                    alt="Avatar">
-                                            @else
-                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
-                                                    alt="Avatar">
-                                            @endif
-
+                                            <div class="main_novost_title">
+                                                <div>
+                                                    <a href="">
+                                                        <p class="txt_2">{{ $comment->user->name }}</p>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <p class="txt_2">{{ $comment->created_at }}</p>
+                                                </div>
                                             </div>
-                                        </a>
 
-
-                                        <div class="main_novost_title">
-                                            <div>
-                                                <a href="">
-                                                    <p class="txt_2">{{ $comment->user->name }}</p>
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <p class="txt_2">{{ $comment->created_at }}</p>
-                                            </div>
                                         </div>
 
+                                        <div class="main_comment_show">
+                                            <p class="txt_2">{{ $comment->content }}</p>
+                                        </div>
+
+
+
+
                                     </div>
-
-                                    <div class="main_comment_show">
-                                        <p class="txt_2">{{ $comment->content }}</p>
-                                    </div>
-
-
-
-
-                                </div>
-
                                 @endforeach
+
+                                @if ($feedItem->comments->isEmpty())
+                                    <p>Комментариев нет...</p>
+                                @endif
 
                             </div>
 
@@ -250,10 +241,10 @@
                                                 <img class="avatar_mini"
                                                     src="{{ asset('storage/' . Auth::user()->avatar) }}"alt="Avatar">
                                             @else
-                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px"
-                                                    height="50px">
+                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                    width="50px" height="50px">
                                             @endif
-            
+
                                         </a>
 
                                     </div>
@@ -275,6 +266,9 @@
 
 
                         </div>
+
+
+
                     </div>
                 @endif
             @endforeach
@@ -292,7 +286,21 @@
 
 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
+
+            var buttons = document.querySelectorAll('[id^="comments_open"]');
+            buttons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var comments = button.closest('.friendfeed_block').querySelector('.friendfeed_comments');
+                    var comments_scroll = button.closest('.friendfeed_block').querySelector('.friendfeed_comments_scroll');
+                    comments.classList.toggle('open');
+                    comments_scroll.classList.toggle('open');
+                });
+            });
+        });
+    </script>
 
 
 

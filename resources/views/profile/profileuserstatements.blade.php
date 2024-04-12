@@ -215,6 +215,10 @@
                 <button value="Транспорт" class="statements_categories_btn">Просмотрено</button>
             </form>
 
+            <div class="statements_settings_middle">
+                <p>Фотографии {{ $user->name }}</p>
+            </div>
+
             <form class="statements_settings_right" id="categoryForm" method="GET"
                 action="{{ url()->current() }}">
                 @csrf

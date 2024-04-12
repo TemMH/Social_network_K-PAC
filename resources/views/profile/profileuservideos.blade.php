@@ -11,26 +11,22 @@
             <div class="statement_block_top_open">
 
                 <div class="statement_block_top_info_left_open">
-                    <a href="">
-                        <div class="statement_block_top_avatar_open">
 
-                            <img class="avatar_mini" src="" alt="Avatar"> {{-- FIX SRC --}}
+                    <div class="statement_block_top_avatar_open">
 
-                        </div>
+                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar"> {{-- FIX SRC --}}
 
-                        <div class="statement_block_top_info_open">
+                    </div>
+
+                    <div class="statement_block_top_info_open">
 
 
-                            <div class="statement_block_top_info_name_open">
-                                <a href="">
+                        <div class="statement_block_top_info_name_open"></div>
 
-                                </a>
-                            </div>
+                        <div class="statement_block_top_info_createdat_open"></div>
 
-                            <div class="statement_block_top_info_createdat_open"></div>
+                    </div>
 
-                        </div>
-                    </a>
                 </div>
 
 
@@ -150,7 +146,7 @@
                                 <img class="avatar_mini" src="" alt="Avatar">
 
                             </div>
-                     
+                        </a>
 
 
                         <div class="main_novost_title">
@@ -163,7 +159,7 @@
                                 <p class="txt_2">created_at</p>
                             </div>
                         </div>
-                    </a>
+
                     </div>
 
                     <div class="main_comment_show">
@@ -214,6 +210,8 @@
                 <button value="Транспорт" class="statements_categories_btn">Популярно</button>
                 <button value="Транспорт" class="statements_categories_btn">Просмотрено</button>
             </form>
+
+
 
             <form class="statements_settings_right" id="categoryForm" method="GET"
                 action="{{ url()->current() }}">
@@ -394,7 +392,7 @@
                 @endif
 
             @empty
-                <p class= "txt_1">Фотографий нет</p>
+                <p class= "txt_1">Новостей нет</p>
 
             @endforelse
 
@@ -427,7 +425,6 @@
                             const comments = data.comments;
                             const createcomment = data.createcomment;
                             const statementurl = data.statementurl;
-                            const profileUrl = data.profileUrl;
 
 
                             const commentForm = document.getElementById('commentForm');
@@ -442,7 +439,6 @@
                             statementFieldOpen.querySelector(
                                     ".statement_block_top_info_name_open").textContent =
                                 statementData.user.name;
-
                             statementFieldOpen.querySelector(
                                     ".statement_block_top_info_createdat_open").textContent =
                                 statementData.created_at;
@@ -454,22 +450,9 @@
                                     ".statement_block_down_description_open").textContent =
                                 statementData.description;
 
-                            statementFieldOpen.querySelector(
-                                    ".statement_block_top_avatar_open img").src =
-                                "{{ $statement->user->avatar !== null ? asset('storage/' . $statement->user->avatar) : '/uploads/ProfilePhoto.png' }}";
-                            statementFieldOpen.querySelector(
-                                ".statement_block_top_info_left_open a").href = profileUrl;
-
-
-
-
-                            statementFieldOpen.querySelector(".main_novost_img img").src =
-                                "{{ asset('storage/') }}" + '/' + userData.avatar;
-
                             const likeButtonContainer = statementFieldOpen.querySelector(
                                 ".statement_block_like_button");
                             likeButtonContainer.innerHTML = likeButtonHtml;
-
 
                             const likeButton = likeButtonContainer.querySelector("button");
                             likeButton.addEventListener("click", function(event) {
@@ -506,8 +489,6 @@
                                 ".statementuser_comment_show");
                             commentsContainer.innerHTML = "";
 
-
-
                             comments.forEach(comment => {
                                 const commentElement = document.createElement("div");
                                 commentElement.classList.add("statement_comment");
@@ -515,18 +496,14 @@
                                 const mainNovostTop = document.createElement("div");
                                 mainNovostTop.classList.add("main_novost_top");
 
-                                
                                 const userLink = document.createElement("a");
-                                userLink.href = "{{ route('profile.profileuser', ['id' => ':id']) }}".replace(':id', comment.user.id); // ссылка на профиль пользователя
-
+                                userLink.href = ""; // ссылка на профиль пользователя
                                 const mainNovostImg = document.createElement("div");
                                 mainNovostImg.classList.add("main_novost_img");
-
                                 const avatarImg = document.createElement("img");
-                                avatarImg.classList.add("avatar_mini");
-                                avatarImg.src = comment.user.avatar !== null ? "{{ asset('storage/') }}" + '/' + comment.user.avatar : '/uploads/ProfilePhoto.png'; // URL аватара пользователя
+                                avatarImg.classList.add("avatar");
+                                avatarImg.src = ""; // URL аватара пользователя
                                 avatarImg.alt = "Avatar";
-
                                 mainNovostImg.appendChild(avatarImg);
                                 userLink.appendChild(mainNovostImg);
                                 mainNovostTop.appendChild(userLink);
@@ -535,9 +512,8 @@
                                 mainNovostTitle.classList.add("main_novost_title");
 
                                 const usernameLink = document.createElement("a");
-                                usernameLink.href = "{{ route('profile.profileuser', ['id' => ':id']) }}".replace(':id', comment.user.id);
-
-
+                                usernameLink.href =
+                                    ""; // ссылка на профиль пользователя
                                 const usernameParagraph = document.createElement("p");
                                 usernameParagraph.classList.add("txt_2");
                                 usernameParagraph.textContent = comment.user.name;
@@ -564,7 +540,6 @@
 
                                 commentsContainer.appendChild(commentElement);
                             });
-
 
                             statementFieldOpen.classList.add("opened");
                         })

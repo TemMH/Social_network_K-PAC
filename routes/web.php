@@ -169,11 +169,30 @@ Route::get('/friendfeeduser', [FriendfeedController::class, 'friendfeeduser'])->
 
 
 
-// Other
+// Profileuser
 
 Route::get('/profileuser', function () {
-    return view('profileuser');
+    return view('profile.profileuser');
 })->middleware(['auth', 'verified'])->name('profileuser');
+
+Route::get('/profileuserstatements', function () {
+    return view('profile.profileuserstatements');
+})->middleware(['auth', 'verified'])->name('profileuserstatements');
+
+Route::get('/profileuservideos', function () {
+    return view('profile.profileuservideos');
+})->middleware(['auth', 'verified'])->name('profileuservideos');
+
+
+
+Route::get('/profileuser', [ProfileController::class, 'MyProfile'])->name('profileuser')->middleware(['auth', 'verified']);
+
+Route::get('/profileuser/{id}', [ProfileController::class, 'UserProfile'])->name('profile.profileuser')->middleware(['auth', 'verified']);
+
+Route::get('/profileuserstatements/{id}', [ProfileController::class, 'ProfileUserStatements'])->name('profile.profileuserstatements')->middleware(['auth', 'verified']);
+
+// Other
+
 
 Route::get('/dialog', function () {
     return view('dialog');
@@ -220,9 +239,7 @@ Route::delete('/deleteUser/{id}', [myStatementController::class, 'deleteUser'])-
 Route::post('/update-condition', [ProfileController::class, 'updateCondition'])->name('update-condition');
 
 
-Route::get('/profileuser', [ProfileController::class, 'MyProfile'])->name('profileuser')->middleware(['auth', 'verified']);
 
-Route::get('/profileuser/{id}', [ProfileController::class, 'UserProfile'])->name('profileuser.profile')->middleware(['auth', 'verified']);
 
 Route::post('/send-friend-request/{user}', [FriendRequestController::class, 'sendFriendRequest'])
     ->name('send-friend-request')

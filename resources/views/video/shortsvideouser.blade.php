@@ -23,7 +23,7 @@
                                     @endif
 
                                     <p class="txt_2"> <a
-                                            href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
+                                            href="{{ route('profile.profileuser', ['id' => $video->user_id, 'previous' => 'video']) }}">
                                             {{ $video->user->name }}
 
                                         </a></p>
@@ -129,7 +129,7 @@
 
                                         <div class="main_novost_top">
                                             <a
-                                                href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                                href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                                 <div class="main_novost_img">
 
                                                     @if ($comment->user->avatar !== null)
@@ -150,7 +150,7 @@
                                             <div class="main_novost_title">
                                                 <div>
                                                     <a
-                                                        href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                                        href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                                         <p class="txt_2">{{ $comment->user->name }}</p>
                                                     </a>
                                                 </div>

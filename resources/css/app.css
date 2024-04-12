@@ -3966,10 +3966,11 @@ video {
 
 .friendfeed_field{
 
+    overflow-y: scroll;
     height: 100vh;
-    position: absolute;
+    width: 95%;
+    position: fixed;
     z-index: 0;
-    width: 45%;
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -3979,15 +3980,14 @@ video {
 
 .friendfeed_field_frame{
 
-    width: 100%;
+    width: 50%;
     height: 99.5%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     margin: 0.5% auto;
     border-radius: 12px 12px 0px 0px;
     display: flex;
     flex-direction: column;
     position: relative;
-
 }
 
 .friendfeed_block{
@@ -4044,7 +4044,7 @@ video {
 
 .friendfeed_comments {
 
-     /* display: none; */
+    display: none;
     height: 0px; 
     
 }
@@ -4069,10 +4069,8 @@ video {
 
 .friendfeed_comments_scroll{
 
-    border-bottom: 1px solid #484848;
     max-height: 0vh;
     width: 100%;
-    overflow-y: scroll;
     transition: max-height 0.3s  ease-in-out;
 
 }

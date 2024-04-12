@@ -133,19 +133,19 @@
                         <div class="author">
 
                             @if ($video->user->avatar !== null)
-                                <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                <a href="{{ route('profile.profileuser', ['id' => $video->user_id]) }}">
                                     <img class="avatar_mini" src="{{ asset('storage/' . $video->user->avatar) }}"
                                         alt="Avatar" >
                                 </a>
                             @else
-                                <a href="{{ route('profileuser.profile', ['id' => $video->user_id]) }}">
+                                <a href="{{ route('profile.profileuser', ['id' => $video->user_id]) }}">
                                     <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
                                 </a>
                             @endif
 
 
                             <p class="txt_2"> <a
-                                    href="{{ route('profileuser.profile', ['id' => $video->user_id, 'previous' => 'video']) }}">
+                                    href="{{ route('profile.profileuser', ['id' => $video->user_id, 'previous' => 'video']) }}">
                                     {{ $video->user->name }}
 
                                 </a></p>
@@ -333,7 +333,7 @@
 
                             <div class="main_novost_top">
                                 <a
-                                    href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                    href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                     <div class="main_novost_img">
 
                                         <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}"
@@ -345,8 +345,7 @@
 
                                 <div class="main_novost_title">
                                     <div>
-                                        <a
-                                            href="{{ route('profileuser.profile', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                        <a href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                             <p class="txt_2">{{ $comment->user->name }}</p>
                                         </a>
                                     </div>

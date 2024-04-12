@@ -266,9 +266,9 @@
                         <div class="profileuser_block_wrap_line">
                         </div>
 
-                        <div class="profileuser_block_contents_wrap_btn">
+                        <a href="{{ route('profile.profileuserstatements' , ['id' => $user->id] ) }}" class="profileuser_block_contents_wrap_btn">
                             <p>Показать все</p>
-                        </div>
+                        </a>
 
                     </div>
 

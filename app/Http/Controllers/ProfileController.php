@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Models\Statement;
 use App\Models\Video;
+use App\Models\Comment;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -71,7 +72,7 @@ class ProfileController extends Controller
         $statements = Statement::where('user_id', auth()->id())->get();
         $videos = Video::where('user_id', auth()->id())->get();
 
-        return view('profileuser', ['users' => $users, 'statements' => $statements, 'videos' => $videos]);
+        return view('profile.profileuser', ['users' => $users, 'statements' => $statements, 'videos' => $videos]);
     }
 
     public function UserProfile($id)
@@ -80,7 +81,20 @@ class ProfileController extends Controller
         $statements = Statement::where('user_id', $id)->get();
         $videos = Video::where('user_id', $id)->get();
 
-        return view('profileuser', ['user' => $user, 'videos' => $videos, 'statements' => $statements, 'users' => [$user]]);
+        return view('profile.profileuser', ['user' => $user, 'videos' => $videos, 'statements' => $statements, 'users' => [$user]]);
+    }
+
+    public function ProfileUserStatements($id)
+    {
+        $user = User::findOrFail($id);
+        $statements = Statement::where('user_id', $id)->withCount('likes','comments')->get();
+
+
+
+
+
+
+        return view('profile.profileuserstatements', ['user' => $user, 'statements' => $statements, 'users' => [$user]]);
     }
 
     public function getAllUsers()

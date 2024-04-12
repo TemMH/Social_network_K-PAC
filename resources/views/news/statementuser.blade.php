@@ -16,7 +16,7 @@
 
                     @if ($statement->user->avatar !== null)
                         <a href="{{ route('profileuser.profile', ['id' => $statement->user_id]) }}">
-                            <img class="avatar" src="{{ asset('storage/' . $statement->user->avatar) }}" alt="Avatar">
+                            <img class="avatar_mini" src="{{ asset('storage/' . $statement->user->avatar) }}" alt="Avatar">
                         </a>
                     @else
                         <a href="{{ route('profileuser.profile', ['id' => $statement->user_id]) }}">

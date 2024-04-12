@@ -124,6 +124,7 @@ class StatementController extends Controller
         $likeUrl = route('statement.like', ['id' => $statement->id]);
         $unlikeUrl = route('statement.unlike', ['id' => $statement->id]);
         $createcomment = route('statement.comment', ['id' => $statement->id]);
+        $profileUrl = route('profile.profileuser', ['id' => $statement->user_id]);
     
         ob_start();
         if (!$statement->likes()->where('user_id', auth()->id())->exists()) {
@@ -147,6 +148,7 @@ class StatementController extends Controller
             'comments' => $comments,
             'createcomment' => $createcomment,
             'statementurl' => $statementurl,
+            'profileUrl' => $profileUrl,
         ]);
     }
     

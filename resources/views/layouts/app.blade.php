@@ -381,7 +381,7 @@
                         <div class="notification_content">
 
                             <div class="">
-                                <a href="{{ route('profileuser.profile', ['id' => $request->id]) }}">
+                                <a href="{{ route('profile.profileuser', ['id' => $request->id]) }}">
                                     {{ $request->sender->name }}
                                 </a>
 
@@ -503,7 +503,7 @@
 
                     @foreach ($friends as $friend)
                         @if ($friend->id !== auth()->id())
-                            <a href="{{ route('profileuser.profile', ['id' => $friend->id]) }}">
+                            <a href="{{ route('profile.profileuser', ['id' => $friend->id]) }}">
 
                                 @if ($friend->avatar !== null)
                                     <img class="avatar_mini" src="{{ asset('storage/' . $friend->avatar) }}"

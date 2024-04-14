@@ -216,7 +216,13 @@
             </form>
 
             <div class="statements_settings_middle">
-                <p>Фотографии {{ $user->name }}</p>
+                <p>Фотографии 
+                    
+                    <a href="{{ route('profile.profileuser', ['id' => $user->id]) }}">
+                    {{ $user->name }}
+                    </a>
+                
+                </p>
             </div>
 
             <form class="statements_settings_right" id="categoryForm" method="GET"

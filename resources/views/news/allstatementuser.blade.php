@@ -150,20 +150,20 @@
                                 <img class="avatar_mini" src="" alt="Avatar">
 
                             </div>
-                     
 
 
-                        <div class="main_novost_title">
-                            <div>
-                                <a href="">
-                                    <p class="txt_2">username</p>
-                                </a>
+
+                            <div class="main_novost_title">
+                                <div>
+                                    <a href="">
+                                        <p class="txt_2">username</p>
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="txt_2">created_at</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="txt_2">created_at</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
                     </div>
 
                     <div class="main_comment_show">
@@ -515,16 +515,22 @@
                                 const mainNovostTop = document.createElement("div");
                                 mainNovostTop.classList.add("main_novost_top");
 
-                                
+
                                 const userLink = document.createElement("a");
-                                userLink.href = "{{ route('profile.profileuser', ['id' => ':id']) }}".replace(':id', comment.user.id); // ссылка на профиль пользователя
+                                userLink.href =
+                                    "{{ route('profile.profileuser', ['id' => ':id']) }}"
+                                    .replace(':id', comment.user
+                                        .id); // ссылка на профиль пользователя
 
                                 const mainNovostImg = document.createElement("div");
                                 mainNovostImg.classList.add("main_novost_img");
 
                                 const avatarImg = document.createElement("img");
                                 avatarImg.classList.add("avatar_mini");
-                                avatarImg.src = comment.user.avatar !== null ? "{{ asset('storage/') }}" + '/' + comment.user.avatar : '/uploads/ProfilePhoto.png'; // URL аватара пользователя
+                                avatarImg.src = comment.user.avatar !== null ?
+                                    "{{ asset('storage/') }}" + '/' + comment.user
+                                    .avatar :
+                                    '/uploads/ProfilePhoto.png'; // URL аватара пользователя
                                 avatarImg.alt = "Avatar";
 
                                 mainNovostImg.appendChild(avatarImg);
@@ -535,7 +541,9 @@
                                 mainNovostTitle.classList.add("main_novost_title");
 
                                 const usernameLink = document.createElement("a");
-                                usernameLink.href = "{{ route('profile.profileuser', ['id' => ':id']) }}".replace(':id', comment.user.id);
+                                usernameLink.href =
+                                    "{{ route('profile.profileuser', ['id' => ':id']) }}"
+                                    .replace(':id', comment.user.id);
 
 
                                 const usernameParagraph = document.createElement("p");
@@ -641,6 +649,108 @@
             });
         });
     </script>
+
+    {{-- FIX COLUMCOUNT --}}
+    <script>
+        var columnCount = 5;
+
+
+        var statementBlocks = document.querySelectorAll('.statement_block');
+
+
+        var blocksPerColumn = Math.ceil(statementBlocks.length / columnCount);
+
+
+        var columns = [];
+
+
+        for (var i = 0; i < columnCount; i++) {
+            var column = document.createElement('div');
+            column.classList.add('column');
+            columns.push(column);
+        }
+
+
+        statementBlocks.forEach(function(block, index) {
+            var columnIndex = index % columnCount;
+            columns[columnIndex].appendChild(block);
+        });
+
+
+        var statementsContainer = document.querySelector('.statements_scroll_lock');
+        columns.forEach(function(column) {
+            statementsContainer.appendChild(column);
+        });
+    </script>
+
+    {{-- dinamic columcount
+    
+
+
+function calculateColumnCount() {
+    var containerWidth = document.querySelector('.statements_scroll_lock').clientWidth;
+    var columnCount;
+
+    if (containerWidth >= 600) {
+        columnCount = 5;
+    } else if (containerWidth >= 400) { 
+        columnCount = 4;
+    } else { 
+        columnCount = 3;
+    }
+
+    return columnCount;
+}
+
+
+function redistributeBlocks() {
+
+    var columnCount = calculateColumnCount();
+
+
+    var statementBlocks = document.querySelectorAll('.statement_block');
+
+
+    var blocksPerColumn = Math.ceil(statementBlocks.length / columnCount);
+
+
+    var columns = [];
+
+
+    for (var i = 0; i < columnCount; i++) {
+        var column = document.createElement('div');
+        column.classList.add('column');
+        columns.push(column);
+    }
+
+
+    statementBlocks.forEach(function(block, index) {
+        var columnIndex = index % columnCount; 
+        columns[columnIndex].appendChild(block);
+    });
+
+
+    var statementsContainer = document.querySelector('.statements_scroll_lock');
+    statementsContainer.innerHTML = ''; 
+    columns.forEach(function(column) {
+        statementsContainer.appendChild(column);
+    });
+}
+
+
+redistributeBlocks();
+
+
+var resizeObserver = new ResizeObserver(function() {
+    redistributeBlocks();
+});
+resizeObserver.observe(document.querySelector('.statements_scroll_lock'));
+
+
+    --}}
+
+
+
 
 
 </x-app-layout>

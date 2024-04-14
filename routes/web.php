@@ -191,6 +191,8 @@ Route::get('/profileuser/{id}', [ProfileController::class, 'UserProfile'])->name
 
 Route::get('/profileuserstatements/{id}', [ProfileController::class, 'ProfileUserStatements'])->name('profile.profileuserstatements')->middleware(['auth', 'verified']);
 
+Route::get('/profileuservideos/{id}', [ProfileController::class, 'ProfileUserVideos'])->name('profile.profileuservideos')->middleware(['auth', 'verified']);
+
 // Other
 
 

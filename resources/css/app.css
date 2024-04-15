@@ -2162,7 +2162,6 @@ flex-direction: column;
     z-index: 2;
     width: 20%;
     height: 100%;
-    margin-right: 0.40%;
 
 }
 
@@ -2237,25 +2236,49 @@ flex-direction: column;
 
     width: 100%;
     height: 100%;
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
     overflow: hidden;
     scroll-snap-align: center;
     scroll-snap-stop: always;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
+    /* justify-content: flex-end; */
+    /* align-items: center; */
 }
 
 .main_shortvideo_content {
+
     position: relative;
     /* margin: 0.5% auto; */
-    /* margin-top: 0.25%;
-    margin-bottom: 0.5%; */
-    margin-right: auto;
-    margin-left: auto;
-    width: 98%;
-    /* max-height: 98vh; */
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+    /* aspect-ratio: 16/9; */
+    /* width: 100%; */
+    display: flex;
+    height: 100%;
+    /* max-height: 98%; */
+    border-radius: 12px;
+}
+
+
+
+#mediaContent{
+
+    height: 100%;
+    width: 100%;
+
+}
+
+.main_shortvideo_content1 {
+
+    position: relative;
+    margin: 0.5% 0;
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+    aspect-ratio: 16/9;
+    width: auto;
+    height: 100%;
+    /* max-height: 98%; */
     border-radius: 12px;
 
 }
@@ -2396,10 +2419,10 @@ Messages
 .message_history_input {
 
     width: 100%;
-    height: 10%;
+    height: 7%;
     border-top: 1px solid #222222;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 
 }
@@ -2464,12 +2487,14 @@ Messages
     color: #777777;
     outline: none;
     width: 100%;
+    height: 100%;
 
 }
 
 .message_history_input_search_container {
 
-    width: 70%;
+    width: 90%;
+    height: 50%;
 
 }
 

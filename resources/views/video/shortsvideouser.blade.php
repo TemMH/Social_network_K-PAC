@@ -6,7 +6,7 @@
 
         @foreach ($videos as $video)
             <div class="shortvideo_rama" data-video-id="{{ $video->id }}">
-                <div class="main_shortvideo_content">
+                <div class="main_shortvideo_content1">
 
                     <div class="main_shortvideo_desc_left">
                         <div class="main_shortvideo_left">

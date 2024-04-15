@@ -652,6 +652,106 @@
         });
     </script>
 
+    {{-- FIX COLUMCOUNT --}}
+    <script>
+        var columnCount = 5;
+
+
+        var statementBlocks = document.querySelectorAll('.statement_block');
+
+
+        var blocksPerColumn = Math.ceil(statementBlocks.length / columnCount);
+
+
+        var columns = [];
+
+
+        for (var i = 0; i < columnCount; i++) {
+            var column = document.createElement('div');
+            column.classList.add('column');
+            columns.push(column);
+        }
+
+
+        statementBlocks.forEach(function(block, index) {
+            var columnIndex = index % columnCount;
+            columns[columnIndex].appendChild(block);
+        });
+
+
+        var statementsContainer = document.querySelector('.statements_scroll_lock');
+        columns.forEach(function(column) {
+            statementsContainer.appendChild(column);
+        });
+    </script>
+
+    {{-- dinamic columcount
+    
+
+
+function calculateColumnCount() {
+    var containerWidth = document.querySelector('.statements_scroll_lock').clientWidth;
+    var columnCount;
+
+    if (containerWidth >= 600) {
+        columnCount = 5;
+    } else if (containerWidth >= 400) { 
+        columnCount = 4;
+    } else { 
+        columnCount = 3;
+    }
+
+    return columnCount;
+}
+
+
+function redistributeBlocks() {
+
+    var columnCount = calculateColumnCount();
+
+
+    var statementBlocks = document.querySelectorAll('.statement_block');
+
+
+    var blocksPerColumn = Math.ceil(statementBlocks.length / columnCount);
+
+
+    var columns = [];
+
+
+    for (var i = 0; i < columnCount; i++) {
+        var column = document.createElement('div');
+        column.classList.add('column');
+        columns.push(column);
+    }
+
+
+    statementBlocks.forEach(function(block, index) {
+        var columnIndex = index % columnCount; 
+        columns[columnIndex].appendChild(block);
+    });
+
+
+    var statementsContainer = document.querySelector('.statements_scroll_lock');
+    statementsContainer.innerHTML = ''; 
+    columns.forEach(function(column) {
+        statementsContainer.appendChild(column);
+    });
+}
+
+
+redistributeBlocks();
+
+
+var resizeObserver = new ResizeObserver(function() {
+    redistributeBlocks();
+});
+resizeObserver.observe(document.querySelector('.statements_scroll_lock'));
+
+
+    --}}
+
+
 
 </x-app-layout>
 

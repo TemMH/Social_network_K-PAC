@@ -173,13 +173,17 @@ class StatementController extends Controller
     public function autocomplete(Request $request)
     {
         $searchTerm = $request->input('search');
-
+    
         $statements = Statement::where('status', 'true')
             ->where('title', 'LIKE', '%' . $searchTerm . '%')
-            ->select('id', 'title')
-            ->limit(5)
+            ->with('user')
+            ->limit(3)
             ->get();
 
-        return response()->json(['statements' => $statements]);
+            
+            $base_url = url('/storage/');
+
+            return response()->json(['statements' => $statements, 'base_url' => $base_url]);
     }
+    
 }

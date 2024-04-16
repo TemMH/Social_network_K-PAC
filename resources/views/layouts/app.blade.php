@@ -336,11 +336,490 @@
             <!-- Контейнер для уведомлений -->
             <div class="notification_container">
                 <!-- Пример уведомления -->
+
+
+
+
                 <div class="notification-block">
-                    <!-- Содержимое уведомления -->
+
+
+
+                    <div class="notification_block_contents_wrap">
+
+                        <div class="profileuser_block_contents_second_wrap_title">
+                            <p>Видеоматериалы</p>
+                        </div>
+
+                        <div class="profileuser_block_wrap_line"></div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="notification-block_frame">
+
+                        <div class="statement_block">
+
+                            <div class="statement_block_top">
+                                <div class="statement_block_top_info_left">
+                                    <div class="statement_block_top_avatar">
+
+
+
+
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+
+
+
+                                    </div>
+
+                                    <div class="statement_block_top_info">
+
+                                        <div class="statement_block_top_info_name">username </div>
+
+                                        <div class="statement_block_top_info_createdat">created_at</div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="statement_block_top_info_right">
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <div>
+
+                                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M19.3 5.71002C18.841 5.24601 18.2943 4.87797 17.6917 4.62731C17.0891 4.37666 16.4426 4.2484 15.79 4.25002C15.1373 4.2484 14.4909 4.37666 13.8883 4.62731C13.2857 4.87797 12.739 5.24601 12.28 5.71002L12 6.00002L11.72 5.72001C10.7917 4.79182 9.53273 4.27037 8.22 4.27037C6.90726 4.27037 5.64829 4.79182 4.72 5.72001C3.80386 6.65466 3.29071 7.91125 3.29071 9.22002C3.29071 10.5288 3.80386 11.7854 4.72 12.72L11.49 19.51C11.6306 19.6505 11.8212 19.7294 12.02 19.7294C12.2187 19.7294 12.4094 19.6505 12.55 19.51L19.32 12.72C20.2365 11.7823 20.7479 10.5221 20.7442 9.21092C20.7405 7.89973 20.2218 6.64248 19.3 5.71002Z"
+                                                        fill="#777777"></path>
+                                                </g>
+                                            </svg>
+
+                                        </div>
+
+                                        <div>66</div>
+
+                                    </div>
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <div>
+
+                                            <svg width="100%" height="100%" viewBox="-0.96 -0.96 33.92 33.92"
+                                                version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#777777"
+                                                stroke="#777777">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <title>comment-2</title>
+                                                    <desc>Created with Sketch Beta.</desc>
+                                                    <defs> </defs>
+                                                    <g id="Page-1" stroke-width="0.8" fill="none"
+                                                        fill-rule="evenodd" sketch:type="MSPage">
+                                                        <g id="Icon-Set" sketch:type="MSLayerGroup"
+                                                            transform="translate(-152.000000, -255.000000)"
+                                                            fill="#777777">
+                                                            <path
+                                                                d="M168,281 C166.832,281 165.704,280.864 164.62,280.633 L159.912,283.463 L159.975,278.824 C156.366,276.654 154,273.066 154,269 C154,262.373 160.268,257 168,257 C175.732,257 182,262.373 182,269 C182,275.628 175.732,281 168,281 L168,281 Z M168,255 C159.164,255 152,261.269 152,269 C152,273.419 154.345,277.354 158,279.919 L158,287 L165.009,282.747 C165.979,282.907 166.977,283 168,283 C176.836,283 184,276.732 184,269 C184,261.269 176.836,255 168,255 L168,255 Z M175,266 L161,266 C160.448,266 160,266.448 160,267 C160,267.553 160.448,268 161,268 L175,268 C175.552,268 176,267.553 176,267 C176,266.448 175.552,266 175,266 L175,266 Z M173,272 L163,272 C162.448,272 162,272.447 162,273 C162,273.553 162.448,274 163,274 L173,274 C173.552,274 174,273.553 174,273 C174,272.447 173.552,272 173,272 L173,272 Z"
+                                                                id="comment-2" sketch:type="MSShapeGroup"> </path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div>66</div>
+
+                                    </div>
+
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <div>
+
+                                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
+                                                        stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <path
+                                                        d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
+                                                        stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+
+                                        </div>
+
+                                        <span>
+                                            66
+                                            {{-- {{ $statement->comments_count }} --}}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="statement_block_middle">
+
+                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711472014.jpg" alt="Photo">
+
+                            </div>
+
+                            <div class="statement_block_down">
+
+                                <div class="statement_block_down_title">title</div>
+                                <div class="statement_block_down_description">description</div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="statement_block">
+
+                            <div class="statement_block_top">
+                                <div class="statement_block_top_info_left">
+                                    <div class="statement_block_top_avatar">
+
+
+
+
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+
+
+
+                                    </div>
+
+                                    <div class="statement_block_top_info">
+
+                                        <div class="statement_block_top_info_name">username </div>
+
+                                        <div class="statement_block_top_info_createdat">created_at</div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="statement_block_top_info_right">
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <div>
+
+                                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M19.3 5.71002C18.841 5.24601 18.2943 4.87797 17.6917 4.62731C17.0891 4.37666 16.4426 4.2484 15.79 4.25002C15.1373 4.2484 14.4909 4.37666 13.8883 4.62731C13.2857 4.87797 12.739 5.24601 12.28 5.71002L12 6.00002L11.72 5.72001C10.7917 4.79182 9.53273 4.27037 8.22 4.27037C6.90726 4.27037 5.64829 4.79182 4.72 5.72001C3.80386 6.65466 3.29071 7.91125 3.29071 9.22002C3.29071 10.5288 3.80386 11.7854 4.72 12.72L11.49 19.51C11.6306 19.6505 11.8212 19.7294 12.02 19.7294C12.2187 19.7294 12.4094 19.6505 12.55 19.51L19.32 12.72C20.2365 11.7823 20.7479 10.5221 20.7442 9.21092C20.7405 7.89973 20.2218 6.64248 19.3 5.71002Z"
+                                                        fill="#777777"></path>
+                                                </g>
+                                            </svg>
+
+                                        </div>
+
+                                        <div>66</div>
+
+                                    </div>
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <div>
+
+                                            <svg width="100%" height="100%" viewBox="-0.96 -0.96 33.92 33.92"
+                                                version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#777777"
+                                                stroke="#777777">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <title>comment-2</title>
+                                                    <desc>Created with Sketch Beta.</desc>
+                                                    <defs> </defs>
+                                                    <g id="Page-1" stroke-width="0.8" fill="none"
+                                                        fill-rule="evenodd" sketch:type="MSPage">
+                                                        <g id="Icon-Set" sketch:type="MSLayerGroup"
+                                                            transform="translate(-152.000000, -255.000000)"
+                                                            fill="#777777">
+                                                            <path
+                                                                d="M168,281 C166.832,281 165.704,280.864 164.62,280.633 L159.912,283.463 L159.975,278.824 C156.366,276.654 154,273.066 154,269 C154,262.373 160.268,257 168,257 C175.732,257 182,262.373 182,269 C182,275.628 175.732,281 168,281 L168,281 Z M168,255 C159.164,255 152,261.269 152,269 C152,273.419 154.345,277.354 158,279.919 L158,287 L165.009,282.747 C165.979,282.907 166.977,283 168,283 C176.836,283 184,276.732 184,269 C184,261.269 176.836,255 168,255 L168,255 Z M175,266 L161,266 C160.448,266 160,266.448 160,267 C160,267.553 160.448,268 161,268 L175,268 C175.552,268 176,267.553 176,267 C176,266.448 175.552,266 175,266 L175,266 Z M173,272 L163,272 C162.448,272 162,272.447 162,273 C162,273.553 162.448,274 163,274 L173,274 C173.552,274 174,273.553 174,273 C174,272.447 173.552,272 173,272 L173,272 Z"
+                                                                id="comment-2" sketch:type="MSShapeGroup"> </path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div>66</div>
+
+                                    </div>
+
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <div>
+
+                                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
+                                                        stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <path
+                                                        d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
+                                                        stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>
+
+                                        </div>
+
+                                        <span>
+                                            66
+                                            {{-- {{ $statement->comments_count }} --}}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="statement_block_middle">
+
+                                <img src="http://127.0.0.1:8000/storage/photos/photo_1711472014.jpg" alt="Photo">
+
+                            </div>
+
+                            <div class="statement_block_down">
+
+                                <div class="statement_block_down_title">title</div>
+                                <div class="statement_block_down_description">description</div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+
                 </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="notification-block">
+
+
+
+                    <div class="notification_block_contents_wrap">
+
+                        <div class="profileuser_block_contents_second_wrap_title">
+                            <p>Фотоматериалы</p>
+                        </div>
+
+                        <div class="profileuser_block_wrap_line"></div>
+
+
+                    </div>
+
+
+                    <div class="notification-block_frame" id="searchResults">
+
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="notification-block">
+
+
+
+                    <div class="notification_block_contents_wrap">
+
+                        <div class="profileuser_block_contents_second_wrap_title">
+                            <p>Люди</p>
+                        </div>
+
+                        <div class="profileuser_block_wrap_line"></div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="notification-block_frame">
+
+                        <div class="statement_block">
+
+                            <div class="statement_block_top">
+                                <div class="statement_block_top_info_left">
+                                    <div class="statement_block_top_avatar">
+
+
+
+
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+
+
+
+                                    </div>
+
+                                    <div class="statement_block_top_info">
+
+                                        <div class="statement_block_top_info_name">username </div>
+
+                                        <div class="statement_block_top_info_createdat">condition</div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="statement_block_top_info_right">
+
+                                    <div class="statement_block_top_info_right_info">
+
+                                        <form method="POST"class="full_notication_btn" action="">
+                                            @csrf
+
+
+                                            <button type="submit">
+
+                                                <svg width="100%" height="100%" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                    </g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M20 18L17 18M17 18L14 18M17 18V15M17 18V21M11 21H4C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
+                                                            stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </g>
+                                                </svg>
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- Другие уведомления... -->
             </div>
+
+            <form action="" class="message_history_input">
+
+                <div class="message_history_input_search_container">
+                    <input type="text" id="searchInput" type="text" name="message" required autofocus
+                        autocomplete="message" class="message_history_input_container"
+                        placeholder="Поиск по заголовку...">
+                </div>
+
+            </form>
+
+
         </div>
 
 
@@ -517,19 +996,7 @@
                     @endforeach
 
 
-                    {{-- ЛАЙК
-                        
-                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/xyboiuok.json" trigger="click" state="morph-heart"
-                        colors="primary:#777777,secondary:#c71f16" style="width:50px;height:50px">
-                    </lord-icon> --}}
 
-                    {{-- Настройки
-                        
-                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                    <lord-icon src="https://cdn.lordicon.com/lecprnjb.json" trigger="hover"
-                        colors="primary:#777777" style="width:50px;height:50px">
-                    </lord-icon> --}}
 
                 </div>
 
@@ -575,6 +1042,135 @@
         @endif
 
     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                let searchTerm = $(this).val().trim();
+
+                if (searchTerm.length >= 2) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/statement/autocomplete',
+                        data: {
+                            search: searchTerm
+                        },
+                        success: function(response) {
+                            console.log(
+                                response);
+                            let resultsDiv = $('#searchResults');
+                            resultsDiv.empty();
+
+                            $.each(response.statements, function(index, statement) {
+                                resultsDiv.append(
+                                    '<a href="/statementuser/' + statement.id +
+                                    '">' +
+                                    '<div class="statement_block">' +
+                                        '<div class="statement_block_top">' +
+            '<div class="statement_block_top_info_left">' +
+               '<div class="statement_block_top_avatar">' +
+                  '<img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">' +
+        '</div>' +
+        '<div class="statement_block_top_info">' +
+                    '<div class="statement_block_top_info_name">' +
+                        statement.user.name +
+                    '</div>' +
+                    '<div class="statement_block_top_info_createdat">' +
+                        statement.created_at +
+                    '</div>' +
+               '</div>' +
+            '</div>' +
+            '<div class="statement_block_top_info_right">' +
+                '<div class="statement_block_top_info_right_info">' +
+                    '<div>' +
+                        '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"' +
+                            'xmlns="http://www.w3.org/2000/svg">' +
+                            '<g id="SVGRepo_bgCarrier" stroke-width="0"></g>' +
+                            '<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>' +
+                            '<g id="SVGRepo_iconCarrier">' +
+                                '<path' +
+                                    'd="M19.3 5.71002C18.841 5.24601 18.2943 4.87797 17.6917 4.62731C17.0891 4.37666 16.4426 4.2484 15.79 4.25002C15.1373 4.2484 14.4909 4.37666 13.8883 4.62731C13.2857 4.87797 12.739 5.24601 12.28 5.71002L12 6.00002L11.72 5.72001C10.7917 4.79182 9.53273 4.27037 8.22 4.27037C6.90726 4.27037 5.64829 4.79182 4.72 5.72001C3.80386 6.65466 3.29071 7.91125 3.29071 9.22002C3.29071 10.5288 3.80386 11.7854 4.72 12.72L11.49 19.51C11.6306 19.6505 11.8212 19.7294 12.02 19.7294C12.2187 19.7294 12.4094 19.6505 12.55 19.51L19.32 12.72C20.2365 11.7823 20.7479 10.5221 20.7442 9.21092C20.7405 7.89973 20.2218 6.64248 19.3 5.71002Z"' +
+                                    'fill="#777777"></path>' +
+                            '</g>' +
+                        '</svg>' +
+                    '</div>' +
+                    '<div>66</div>' +
+                '</div>' +
+                '<div class="statement_block_top_info_right_info">' +
+                    '<div>' +
+                        '<svg width="100%" height="100%" viewBox="-0.96 -0.96 33.92 33.92" version="1.1"' +
+                            'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"' +
+                            'xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#777777" stroke="#777777">' +
+                            '<g id="SVGRepo_bgCarrier" stroke-width="0"></g>' +
+                            '<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>' +
+                            '<g id="SVGRepo_iconCarrier">' +
+                                '<title>comment-2</title>' +
+                                '<desc>Created with Sketch Beta.</desc>' +
+                                '<defs> </defs>' +
+                                '<g id="Page-1" stroke-width="0.8" fill="none" fill-rule="evenodd"' +
+                                    'sketch:type="MSPage">' +
+                                    '<g id="Icon-Set" sketch:type="MSLayerGroup"' +
+                                        'transform="translate(-152.000000, -255.000000)" fill="#777777">' +
+                                        '<path' +
+                                            'd="M168,281 C166.832,281 165.704,280.864 164.62,280.633 L159.912,283.463 L159.975,278.824 C156.366,276.654 154,273.066 154,269 C154,262.373 160.268,257 168,257 C175.732,257 182,262.373 182,269 C182,275.628 175.732,281 168,281 L168,281 Z M168,255 C159.164,255 152,261.269 152,269 C152,273.419 154.345,277.354 158,279.919 L158,287 L165.009,282.747 C165.979,282.907 166.977,283 168,283 C176.836,283 184,276.732 184,269 C184,261.269 176.836,255 168,255 L168,255 Z M175,266 L161,266 C160.448,266 160,266.448 160,267 C160,267.553 160.448,268 161,268 L175,268 C175.552,268 176,267.553 176,267 C176,266.448 175.552,266 175,266 L175,266 Z M173,272 L163,272 C162.448,272 162,272.447 162,273 C162,273.553 162.448,274 163,274 L173,274 C173.552,274 174,273.553 174,273 C174,272.447 173.552,272 173,272 L173,272 Z"' +
+                                            'id="comment-2" sketch:type="MSShapeGroup"> </path>' +
+                                    '</g>' +
+                                '</g>' +
+                            '</g>' +
+                        '</svg>' +
+                    '</div>' +
+                    '<div>66</div>' +
+                '</div>' +
+                '<div class="statement_block_top_info_right_info">' +
+                    '<div>' +
+                        '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"' +
+                            'xmlns="http://www.w3.org/2000/svg">' +
+                            '<g id="SVGRepo_bgCarrier" stroke-width="0"></g>' +
+                            '<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>' +
+                            '<g id="SVGRepo_iconCarrier">' +
+                                '<path' +
+                                    'd="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"' +
+                                    'stroke="#777777" stroke-width="2" stroke-linecap="round"' +
+                                    'stroke-linejoin="round"></path>' +
+                                '<path' +
+                                    'd="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"' +
+                                    'stroke="#777777" stroke-width="2" stroke-linecap="round"' +
+                                    'stroke-linejoin="round"></path>' +
+                            '</g>' +
+                        '</svg>' +
+                    '</div>' +
+                    '<div>' +
+                        '66' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="statement_block_middle">' +
+            '<img src="' + response.base_url + '/' + statement.photo_path + '" alt="Photo">' +
+        '</div>' +
+        '<div class="statement_block_down">' +
+            '<div class="statement_block_down_title">' +
+                 statement.title +
+           '</div>' +
+            '<div class="statement_block_down_description">' +
+                 statement.description +
+            '</div>' +
+        '</div>' +
+    '</div>' +
+                                    '</a>'
+                                );
+                            });
+                        }
+
+                    });
+                } else {
+                    $('#searchResults').empty();
+                }
+            });
+        });
+    </script>
 
 
 

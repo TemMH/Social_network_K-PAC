@@ -9,51 +9,114 @@
 
 
     <div class="longvideos_field">
-
-        <div class="longvideos_thumbnail">
-
-
-            <div class="blurred_bottom"></div>
-            <div class="longvideos_thumbnail_info">
-                <div class="longvideos_thumbnail_top">
+        @for ($i = 0; $i < min(count($videos), 1); $i++)
+            @php $video = $videos[$i]; @endphp
+            @if ($video->status == 'true')
+                <div class="longvideos_thumbnail">
 
 
-                    <h1 class="longvideos_thumbnail_title"></h1>
+                    <div class="blurred_bottom"></div>
+                    <div class="longvideos_thumbnail_info show">
+                        <div class="longvideos_thumbnail_top show">
 
-                    <div class="longvideos_thumbnail_dopinfo">
 
-                        <div class="longvideos_thumbnail_avatar">
+                            <h1 class="longvideos_thumbnail_title">
+                                {{ $video->title }}
+                            </h1>
+
+                            <div class="longvideos_thumbnail_dopinfo">
+
+                                <div class="longvideos_thumbnail_avatar">
+
+                                </div>
+                                <div class="longvideos_thumbnail_name">
+                                    <p class="longvideos_thumbnail_name">
+
+                                        {{ $video->user->name }}
+
+                                    </p>
+                                </div>
+                                <div class="longvideos_thumbnail_created_at">
+                                    @if (!function_exists('pluralForm'))
+                                        @php
+                                            function pluralForm($number, $one, $two, $five)
+                                            {
+                                                $number = abs($number) % 100;
+                                                $remainder = $number % 10;
+
+                                                if ($number > 10 && $number < 20) {
+                                                    return $five;
+                                                }
+
+                                                if ($remainder > 1 && $remainder < 5) {
+                                                    return $two;
+                                                }
+
+                                                if ($remainder == 1) {
+                                                    return $one;
+                                                }
+
+                                                return $five;
+                                            }
+                                        @endphp
+                                    @endif
+
+                                    @php
+                                        $createdAt = strtotime($video->created_at);
+                                        $currentDate = strtotime(date('Y-m-d H:i:s'));
+                                        $timeDiff = $currentDate - $createdAt;
+
+                                        if ($timeDiff >= 86400) {
+                                            $days = floor($timeDiff / 86400);
+                                            $formattedTime =
+                                                $days . ' ' . pluralForm($days, 'день', 'дня', 'дней') . ' назад';
+                                        } elseif ($timeDiff >= 3600) {
+                                            $hours = floor($timeDiff / 3600);
+                                            $formattedTime =
+                                                $hours . ' ' . pluralForm($hours, 'час', 'часа', 'часов') . ' назад';
+                                        } elseif ($timeDiff >= 60) {
+                                            $minutes = floor($timeDiff / 60);
+                                            $formattedTime =
+                                                $minutes .
+                                                ' ' .
+                                                pluralForm($minutes, 'минута', 'минуты', 'минут') .
+                                                ' назад';
+                                        } else {
+                                            $formattedTime = 'только что';
+                                        }
+                                    @endphp
+                                    <p class="longvideos_thumbnail_created_at">
+                                        {{ $formattedTime }}
+                                    </p>
+                                </div>
+
+
+
+                            </div>
 
                         </div>
-                        <div class="longvideos_thumbnail_name">
-                            <p class="longvideos_thumbnail_name"></p>
-                        </div>
-                        <div class="longvideos_thumbnail_created_at">
-                            <p class="longvideos_thumbnail_created_at"></p>
-                        </div>
 
+                        <div class="longvideos_thumbnail_description">
+                            Раскрывающийся список
 
+                            <div class="longvideos_thumbnail_description_text">
+
+                                <p class="longvideos_thumbnail_description_text">
+                                   
+                                </p>
+                            </div>
+                        </div>
 
                     </div>
 
+                    <div style="position: absolute" class=""></div>
+
+                    <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt=" "
+                        style="object-fit: cover;" class="videoThumbnail_main">
+
                 </div>
-
-                <div class="longvideos_thumbnail_description">
-                    Раскрывающийся список
-
-                    <div class="longvideos_thumbnail_description_text">
-
-                        <p class="longvideos_thumbnail_description_text"></p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div style="position: absolute" class=""></div>
-
-            <img src="" alt=" " style="object-fit: cover;" class="videoThumbnail_main">
-
-        </div>
+            @endif
+        @endfor
 
         <div class="longvideos_selections">
 
@@ -73,7 +136,6 @@
                 </form>
             </div>
             <div class="longvideos_scroll_lock">
-
 
 
                 <div class="longvideos_scroll_sorting_block">
@@ -604,55 +666,55 @@
 
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-        var categoryButtons = document.querySelectorAll('.longvideos_categories_btn');
+                var categoryButtons = document.querySelectorAll('.longvideos_categories_btn');
 
-        var selectedCategory = localStorage.getItem('selectedCategory');
+                var selectedCategory = localStorage.getItem('selectedCategory');
 
-        var currentUrl = window.location.href;
+                var currentUrl = window.location.href;
 
-        if (!currentUrl.includes('category')) {
-            selectedCategory = null;
-            localStorage.removeItem('selectedCategory');
-        }
-
-        if (selectedCategory) {
-            categoryButtons.forEach(function(button) {
-                if (button.value === selectedCategory) {
-                    button.classList.add('select');
+                if (!currentUrl.includes('category')) {
+                    selectedCategory = null;
+                    localStorage.removeItem('selectedCategory');
                 }
-            });
-        }
 
-        categoryButtons.forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
+                if (selectedCategory) {
+                    categoryButtons.forEach(function(button) {
+                        if (button.value === selectedCategory) {
+                            button.classList.add('select');
+                        }
+                    });
+                }
 
-                categoryButtons.forEach(function(btn) {
-                    btn.classList.remove('select');
+                categoryButtons.forEach(function(button) {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+
+                        categoryButtons.forEach(function(btn) {
+                            btn.classList.remove('select');
+                        });
+
+                        button.classList.add('select');
+
+                        var category = button.value;
+
+                        localStorage.setItem('selectedCategory', category);
+
+                        var hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = 'category';
+                        hiddenField.value = category;
+
+                        var form = document.getElementById('categoryForm');
+                        form.appendChild(hiddenField);
+
+                        form.submit();
+                    });
                 });
-
-                button.classList.add('select');
-
-                var category = button.value;
-
-                localStorage.setItem('selectedCategory', category);
-
-                var hiddenField = document.createElement('input');
-                hiddenField.type = 'hidden';
-                hiddenField.name = 'category';
-                hiddenField.value = category;
-
-                var form = document.getElementById('categoryForm');
-                form.appendChild(hiddenField);
-
-                form.submit();
             });
-        });
-    });
-</script>
+        </script>
 
 
 

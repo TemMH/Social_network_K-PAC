@@ -281,7 +281,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/statement/autocomplete', [StatementController::class, 'autocomplete'])->name('statement.autocomplete');
+Route::get('/statement/autocomplete', [StatementController::class, 'autocompletestatement'])->name('statement.autocompletestatement');
+Route::get('/video/autocomplete', [StatementController::class, 'autocompletevideo'])->name('video.autocompletevideo');
+Route::get('/user/autocomplete', [StatementController::class, 'autocompleteuser'])->name('user.autocompleteuser');
 
 
 Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('usersort');

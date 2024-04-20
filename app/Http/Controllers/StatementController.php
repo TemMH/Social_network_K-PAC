@@ -28,7 +28,7 @@ class StatementController extends Controller
         $request->validate([
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         $user = auth()->user();

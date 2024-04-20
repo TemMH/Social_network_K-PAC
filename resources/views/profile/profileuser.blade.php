@@ -214,6 +214,61 @@
 
 
 
+                                {{-- BUTTONS UPLOAD --}}
+                                @if ($user->id == auth()->id())
+                                    <button class="full_statement_btn" onclick="location.href='/newvideo'"
+                                        type="button">
+
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M9.5 9V15M6.5 12H12.5M16 10L18.5768 8.45392C19.3699 7.97803 19.7665 7.74009 20.0928 7.77051C20.3773 7.79703 20.6369 7.944 20.806 8.17433C21 8.43848 21 8.90095 21 9.8259V14.1741C21 15.099 21 15.5615 20.806 15.8257C20.6369 16.056 20.3773 16.203 20.0928 16.2295C19.7665 16.2599 19.3699 16.022 18.5768 15.5461L16 14M6.2 18H12.8C13.9201 18 14.4802 18 14.908 17.782C15.2843 17.5903 15.5903 17.2843 15.782 16.908C16 16.4802 16 15.9201 16 14.8V9.2C16 8.0799 16 7.51984 15.782 7.09202C15.5903 6.71569 15.2843 6.40973 14.908 6.21799C14.4802 6 13.9201 6 12.8 6H6.2C5.0799 6 4.51984 6 4.09202 6.21799C3.71569 6.40973 3.40973 6.71569 3.21799 7.09202C3 7.51984 3 8.07989 3 9.2V14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18Z"
+                                                    stroke="#777777" stroke-width="1.44" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                @endif
+
+                                @if ($user->id == auth()->id())
+                                    <button class="full_statement_btn" onclick="location.href='/newstatement'"
+                                        type="button">
+
+                                        <svg fill="#777777" version="1.1" id="Layer_1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 214.2 214.2"
+                                            xml:space="preserve" width="100%" height="100%" stroke="#777777"
+                                            stroke-width="5.3549999999999995">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <g>
+                                                    <g>
+                                                        <g>
+                                                            <path
+                                                                d="M194.39,55.534h-39.024l-8.733-32.756c-0.463-1.735-2.036-2.944-3.833-2.944H71.4c-1.797,0-3.37,1.209-3.833,2.944 l-8.733,32.756H19.81C8.886,55.534,0,64.425,0,75.355v99.19c0,10.929,8.886,19.821,19.81,19.821h174.58 c10.924,0,19.81-8.892,19.81-19.822v-99.19C214.2,64.425,205.314,55.534,194.39,55.534z M194.39,186.434H19.81 c-6.548,0-11.877-5.332-11.877-11.889v-99.19c0-6.557,5.328-11.888,11.877-11.888h42.07c1.797,0,3.37-1.209,3.833-2.944 l8.733-32.756h65.307l8.733,32.756c0.463,1.735,2.035,2.944,3.833,2.944h42.07c6.548,0,11.877,5.332,11.877,11.888v99.19h0.001 C206.267,181.102,200.939,186.434,194.39,186.434z">
+                                                            </path>
+                                                            <rect x="83.3" y="35.701" width="47.6" height="7.933">
+                                                            </rect>
+                                                            <path
+                                                                d="M107.1,71.401c-28.435,0-51.567,23.132-51.567,51.567s23.132,51.567,51.567,51.567c28.435,0,51.567-23.132,51.567-51.567 S135.535,71.401,107.1,71.401z M107.1,166.6c-24.059,0-43.633-19.574-43.633-43.633c0-24.059,19.574-43.634,43.633-43.634 c24.059,0,43.633,19.574,43.633,43.633S131.159,166.6,107.1,166.6z">
+                                                            </path>
+                                                            <path
+                                                                d="M130.9,119h-19.833V99.167c0-2.19-1.776-3.967-3.967-3.967c-2.19,0-3.967,1.776-3.967,3.967V119H83.3 c-2.19,0-3.967,1.776-3.967,3.967c0,2.191,1.776,3.967,3.967,3.967h19.833v19.833c0,2.19,1.776,3.967,3.967,3.967 c2.19,0,3.967-1.776,3.967-3.967v-19.833H130.9c2.19,0,3.967-1.776,3.967-3.967C134.867,120.776,133.09,119,130.9,119z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+
+                                    </button>
+                                @endif
 
                                 {{-- SETTINGS --}}
 
@@ -266,7 +321,8 @@
                         <div class="profileuser_block_wrap_line">
                         </div>
 
-                        <a href="{{ route('profile.profileuserstatements' , ['id' => $user->id] ) }}" class="profileuser_block_contents_wrap_btn">
+                        <a href="{{ route('profile.profileuserstatements', ['id' => $user->id]) }}"
+                            class="profileuser_block_contents_wrap_btn">
                             <p>Показать все</p>
                         </a>
 
@@ -307,7 +363,8 @@
 
                         <div class="profileuser_block_wrap_line"></div>
 
-                        <a href="{{ route('profile.profileuservideos' , ['id' => $user->id] ) }}" class="profileuser_block_contents_wrap_btn">
+                        <a href="{{ route('profile.profileuservideos', ['id' => $user->id]) }}"
+                            class="profileuser_block_contents_wrap_btn">
                             <p>Показать все</p>
                         </a>
 
@@ -321,24 +378,23 @@
                     <div class="profileuser_block_contents_second">
 
 
-                        <div id="scrollContainerSecond" class="profileuser_block_contents_second_contents{{ count($videos) < 6 ? ' profileuser_block_contents_second_contents_flex' : '' }}">
+                        <div id="scrollContainerSecond"
+                            class="profileuser_block_contents_second_contents{{ count($videos) < 6 ? ' profileuser_block_contents_second_contents_flex' : '' }}">
 
                             @foreach ($videos as $key => $video)
-                     
-
-                                <div class="profileuser_content_second{{ ($key + 1) % 4 == 0 || $loop->first ? ' block1' : '' }}">
+                                <div
+                                    class="profileuser_content_second{{ ($key + 1) % 4 == 0 || $loop->first ? ' block1' : '' }}">
                                     <a href="{{ route('videouser', ['id' => $video->id]) }}">
-                                    <img src="{{ asset('storage/' . $video->thumbnail_path) }}">
-                                    <div class="longvideos_video_thumbnail_title">
-                                        <p class="txt_2">{{$video->title}}</p>
-                                    </div>
-                                </a>
+                                        <img src="{{ asset('storage/' . $video->thumbnail_path) }}">
+                                        <div class="longvideos_video_thumbnail_title">
+                                            <p class="txt_2">{{ $video->title }}</p>
+                                        </div>
+                                    </a>
                                 </div>
-                       
                             @endforeach
-                        
+
                         </div>
-                        
+
 
 
 

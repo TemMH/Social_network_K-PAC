@@ -118,12 +118,12 @@
 
                                 {{-- REQUEST FRIEND --}}
 
-                                @if ($user->id !== auth()->id())
-                                    <form method="POST" action="{{ route('send-friend-request', $user) }}">
+                                @if ($user->id !== auth()->id() && !auth()->user()->areFriends($user->id))
+                                    <form method="POST" class="full_statement_btn" action="{{ route('send-friend-request', $user) }}">
                                         @csrf
 
 
-                                        <button type="submit" class="full_statement_btn">
+                                        <button type="submit" >
 
                                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -150,8 +150,7 @@
                                 {{-- REMOVE FRIEND --}}
 
                                 @if (
-                                    $user->id != auth()->id() &&
-                                        auth()->user()->areFriends($user->id))
+                                    $user->id != auth()->id() && auth()->user()->areFriends($user->id))
                                     <button class="full_statement_btn" type="button"
                                         onclick="confirmRemoveFriend()">
                                         <form id="removeFriendForm" method="POST"

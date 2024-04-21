@@ -203,7 +203,7 @@
 
 
                 <div class="header_down1">
-
+                    @auth
                     <div class="adminpanel">
 
                         <button type="button" onclick="toggleSearch()">
@@ -214,7 +214,7 @@
                         </button>
 
                     </div>
-
+                    @endauth
                 </div>
 
 
@@ -319,7 +319,7 @@
                     <div class="notification_block_contents_wrap">
 
                         <div class="profileuser_block_contents_second_wrap_title">
-                            <p>Люди</p>
+                            <p>Пользователи</p>
                         </div>
 
                         <div class="profileuser_block_wrap_line"></div>
@@ -498,7 +498,7 @@
 
 
 
-
+                    @auth
                     <div class="adminpanel">
 
                         <button type="button" onclick="toggleNotification()">
@@ -510,7 +510,7 @@
 
                         </button>
                     </div>
-
+@endauth
 
 
 

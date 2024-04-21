@@ -193,6 +193,17 @@ Route::get('/profileuserstatements/{id}', [ProfileController::class, 'ProfileUse
 
 Route::get('/profileuservideos/{id}', [ProfileController::class, 'ProfileUserVideos'])->name('profile.profileuservideos')->middleware(['auth', 'verified']);
 
+
+// Admin
+
+Route::get('/reports', function () {
+    return view('admin.reports');
+})->middleware(['auth', 'verified'])->name('reports');
+
+
+
+
+
 // Other
 
 

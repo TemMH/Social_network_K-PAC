@@ -3376,7 +3376,9 @@ video {
 .main_video_content_scroll_lock {
 
     max-width: 98%;
-    max-height: 100vh;
+    max-height: 98.5%;
+    /* max-height: 100vh; */
+    /* height: 98.5%; */
     aspect-ratio: 16 / 9;
     margin: 0.5% auto;
     display: flex;

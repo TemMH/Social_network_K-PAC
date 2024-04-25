@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\myStatementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatementController;
@@ -62,7 +63,10 @@ Route::post('/allstatement/{id}', [myStatementController::class, 'updatenews'])-
 Route::delete('/statement/delete/{id}', [StatementController::class, 'delete'])->name('statement.delete');
 
 Route::post('/statement/{id}/like', [StatementController::class, 'like'])->name('statement.like');
+
 Route::delete('/statement/{id}/unlike', [StatementController::class, 'unlike'])->name('statement.unlike');
+
+Route::post('/statement/{id}/complaint', [ComplaintController::class, 'storestatementcomplaint'])->name('statement.complaint');
 
 Route::get('/statementuser/{id}', [StatementController::class, 'show'])->name('statementuser');
 
@@ -123,6 +127,9 @@ Route::get('/allvideo', [VideoController::class, 'allvideo'])->name('allvideo')-
 Route::post('/allvideo/{id}', [VideoController::class, 'updatevideo'])->name('statuseditvideo');
 
 Route::post('/video/{id}/like', [VideoController::class, 'like'])->name('video.like');
+
+Route::post('/video/{id}/complaint', [ComplaintController::class, 'storevideocomplaint'])->name('video.complaint');
+
 Route::delete('/video/{id}/unlike', [VideoController::class, 'unlike'])->name('video.unlike');
 
 Route::get('/myvideo', [VideoController::class, 'myvideo'])->name('myvideo')->middleware(['auth', 'verified']);
@@ -193,6 +200,8 @@ Route::get('/profileuserstatements/{id}', [ProfileController::class, 'ProfileUse
 
 Route::get('/profileuservideos/{id}', [ProfileController::class, 'ProfileUserVideos'])->name('profile.profileuservideos')->middleware(['auth', 'verified']);
 
+Route::post('/user/{id}/complaint', [ComplaintController::class, 'storeusercomplaint'])->name('user.complaint');
+
 
 // Admin
 
@@ -201,8 +210,9 @@ Route::get('/reports', function () {
 })->middleware(['auth', 'verified'])->name('reports');
 
 
+//Complaint
 
-
+Route::put('/complaiment/{complaiment}', [ComplaintController::class, 'edit'])->name('complaiment.edit');
 
 // Other
 

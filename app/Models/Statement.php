@@ -30,9 +30,9 @@ class Statement extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function complaiments()
+    public function complaints()
     {
-        return $this->hasMany(Complaiment::class);
+        return $this->hasMany(Complaint::class);
     }
 
     public function views()

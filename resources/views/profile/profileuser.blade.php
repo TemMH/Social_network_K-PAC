@@ -193,7 +193,9 @@
 
 
                                 @if ($user->id !== auth()->id())
-                                    <button class="full_statement_btn"> <svg width="100%" height="100%"
+                                <form class="full_statement_btn" action="{{ route('user.complaint', ['id' => $user->id]) }}" method="post">
+                                    @csrf
+                                    <button> <svg width="100%" height="100%"
                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                             stroke="#777777">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -209,6 +211,7 @@
                                             </g>
                                         </svg>
                                     </button>
+                                    </form>
                                 @endif
 
 

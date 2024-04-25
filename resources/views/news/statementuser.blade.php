@@ -99,7 +99,13 @@
                         </g>
                     </svg>
                 </button>
-                <button class="full_statement_btn">
+
+
+                
+
+                <button onclick="confirmSendComplaint()" type="button" class="full_statement_btn">
+
+
 
                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg" stroke="#777777">
@@ -120,6 +126,41 @@
                     --}}
 
                 </button>
+
+
+                <div id="myModal" style="display: none;">
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      <form id="sendcomplaint" action="{{ route('statement.complaint', ['id' => $statement->id]) }}" method="post">
+                        @csrf
+                        <input type="text" id="reasonInput" name="reason" placeholder="Введите причину отправки жалобы">
+                        <button type="submit" class="full_statement_btn">Отправить</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <script>
+
+                    function openModal() {
+                      document.getElementById("myModal").style.display = "block";
+                    }
+                  
+
+                    document.getElementsByClassName("close")[0].onclick = function() {
+                      document.getElementById("myModal").style.display = "none";
+                    }
+                  
+
+                    window.onclick = function(event) {
+                      if (event.target == document.getElementById("myModal")) {
+                        document.getElementById("myModal").style.display = "none";
+                      }
+                    }
+                  
+                    function confirmSendComplaint() {
+                      openModal();
+                    }
+                  </script>
 
                 <?php
                 $friendsList = \App\Models\Friendship::where(function ($query) {

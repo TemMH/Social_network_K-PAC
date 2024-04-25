@@ -216,7 +216,13 @@
                                     </g>
                                 </svg>
                             </button>
-                            <button class="full_video_btn">
+
+                            <form class="full_video_btn" action="{{ route('video.complaint', ['id' => $video->id]) }}" method="post">
+                                @csrf
+                                
+                            <button >
+
+
 
                                 <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg" stroke="#777777">
@@ -237,8 +243,10 @@
                                     
                                 --}}
 
-                            </button>
 
+
+                            </button>
+                        </form>
                             <?php
                             $friendsList = \App\Models\Friendship::where(function ($query) {
                                 $query->where('sender_id', auth()->id())->where('status', 'accepted');

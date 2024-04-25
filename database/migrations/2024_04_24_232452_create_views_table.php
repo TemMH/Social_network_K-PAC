@@ -9,26 +9,27 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('views', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('user_id');
-            $table->foreignId('statement_id')->nullable()->constrained('statements');
-            $table->foreignId('video_id')->nullable()->constrained('videos');
-            $table->text('content');
+
+            $table->foreignId('statement_id')->nullable()->constrained('statements')->onDelete('cascade');
+            $table->foreignId('video_id')->nullable()->constrained('videos')->onDelete('cascade');
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('views');
     }
 };

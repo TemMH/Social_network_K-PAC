@@ -31,6 +31,16 @@ class Video extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function complaiments()
+    {
+        return $this->hasMany(Complaiment::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

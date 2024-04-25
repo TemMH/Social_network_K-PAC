@@ -16,7 +16,7 @@
 
                 <div class="newvideo_frame_text_title">
 
-                    <p>Название видеоматериала</p>
+                    <p>Название фотоматериала</p>
 
                     <div>
                         <input type="text" id="title" name="title" required
@@ -27,7 +27,7 @@
 
                 <div class="newvideo_frame_text_description">
 
-                    <p>Описание видеоматериала</p>
+                    <p>Описание фотоматериала</p>
 
                     <div class="newvideo_frame_text_description_textarea">
                         <textarea type="text" id="description" type="text" name="description" required class="newvideo_textarea"

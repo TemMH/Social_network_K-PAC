@@ -240,7 +240,7 @@
                             <p>Видеоматериалы</p>
                         </div>
 
-                        <div class="profileuser_block_wrap_line"></div>
+                        <div class="right_block_wrap_line"></div>
 
 
                     </div>
@@ -280,7 +280,7 @@
                             <p>Фотоматериалы</p>
                         </div>
 
-                        <div class="profileuser_block_wrap_line"></div>
+                        <div class="right_block_wrap_line"></div>
 
 
                     </div>
@@ -322,7 +322,7 @@
                             <p>Пользователи</p>
                         </div>
 
-                        <div class="profileuser_block_wrap_line"></div>
+                        <div class="right_block_wrap_line"></div>
 
 
                     </div>

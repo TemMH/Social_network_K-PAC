@@ -30,11 +30,11 @@
 
                                 </div>
                                 <div class="longvideos_thumbnail_name">
-                                    <p class="longvideos_thumbnail_name">
+                             
 
                                         {{ $video->user->name }}
 
-                                    </p>
+                              
                                 </div>
                                 <div class="longvideos_thumbnail_created_at">
                                     @if (!function_exists('pluralForm'))
@@ -96,16 +96,21 @@
 
                         </div>
 
-                        <div class="longvideos_thumbnail_description">
+                        <details class="longvideos_thumbnail_description">
+                            <summary>
                             Раскрывающийся список
+                            </summary>
 
                             <div class="longvideos_thumbnail_description_text">
 
-                                <p class="longvideos_thumbnail_description_text">
-                                   
-                                </p>
+
+                              
+                                    {{ $video->description }}
+                               
+
+
                             </div>
-                        </div>
+                        </details>
 
                     </div>
 
@@ -472,7 +477,7 @@
                                                         @endif
                                                     </p>
                                                     <p class="lv_description">{{ $video->description }}</p>
-
+                                                    
 
                                                     @if (!function_exists('pluralForm'))
                                                         @php
@@ -562,7 +567,7 @@
             const hoverThumbnail = document.querySelector('.videoThumbnail_main');
             const hoverTitle = document.querySelector('.longvideos_thumbnail_title');
             const hoverAvatar = document.querySelector('.longvideos_thumbnail_avatar');
-            const hoverName = document.querySelector('.longvideos_thumbnail_name p');
+            const hoverName = document.querySelector('.longvideos_thumbnail_name');
             const hoverDescription = document.querySelector('.longvideos_thumbnail_description_text');
             const hoverCreatedAt = document.querySelector('.longvideos_thumbnail_created_at p');
 

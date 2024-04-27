@@ -8,7 +8,9 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\DialogController;
+use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\FriendfeedController;
+use Illuminate\Routing\ViewController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -214,8 +216,19 @@ Route::get('/reports', function () {
 
 Route::get('/reports', [ComplaintController::class, 'index'])->name('reports');
 
-Route::put('/complaiment/{complaiment}', [ComplaintController::class, 'edit'])->name('complaiment.edit');
+Route::put('/complaint/video/{video}', [ComplaintController::class, 'update_video'])->name('complaint.update.video');
 
+Route::put('/complaint/statement/{statement}', [ComplaintController::class, 'update_statement'])->name('complaint.update.statement');
+
+Route::put('/complaint/user/{user}', [ComplaintController::class, 'update_user'])->name('complaint.update.user');
+
+
+// View
+
+
+Route::post('/view/statement/{statementId}', [ViewsController::class, 'view_statement'])->name('view.statement');
+
+Route::post('/view/video/{videoId}', [ViewsController::class, 'view_video'])->name('view.video');
 
 // Other
 

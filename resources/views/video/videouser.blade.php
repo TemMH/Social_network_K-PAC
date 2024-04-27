@@ -9,8 +9,7 @@
         <div class="modal_block_open">
 
             <div class="modal-content">
-                <form id="sendcomplaint" action="{{ route('video.complaint', ['id' => $video->id]) }}"
-                    method="post">
+                <form id="sendcomplaint" action="{{ route('video.complaint', ['id' => $video->id]) }}" method="post">
                     @csrf
 
                     <p>Причина жалобы</p>
@@ -20,15 +19,18 @@
                             <span class='inner-label'>Спам</span>
                         </label>
                         <label class='radio-label'>
-                            <input  type='radio' id="reasonInput" name="reason" value="Жестокое или отталкивающее содержание" required>
+                            <input type='radio' id="reasonInput" name="reason"
+                                value="Жестокое или отталкивающее содержание" required>
                             <span class='inner-label'>Жестокое или отталкивающее содержание</span>
                         </label>
                         <label class='radio-label'>
-                            <input  type='radio' id="reasonInput" name="reason" value="Дискриминационные высказывания и оскорбления" required>
+                            <input type='radio' id="reasonInput" name="reason"
+                                value="Дискриминационные высказывания и оскорбления" required>
                             <span class='inner-label'>Дискриминационные высказывания и оскорбления</span>
                         </label>
                         <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason" value="Вредные или опасные действия" required>
+                            <input type='radio' id="reasonInput" name="reason" value="Вредные или опасные действия"
+                                required>
                             <span class='inner-label'>Вредные или опасные действия</span>
                         </label>
                         <label class='radio-label'>
@@ -63,38 +65,38 @@
 
     </div>
 
-<script>
-    const statementFieldOpen = document.querySelector(".statement_field_open");
-    const closeButton = document.querySelector(".statement_block_btn_close");
+    <script>
+        const statementFieldOpen = document.querySelector(".statement_field_open");
+        const closeButton = document.querySelector(".statement_block_btn_close");
 
 
-    function closeModal() {
-        statementFieldOpen.classList.remove("opened");
-    }
-
-    function openModal() {
-
-        statementFieldOpen.classList.add("opened");
-    }
-
-    closeButton.addEventListener("click", closeModal);
-
-    statementFieldOpen.addEventListener("click", function(event) {
-        if (event.target === statementFieldOpen) {
-            closeModal();
+        function closeModal() {
+            statementFieldOpen.classList.remove("opened");
         }
-    });
 
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape" && statementFieldOpen.classList.contains("opened")) {
-            closeModal();
+        function openModal() {
+
+            statementFieldOpen.classList.add("opened");
         }
-    });
 
-    function confirmSendComplaint() {
-        openModal();
-    }
-</script>
+        closeButton.addEventListener("click", closeModal);
+
+        statementFieldOpen.addEventListener("click", function(event) {
+            if (event.target === statementFieldOpen) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape" && statementFieldOpen.classList.contains("opened")) {
+                closeModal();
+            }
+        });
+
+        function confirmSendComplaint() {
+            openModal();
+        }
+    </script>
 
 
 
@@ -224,7 +226,7 @@
                             @if ($video->user->avatar !== null)
                                 <a href="{{ route('profile.profileuser', ['id' => $video->user_id]) }}">
                                     <img class="avatar_mini" src="{{ asset('storage/' . $video->user->avatar) }}"
-                                        alt="Avatar" >
+                                        alt="Avatar">
                                 </a>
                             @else
                                 <a href="{{ route('profile.profileuser', ['id' => $video->user_id]) }}">
@@ -307,25 +309,27 @@
                             </button>
 
 
-                                
-                            <button class="full_video_btn" onclick="confirmSendComplaint()">
+
+                            @if (!$video->complaints->contains('status', 'block') && !$video->complaints->contains('status', 'unblock'))
+                                    <button class="full_video_btn" onclick="confirmSendComplaint()">
 
 
 
-                                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" stroke="#777777">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
-                                            stroke="#777777" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </g>
-                                </svg>
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" stroke="#777777">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
+                                                    stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </g>
+                                        </svg>
 
 
-                                {{-- репорт заполненный
+                                        {{-- репорт заполненный
                                     
                                     <svg fill="#777777" width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>ionicons-v5-m</title><path d="M80,480a16,16,0,0,1-16-16V68.13A24,24,0,0,1,75.9,47.41C88,40.38,112.38,32,160,32c37.21,0,78.83,14.71,115.55,27.68C305.12,70.13,333.05,80,352,80a183.84,183.84,0,0,0,71-14.5,18,18,0,0,1,25,16.58V301.44a20,20,0,0,1-12,18.31c-8.71,3.81-40.51,16.25-84,16.25-24.14,0-54.38-7.14-86.39-14.71C229.63,312.79,192.43,304,160,304c-36.87,0-55.74,5.58-64,9.11V464A16,16,0,0,1,80,480Z"></path></g></svg> 
                                     
@@ -333,8 +337,11 @@
 
 
 
-                            </button>
-          
+                                    </button>
+                                @endif
+                      
+
+
                             <?php
                             $friendsList = \App\Models\Friendship::where(function ($query) {
                                 $query->where('sender_id', auth()->id())->where('status', 'accepted');
@@ -384,41 +391,41 @@
                 </div>
 
 
-                <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}" class="full_video_comments_form_lock">
+                <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}"
+                    class="full_video_comments_form_lock">
                     @csrf
 
-          
 
-                        <div class="full_video_img">
 
-                            @if (Auth::user()->avatar !== null)
-                                <img class="avatar_mini"
-                                    src="{{ asset('storage/' . Auth::user()->avatar) }}"alt="Avatar">
-                            @else
-                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px"
-                                    height="50px">
-                            @endif
+                    <div class="full_video_img">
 
-                        </div>
+                        @if (Auth::user()->avatar !== null)
+                            <img class="avatar_mini"
+                                src="{{ asset('storage/' . Auth::user()->avatar) }}"alt="Avatar">
+                        @else
+                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
+                        @endif
 
-                        <input class="form_field_full_video" name="comment" placeholder="Введите комментарий...">
+                    </div>
 
-                        <button class="full_video_btn_send">
-                            <svg width="100%" height="100%" viewBox="-2.4 -2.4 28.80 28.80" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke="#CCCCCC" stroke-width="0.048"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M10.3009 13.6949L20.102 3.89742M10.5795 14.1355L12.8019 18.5804C13.339 19.6545 13.6075 20.1916 13.9458 20.3356C14.2394 20.4606 14.575 20.4379 14.8492 20.2747C15.1651 20.0866 15.3591 19.5183 15.7472 18.3818L19.9463 6.08434C20.2845 5.09409 20.4535 4.59896 20.3378 4.27142C20.2371 3.98648 20.013 3.76234 19.7281 3.66167C19.4005 3.54595 18.9054 3.71502 17.9151 4.05315L5.61763 8.2523C4.48114 8.64037 3.91289 8.83441 3.72478 9.15032C3.56153 9.42447 3.53891 9.76007 3.66389 10.0536C3.80791 10.3919 4.34498 10.6605 5.41912 11.1975L9.86397 13.42C10.041 13.5085 10.1295 13.5527 10.2061 13.6118C10.2742 13.6643 10.3352 13.7253 10.3876 13.7933C10.4468 13.87 10.491 13.9585 10.5795 14.1355Z"
-                                        stroke="#777777" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </g>
-                            </svg>
-                        </button>
+                    <input class="form_field_full_video" name="comment" placeholder="Введите комментарий...">
 
-              
+                    <button class="full_video_btn_send">
+                        <svg width="100%" height="100%" viewBox="-2.4 -2.4 28.80 28.80" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
+                                stroke="#CCCCCC" stroke-width="0.048"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M10.3009 13.6949L20.102 3.89742M10.5795 14.1355L12.8019 18.5804C13.339 19.6545 13.6075 20.1916 13.9458 20.3356C14.2394 20.4606 14.575 20.4379 14.8492 20.2747C15.1651 20.0866 15.3591 19.5183 15.7472 18.3818L19.9463 6.08434C20.2845 5.09409 20.4535 4.59896 20.3378 4.27142C20.2371 3.98648 20.013 3.76234 19.7281 3.66167C19.4005 3.54595 18.9054 3.71502 17.9151 4.05315L5.61763 8.2523C4.48114 8.64037 3.91289 8.83441 3.72478 9.15032C3.56153 9.42447 3.53891 9.76007 3.66389 10.0536C3.80791 10.3919 4.34498 10.6605 5.41912 11.1975L9.86397 13.42C10.041 13.5085 10.1295 13.5527 10.2061 13.6118C10.2742 13.6643 10.3352 13.7253 10.3876 13.7933C10.4468 13.87 10.491 13.9585 10.5795 14.1355Z"
+                                    stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                    </button>
+
+
                 </form>
 
 
@@ -441,7 +448,8 @@
 
                                 <div class="main_novost_title">
                                     <div>
-                                        <a href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                        <a
+                                            href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
                                             <p class="txt_2">{{ $comment->user->name }}</p>
                                         </a>
                                     </div>

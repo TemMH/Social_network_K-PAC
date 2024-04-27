@@ -123,12 +123,12 @@ class User extends Authenticatable
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class);
+        return $this->hasMany(Complaint::class, 'user_id');
     }
 
     public function views()
     {
-        return $this->hasMany(View::class);
+        return $this->hasMany(View::class, 'user_id');
     }
 
 }

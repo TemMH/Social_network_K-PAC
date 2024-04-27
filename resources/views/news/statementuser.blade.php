@@ -192,7 +192,7 @@
 
 
 
-
+                @if (!$statement->complaints->contains('status', 'block') && !$statement->complaints->contains('status', 'unblock'))
                 <button onclick="confirmSendComplaint()" type="button" class="full_statement_btn">
 
 
@@ -217,7 +217,7 @@
                     --}}
 
                 </button>
-
+@endif
 
 
 

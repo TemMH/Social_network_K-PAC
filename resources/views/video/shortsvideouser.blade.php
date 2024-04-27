@@ -514,9 +514,12 @@
                     const shortVideoRama = video.closest('.shortvideo_rama');
                     if (shortVideoRama) {
                         if (entry.isIntersecting) {
+
+                            const videoId = shortVideoRama.dataset.videoId;
+                            updateVideoViews(videoId);
+
                             video.play();
                             shortVideoRama.classList.add('active');
-                            const videoId = shortVideoRama.dataset.videoId;
                             updateAddressBar(videoId);
                         } else {
                             video.pause();
@@ -526,11 +529,38 @@
                 });
             }
 
+            function updateVideoViews(videoId) {
+                fetch(`/view/video/${videoId}`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with your fetch operation:', error);
+                    });
+            }
+
+
             const observer = new IntersectionObserver(handleIntersection, options);
 
             videos.forEach(video => {
                 observer.observe(video);
             });
+
+
+
+
         });
     </script>
 

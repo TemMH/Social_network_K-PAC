@@ -252,6 +252,8 @@
                         @for ($i = 0; $i < min(count($videos), 4); $i++)
                             @php $video = $videos[$i]; @endphp
                             @if ($video->status == 'true')
+
+
                                 <div class="longvideos_scroll_sorting_block_videos_fixed">
                                     <div class="main_novost_allvideo">
                                         <a href="{{ route('videouser', ['id' => $video->id]) }}">
@@ -340,6 +342,9 @@
                                         </a>
                                     </div>
                                 </div>
+
+
+                                
                             @endif
                         @endfor
 

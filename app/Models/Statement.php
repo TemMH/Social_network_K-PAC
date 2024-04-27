@@ -32,12 +32,12 @@ class Statement extends Model
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class);
+        return $this->hasMany(Complaint::class, 'statement_id');
     }
 
     public function views()
     {
-        return $this->hasMany(View::class);
+        return $this->hasMany(View::class, 'statement_id');
     }
 
     public function user()

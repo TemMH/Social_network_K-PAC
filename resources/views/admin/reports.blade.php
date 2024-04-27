@@ -52,227 +52,239 @@
 
 
 
-        
-                <div class="notification_block_contents_wrap">
 
-                    <div class="profileuser_block_contents_second_wrap_title">
-                        <p>Видеоматериалы</p>
-                    </div>
+            <div class="notification_block_contents_wrap">
 
-                    <div class="right_block_wrap_line"></div>
-
-
+                <div class="profileuser_block_contents_second_wrap_title">
+                    <p>Видеоматериалы</p>
                 </div>
 
-                @if ($reports['video_complaint'])
-                    <div class="report_content">
-
-                        <div class="report_block_top_open">
+                <div class="right_block_wrap_line"></div>
 
 
-                            <div class="report_block_top_info_left_open">
+            </div>
+
+            @if ($reports['video_complaint'])
+
+            <form action="{{ route('complaint.update.video', ['video' => $reports['video_complaint']->video->id]) }}" method="post">
+
+                @method('PUT')
+                @csrf
+                <div class="report_content">
+
+                    <div class="report_block_top_open">
+
+
+                        <div class="report_block_top_info_left_open">
 
 
 
-                                <div class="statement_block_top_image_open">
-                                    <img src="{{ asset('storage/' . $reports['video_complaint']->video->thumbnail_path) }}"
+                            <div class="statement_block_top_image_open">
+                                <img src="{{ asset('storage/' . $reports['video_complaint']->video->thumbnail_path) }}"
                                     alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
                                     style="cursor:pointer;">
+                            </div>
+
+                            <div class="statement_block_top_addinfo">
+
+                                <div class="statement_block_top_addinfo_first">
+
+                                    <p>{{ $reports['video_complaint']->video->title }}</p>
+
+                                </div>
+
+
+                                <div class="statement_block_top_addinfo_second">
+
+                                    <div class="statement_block_top_avatar_open">
+                                        @if ($reports['video_complaint']->video->user->avatar !== null)
+                                            <img class="avatar_mini"
+                                                src="{{ asset('storage/' . $reports['video_complaint']->video->user->avatar) }}"
+                                                alt="Avatar">
+                                        @else
+                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                        @endif
+                                    </div>
+
+
+                                    <p>{{ $reports['video_complaint']->video->user->name }}</p>
+
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
-                                    <div class="statement_block_top_addinfo_first">
 
-                                        <p>{{ $reports['video_complaint']->video->title }}</p>
-
-                                    </div>
-
-
-                                    <div class="statement_block_top_addinfo_second">
-
-                                        <div class="statement_block_top_avatar_open">
-                                            @if ($reports['video_complaint']->video->user->avatar !== null)
-                                                <img class="avatar_mini"
-                                                     src="{{ asset('storage/' . $reports['video_complaint']->video->user->avatar) }}"
-                                                     alt="Avatar">
-                                            @else
-                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                                            @endif
-                                        </div>
-                                        
-
-                                        <p>{{ $reports['video_complaint']->video->user->name }}</p>
-
-                                    </div>
-
-                                    <div class="statement_block_top_addinfo">
-
-
-                                        <p>{{ $reports['video_complaint']->video->created_at }}</p>
-
-                                    </div>
+                                    <p>{{ $reports['video_complaint']->video->created_at }}</p>
 
                                 </div>
+
                             </div>
+                        </div>
 
-                            <div class="report_block_top_info_right_open">
-                                <p>Статус:</p>
-                                <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value=""></option>
-                                    <option value="Разблокировать">Разблокировать</option>
-                                    <option value="Заблокировать">Заблокировать</option>
-                                    <option value="Разрешить">Разрешить</option>
-                                </select>
-                            </div>
-
-
-
+                        <div class="report_block_top_info_right_open">
+                            <p>Статус:</p>
+                            <select class="message_history_input_container" name="edit_status" id="edit_status">
+                                <option value="unblock">Разрешить</option>
+                                <option value="block">Заблокировать</option>
+                            </select>
                         </div>
 
 
-                        <div class="report_block_down_open">
-
-
-                            <div class="statement_block_down_views_open">
-                                <p>Частая причина: {{ $reports['video_complaint']->reason }}</p>
-                            </div>
-
-                            <div class="statement_block_down_description_open">
-                                <button class="statements_categories_btn">Принять</button>
-                            </div>
-
-                        </div>
 
                     </div>
 
 
-                    @else
-                    <p>Нет жалоб на видео</p>
-                    @endif
+                    <div class="report_block_down_open">
 
 
-         
+                        <div class="statement_block_down_views_open">
+                            <p>Частая причина: {{ $reports['video_complaint']->reason }}</p>
+                        </div>
 
+                        <div class="statement_block_down_description_open">
+                            <button class="statements_categories_btn">Принять</button>
+                        </div>
 
-       
-                <div class="notification_block_contents_wrap">
-
-                    <div class="profileuser_block_contents_second_wrap_title">
-                        <p>Фотоматериалы</p>
                     </div>
-
-                    <div class="right_block_wrap_line"></div>
-
 
                 </div>
 
-                @if ($reports['statement_complaint'])
-                    <div class="report_content">
-
-                        <div class="report_block_top_open">
-
-
-                            <div class="report_block_top_info_left_open">
+            </form>
+            @else
+                <p>Нет жалоб на видео</p>
+            @endif
 
 
 
-                                <div class="statement_block_top_image_open">
-                                    <img src="{{ asset('storage/' . $reports['statement_complaint']->statement->photo_path) }}"
+
+
+
+            <div class="notification_block_contents_wrap">
+
+                <div class="profileuser_block_contents_second_wrap_title">
+                    <p>Фотоматериалы</p>
+                </div>
+
+                <div class="right_block_wrap_line"></div>
+
+
+            </div>
+
+            @if ($reports['statement_complaint'])
+
+            <form action="{{ route('complaint.update.statement', ['statement' => $reports['statement_complaint']->statement->id]) }}" method="post">
+
+                @method('PUT')
+                @csrf
+                <div class="report_content">
+
+                    <div class="report_block_top_open">
+
+
+                        <div class="report_block_top_info_left_open">
+
+
+
+                            <div class="statement_block_top_image_open">
+                                <img src="{{ asset('storage/' . $reports['statement_complaint']->statement->photo_path) }}"
                                     alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
                                     style="cursor:pointer;">
+                            </div>
+
+                            <div class="statement_block_top_addinfo">
+
+                                <div class="statement_block_top_addinfo_first">
+
+                                    <p>{{ $reports['statement_complaint']->statement->title }}</p>
+
+                                </div>
+
+
+                                <div class="statement_block_top_addinfo_second">
+
+                                    <div class="statement_block_top_avatar_open">
+                                        @if ($reports['statement_complaint']->statement->user->avatar !== null)
+                                            <img class="avatar_mini"
+                                                src="{{ asset('storage/' . $reports['statement_complaint']->statement->user->avatar) }}"
+                                                alt="Avatar">
+                                        @else
+                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                        @endif
+                                    </div>
+
+                                    <p>{{ $reports['statement_complaint']->statement->user->name }}</p>
+
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
-                                    <div class="statement_block_top_addinfo_first">
 
-                                        <p>{{ $reports['statement_complaint']->statement->title }}</p>
-
-                                    </div>
-
-
-                                    <div class="statement_block_top_addinfo_second">
-
-                                        <div class="statement_block_top_avatar_open">
-                                            @if ($reports['statement_complaint']->statement->user->avatar !== null)
-                                                <img class="avatar_mini"
-                                                     src="{{ asset('storage/' . $reports['statement_complaint']->statement->user->avatar) }}"
-                                                     alt="Avatar">
-                                            @else
-                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                                            @endif
-                                        </div>
-
-                                        <p>{{ $reports['statement_complaint']->statement->user->name }}</p>
-
-                                    </div>
-
-                                    <div class="statement_block_top_addinfo">
-
-
-                                        <p>{{ $reports['statement_complaint']->statement->created_at }}</p>
-
-                                    </div>
+                                    <p>{{ $reports['statement_complaint']->statement->created_at }}</p>
 
                                 </div>
+
                             </div>
+                        </div>
 
-                            <div class="report_block_top_info_right_open">
-                                <p>Статус:</p>
-                                <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value=""></option>
-                                    <option value="Разблокировать">Разблокировать</option>
-                                    <option value="Заблокировать">Заблокировать</option>
-                                    <option value="Разрешить">Разрешить</option>
-                                </select>
-                            </div>
-
-
-
+                        <div class="report_block_top_info_right_open">
+                            <p>Статус:</p>
+                            <select class="message_history_input_container" name="edit_status" id="edit_status">
+                                <option value="unblock">Разрешить</option>
+                                <option value="block">Заблокировать</option>
+                            </select>
                         </div>
 
 
-                        <div class="report_block_down_open">
 
-                            <div class="statement_block_down_views_open">
-                                <p>Частая причина: {{ $reports['statement_complaint']->reason }}</p>
-                            </div>
+                    </div>
 
-                            <div class="statement_block_down_description_open">
-                                <button class="statements_categories_btn">Принять</button>
-                            </div>
 
+                    <div class="report_block_down_open">
+
+                        <div class="statement_block_down_views_open">
+                            <p>Частая причина: {{ $reports['statement_complaint']->reason }}</p>
+                        </div>
+
+                        <div class="statement_block_down_description_open">
+                            <button class="statements_categories_btn">Принять</button>
                         </div>
 
                     </div>
 
-                    @else
-                    <p>Нет жалоб на заявление</p>
-                @endif
+                </div>
+            </form>
+            @else
+                <p>Нет жалоб на заявление</p>
+            @endif
 
 
 
-       
+
 
 
             {{-- user --}}
 
-    
-
-                <div class="notification_block_contents_wrap">
-
-                    <div class="profileuser_block_contents_second_wrap_title">
-                        <p>Пользователи</p>
-                    </div>
-
-                    <div class="right_block_wrap_line"></div>
 
 
+            <div class="notification_block_contents_wrap">
+
+                <div class="profileuser_block_contents_second_wrap_title">
+                    <p>Пользователи</p>
                 </div>
 
+                <div class="right_block_wrap_line"></div>
 
-                @if ($reports['user_complaint'])
+
+            </div>
+
+
+            @if ($reports['user_complaint'])
+
+            <form action="{{ route('complaint.update.user', ['user' => $reports['user_complaint']->user->id]) }}" method="post">
+
+                @method('PUT')
+                @csrf
+
                     <div class="report_content">
 
                         <div class="report_block_top_open">
@@ -284,12 +296,12 @@
 
                                 <div class="statement_block_top_user_image_open">
                                     @if ($reports['user_complaint']->user->avatar !== null)
-                                    <img class="avatar_mini"
-                                         src="{{ asset('storage/' . $reports['user_complaint']->user->avatar) }}"
-                                         alt="Avatar">
-                                @else
-                                    <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                                @endif
+                                        <img class="avatar_mini"
+                                            src="{{ asset('storage/' . $reports['user_complaint']->user->avatar) }}"
+                                            alt="Avatar">
+                                    @else
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                    @endif
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
@@ -323,11 +335,8 @@
                                 <p>Статус:</p>
 
                                 <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value=""></option>
-                                    <option value="Разблокировать">Разблокировать</option>
-                                    <option value="Заблокировать временно">Заблокировать временно</option>
-                                    <option value="Заблокировать навсегда">Заблокировать навсегда</option>
-                                    <option value="Разрешить">Разрешить</option>
+                                    <option value="unblock">Разрешить</option>
+                                    <option value="block">Заблокировать</option>
                                 </select>
                             </div>
 
@@ -343,19 +352,20 @@
                             </div>
 
                             <div class="statement_block_down_description_open">
-                                <button class="statements_categories_btn">Принять</button>
+                                <button type="submit" class="statements_categories_btn">Принять</button>
                             </div>
 
                         </div>
 
                     </div>
 
-                    @else
-                    <p>Нет жалоб на пользователя</p>
-                @endif
+                </form>
+            @else
+                <p>Нет жалоб на пользователя</p>
+            @endif
 
 
-        
+
 
 
 

@@ -33,12 +33,12 @@ class Video extends Model
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class);
+        return $this->hasMany(Complaint::class, 'video_id');
     }
 
     public function views()
     {
-        return $this->hasMany(View::class);
+        return $this->hasMany(View::class, 'video_id');
     }
 
     public function user()

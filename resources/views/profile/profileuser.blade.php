@@ -282,7 +282,7 @@
 
 
                                 @if ($user->id !== auth()->id())
-
+                                @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
                                     <button onclick="confirmSendComplaint()" class="full_statement_btn"> <svg width="100%" height="100%"
                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                             stroke="#777777">
@@ -299,7 +299,7 @@
                                             </g>
                                         </svg>
                                     </button>
-
+@endif
                                 @endif
 
 

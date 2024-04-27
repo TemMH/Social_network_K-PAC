@@ -52,8 +52,6 @@
 
 
 
-            {{-- @foreach ($feedItems as $index => $feedItem) --}}
-
         
                 <div class="notification_block_contents_wrap">
 
@@ -66,7 +64,7 @@
 
                 </div>
 
-
+                @if ($reports['video_complaint'])
                     <div class="report_content">
 
                         <div class="report_block_top_open">
@@ -77,15 +75,16 @@
 
 
                                 <div class="statement_block_top_image_open">
-                                    <img src="http://127.0.0.1:8000/storage/thumbnails/thumbnail_1712181761.png"
-                                        alt="">
+                                    <img src="{{ asset('storage/' . $reports['video_complaint']->video->thumbnail_path) }}"
+                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                    style="cursor:pointer;">
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
                                     <div class="statement_block_top_addinfo_first">
 
-                                        <p>title</p>
+                                        <p>{{ $reports['video_complaint']->video->title }}</p>
 
                                     </div>
 
@@ -93,17 +92,24 @@
                                     <div class="statement_block_top_addinfo_second">
 
                                         <div class="statement_block_top_avatar_open">
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                            @if ($reports['video_complaint']->video->user->avatar !== null)
+                                                <img class="avatar_mini"
+                                                     src="{{ asset('storage/' . $reports['video_complaint']->video->user->avatar) }}"
+                                                     alt="Avatar">
+                                            @else
+                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                            @endif
                                         </div>
+                                        
 
-                                        <p>name</p>
+                                        <p>{{ $reports['video_complaint']->video->user->name }}</p>
 
                                     </div>
 
                                     <div class="statement_block_top_addinfo">
 
 
-                                        <p>Created_at</p>
+                                        <p>{{ $reports['video_complaint']->video->created_at }}</p>
 
                                     </div>
 
@@ -111,7 +117,7 @@
                             </div>
 
                             <div class="report_block_top_info_right_open">
-                                <p>Status:</p>
+                                <p>Статус:</p>
                                 <select class="message_history_input_container" name="edit_status" id="edit_status">
                                     <option value=""></option>
                                     <option value="Разблокировать">Разблокировать</option>
@@ -127,11 +133,9 @@
 
                         <div class="report_block_down_open">
 
-                            <div class="statement_block_down_title_open">
-                                <p>Кол-во жалоб:</p>
-                            </div>
+
                             <div class="statement_block_down_views_open">
-                                <p>Частая причина:</p>
+                                <p>Частая причина: {{ $reports['video_complaint']->reason }}</p>
                             </div>
 
                             <div class="statement_block_down_description_open">
@@ -143,7 +147,9 @@
                     </div>
 
 
-        
+                    @else
+                    <p>Нет жалоб на видео</p>
+                    @endif
 
 
          
@@ -161,7 +167,7 @@
 
                 </div>
 
-
+                @if ($reports['statement_complaint'])
                     <div class="report_content">
 
                         <div class="report_block_top_open">
@@ -172,15 +178,16 @@
 
 
                                 <div class="statement_block_top_image_open">
-                                    <img src="http://127.0.0.1:8000/storage/thumbnails/thumbnail_1712181761.png"
-                                        alt="">
+                                    <img src="{{ asset('storage/' . $reports['statement_complaint']->statement->photo_path) }}"
+                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                    style="cursor:pointer;">
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
                                     <div class="statement_block_top_addinfo_first">
 
-                                        <p>title</p>
+                                        <p>{{ $reports['statement_complaint']->statement->title }}</p>
 
                                     </div>
 
@@ -188,17 +195,23 @@
                                     <div class="statement_block_top_addinfo_second">
 
                                         <div class="statement_block_top_avatar_open">
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                            @if ($reports['statement_complaint']->statement->user->avatar !== null)
+                                                <img class="avatar_mini"
+                                                     src="{{ asset('storage/' . $reports['statement_complaint']->statement->user->avatar) }}"
+                                                     alt="Avatar">
+                                            @else
+                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                            @endif
                                         </div>
 
-                                        <p>name</p>
+                                        <p>{{ $reports['statement_complaint']->statement->user->name }}</p>
 
                                     </div>
 
                                     <div class="statement_block_top_addinfo">
 
 
-                                        <p>Created_at</p>
+                                        <p>{{ $reports['statement_complaint']->statement->created_at }}</p>
 
                                     </div>
 
@@ -206,7 +219,7 @@
                             </div>
 
                             <div class="report_block_top_info_right_open">
-                                <p>Status:</p>
+                                <p>Статус:</p>
                                 <select class="message_history_input_container" name="edit_status" id="edit_status">
                                     <option value=""></option>
                                     <option value="Разблокировать">Разблокировать</option>
@@ -222,11 +235,8 @@
 
                         <div class="report_block_down_open">
 
-                            <div class="statement_block_down_title_open">
-                                <p>Кол-во жалоб:</p>
-                            </div>
                             <div class="statement_block_down_views_open">
-                                <p>Частая причина:</p>
+                                <p>Частая причина: {{ $reports['statement_complaint']->reason }}</p>
                             </div>
 
                             <div class="statement_block_down_description_open">
@@ -237,7 +247,9 @@
 
                     </div>
 
-
+                    @else
+                    <p>Нет жалоб на заявление</p>
+                @endif
 
 
 
@@ -260,7 +272,7 @@
                 </div>
 
 
-
+                @if ($reports['user_complaint'])
                     <div class="report_content">
 
                         <div class="report_block_top_open">
@@ -271,14 +283,20 @@
 
 
                                 <div class="statement_block_top_user_image_open">
+                                    @if ($reports['user_complaint']->user->avatar !== null)
+                                    <img class="avatar_mini"
+                                         src="{{ asset('storage/' . $reports['user_complaint']->user->avatar) }}"
+                                         alt="Avatar">
+                                @else
                                     <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                @endif
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
                                     <div class="statement_block_top_addinfo">
 
-                                        <p>Name</p>
+                                        <p>{{ $reports['user_complaint']->user->name }}</p>
 
                                     </div>
 
@@ -286,14 +304,14 @@
                                     <div class="statement_block_top_addinfo">
 
 
-                                        <p>Condition</p>
+                                        <p>{{ $reports['user_complaint']->user->condition }}</p>
 
                                     </div>
 
                                     <div class="statement_block_top_addinfo">
 
 
-                                        <p>Created_at</p>
+                                        <p>{{ $reports['user_complaint']->user->created_at }}</p>
 
                                     </div>
 
@@ -302,7 +320,7 @@
 
                             <div class="report_block_top_info_right_open">
 
-                                <p>Status:</p>
+                                <p>Статус:</p>
 
                                 <select class="message_history_input_container" name="edit_status" id="edit_status">
                                     <option value=""></option>
@@ -320,11 +338,8 @@
 
                         <div class="report_block_down_open">
 
-                            <div class="statement_block_down_title_open">
-                                <p>Кол-во жалоб:</p>
-                            </div>
                             <div class="statement_block_down_views_open">
-                                <p>Частая причина:</p>
+                                <p>Частая причина: {{ $reports['user_complaint']->reason }}</p>
                             </div>
 
                             <div class="statement_block_down_description_open">
@@ -335,14 +350,15 @@
 
                     </div>
 
-
+                    @else
+                    <p>Нет жалоб на пользователя</p>
+                @endif
 
 
         
 
 
 
-            {{-- @endforeach --}}
 
 
 

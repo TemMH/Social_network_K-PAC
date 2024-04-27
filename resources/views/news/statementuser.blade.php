@@ -3,7 +3,96 @@
 
     </x-slot>
 
+        <div class="statement_field_open">
+            <div class="modal_block_open">
 
+                <div class="modal-content">
+                    <form id="sendcomplaint" action="{{ route('statement.complaint', ['id' => $statement->id]) }}"
+                        method="post">
+                        @csrf
+
+                        <p>Причина жалобы</p>
+                        <div class='radio-group'>
+                            <label class='radio-label'>
+                                <input type='radio' id="reasonInput" name="reason" value="Спам" required>
+                                <span class='inner-label'>Спам</span>
+                            </label>
+                            <label class='radio-label'>
+                                <input  type='radio' id="reasonInput" name="reason" value="Жестокое или отталкивающее содержание" required>
+                                <span class='inner-label'>Жестокое или отталкивающее содержание</span>
+                            </label>
+                            <label class='radio-label'>
+                                <input  type='radio' id="reasonInput" name="reason" value="Дискриминационные высказывания и оскорбления" required>
+                                <span class='inner-label'>Дискриминационные высказывания и оскорбления</span>
+                            </label>
+                            <label class='radio-label'>
+                                <input type='radio' id="reasonInput" name="reason" value="Вредные или опасные действия" required>
+                                <span class='inner-label'>Вредные или опасные действия</span>
+                            </label>
+                            <label class='radio-label'>
+                                <input type='radio' id="reasonInput" name="reason" value="Мошенничество" required>
+                                <span class='inner-label'>Мошенничество</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" style="float:right" class="statements_categories_btn">Отправить</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="modal_block_close">
+                <button class="statement_block_btn_close">
+
+                    <svg width="90%" height="90%" viewBox="-0.5 0 25 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M3 21.32L21 3.32001" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <path d="M3 3.32001L21 21.32" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+
+                </button>
+            </div>
+
+        </div>
+
+    <script>
+        const statementFieldOpen = document.querySelector(".statement_field_open");
+        const closeButton = document.querySelector(".statement_block_btn_close");
+
+
+        function closeModal() {
+            statementFieldOpen.classList.remove("opened");
+        }
+
+        function openModal() {
+
+            statementFieldOpen.classList.add("opened");
+        }
+
+        closeButton.addEventListener("click", closeModal);
+
+        statementFieldOpen.addEventListener("click", function(event) {
+            if (event.target === statementFieldOpen) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape" && statementFieldOpen.classList.contains("opened")) {
+                closeModal();
+            }
+        });
+
+        function confirmSendComplaint() {
+            openModal();
+        }
+    </script>
 
 
     <div class="full_statement_field">
@@ -16,7 +105,8 @@
 
                     @if ($statement->user->avatar !== null)
                         <a href="{{ route('profile.profileuser', ['id' => $statement->user_id]) }}">
-                            <img class="avatar_mini" src="{{ asset('storage/' . $statement->user->avatar) }}" alt="Avatar">
+                            <img class="avatar_mini" src="{{ asset('storage/' . $statement->user->avatar) }}"
+                                alt="Avatar">
                         </a>
                     @else
                         <a href="{{ route('profile.profileuser', ['id' => $statement->user_id]) }}">
@@ -101,7 +191,7 @@
                 </button>
 
 
-                
+
 
                 <button onclick="confirmSendComplaint()" type="button" class="full_statement_btn">
 
@@ -114,7 +204,8 @@
                         <g id="SVGRepo_iconCarrier">
                             <path
                                 d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
-                                stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
                         </g>
                     </svg>
 
@@ -128,39 +219,9 @@
                 </button>
 
 
-                <div id="myModal" style="display: none;">
-                    <div class="modal-content">
-                      <span class="close">&times;</span>
-                      <form id="sendcomplaint" action="{{ route('statement.complaint', ['id' => $statement->id]) }}" method="post">
-                        @csrf
-                        <input type="text" id="reasonInput" name="reason" placeholder="Введите причину отправки жалобы">
-                        <button type="submit" class="full_statement_btn">Отправить</button>
-                      </form>
-                    </div>
-                  </div>
 
-                  <script>
 
-                    function openModal() {
-                      document.getElementById("myModal").style.display = "block";
-                    }
-                  
 
-                    document.getElementsByClassName("close")[0].onclick = function() {
-                      document.getElementById("myModal").style.display = "none";
-                    }
-                  
-
-                    window.onclick = function(event) {
-                      if (event.target == document.getElementById("myModal")) {
-                        document.getElementById("myModal").style.display = "none";
-                      }
-                    }
-                  
-                    function confirmSendComplaint() {
-                      openModal();
-                    }
-                  </script>
 
                 <?php
                 $friendsList = \App\Models\Friendship::where(function ($query) {
@@ -280,9 +341,9 @@
                     </div>
                     <div class="full_statement_content_statement_middle">
 
-<div class="full_statement_content_statement_middle_img">
-                        <img src="{{ asset('storage/' . $statement->photo_path) }}"
-                            style="object-fit: contain; border-radius:12px;">
+                        <div class="full_statement_content_statement_middle_img">
+                            <img src="{{ asset('storage/' . $statement->photo_path) }}"
+                                style="object-fit: contain; border-radius:12px;">
                         </div>
 
 

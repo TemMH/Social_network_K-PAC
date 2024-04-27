@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->enum('status', ['unlock', 'lock', 'unallowable', 'permissible'])->nullable();
 
-            $table->string('reason');
+            $table->enum('reason', ['Спам', 'Жестокое или отталкивающее содержание', 'Дискриминационные высказывания и оскорбления', 'Вредные или опасные действия', 'Мошенничество']);
 
             $table->date('dateunlock')->nullable();
 

@@ -472,7 +472,7 @@
 
 
                         @if (Auth::check())
-                            <a href="{{ route('profileuser') }}">
+                            <a href="{{ route('profile.profileuser', ['id' => Auth::user()->id]) }}">
 
                                 @if (Auth::user()->avatar !== null)
                                     <img class="avatar_mini"

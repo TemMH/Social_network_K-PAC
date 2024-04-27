@@ -64,17 +64,6 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function MyProfile()
-    {
-
-        $users = User::where('id', auth()->id())->get();
-
-        $statements = Statement::where('user_id', auth()->id())->get();
-        $videos = Video::where('user_id', auth()->id())->get();
-
-        return view('profile.profileuser', ['users' => $users, 'statements' => $statements, 'videos' => $videos]);
-    }
-
     public function UserProfile($id)
     {
         $user = User::findOrFail($id);

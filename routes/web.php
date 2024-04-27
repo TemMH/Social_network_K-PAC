@@ -192,7 +192,7 @@ Route::get('/profileuservideos', function () {
 
 
 
-Route::get('/profileuser', [ProfileController::class, 'MyProfile'])->name('profileuser')->middleware(['auth', 'verified']);
+// Route::get('/profileuser', [ProfileController::class, 'MyProfile'])->name('profileuser')->middleware(['auth', 'verified']);
 
 Route::get('/profileuser/{id}', [ProfileController::class, 'UserProfile'])->name('profile.profileuser')->middleware(['auth', 'verified']);
 
@@ -212,7 +212,10 @@ Route::get('/reports', function () {
 
 //Complaint
 
+Route::get('/reports', [ComplaintController::class, 'index'])->name('reports');
+
 Route::put('/complaiment/{complaiment}', [ComplaintController::class, 'edit'])->name('complaiment.edit');
+
 
 // Other
 

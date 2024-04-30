@@ -54,7 +54,21 @@ class FriendfeedController extends Controller
     
     
     
-    
+    public function addCommentVideo(Request $request, $id)
+    {
+        $video = Video::findOrFail($id);
+        $video->addComment($request->input('comment'));
+
+        return redirect()->back();
+    }
+
+    public function addCommentStatement(Request $request, $id)
+    {
+        $video = Statement::findOrFail($id);
+        $video->addComment($request->input('comment'));
+
+        return redirect()->back();
+    }
     
 
 }

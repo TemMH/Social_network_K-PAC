@@ -74,6 +74,8 @@ Route::get('/statementuser/{id}', [StatementController::class, 'show'])->name('s
 
 Route::get('/allstatementuser', [myStatementController::class, 'allstatementuser'])->name('allstatementuser')->middleware(['auth', 'verified']);
 
+Route::get('/allstatementuser/viewed', [myStatementController::class, 'allstatementuserviewed'])->name('all.statement.user.viewed')->middleware(['auth', 'verified']);
+
 Route::post('/statement/{id}/comment', [StatementController::class, 'addComment'])->name('statement.comment');
 
 Route::delete('/statement/{statementId}/comment/{commentId}', [StatementController::class, 'deleteComment'])->name('statement.comment.delete');
@@ -140,7 +142,9 @@ Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('v
 
 Route::get('/videouser/{id}', [VideoController::class, 'show'])->name('videouser');
 
-Route::get('/shortsvideouser', [VideoController::class, 'allshortsvideouser'])->name('allshortsvideouser')->middleware(['auth', 'verified']);
+Route::get('/allshortsvideouser', [VideoController::class, 'allshortsvideouser'])->name('allshortsvideouser')->middleware(['auth', 'verified']);
+
+Route::get('/allshortsvideouser/viewed', [VideoController::class, 'allshortsvideouserviewed'])->name('all.shortsvideo.user.viewed')->middleware(['auth', 'verified']);
 
 Route::get('/shortsvideouser/{id}', [VideoController::class, 'showshorts'])->name('shortsvideouser');
 
@@ -176,6 +180,9 @@ Route::get('/friendfeeduser', function () {
 
 Route::get('/friendfeeduser', [FriendfeedController::class, 'friendfeeduser'])->name('friendfeeduser')->middleware(['auth', 'verified']);
 
+Route::post('/friendfeeduserVideo/{id}/comment', [FriendfeedController::class, 'addCommentVideo'])->name('friendfeed.video.comment');
+
+Route::post('/friendfeeduserStatement/{id}/comment', [FriendfeedController::class, 'addCommentStatement'])->name('friendfeed.statement.comment');
 
 
 // Profileuser

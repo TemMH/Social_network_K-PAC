@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Statement;
 use App\Models\Friendship;
+use App\Models\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class myStatementController extends Controller
 {
@@ -14,14 +16,14 @@ class myStatementController extends Controller
     {
         $category = $request->input('category');
         $sort = $request->input('sortirovka');
-    
+
         $statements = Statement::where('user_id', auth()->id())
             ->withCount('likes');
-    
+
         if ($category) {
             $statements->where('category', $category);
         }
-    
+
         switch ($sort) {
             case 'old':
                 $statements->orderBy('created_at', 'asc');
@@ -34,12 +36,12 @@ class myStatementController extends Controller
                 $statements->orderBy('created_at', 'desc');
                 break;
         }
-    
+
         $statements = $statements->get();
-    
+
         return view('news.mystatement', ['statements' => $statements]);
     }
-    
+
 
     public function allstatement(User $user)
     {
@@ -53,8 +55,53 @@ class myStatementController extends Controller
     {
         $category = $request->input('category');
         $sort = $request->input('sortirovka');
+        $userId = Auth::id();
 
-        $statements = Statement::where('status', 'true')->withCount('likes','comments');
+
+        $statements = Statement::select('statements.*') //выбор всех столбцов
+            ->leftJoin('views', function ($join) use ($userId) {  // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
+                $join->on('statements.id', '=', 'views.statement_id') // объединить id с video_id 
+                    ->where('views.user_id', '=', $userId);
+            })
+            ->whereNull('views.id')
+            ->where('statements.status', 'true')
+            ->withCount('likes', 'comments', 'views');
+            
+
+        if ($category) {
+            $statements->where('statements.category', $category);
+        }
+
+        switch ($sort) {
+            case 'old':
+                $statements->orderBy('statements.created_at', 'asc');
+                break;
+            case 'popular':
+                $statements->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case 'recent':
+            default:
+                $statements->orderBy('statements.created_at', 'desc');
+                break;
+        }
+
+        $statements = $statements->get();
+        return view('news.allstatementuser', ['statements' => $statements]);
+    }
+
+
+
+    public function allstatementuserviewed(Request $request)
+    {
+        $category = $request->input('category');
+        $sort = $request->input('sortirovka');
+        $userId = Auth::id();
+
+        $viewedStatementIds = View::where('user_id', $userId)->pluck('statement_id')->all();
+
+        $statements = Statement::where('status', 'true')
+            ->whereIn('id', $viewedStatementIds)
+            ->withCount('likes', 'comments', 'views');
 
         if ($category) {
             $statements->where('category', $category);
@@ -182,17 +229,17 @@ class myStatementController extends Controller
 
 
 
-    
+
 
     public function edit($id)
     {
         $statement = Statement::findOrFail($id);
         return view('edit_statement', ['statement' => $statement]);
     }
-    
 
 
-    
+
+
     public function updatetest(Request $request, $id)
     {
         $statement = Statement::findOrFail($id);
@@ -200,9 +247,7 @@ class myStatementController extends Controller
         $statement->description = $request->input('description');
         $statement->category = $request->input('category');
         $statement->save();
-    
+
         return redirect()->route('mystatement')->with('success', 'Заявка успешно обновлена');
     }
-
-
 }

@@ -4,7 +4,7 @@
 
     <div class="shortvideo_rama_scroll">
 
-        @foreach ($videos as $video)
+        @forelse ($videos as $video)
             <div class="shortvideo_rama" data-video-id="{{ $video->id }}">
                 <div class="main_shortvideo_content1">
 
@@ -297,7 +297,12 @@
 
                 </div>
             </div>
-        @endforeach
+            @empty
+            <p class= "txt_1">Вы посмотрели все короткие видео, заходите позже</p>
+            <p>Просмотренные -> <a href="{{ route('all.shortsvideo.user.viewed') }}">короткие видео</a></p>
+
+
+            @endforelse
 
     </div>
     <script>

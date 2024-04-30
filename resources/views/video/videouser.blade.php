@@ -384,7 +384,7 @@
 
                     </div>
 
-                    <p class="txt_2">6666666666 :Просмотров</p>
+                    <p class="txt_2">{{ $video->views_count }} :Просмотров</p>
 
                     <p class="txt_2">{{ $video->description }}</p>
 
@@ -526,7 +526,7 @@
                                         <div
                                             class="full_video_content_scrolled_trendvideo_block_right_info_stats_views">
 
-                                            <p>535 VIEWS</p>
+                                            <p>{{ $trendvideo->views_count }} просмотров</p>
 
                                         </div>
 

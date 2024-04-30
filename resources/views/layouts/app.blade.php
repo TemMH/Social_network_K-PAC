@@ -651,7 +651,9 @@
                             '</g>' +
                         '</svg>' +
                     '</div>' +
-                    '<div>66</div>' +
+                    '<div>' +
+                        video.likes_count +
+                    '</div>' +
                 '</div>' +
                 '<div class="statement_block_top_info_right_info">' +
                     '<div>' +
@@ -670,7 +672,9 @@
                             '</g>' +
                         '</svg>' +
                     '</div>' +
-                    '<div>66</div>' +
+                    '<div>' +
+                        video.comments_count +
+                        '</div>' +
                 '</div>' +
                 '<div class="statement_block_top_info_right_info">' +
                     '<div>' +
@@ -685,7 +689,7 @@
                         '</svg>' +
                     '</div>' +
                     '<div>' +
-                        '66' +
+                        video.views_count +
                     '</div>' +
                 '</div>' +
             '</div>' +
@@ -765,7 +769,9 @@
                             '</g>' +
                         '</svg>' +
                     '</div>' +
-                    '<div>66</div>' +
+                    '<div>' +
+                        statement.likes_count +
+                        '</div>' +
                 '</div>' +
                 '<div class="statement_block_top_info_right_info">' +
                     '<div>' +
@@ -786,7 +792,9 @@
                             '</g>' +
                         '</svg>' +
                     '</div>' +
-                    '<div>66</div>' +
+                    '<div>' +
+                        statement.comments_count +
+                        '</div>' +
                 '</div>' +
                 '<div class="statement_block_top_info_right_info">' +
                     '<div>' +
@@ -800,7 +808,7 @@
                         '</svg>' +
                     '</div>' +
                     '<div>' +
-                        '66' +
+                        statement.views_count +
                     '</div>' +
                 '</div>' +
             '</div>' +

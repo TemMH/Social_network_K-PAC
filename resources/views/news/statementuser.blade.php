@@ -328,7 +328,7 @@
                                     }
                                 @endphp
 
-                                <p>{{ $formattedTime }}</p>
+                             <p>{{ $statement->views_count }} Просмотров</p>   <p>{{ $formattedTime }}</p>
 
                             </div>
                         </div>

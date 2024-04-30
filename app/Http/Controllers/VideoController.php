@@ -131,9 +131,10 @@ class VideoController extends Controller
 
     public function show($id)
     {
-        $trendvideos = Video::where('status', 'true')->withCount('likes')->get();
+        $trendvideos = Video::where('status', 'true')->withCount('likes', 'views')->get();
         $video = Video::with('comments.user')
             ->with('complaints')
+            ->withCount('views','likes','comments')
             ->findOrFail($id);
 
 
@@ -214,8 +215,50 @@ class VideoController extends Controller
     {
         $category = $request->input('category');
         $sort = $request->input('sortirovka');
+        $userId = Auth::id();
 
-        $videos = Video::where('status', 'true')->withCount('likes');
+        $videos = Video::select('videos.*') //выбор всех столбцов
+            ->leftJoin('views', function ($join) use ($userId) { // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
+                $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
+                    ->where('views.user_id', '=', $userId);
+            })
+            ->whereNull('views.id')
+            ->where('videos.status', 'true');
+
+        if ($category) {
+            $videos->where('videos.category', $category);
+        }
+
+        switch ($sort) {
+            case 'old':
+                $videos->orderBy('videos.created_at', 'asc');
+                break;
+            case 'popular':
+                $videos->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case 'recent':
+            default:
+                $videos->orderBy('videos.created_at', 'desc');
+                break;
+        }
+
+        $videos = $videos->get();
+
+        return view('video.shortsvideouser', ['videos' => $videos]);
+    }
+
+
+    public function allshortsvideouserviewed(Request $request)
+    {
+        $category = $request->input('category');
+        $sort = $request->input('sortirovka');
+        $userId = Auth::id();
+
+        $viewedVideoIds = View::where('user_id', $userId)->pluck('video_id')->all();
+
+        $videos = Video::where('status', 'true')
+            ->whereIn('id', $viewedVideoIds)
+            ->withCount('likes');
 
         if ($category) {
             $videos->where('category', $category);
@@ -238,6 +281,9 @@ class VideoController extends Controller
 
         return view('video.shortsvideouser', ['videos' => $videos]);
     }
+
+
+
 
 
     public function like(Request $request, $id)

@@ -88,6 +88,7 @@ class StatementController extends Controller
 
         $statement = Statement::with('comments.user')
             ->with('complaints')
+            ->withCount('views','likes')
             ->findOrFail($id);
 
             $existingView = View::where('user_id', Auth::id())
@@ -202,6 +203,7 @@ class StatementController extends Controller
         $statements = Statement::where('status', 'true')
             ->where('title', 'LIKE', '%' . $searchTerm . '%')
             ->with('user')
+            ->withCount('likes','views','comments')
             ->limit(3)
             ->get();
 
@@ -225,6 +227,7 @@ class StatementController extends Controller
         $videos = Video::where('status', 'true')
             ->where('title', 'LIKE', '%' . $searchTerm . '%')
             ->with('user')
+            ->withCount('likes','views','comments')
             ->limit(3)
             ->get();
 

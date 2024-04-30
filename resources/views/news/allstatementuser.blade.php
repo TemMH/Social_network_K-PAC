@@ -203,6 +203,7 @@
                 <button value="Экономика" class="statements_categories_btn">Недавно</button>
                 <button value="Транспорт" class="statements_categories_btn">Популярно</button>
                 <button value="Транспорт" class="statements_categories_btn">Просмотрено</button>
+                <a href="{{ route('all.statement.user.viewed') }}">Просмотрено</a>
             </form>
 
             <form class="statements_settings_right" id="categoryForm" method="GET"
@@ -358,8 +359,9 @@
                                     </div>
 
                                     <span>
-                                        66
-                                        {{-- {{ $statement->comments_count }} --}}
+
+                                       {{ $statement->views_count }}
+
                                     </span>
 
                                 </div>
@@ -385,7 +387,7 @@
                 @endif
 
             @empty
-                <p class= "txt_1">Фотографий нет</p>
+            <p class= "txt_1">Вы посмотрели все фотографии в этом разделе, заходите позже</p>
 
             @endforelse
 
@@ -447,7 +449,7 @@
 
                             statementFieldOpen.querySelector(
                                     ".statement_block_top_avatar_open img").src =
-                                "{{ $statement->user->avatar !== null ? asset('storage/' . $statement->user->avatar) : '/uploads/ProfilePhoto.png' }}";
+                                "'/uploads/ProfilePhoto.png'";
                             statementFieldOpen.querySelector(
                                 ".statement_block_top_info_left_open a").href = profileUrl;
 

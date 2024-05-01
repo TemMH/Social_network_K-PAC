@@ -76,7 +76,7 @@ class ProfileController extends Controller
     public function ProfileUserStatements($id)
     {
         $user = User::findOrFail($id);
-        $statements = Statement::where('user_id', $id)->withCount('likes','comments')->get();
+        $statements = Statement::where('user_id', $id)->withCount('likes','comments','views')->get();
 
         return view('profile.profileuserstatements', ['user' => $user, 'statements' => $statements, 'users' => [$user]]);
     }
@@ -85,7 +85,7 @@ class ProfileController extends Controller
     public function ProfileUserVideos($id)
     {
         $user = User::findOrFail($id);
-        $videos = Video::where('user_id', $id)->withCount('likes','comments')->get();
+        $videos = Video::where('user_id', $id)->withCount('likes','comments','views')->get();
 
         return view('profile.profileuservideos', ['user' => $user, 'videos' => $videos, 'users' => [$user]]);
     }

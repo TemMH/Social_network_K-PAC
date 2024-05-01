@@ -197,14 +197,13 @@
 
         <div class="statements_settings">
 
-            <form class="statements_settings_left" id="categoryForm" method="GET" action="{{ url()->current() }}">
-                @csrf
-                <button value="Игры" class="statements_categories_btn">Тренд</button>
-                <button value="Экономика" class="statements_categories_btn">Недавно</button>
-                <button value="Транспорт" class="statements_categories_btn">Популярно</button>
-                <button value="Транспорт" class="statements_categories_btn">Просмотрено</button>
-                <a href="{{ route('all.statement.user.viewed') }}">Просмотрено</a>
-            </form>
+            <div class="statements_settings_left">
+                <button onclick="location.href='{{ route('all.statement.user.trend') }}';" class="statements_type_btn {{ Route::is('all.statement.user.trend') ? 'selected' : ''}}">В тренде</button>
+                <button onclick="location.href='{{ route('all.statement.user.popular') }}';" class="statements_type_btn {{ Route::is('all.statement.user.popular') ? 'selected' : ''}}">Популярно</button>
+                <button onclick="location.href='{{ route('all.statement.user.newforuser') }}';" class="statements_type_btn {{ Route::is('all.statement.user.newforuser') ? 'selected' : ''}}">Новое для вас</button>
+                <button onclick="location.href='{{ route('all.statement.user.new') }}';" class="statements_type_btn {{ Route::is('all.statement.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
+                <button onclick="location.href='{{ route('all.statement.user.viewed') }}';" class="statements_type_btn {{ Route::is('all.statement.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
+            </div>
 
             <form class="statements_settings_right" id="categoryForm" method="GET"
                 action="{{ url()->current() }}">

@@ -181,8 +181,8 @@
                                     </div>
 
                                     <span>
-                                        66
-                                        {{-- {{ $statement->comments_count }} --}}
+
+                                        {{ $video->views_count }}
                                     </span>
 
                                 </div>

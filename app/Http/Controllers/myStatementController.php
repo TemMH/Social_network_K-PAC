@@ -54,7 +54,61 @@ class myStatementController extends Controller
     public function allstatementuser(Request $request)
     {
         $category = $request->input('category');
-        $sort = $request->input('sortirovka');
+        $userId = Auth::id();
+
+        $statements = Statement::select('statements.*') //выбор всех столбцов
+            ->leftJoin('views', function ($join) use ($userId) {  // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
+                $join->on('statements.id', '=', 'views.statement_id') // объединить id с video_id 
+                    ->where('views.user_id', '=', $userId);
+            })
+            ->whereNull('views.id')
+            ->where('statements.status', 'true')
+            ->withCount('likes', 'comments', 'views');
+
+
+        if ($category) {
+            $statements->where('statements.category', $category);
+        }
+
+
+
+        $statements = $statements->get();
+        return view('news.allstatementuser', ['statements' => $statements]);
+    }
+
+
+
+
+
+    public function allstatementuserviewed(Request $request)
+    {
+        $category = $request->input('category');
+        $userId = Auth::id();
+
+        $statements = Statement::select('statements.*') //выбор всех столбцов
+        ->join('views', function ($join) use ($userId) { // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
+            $join->on('statements.id', '=', 'views.statement_id') // объединить id с video_id 
+                 ->where('views.user_id', '=', $userId);
+        })
+        ->where('statements.status', 'true')
+        ->withCount('likes', 'comments', 'views')
+        ->orderBy('views.created_at', 'desc');
+    
+    
+
+        if ($category) {
+            $statements->where('category', $category);
+        }
+
+
+        $statements = $statements->get();
+
+        return view('news.allstatementuser', ['statements' => $statements]);
+    }
+
+    public function allstatementusernewforuser(Request $request)
+    {
+        $category = $request->input('category');
         $userId = Auth::id();
 
 
@@ -66,64 +120,81 @@ class myStatementController extends Controller
             ->whereNull('views.id')
             ->where('statements.status', 'true')
             ->withCount('likes', 'comments', 'views');
-            
+
 
         if ($category) {
             $statements->where('statements.category', $category);
         }
 
-        switch ($sort) {
-            case 'old':
-                $statements->orderBy('statements.created_at', 'asc');
-                break;
-            case 'popular':
-                $statements->withCount('likes')->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $statements->orderBy('statements.created_at', 'desc');
-                break;
-        }
 
         $statements = $statements->get();
         return view('news.allstatementuser', ['statements' => $statements]);
     }
 
-
-
-    public function allstatementuserviewed(Request $request)
+    public function allstatementuserpopular(Request $request)
     {
         $category = $request->input('category');
-        $sort = $request->input('sortirovka');
-        $userId = Auth::id();
 
-        $viewedStatementIds = View::where('user_id', $userId)->pluck('statement_id')->all();
 
         $statements = Statement::where('status', 'true')
-            ->whereIn('id', $viewedStatementIds)
-            ->withCount('likes', 'comments', 'views');
+            ->withCount('likes', 'comments', 'views')
+            ->orderByDesc('views_count');
+
+
 
         if ($category) {
-            $statements->where('category', $category);
+            $statements->where('statements.category', $category);
         }
 
-        switch ($sort) {
-            case 'old':
-                $statements->orderBy('created_at', 'asc');
-                break;
-            case 'popular':
-                $statements->withCount('likes')->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $statements->orderBy('created_at', 'desc');
-                break;
-        }
+
 
         $statements = $statements->get();
+        return view('news.allstatementuser', ['statements' => $statements]);
+    }
+
+    public function allstatementusertrend(Request $request)
+    {
+        $category = $request->input('category');
+
+        $statements = Statement::where('status', 'true')
+            ->withCount('likes', 'comments', 'views')
+            ->with(['likes', 'views'])
+            ->get()
+            ->sortByDesc(function ($statement) {
+                // Если просмотры = 0 отнести это заявление вниз
+                if ($statement->views_count == 0) {
+                    return -1;
+                }
+
+                return $statement->likes_count / $statement->views_count;
+            });
+
+        if ($category) {
+            $statements = $statements->where('category', $category);
+        }
 
         return view('news.allstatementuser', ['statements' => $statements]);
     }
+
+    public function allstatementusernew(Request $request)
+    {
+        $category = $request->input('category');
+
+        $statements = Statement::where('status', 'true')
+            ->withCount('likes', 'comments', 'views')
+            ->orderByDesc('created_at');
+
+
+        if ($category) {
+            $statements->where('statements.category', $category);
+        }
+
+        $statements = $statements->get();
+        return view('news.allstatementuser', ['statements' => $statements]);
+    }
+
+
+
 
     public function updatenews(Request $request, $id)
     {
@@ -160,76 +231,6 @@ class myStatementController extends Controller
 
         return redirect()->back()->with('success', 'Пользователь успешно удален');
     }
-
-
-
-
-    // public function sortMethod(Request $request)
-    // {
-    //     $category = $request->input('category');
-    //     $sort = $request->input('sortirovka');
-
-    //     $statements = Statement::withCount('likes')->where('status', 'true');
-
-    //     if ($category && $category !== 'all') {
-    //         $statements->where('category', $category);
-    //     }
-
-    //     switch ($sort) {
-    //         case 'old':
-    //             $statements->orderBy('created_at', 'asc');
-    //             break;
-    //         case 'popular':
-    //             $statements->orderByDesc('likes_count');
-    //             break;
-    //         case 'recent':
-    //         default:
-    //             $statements->orderBy('created_at', 'desc');
-    //             break;
-    //     }
-
-    //     $statements = $statements->get();
-
-    //     return view('news.allstatementuser', ['statements' => $statements, 'category' => $category]);
-    // }
-
-
-    // public function mysortMethod(Request $request)
-    // {
-
-    //     $category = $request->input('category');
-    //     $sort = $request->input('sortirovka');
-
-
-    //     $statements = Statement::where('user_id', auth()->id())
-    //         ->withCount('likes');
-
-    //     if ($category && $category !== 'all') {
-    //         $statements->where('category', $category);
-    //     }
-
-    //     switch ($sort) {
-    //         case 'old':
-    //             $statements->orderBy('created_at', 'asc');
-    //             break;
-    //         case 'popular':
-    //             $statements->orderByDesc('likes_count');
-    //             break;
-    //         case 'recent':
-    //         default:
-    //             $statements->orderBy('created_at', 'desc');
-    //             break;
-    //     }
-
-    //     $statements = $statements->get();
-
-    //     return view('news.mystatement', ['statements' => $statements]);
-    // }
-
-
-
-
-
 
     public function edit($id)
     {

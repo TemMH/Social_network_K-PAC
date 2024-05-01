@@ -35,7 +35,7 @@
 
 
 
-                        <a href="{{ route('allvideouser') }}">
+                        <a href="{{ route('main.all.video.user') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"
                                 viewBox="0 0 50 50">
                                 <path stroke="#F5F5F5" stroke-opacity=".961" d="M3.5 3.5h43v43h-43z" />
@@ -72,7 +72,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allvideouser') }}" title="Видео">
+                            <a href="{{ route('main.all.video.user') }}" title="Видео">
 
                                 <div class="adminpanel">
 
@@ -101,7 +101,7 @@
 
                         <div class="adminpanel">
 
-                            <a href="{{ route('allstatementuser') }}" title="Фотографии">
+                            <a href="{{ route('all.statement.user.trend') }}" title="Фотографии">
                                 <script src="https://cdn.lordicon.com/lordicon.js"></script>
                                 <lord-icon src="https://cdn.lordicon.com/zyzoecaw.json" trigger="hover"
                                     colors="primary:#777777" style="width:50px;height:50px">

@@ -125,7 +125,7 @@
                                                 <div class="message_history_dialog_field_right_rama">
                                                     <div class="message_history_dialog_field_right_content">
                                                         <div class="txt_2">
-                                                            {!! $message->content !!}
+                                                            {!! $message->content !!} {{-- Опасно - нет защиты xss --}}
                                                         </div>
                                                     </div>
                                                 </div>

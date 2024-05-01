@@ -196,7 +196,6 @@ html {
 
 }
 
-.adminpanel {}
 
 .backgroundall {
 
@@ -3051,7 +3050,16 @@ video {
 
     width: 100%;
     padding: 0 1%;
+    display: flex;
+    align-items: center;
 
+}
+
+.longvideos_scroll_sorting_block_wrap_line {
+    height: 2px;
+    width: 100%;
+    background-color: #2D2D2D;
+    border-radius: 12px;
 }
 
 
@@ -3351,8 +3359,7 @@ video {
 .longvideos_categories_btn {
 
     /* width: 20%; */
-    padding: 0 2%;
-    height: 100%;
+    padding: 0 7px;
     background-color: #1A1A1D;
     border: 1px solid #777777;
     border-radius: 12px;
@@ -3651,6 +3658,25 @@ video {
     background-color: #1c1c1c;
 }
 
+
+.statements_type_btn {
+
+    padding: 7px;
+    background-color: #1A1A1D;
+    border: 1px solid #777777;
+    border-radius: 12px;
+    margin: 0 1%;
+    white-space: nowrap;
+
+    &:hover{
+        background-color: #1c1c1c;
+    }
+
+    &.selected{
+        background-color: #1c1c1c;
+    }
+
+}
 
 /* Statement block open */
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\ViewsController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FriendfeedController;
 use Illuminate\Routing\ViewController;
 use Illuminate\Support\Facades\Route;
@@ -58,7 +59,7 @@ Route::post('/newstatement', [StatementController::class, 'store'])->name('creat
 
 Route::get('/mystatement', [myStatementController::class, 'mystatement'])->name('mystatement')->middleware(['auth', 'verified']);
 
-Route::get('/allstatement', [myStatementController::class, 'allstatement'])->name('allstatement')->middleware(['auth', 'verified']);
+
 
 Route::post('/allstatement/{id}', [myStatementController::class, 'updatenews'])->name('statuseditnews');
 
@@ -72,9 +73,24 @@ Route::post('/statement/{id}/complaint', [ComplaintController::class, 'storestat
 
 Route::get('/statementuser/{id}', [StatementController::class, 'show'])->name('statementuser');
 
+
+
+
 Route::get('/allstatementuser', [myStatementController::class, 'allstatementuser'])->name('allstatementuser')->middleware(['auth', 'verified']);
 
+
+
+Route::get('/allstatementuser/trend', [myStatementController::class, 'allstatementusertrend'])->name('all.statement.user.trend')->middleware(['auth', 'verified']);
+
+Route::get('/allstatementuser/popular', [myStatementController::class, 'allstatementuserpopular'])->name('all.statement.user.popular')->middleware(['auth', 'verified']);
+
+Route::get('/allstatementuser/newforuser', [myStatementController::class, 'allstatementusernewforuser'])->name('all.statement.user.newforuser')->middleware(['auth', 'verified']);
+
 Route::get('/allstatementuser/viewed', [myStatementController::class, 'allstatementuserviewed'])->name('all.statement.user.viewed')->middleware(['auth', 'verified']);
+
+Route::get('/allstatementuser/new', [myStatementController::class, 'allstatementusernew'])->name('all.statement.user.new')->middleware(['auth', 'verified']);
+
+
 
 Route::post('/statement/{id}/comment', [StatementController::class, 'addComment'])->name('statement.comment');
 
@@ -125,9 +141,25 @@ Route::get('/allshortsvideouser', function () {
 
 Route::post('/newvideo', [VideoController::class, 'store'])->name('createvideo');
 
-Route::get('/allvideouser', [VideoController::class, 'allvideouser'])->name('allvideouser')->middleware(['auth', 'verified']);
+Route::get('/allvideouser', [VideoController::class, 'allvideouser'])->name('main.all.video.user')->middleware(['auth', 'verified']);
 
-Route::get('/allvideo', [VideoController::class, 'allvideo'])->name('allvideo')->middleware(['auth', 'verified']);
+
+
+Route::get('/allvideouser/trend', [VideoController::class, 'allvideousertrend'])->name('all.video.user.trend')->middleware(['auth', 'verified']);
+
+Route::get('/allvideouser/popular', [VideoController::class, 'allvideouserpopular'])->name('all.video.user.popular')->middleware(['auth', 'verified']);
+
+Route::get('/allvideouser/newforuser', [VideoController::class, 'allvideousernewforuser'])->name('all.video.user.newforuser')->middleware(['auth', 'verified']);
+
+Route::get('/allvideouser/viewed', [VideoController::class, 'allvideouserviewed'])->name('all.video.user.viewed')->middleware(['auth', 'verified']);
+
+Route::get('/allvideouser/new', [VideoController::class, 'allvideousernew'])->name('all.video.user.new')->middleware(['auth', 'verified']);
+
+
+
+
+
+
 Route::post('/allvideo/{id}', [VideoController::class, 'updatevideo'])->name('statuseditvideo');
 
 Route::post('/video/{id}/like', [VideoController::class, 'like'])->name('video.like');
@@ -154,11 +186,8 @@ Route::delete('/video/{videoId}/comment/{commentId}', [VideoController::class, '
 
 Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
 
-Route::get('/sendVideoToFriend/{postId}/{friendId}', [DialogController::class, 'sendVideoToFriend'])
-    ->name('sendVideoToFriend');
 
 
-    Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 'sendPostToFriend'])->name('sendPostToFriend');
 
 // Store
 
@@ -217,6 +246,8 @@ Route::post('/user/{id}/complaint', [ComplaintController::class, 'storeusercompl
 Route::get('/reports', function () {
     return view('admin.reports');
 })->middleware(['auth', 'verified'])->name('reports');
+
+Route::get('/adminnavigation', [AdminController::class, 'index'])->name('admin.navigation')->middleware(['auth', 'verified']);
 
 
 //Complaint
@@ -313,7 +344,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/allusers', [ProfileController::class, 'getAllUsers'])->name('allUsers');
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -332,6 +363,13 @@ Route::get('/user/autocomplete', [StatementController::class, 'autocompleteuser'
 
 Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('usersort');
 
+
+// Send message
+
+Route::get('/sendVideoToFriend/{postId}/{friendId}', [DialogController::class, 'sendVideoToFriend'])->name('sendVideoToFriend');
+
+
+Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 'sendPostToFriend'])->name('sendPostToFriend');
 
 Route::middleware('auth')->group(function () {
     Route::get('/messenger', [DialogController::class, 'showMessenger'])->name('messenger');

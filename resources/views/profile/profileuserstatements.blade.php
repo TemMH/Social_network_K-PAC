@@ -377,8 +377,7 @@
                                     </div>
 
                                     <span>
-                                        66
-                                        {{-- {{ $statement->comments_count }} --}}
+                                        {{ $statement->views_count }}
                                     </span>
 
                                 </div>

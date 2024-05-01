@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title')->unique();
             $table->string('description');
-            $table->string('status');
+            $table->string('status'); //DELETE
             $table->string('category')->nullable();
             $table->string('video_path', 512)->nullable();
             $table->string('thumbnail_path', 512)->nullable();

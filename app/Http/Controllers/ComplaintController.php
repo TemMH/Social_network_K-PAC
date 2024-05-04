@@ -23,6 +23,9 @@ class ComplaintController extends Controller
 
     public function index()
     {
+        
+        // От 3-х по 1 причине
+
         $videoComplaint = Complaint::whereNotNull('video_id')
             ->where('status', 'new')
             ->select('video_id', DB::raw('count(*) as total'), 'reason')
@@ -119,31 +122,6 @@ class ComplaintController extends Controller
 
 
 
-    public function update_video(Request $request, $videoId)
-    {
-        $video = Video::findOrFail($videoId);
-    
-        $video->complaints()->update(['status' => $request->edit_status]);
-    
-        return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
-    }
 
-    public function update_statement(Request $request, $statementId)
-    {
-        $statement = Statement::findOrFail($statementId);
-    
-        $statement->complaints()->update(['status' => $request->edit_status]);
-    
-        return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
-    }
-
-    public function update_user(Request $request, $userId)
-    {
-        $user = User::findOrFail($userId);
-    
-        $user->complaints()->update(['status' => $request->edit_status]);
-    
-        return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
-    }
 
 }

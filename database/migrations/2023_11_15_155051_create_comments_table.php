@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreignId('statement_id')->nullable()->constrained('statements');
-            $table->foreignId('video_id')->nullable()->constrained('videos');
+            $table->foreignId('statement_id')->nullable()->constrained('statements')->onDelete('cascade');
+            $table->foreignId('video_id')->nullable()->constrained('videos')->onDelete('cascade');
             $table->text('content');
             $table->timestamps();
 

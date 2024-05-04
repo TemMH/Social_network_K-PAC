@@ -39,7 +39,7 @@
 
             </div>
             <div class="newvideo_frame_upload">
-                <label for="photo" class="drop-container" id="dropcontainer">
+                <label for="photo" class="drop-container" id="dropcontainer_photo">
                     <div class="newvideo_frame_upload_info">
 
                         <svg width="75%" height="75%" viewBox="0 0 24 24" fill="none"
@@ -68,6 +68,57 @@
                     </div>
                 </label>
             </div>
+
+            <script>
+                var dropContainer = document.getElementById('dropcontainer_photo');
+                var input = document.getElementById('photo');
+
+
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropContainer.addEventListener(eventName, preventDefaults, false);
+                    document.body.addEventListener(eventName, preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropContainer.addEventListener(eventName, hover, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropContainer.addEventListener(eventName, unhover, false);
+                });
+
+                dropContainer.addEventListener('drop', handleDrop, false);
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                }
+
+                function hover() {
+                    dropContainer.classList.add('hover');
+                }
+
+                function unhover() {
+                    dropContainer.classList.remove('hover');
+                }
+
+                function handleDrop(e) {
+                    var dt = e.dataTransfer;
+                    var files = dt.files;
+
+
+                    if (files.length === 1 && (files[0].type === 'image/jpeg' || files[0].type === 'image/jpg' || files[0].type === 'image/png')) {
+                        handleFiles(files);
+                    } else {
+                        alert('Пожалуйста, используйте один файл в формате jpg/jpeg.');
+                    }
+                }
+
+
+
+                function handleFiles(files) {
+                    input.files = files;
+                }
+            </script>
 
             <div class="newvideo_frame_optionally">
 

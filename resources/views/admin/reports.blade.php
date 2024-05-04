@@ -7,13 +7,18 @@
 
         <div class="statements_settings">
 
-            <form class="statements_settings_left" id="categoryForm" method="GET">
+            <div class="statements_settings_left">
 
-                <button value="Все" class="statements_categories_btn">Все</button>
-                <button value="Фотоматериалы" class="statements_categories_btn">Фотоматериалы</button>
-                <button value="Видеоматериалы" class="statements_categories_btn">Видеоматериалы</button>
-                <button value="Пользователи" class="statements_categories_btn">Пользователи</button>
-            </form>
+                <button onclick="location.href='{{ route('reports') }}';"
+                class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Все</button>
+                <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
+                <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Видеоматериалы</button>
+                <button onclick="location.href='{{ route('admin.navigation.users') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Пользователи</button>
+
+            </div>
 
 
 
@@ -22,20 +27,10 @@
 
                 <div class="statements_settings_right_btn">
 
-                    <form class="statements_settings_right" id="categoryForm" method="GET">
-                        <button value="Видеоматериалы" class="statements_categories_btn">Доступные</button>
-                        <button value="Пользователи" class="statements_categories_btn">Заблокированные</button>
-                        <button value="Фотоматериалы" class="statements_categories_btn">Разрешенные</button>
 
-
-                    </form>
 
                 </div>
 
-                <div>
-                    <input type="text" id="title" name="title" required class="message_history_input_container"
-                        placeholder="Введите заголовок жалобы...">
-                </div>
 
             </div>
 

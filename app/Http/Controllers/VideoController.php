@@ -58,21 +58,7 @@ class VideoController extends Controller
     }
 
 
-    public function delete($id)
-    {
-        $video = Video::find($id);
 
-
-        if (auth()->user()->role !== 'Admin') {
-            Session::flash('error', 'У вас нет прав на удаление этой записи');
-            return redirect()->back();
-        }
-
-        $video->delete();
-
-
-        return redirect()->back();
-    }
 
 
     public function addComment(Request $request, $id)
@@ -83,21 +69,7 @@ class VideoController extends Controller
         return redirect()->back();
     }
 
-    public function deleteComment($videoId, $commentId)
-    {
-        $video = Video::findOrFail($videoId);
-        $comment = Comment::findOrFail($commentId);
 
-
-        if ($comment->video_id !== $video->id) {
-            abort(403, 'Этот комментарий не принадлежит указанной заявке.');
-        }
-
-
-        $comment->delete();
-
-        return redirect()->back();
-    }
 
 
     public function allvideouser(Request $request)

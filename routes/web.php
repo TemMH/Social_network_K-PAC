@@ -44,7 +44,7 @@ Route::get('/allstatement', function () {
 })->middleware(['auth', 'verified'])->name('allstatement');
 
 Route::get('/allstatementuser', function () {
-    return view('news.allstatementuser');
+    return redirect('all.statement.user.trend');
 })->middleware(['auth', 'verified'])->name('allstatementuser');
 
 Route::get('/statementuser', function () {
@@ -63,7 +63,7 @@ Route::get('/mystatement', [myStatementController::class, 'mystatement'])->name(
 
 Route::post('/allstatement/{id}', [myStatementController::class, 'updatenews'])->name('statuseditnews');
 
-Route::delete('/statement/delete/{id}', [StatementController::class, 'delete'])->name('statement.delete');
+
 
 Route::post('/statement/{id}/like', [StatementController::class, 'like'])->name('statement.like');
 
@@ -76,7 +76,7 @@ Route::get('/statementuser/{id}', [StatementController::class, 'show'])->name('s
 
 
 
-Route::get('/allstatementuser', [myStatementController::class, 'allstatementuser'])->name('allstatementuser')->middleware(['auth', 'verified']);
+// Route::get('/allstatementuser', [myStatementController::class, 'allstatementuser'])->name('allstatementuser')->middleware(['auth', 'verified']);
 
 
 
@@ -94,7 +94,7 @@ Route::get('/allstatementuser/new', [myStatementController::class, 'allstatement
 
 Route::post('/statement/{id}/comment', [StatementController::class, 'addComment'])->name('statement.comment');
 
-Route::delete('/statement/{statementId}/comment/{commentId}', [StatementController::class, 'deleteComment'])->name('statement.comment.delete');
+
 
 // Route::get('/sort', [myStatementController::class, 'sortMethod'])->name('sort');
 // Route::get('/mysort', [myStatementController::class, 'mysortMethod'])->name('mysort');
@@ -170,7 +170,6 @@ Route::delete('/video/{id}/unlike', [VideoController::class, 'unlike'])->name('v
 
 Route::get('/myvideo', [VideoController::class, 'myvideo'])->name('myvideo')->middleware(['auth', 'verified']);
 
-Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
 
 Route::get('/videouser/{id}', [VideoController::class, 'show'])->name('videouser');
 
@@ -182,9 +181,8 @@ Route::get('/shortsvideouser/{id}', [VideoController::class, 'showshorts'])->nam
 
 Route::post('/video/{id}/comment', [VideoController::class, 'addComment'])->name('video.comment');
 
-Route::delete('/video/{videoId}/comment/{commentId}', [VideoController::class, 'deleteComment'])->name('video.comment.delete');
 
-Route::delete('/video/delete/{id}', [VideoController::class, 'delete'])->name('video.delete');
+
 
 
 
@@ -244,21 +242,40 @@ Route::post('/user/{id}/complaint', [ComplaintController::class, 'storeusercompl
 // Admin
 
 Route::get('/reports', function () {
-    return view('admin.reports');
-})->middleware(['auth', 'verified'])->name('reports');
+    return redirect('/adminnavigation/reports'); //Убрать
+})->middleware(['auth', 'verified']);
 
-Route::get('/adminnavigation', [AdminController::class, 'index'])->name('admin.navigation')->middleware(['auth', 'verified']);
+// Route::get('/adminnavigation', [AdminController::class, 'index'])->name('admin.navigation')->middleware(['auth', 'verified']);
 
+Route::get('/adminnavigation/reports', [ComplaintController::class, 'index'])->name('reports');
+
+Route::get('/adminnavigation/users', [AdminController::class, 'index'])->name('admin.navigation.users')->middleware(['auth', 'verified']);
+
+Route::get('/adminnavigation/videos', [AdminController::class, 'index'])->name('admin.navigation.videos')->middleware(['auth', 'verified']);
+
+Route::get('/adminnavigation/statements', [AdminController::class, 'index'])->name('admin.navigation.statements')->middleware(['auth', 'verified']);
+
+// AdminDelete
+
+Route::delete('/statement/delete/{statement}', [AdminController::class, 'deleteStatement'])->name('admin.statement.delete');
+
+Route::delete('/statement/{statementId}/comment/{commentId}', [AdminController::class, 'deleteStatementComment'])->name('admin.statement.comment.delete');
+
+
+Route::delete('/video/delete/{video}', [AdminController::class, 'deleteVideo'])->name('admin.video.delete');
+
+Route::delete('/video/{videoId}/comment/{commentId}', [AdminController::class, 'deleteVideoComment'])->name('admin.video.comment.delete');
+
+
+Route::delete('/profileuser/delete/{user}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
 
 //Complaint
 
-Route::get('/reports', [ComplaintController::class, 'index'])->name('reports');
+Route::put('/complaint/video/{video}', [AdminController::class, 'update_video'])->name('complaint.update.video');
 
-Route::put('/complaint/video/{video}', [ComplaintController::class, 'update_video'])->name('complaint.update.video');
+Route::put('/complaint/statement/{statement}', [AdminController::class, 'update_statement'])->name('complaint.update.statement');
 
-Route::put('/complaint/statement/{statement}', [ComplaintController::class, 'update_statement'])->name('complaint.update.statement');
-
-Route::put('/complaint/user/{user}', [ComplaintController::class, 'update_user'])->name('complaint.update.user');
+Route::put('/complaint/user/{user}', [AdminController::class, 'update_user'])->name('complaint.update.user');
 
 
 // View
@@ -297,7 +314,7 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/alluser/{id}', [myStatementController::class, 'updatepermission'])->name('permissionedit');
 
-Route::delete('/deleteUser/{id}', [myStatementController::class, 'deleteUser'])->name('deleteUser');
+
 
 
 

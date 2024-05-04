@@ -10,7 +10,7 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 // use Illuminate\View\View;
 use App\Models\View;
-use Illuminate\Support\Facades\Session;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
@@ -116,21 +116,7 @@ class StatementController extends Controller
         return redirect()->back();
     }
 
-    public function deleteComment($statementId, $commentId)
-    {
-        $statement = Statement::findOrFail($statementId);
-        $comment = Comment::findOrFail($commentId);
 
-
-        if ($comment->statement_id !== $statement->id) {
-            abort(403, 'Этот комментарий не принадлежит указанной заявке.');
-        }
-
-
-        $comment->delete();
-
-        return redirect()->back();
-    }
 
     public function getStatementDetails($id)
     {
@@ -180,21 +166,6 @@ class StatementController extends Controller
 
 
 
-    public function delete($id)
-    {
-        $statement = Statement::find($id);
-
-
-        if (auth()->user()->role !== 'Admin') {
-            Session::flash('error', 'У вас нет прав на удаление этой записи');
-            return redirect()->back();
-        }
-
-        $statement->delete();
-
-
-        return redirect()->back();
-    }
 
     public function autocompletestatement(Request $request)
     {

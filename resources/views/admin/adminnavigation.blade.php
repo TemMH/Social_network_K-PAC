@@ -7,37 +7,39 @@
 
         <div class="statements_settings">
 
-            <form class="statements_settings_left" id="categoryForm" method="GET">
+            <div class="statements_settings_left">
 
-                <button value="Все" class="statements_categories_btn">Все</button>
-                <button value="Фотоматериалы" class="statements_categories_btn">Фотоматериалы</button>
-                <button value="Видеоматериалы" class="statements_categories_btn">Видеоматериалы</button>
-                <button value="Пользователи" class="statements_categories_btn">Пользователи</button>
+                <button onclick="location.href='{{ route('reports') }}';"
+                    class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Все</button>
+                <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
+                <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Видеоматериалы</button>
+                <button onclick="location.href='{{ route('admin.navigation.users') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Пользователи</button>
+
+            </div>
+
+
+            <div class="reports_settings_middle">
+
+                <input type="text" id="search" name="search" class="message_history_input_container"
+                    placeholder="Введите название...">
+
+            </div>
+
+
+
+            <form class="statements_settings_right" id="categoryForm" method="GET" action="{{ url()->current() }}">
+                <button name="status" value="" class="statements_categories_btn">Все</button>
+                <button name="status" value="new" class="statements_categories_btn">Доступные</button>
+                <button name="status" value="block" class="statements_categories_btn">Заблокированные</button>
+                <button name="status" value="unblock" class="statements_categories_btn">Разрешенные</button>
             </form>
 
 
-            <div class="statements_settings_middle" id="categoryForm" method="GET">
-
-                <input type="text" id="title" name="title" required class="message_history_input_container"
-                placeholder="Введите заголовок жалобы...">
-
-            </div>
-
-            <div class="reports_settings_right">
-
-                <div class="statements_settings_right_btn">
-
-                    <form class="statements_settings_right" id="categoryForm" method="GET">
-                        <button value="Видеоматериалы" class="statements_categories_btn">Доступные</button>
-                        <button value="Пользователи" class="statements_categories_btn">Заблокированные</button>
-                        <button value="Фотоматериалы" class="statements_categories_btn">Разрешенные</button>
 
 
-                    </form>
-
-                </div>
-
-            </div>
 
 
 
@@ -45,213 +47,255 @@
 
 
 
+
+
+
     </div>
-    <div class="friendfeed_field">
-        <div class="reports_field_frame">
+    <div class="friendfeed_field_test">
+        <div class="reports_field_frame_test">
+
+            {{-- Видеоматериалы --}}
+
+            @if (Route::is('admin.navigation.videos'))
+                <div class="notification_block_contents_wrap">
+
+                    <div class="profileuser_block_contents_second_wrap_title">
+                        <p>Видеоматериалы</p>
+                    </div>
+
+                    <div class="right_block_wrap_line"></div>
 
 
-
-
-
-            <div class="notification_block_contents_wrap">
-
-                <div class="profileuser_block_contents_second_wrap_title">
-                    <p>Видеоматериалы</p>
                 </div>
 
-                <div class="right_block_wrap_line"></div>
+
+                @foreach ($videos as $video)
+                    <div class="report_content_test">
+
+                        <div class="report_block_top_open">
 
 
-            </div>
-
-                <div class="report_content">
-
-                    <div class="report_block_top_open">
-
-
-                        <div class="report_block_top_info_left_open">
+                            <div class="report_block_top_info_left_open">
 
 
 
-                            <div class="statement_block_top_image_open">
-                                <img src=" 'video->thumbnail_path)'"
-                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
-                                    style="cursor:pointer;">
-                            </div>
-
-                            <div class="statement_block_top_addinfo">
-
-                                <div class="statement_block_top_addinfo_first">
-
-                                    <p> '$reports['video_complaint']->video->title' </p>
-
-                                </div>
-
-
-                                <div class="statement_block_top_addinfo_second">
-
-                                    <div class="statement_block_top_avatar_open">
-
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                           
-                                    </div>
-
-
-                                    <p>' $reports['video_complaint']->video->user->name }}'</p>
-
+                                <div class="statement_block_top_image_open">
+                                    <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="Thumbnail"
+                                        style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
+                                    <div class="statement_block_top_addinfo_first">
 
-                                    <p>{'{ $reports['video_complaint']->video->created_at }}'</p>
+                                        <p> {{ $video->title }} </p>
 
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="report_block_top_info_right_open">
-                            <p>Статус:</p>
-                            <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                <option value="unblock">Разрешить</option>
-                                <option value="block">Заблокировать</option>
-                            </select>
-                        </div>
-
-
-
-                    </div>
-
-
-                    <div class="report_block_down_open">
-
-
-                        <div class="statement_block_down_views_open">
-                            <p>Частая причина: {'{ $reports['video_complaint']->reason }}'</p>
-                        </div>
-
-                        <div class="statement_block_down_description_open">
-                            <button class="statements_categories_btn">Принять</button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-
-
-
-
-
-            <div class="notification_block_contents_wrap">
-
-                <div class="profileuser_block_contents_second_wrap_title">
-                    <p>Фотоматериалы</p>
-                </div>
-
-                <div class="right_block_wrap_line"></div>
-
-
-            </div>
-
-                <div class="report_content">
-
-                    <div class="report_block_top_open">
-
-
-                        <div class="report_block_top_info_left_open">
-
-
-
-                            <div class="statement_block_top_image_open">
-                                <img src="{'{ asset('storage/' . $reports['statement_complaint']->statement->photo_path) }}'"
-                                    alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
-                                    style="cursor:pointer;">
-                            </div>
-
-                            <div class="statement_block_top_addinfo">
-
-                                <div class="statement_block_top_addinfo_first">
-
-                                    <p>{'{ $reports['statement_complaint']->statement->title }}'</p>
-
-                                </div>
-
-
-                                <div class="statement_block_top_addinfo_second">
-
-                                    <div class="statement_block_top_avatar_open">
-
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                             
                                     </div>
 
-                                    <p>{'{ $reports['statement_complaint']->statement->user->name }}'</p>
 
+                                    <div class="statement_block_top_addinfo_second">
+
+                                        <div class="statement_block_top_avatar_open">
+                                            @if ($video->user->avatar !== null)
+                                                <img class="avatar_mini"
+                                                    src="{{ asset('storage/' . $video->user->avatar) }}"
+                                                    alt="Avatar">
+                                            @else
+                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                            @endif
+                                        </div>
+
+
+                                        <p>{{ $video->user->name }}</p>
+
+                                    </div>
+
+                                    <div class="statement_block_top_addinfo">
+
+
+                                        <p>{{ $video->created_at }}</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="report_block_top_info_right_open">
+                                {{-- <p>Статус:</p> --}}
+                                <select class="message_history_input_container" name="edit_status" id="edit_status">
+                                    <option value="unblock">Разрешить</option>
+                                    <option value="block">Заблокировать</option>
+                                </select>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="report_block_down_open">
+
+
+                            <div class="statement_block_down_views_open">
+                                <p>Статус: </p>
+                            </div>
+
+                            <div class="statement_block_down_description_open" style="display: flex;">
+                                <button class="statements_categories_btn">Применить</button>
+
+                                <form onclick="confirmVideoRemove('{{ $video->title }}', event)"
+                                    action="{{ route('admin.video.delete', $video) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button id="removeVideoForm" class="statements_categories_btn">Удалить
+                                        видео</button>
+                                </form>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                @endforeach
+            @endif
+
+            <script>
+                function confirmVideoRemove(title, event) {
+                    if (!confirm('Вы уверены, что хотите удалить видео ' + title + ' ?')) {
+                        event.preventDefault();
+                    }
+                }
+            </script>
+            {{-- Фотоматериалы --}}
+
+
+
+            @if (Route::is('admin.navigation.statements'))
+                <div class="notification_block_contents_wrap">
+
+                    <div class="profileuser_block_contents_second_wrap_title">
+                        <p>Фотоматериалы</p>
+                    </div>
+
+                    <div class="right_block_wrap_line"></div>
+
+
+                </div>
+
+                @foreach ($statements as $statement)
+                    <div class="report_content_test">
+
+                        <div class="report_block_top_open">
+
+
+                            <div class="report_block_top_info_left_open">
+
+
+
+                                <div class="statement_block_top_image_open">
+                                    <img src="{{ asset('storage/' . $statement->photo_path) }}" alt="Thumbnail"
+                                        style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
+                                    <div class="statement_block_top_addinfo_first">
 
-                                    <p>{'{ $reports['statement_complaint']->statement->created_at }}'</p>
+                                        <p>{{ $statement->title }}</p>
+
+                                    </div>
+
+
+                                    <div class="statement_block_top_addinfo_second">
+
+                                        <div class="statement_block_top_avatar_open">
+                                            @if ($statement->user->avatar !== null)
+                                                <img class="avatar_mini"
+                                                    src="{{ asset('storage/' . $statement->user->avatar) }}"
+                                                    alt="Avatar">
+                                            @else
+                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                            @endif
+                                        </div>
+
+                                        <p>{{ $statement->user->name }}</p>
+
+                                    </div>
+
+                                    <div class="statement_block_top_addinfo">
+
+
+                                        <p>{{ $statement->created_at }}</p>
+
+                                    </div>
 
                                 </div>
+                            </div>
 
+                            <div class="report_block_top_info_right_open">
+                                {{-- <p>Статус:</p> --}}
+                                <select class="message_history_input_container" name="edit_status" id="edit_status">
+                                    <option value="unblock">Разрешить</option>
+                                    <option value="block">Заблокировать</option>
+                                </select>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="report_block_down_open">
+
+                            <div class="statement_block_down_views_open">
+                                <p>Статус: </p>
+                            </div>
+
+                            <div class="statement_block_down_description_open" style="display: flex;">
+                                <button class="statements_categories_btn">Применить</button>
+
+                                <form onclick="confirmStatementRemove('{{ $statement->title }}', event)"
+                                    action="{{ route('admin.statement.delete', $statement) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button id="removeStatementForm" class="statements_categories_btn">Удалить
+                                        фотоматериал</button>
+                                </form>
                             </div>
                         </div>
 
-                        <div class="report_block_top_info_right_open">
-                            <p>Статус:</p>
-                            <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                <option value="unblock">Разрешить</option>
-                                <option value="block">Заблокировать</option>
-                            </select>
-                        </div>
+                    </div>
+                @endforeach
+            @endif
+            <script>
+                function confirmStatementRemove(title, event) {
+                    if (!confirm('Вы уверены, что хотите удалить запись "' + title + '"?')) {
+                        event.preventDefault();
+                    }
+                }
+            </script>
 
 
 
+
+            {{-- Пользователи --}}
+
+
+            @if (Route::is('admin.navigation.users'))
+                <div class="notification_block_contents_wrap">
+
+                    <div class="profileuser_block_contents_second_wrap_title">
+                        <p>Пользователи</p>
                     </div>
 
+                    <div class="right_block_wrap_line"></div>
 
-                    <div class="report_block_down_open">
-
-                        <div class="statement_block_down_views_open">
-                            <p>Частая причина: {'{ $reports['statement_complaint']->reason }}'</p>
-                        </div>
-
-                        <div class="statement_block_down_description_open">
-                            <button class="statements_categories_btn">Принять</button>
-                        </div>
-
-                    </div>
 
                 </div>
 
 
-
-
-
-
-            {{-- user --}}
-
-
-
-            <div class="notification_block_contents_wrap">
-
-                <div class="profileuser_block_contents_second_wrap_title">
-                    <p>Пользователи</p>
-                </div>
-
-                <div class="right_block_wrap_line"></div>
-
-
-            </div>
-
-
-                    <div class="report_content">
+                @foreach ($users as $user)
+                    <div class="report_content_test">
 
                         <div class="report_block_top_open">
 
@@ -261,15 +305,19 @@
 
 
                                 <div class="statement_block_top_user_image_open">
+                                    @if ($user->avatar !== null)
+                                        <img class="avatar_mini" src="{{ asset('storage/' . $user->avatar) }}"
+                                            alt="Avatar">
+                                    @else
                                         <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                      
+                                    @endif
                                 </div>
 
                                 <div class="statement_block_top_addinfo">
 
                                     <div class="statement_block_top_addinfo">
 
-                                        <p>{'{ $reports['user_complaint']->user->name }}'</p>
+                                        <p>{{ $user->name }}</p>
 
                                     </div>
 
@@ -277,14 +325,14 @@
                                     <div class="statement_block_top_addinfo">
 
 
-                                        <p>{'{ $reports['user_complaint']->user->condition }}'</p>
+                                        <p>{{ $user->condition }}</p>
 
                                     </div>
 
                                     <div class="statement_block_top_addinfo">
 
 
-                                        <p>{'{ $reports['user_complaint']->user->created_at }}'</p>
+                                        <p>{{ $user->created_at }}</p>
 
                                     </div>
 
@@ -293,7 +341,7 @@
 
                             <div class="report_block_top_info_right_open">
 
-                                <p>Статус:</p>
+                                {{-- <p>Статус:</p> --}}
 
                                 <select class="message_history_input_container" name="edit_status" id="edit_status">
                                     <option value="unblock">Разрешить</option>
@@ -309,22 +357,37 @@
                         <div class="report_block_down_open">
 
                             <div class="statement_block_down_views_open">
-                                <p>Частая причина: {'{ $reports['user_complaint']->reason }}'</p>
+                                <p>Статус: </p>
                             </div>
 
-                            <div class="statement_block_down_description_open">
-                                <button type="submit" class="statements_categories_btn">Принять</button>
-                            </div>
+                            <div class="statement_block_down_description_open" style="display: flex;">
 
+                                <button class="statements_categories_btn">Применить</button>
+
+                                <form onclick="confirmUserRemove('{{ $user->name }}', event)"
+                                    action="{{ route('admin.user.delete', $user) }}" method="post">
+
+                                    @method('DELETE')
+                                    @csrf
+
+                                    <button id="removeUserForm" class="statements_categories_btn">Удалить
+                                        пользователя</button>
+
+                                </form>
+
+                            </div>
                         </div>
 
                     </div>
-
-
-
-
-
-
+                @endforeach
+            @endif
+            <script>
+                function confirmUserRemove(name, event) {
+                    if (!confirm('Вы уверены, что хотите удалить пользователя "' + name + '"?')) {
+                        event.preventDefault();
+                    }
+                }
+            </script>
 
 
 
@@ -335,6 +398,7 @@
 
 
     </div>
+
 
 
 </x-app-layout>

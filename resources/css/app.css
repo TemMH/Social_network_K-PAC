@@ -3632,6 +3632,7 @@ video {
 .statements_settings_right {
 
     display: flex;
+    align-items: center;
     justify-content: flex-end;
 
 }
@@ -4064,6 +4065,21 @@ video {
 
 /* friendfeed */
 
+.friendfeed_field_test {
+
+    overflow-y: scroll;
+    height: 95%;
+    width: 94.5%;
+    position: fixed;
+    z-index: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+
+}
+
+
 .friendfeed_field {
 
     overflow-y: scroll;
@@ -4077,6 +4093,8 @@ video {
     right: 0;
 
 }
+
+
 
 .friendfeed_field_frame {
 
@@ -4704,11 +4722,19 @@ video {
     border: 2px dashed #484848;
     cursor: pointer;
     transition: background .2s ease-in-out, border .2s ease-in-out;
+    transition: border 0.3s ease-in-out;
+}
+
+.hover {
+
+    background: #1A1A1A;
+    border-color: #777777;
+
 }
 
 .drop-container:hover {
     background-color: #1A1A1A;
-
+    border-color: #777777;
 }
 
 .drop-container:hover .drop-title {
@@ -4954,11 +4980,23 @@ input[type=file]::file-selector-button:hover {
 .reports_field_frame {
 
     width: 50%;
-    height: 90%;
+    height: 95%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    position: relative;
+
+}
+
+.reports_field_frame_test{
+
+    width: 50%;
+    /* height: min-content; */
+    margin: 0 auto;
+    /* display: flex; */
+    flex-direction: column;
+    /* justify-content: space-between; */
     position: relative;
 
 }
@@ -4992,14 +5030,17 @@ input[type=file]::file-selector-button:hover {
 .statement_block_top_user_image_open {
 
     width: 30%;
-    aspect-ratio: 1/1;
-
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .statement_block_top_user_image_open img {
 
     height: 100%;
-    width: 100%;
+    aspect-ratio: 1 / 1;
+    width: auto;
 
 }
 
@@ -5043,7 +5084,13 @@ input[type=file]::file-selector-button:hover {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
+
+}
+
+.reports_settings_middle{
+
+    width: 40%;
 
 }
 
@@ -5066,6 +5113,18 @@ input[type=file]::file-selector-button:hover {
     border: 1px solid #484848;
 
     padding: 0 1%;
+}
+
+.report_content_test {
+
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background-color: #222222;
+    border: 1px solid #484848;
+    padding: 0 1%;
+    margin-bottom: 1%;
 }
 
 

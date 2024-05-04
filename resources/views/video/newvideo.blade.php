@@ -69,6 +69,11 @@
                 </label>
             </div>
 
+
+
+
+
+
             <div class="newvideo_frame_optionally">
 
                 <div class="newvideo_frame_optionally_category">
@@ -92,7 +97,7 @@
                     <div class="newvideo_frame_optionally_thumbnail_upload">
 
 
-                        <label for="thumbnail" class="drop-container" id="dropcontainer">
+                        <label for="thumbnail" class="drop-container" id="dropcontainer_thumbnail">
                             <div class="newvideo_frame_upload_info">
 
                                 <svg width="75%" height="75%" viewBox="0 0 24 24" fill="none"
@@ -113,7 +118,8 @@
 
                             </div>
                             <p>Загрузить обложку</p>
-                            <p style="color:#777777; font-size: 12px;">Перетащите файл сюда или нажмите на форму, чтобы выбрать их на
+                            <p style="color:#777777; font-size: 12px;">Перетащите файл сюда или нажмите на форму, чтобы
+                                выбрать их на
                                 устройстве.
                             </p>
                             <input type="file" name="thumbnail" id="thumbnail" accept="image/*" required>
@@ -127,6 +133,87 @@
 
             </div>
 
+            <script>
+                var dropContainerVideo = document.getElementById('dropcontainer');
+                var inputVideo = document.getElementById('video');
+            
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropContainerVideo.addEventListener(eventName, preventDefaults, false);
+                    document.body.addEventListener(eventName, preventDefaults, false);
+                });
+            
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropContainerVideo.addEventListener(eventName, hover, false);
+                });
+            
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropContainerVideo.addEventListener(eventName, unhover, false);
+                });
+            
+                dropContainerVideo.addEventListener('drop', handleDropVideo, false);
+            
+                function handleDropVideo(e) {
+                    var dt = e.dataTransfer;
+                    var files = dt.files;
+            
+                    if (files.length === 1 && files[0].type === 'video/mp4') {
+                        handleFiles(files);
+                    } else {
+                        alert('Пожалуйста, используйте один файл в формате MP4.');
+                    }
+                }
+            
+                var dropContainerThumbnail = document.getElementById('dropcontainer_thumbnail');
+                var inputThumbnail = document.getElementById('thumbnail');
+            
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropContainerThumbnail.addEventListener(eventName, preventDefaults, false);
+                    document.body.addEventListener(eventName, preventDefaults, false);
+                });
+            
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropContainerThumbnail.addEventListener(eventName, hover, false);
+                });
+            
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropContainerThumbnail.addEventListener(eventName, unhover, false);
+                });
+            
+                dropContainerThumbnail.addEventListener('drop', handleDropThumbnail, false);
+            
+                function handleDropThumbnail(e) {
+                    var dt = e.dataTransfer;
+                    var files = dt.files;
+            
+                    if (files.length === 1 && files[0].type.startsWith('image/')) {
+                        handleFiles(files);
+                    } else {
+                        alert('Пожалуйста, используйте один файл в формате jpg/jpeg.');
+                    }
+                }
+            
+
+                
+                function handleFiles(files) {
+                    if (files[0].type.startsWith('video/')) {
+                        inputVideo.files = files;
+                    } else if (files[0].type.startsWith('image/')) {
+                        inputThumbnail.files = files;
+                    }
+                }
+            
+                function preventDefaults(e) {
+                    e.preventDefault();
+                }
+            
+                function hover() {
+                    this.classList.add('hover');
+                }
+            
+                function unhover() {
+                    this.classList.remove('hover');
+                }
+            </script>
 
             <div class="newvideo_frame_btn">
 

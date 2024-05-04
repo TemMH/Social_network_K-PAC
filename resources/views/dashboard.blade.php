@@ -5,7 +5,7 @@
     </x-slot>
 
     <div class="main">
-        <a href="{{ route('allstatementuser') }}">
+        <a href="{{ route('all.statement.user.trend') }}">
             <div class="main_new_novo">
                 <p class="txt_2">Перейти к новостям</p>
             </div>

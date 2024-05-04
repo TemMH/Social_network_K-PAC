@@ -219,26 +219,13 @@ class myStatementController extends Controller
         return view('news.alluser', ['users' => $user]);
     }
 
-    public function deleteUser($id)
-    {
 
-        Friendship::where('sender_id', $id)->delete();
-
-        Statement::where('user_id', $id)->delete();
-
-        $user = User::find($id);
-        $user->delete();
-
-        return redirect()->back()->with('success', 'Пользователь успешно удален');
-    }
 
     public function edit($id)
     {
         $statement = Statement::findOrFail($id);
         return view('edit_statement', ['statement' => $statement]);
     }
-
-
 
 
     public function updatetest(Request $request, $id)

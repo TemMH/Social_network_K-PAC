@@ -10,7 +10,7 @@
             <div class="statements_settings_left">
 
                 <button onclick="location.href='{{ route('reports') }}';"
-                class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Все</button>
+                class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
                 <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
                     class="statements_type_btn {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
@@ -43,7 +43,7 @@
     </div>
     <div class="friendfeed_field">
         <div class="reports_field_frame">
-
+            
 
 
 

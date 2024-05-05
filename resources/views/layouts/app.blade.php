@@ -878,7 +878,7 @@
     '</div>' +
     '<div class="statement_block_top_info_right">' +
         '<div class="statement_block_top_info_right_info">' +
-            '<form method="POST"class="full_notication_btn" action="">' +
+            '<form method="POST" class="full_notication_btn" action="/send-friend-request/' + user.id + '">' +
                '@csrf' +
                 '<button type="submit">' +
                     '<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +

@@ -468,7 +468,7 @@
 
                             @if (auth()->user()->role == 'Admin')
                                 <form method="POST"
-                                    action="{{ route('video.comment.delete', ['videoId' => $video->id, 'commentId' => $comment->id]) }}">
+                                    action="{{ route('admin.video.comment.delete', ['videoId' => $video->id, 'commentId' => $comment->id]) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button class="novost_down_func" type="submit">Удалить комментарий</button>

@@ -164,9 +164,9 @@ Route::post('/allvideo/{id}', [VideoController::class, 'updatevideo'])->name('st
 
 Route::post('/video/{id}/like', [VideoController::class, 'like'])->name('video.like');
 
-Route::post('/video/{id}/complaint', [ComplaintController::class, 'storevideocomplaint'])->name('video.complaint');
-
 Route::delete('/video/{id}/unlike', [VideoController::class, 'unlike'])->name('video.unlike');
+
+Route::post('/video/{id}/complaint', [ComplaintController::class, 'storevideocomplaint'])->name('video.complaint');
 
 Route::get('/myvideo', [VideoController::class, 'myvideo'])->name('myvideo')->middleware(['auth', 'verified']);
 
@@ -255,6 +255,22 @@ Route::get('/adminnavigation/videos', [AdminController::class, 'index'])->name('
 
 Route::get('/adminnavigation/statements', [AdminController::class, 'index'])->name('admin.navigation.statements')->middleware(['auth', 'verified']);
 
+// AdminComplaint
+
+Route::post('/adminnavigation/statement/{statement}', [AdminController::class, 'post_statement_complaint'])->name('complaint.post.statement');
+Route::post('/adminnavigation/video/{video}', [AdminController::class, 'post_video_complaint'])->name('complaint.post.video');
+Route::post('/adminnavigation/user/{user}', [AdminController::class, 'post_user_complaint'])->name('complaint.post.user');
+
+
+
+
+Route::put('/complaint/video/{video}', [AdminController::class, 'update_video_complaint'])->name('complaint.update.video');
+
+Route::put('/complaint/statement/{statement}', [AdminController::class, 'update_statement_complaint'])->name('complaint.update.statement');
+
+Route::put('/complaint/user/{user}', [AdminController::class, 'update_user_complaint'])->name('complaint.update.user');
+
+
 // AdminDelete
 
 Route::delete('/statement/delete/{statement}', [AdminController::class, 'deleteStatement'])->name('admin.statement.delete');
@@ -271,11 +287,11 @@ Route::delete('/profileuser/delete/{user}', [AdminController::class, 'deleteUser
 
 //Complaint
 
-Route::put('/complaint/video/{video}', [AdminController::class, 'update_video'])->name('complaint.update.video');
+Route::put('/complaint/video/{video}', [AdminController::class, 'update_video_complaint'])->name('complaint.update.video');
 
-Route::put('/complaint/statement/{statement}', [AdminController::class, 'update_statement'])->name('complaint.update.statement');
+Route::put('/complaint/statement/{statement}', [AdminController::class, 'update_statement_complaint'])->name('complaint.update.statement');
 
-Route::put('/complaint/user/{user}', [AdminController::class, 'update_user'])->name('complaint.update.user');
+Route::put('/complaint/user/{user}', [AdminController::class, 'update_user_complaint'])->name('complaint.update.user');
 
 
 // View

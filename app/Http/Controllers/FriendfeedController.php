@@ -21,7 +21,7 @@ class FriendfeedController extends Controller
     public function friendfeeduser(Request $request)
     {
         $friendIdsAsSender = Friendship::where('sender_id', auth()->id())
-            ->where('status', 'accepted')
+            ->where('status', 'accepted')  //pending
             ->pluck('recipient_id')
             ->all();
     
@@ -36,12 +36,12 @@ class FriendfeedController extends Controller
     
         $videos = Video::whereIn('user_id', $friendIds)
             ->where('status', 'true')
-            ->withCount('likes', 'comments')
+            ->withCount('likes', 'comments','views')
             ->get();
     
         $statements = Statement::whereIn('user_id', $friendIds)
             ->where('status', 'true')
-            ->withCount('likes', 'comments')
+            ->withCount('likes', 'comments','views')
             ->get();
     
 

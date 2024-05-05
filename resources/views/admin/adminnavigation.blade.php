@@ -10,7 +10,7 @@
             <div class="statements_settings_left">
 
                 <button onclick="location.href='{{ route('reports') }}';"
-                    class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Все</button>
+                    class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
                 <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
                     class="statements_type_btn {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
@@ -122,10 +122,18 @@
 
                             <div class="report_block_top_info_right_open">
                                 {{-- <p>Статус:</p> --}}
-                                <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value="unblock">Разрешить</option>
-                                    <option value="block">Заблокировать</option>
-                                </select>
+                                <form action="{{ route('complaint.post.video', $video) }}" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">
+
+                                    @csrf
+
+                                    <select class="message_history_input_container" name="edit_status"
+                                        id="edit_status">
+                                        <option value="unblock">Разрешить</option>
+                                        <option value="block">Заблокировать</option>
+                                    </select>
+                                    <button type="submit" class="statements_categories_btn">Применить</button>
+                                </form>
+                                
                             </div>
 
 
@@ -141,7 +149,6 @@
                             </div>
 
                             <div class="statement_block_down_description_open" style="display: flex;">
-                                <button class="statements_categories_btn">Применить</button>
 
                                 <form onclick="confirmVideoRemove('{{ $video->title }}', event)"
                                     action="{{ route('admin.video.delete', $video) }}" method="post">
@@ -150,6 +157,7 @@
                                     <button id="removeVideoForm" class="statements_categories_btn">Удалить
                                         видео</button>
                                 </form>
+                                
                             </div>
 
 
@@ -234,10 +242,17 @@
 
                             <div class="report_block_top_info_right_open">
                                 {{-- <p>Статус:</p> --}}
-                                <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value="unblock">Разрешить</option>
-                                    <option value="block">Заблокировать</option>
-                                </select>
+                                <form action="{{ route('complaint.post.statement', $statement) }}" method="POST">
+
+                                    @csrf
+
+                                    <select class="message_history_input_container" name="edit_status"
+                                        id="edit_status">
+                                        <option value="unblock">Разрешить</option>
+                                        <option value="block">Заблокировать</option>
+                                    </select>
+                                    <button type="submit" class="statements_categories_btn">Применить</button>
+                                </form>
                             </div>
 
 
@@ -252,7 +267,7 @@
                             </div>
 
                             <div class="statement_block_down_description_open" style="display: flex;">
-                                <button class="statements_categories_btn">Применить</button>
+
 
                                 <form onclick="confirmStatementRemove('{{ $statement->title }}', event)"
                                     action="{{ route('admin.statement.delete', $statement) }}" method="post">
@@ -343,10 +358,17 @@
 
                                 {{-- <p>Статус:</p> --}}
 
-                                <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value="unblock">Разрешить</option>
-                                    <option value="block">Заблокировать</option>
-                                </select>
+                                <form action="{{ route('complaint.post.user', $user) }}" method="POST">
+
+                                    @csrf
+
+                                    <select class="message_history_input_container" name="edit_status"
+                                        id="edit_status">
+                                        <option value="unblock">Разрешить</option>
+                                        <option value="block">Заблокировать</option>
+                                    </select>
+                                    <button type="submit" class="statements_categories_btn">Применить</button>
+                                </form>
                             </div>
 
 
@@ -362,7 +384,6 @@
 
                             <div class="statement_block_down_description_open" style="display: flex;">
 
-                                <button class="statements_categories_btn">Применить</button>
 
                                 <form onclick="confirmUserRemove('{{ $user->name }}', event)"
                                     action="{{ route('admin.user.delete', $user) }}" method="post">

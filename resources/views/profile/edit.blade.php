@@ -15,6 +15,11 @@
             </div>
 
 
+            <div class="edit_update">
+                <div class="max-w-xl">
+                    @include('profile.partials.update-profile-condition-form')
+                </div>
+            </div>
 
 
             <div class="edit_update">

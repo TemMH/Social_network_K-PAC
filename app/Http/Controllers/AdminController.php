@@ -103,7 +103,7 @@ class AdminController extends Controller
 
     
 
-    public function update_video(Request $request, $videoId)
+    public function update_video_complaint(Request $request, $videoId)
     {
         $video = Video::findOrFail($videoId);
     
@@ -112,7 +112,7 @@ class AdminController extends Controller
         return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
     }
 
-    public function update_statement(Request $request, $statementId)
+    public function update_statement_complaint(Request $request, $statementId)
     {
         $statement = Statement::findOrFail($statementId);
     
@@ -121,7 +121,7 @@ class AdminController extends Controller
         return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
     }
 
-    public function update_user(Request $request, $userId)
+    public function update_user_complaint(Request $request, $userId)
     {
         $user = User::findOrFail($userId);
     
@@ -131,6 +131,63 @@ class AdminController extends Controller
     }
 
 
+
+    public function post_statement_complaint(Request $request, Statement $statement){
+
+
+        $complaint = new Complaint([
+            'sender_id' => auth()->user()->id,
+            'reason' => 'Решение администрации',
+            'status' => $request->edit_status,
+            'video_id' => null,
+            'statement_id' => $statement->id,
+            'user_id' => null,
+        ]);
+
+        $statement->complaints()->update(['status' => $request->edit_status]);
+
+
+        $complaint -> save();
+
+        return redirect()->back();
+    }
+
+
+    public function post_video_complaint(Request $request, Video $video){
+
+        $complaint = new Complaint([
+            'sender_id' => auth()->user()->id,
+            'reason' => 'Решение администрации',
+            'status' => $request->edit_status,
+            'video_id' => $video->id,
+            'statement_id' => null,
+            'user_id' => null,
+        ]);
+
+        $video->complaints()->update(['status' => $request->edit_status]);
+
+        $complaint -> save();
+
+        return redirect()->back();
+    }
+
+    public function post_user_complaint(Request $request, User $user){
+
+        $complaint = new Complaint([
+            'sender_id' => auth()->user()->id,
+            'reason' => 'Решение администрации',
+            'status' => $request->edit_status,
+            'video_id' => null,
+            'statement_id' => null,
+            'user_id' => $user->id,
+        ]);
+
+        $user->complaints()->update(['status' => $request->edit_status]);
+
+        $complaint -> save();
+
+        return redirect()->back();
+    }
 
 
     public function deleteStatementComment($statementId, $commentId)
@@ -156,7 +213,7 @@ class AdminController extends Controller
 
 
         if ($comment->video_id !== $video->id) {
-            abort(403, 'Этот комментарий не принадлежит указанной заявке.');
+            abort(403, 'Этот комментарий не принадлежит указанному видео.');
         }
 
 

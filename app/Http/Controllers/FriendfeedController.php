@@ -22,6 +22,7 @@ class FriendfeedController extends Controller
     {
         $friendIdsAsSender = Friendship::where('sender_id', auth()->id())
             ->where('status', 'accepted')  //pending
+            ->orWhere('status', 'pending')
             ->pluck('recipient_id')
             ->all();
     

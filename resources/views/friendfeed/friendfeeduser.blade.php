@@ -26,12 +26,37 @@
                                     <div class="statement_block_top_avatar_open">
 
 
+                                        @if ($feedItem instanceof \App\Models\Video)
+
                                         @if ($feedItem->user->avatar !== null)
-                                            <img class="avatar_mini"
-                                                src="{{ asset('storage/' . $feedItem->user->avatar) }}" alt="Avatar">
-                                        @else
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
-                                        @endif
+                                        <a href="{{ route('profile.profileuser', ['id' => $feedItem->user_id]) }}">
+                                        <img class="avatar_mini"
+                                            src="{{ asset('storage/' . $feedItem->user->avatar) }}" alt="Avatar">
+                                        </a>
+                                    @else
+                                    <a href="{{ route('profile.profileuser', ['id' => $feedItem->user_id]) }}">
+                            
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                    </a>
+                                    @endif
+
+                                    @elseif ($feedItem instanceof \App\Models\Statement)
+
+                                    @if ($feedItem->user->avatar !== null)
+                                    <a href="{{ route('profile.profileuser', ['id' => $feedItem->user_id]) }}">
+                                    <img class="avatar_mini"
+                                        src="{{ asset('storage/' . $feedItem->user->avatar) }}" alt="Avatar">
+                                    </a>
+                                @else
+                                <a href="{{ route('profile.profileuser', ['id' => $feedItem->user_id]) }}">
+                        
+                                    <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                                </a>
+                                @endif
+
+                                    @endif
+
+
 
                                     </div>
 

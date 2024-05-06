@@ -7,8 +7,7 @@
         <div class="modal_block_open">
 
             <div class="modal-content">
-                <form id="sendcomplaint" action="{{ route('user.complaint', ['id' => $user->id]) }}"
-                    method="post">
+                <form id="sendcomplaint" action="{{ route('user.complaint', ['id' => $user->id]) }}" method="post">
                     @csrf
 
                     <p>Причина жалобы</p>
@@ -18,15 +17,18 @@
                             <span class='inner-label'>Спам</span>
                         </label>
                         <label class='radio-label'>
-                            <input  type='radio' id="reasonInput" name="reason" value="Жестокое или отталкивающее содержание" required>
+                            <input type='radio' id="reasonInput" name="reason"
+                                value="Жестокое или отталкивающее содержание" required>
                             <span class='inner-label'>Жестокое или отталкивающее содержание</span>
                         </label>
                         <label class='radio-label'>
-                            <input  type='radio' id="reasonInput" name="reason" value="Дискриминационные высказывания и оскорбления" required>
+                            <input type='radio' id="reasonInput" name="reason"
+                                value="Дискриминационные высказывания и оскорбления" required>
                             <span class='inner-label'>Дискриминационные высказывания и оскорбления</span>
                         </label>
                         <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason" value="Вредные или опасные действия" required>
+                            <input type='radio' id="reasonInput" name="reason" value="Вредные или опасные действия"
+                                required>
                             <span class='inner-label'>Вредные или опасные действия</span>
                         </label>
                         <label class='radio-label'>
@@ -61,38 +63,38 @@
 
     </div>
 
-<script>
-    const statementFieldOpen = document.querySelector(".statement_field_open");
-    const closeButton = document.querySelector(".statement_block_btn_close");
+    <script>
+        const statementFieldOpen = document.querySelector(".statement_field_open");
+        const closeButton = document.querySelector(".statement_block_btn_close");
 
 
-    function closeModal() {
-        statementFieldOpen.classList.remove("opened");
-    }
-
-    function openModal() {
-
-        statementFieldOpen.classList.add("opened");
-    }
-
-    closeButton.addEventListener("click", closeModal);
-
-    statementFieldOpen.addEventListener("click", function(event) {
-        if (event.target === statementFieldOpen) {
-            closeModal();
+        function closeModal() {
+            statementFieldOpen.classList.remove("opened");
         }
-    });
 
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape" && statementFieldOpen.classList.contains("opened")) {
-            closeModal();
+        function openModal() {
+
+            statementFieldOpen.classList.add("opened");
         }
-    });
 
-    function confirmSendComplaint() {
-        openModal();
-    }
-</script>
+        closeButton.addEventListener("click", closeModal);
+
+        statementFieldOpen.addEventListener("click", function(event) {
+            if (event.target === statementFieldOpen) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape" && statementFieldOpen.classList.contains("opened")) {
+                closeModal();
+            }
+        });
+
+        function confirmSendComplaint() {
+            openModal();
+        }
+    </script>
 
     @foreach ($users as $user)
         <div class="profileuser_field">
@@ -187,10 +189,12 @@
 
 
                                             <svg width="100%" height="100%" viewBox="-2.4 -2.4 28.80 28.80"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
+                                                fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                transform="rotate(0)">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g>
+                                                    stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048">
+                                                </g>
                                                 <g id="SVGRepo_iconCarrier">
                                                     <path
                                                         d="M10.3009 13.6949L20.102 3.89742M10.5795 14.1355L12.8019 18.5804C13.339 19.6545 13.6075 20.1916 13.9458 20.3356C14.2394 20.4606 14.575 20.4379 14.8492 20.2747C15.1651 20.0866 15.3591 19.5183 15.7472 18.3818L19.9463 6.08434C20.2845 5.09409 20.4535 4.59896 20.3378 4.27142C20.2371 3.98648 20.013 3.76234 19.7281 3.66167C19.4005 3.54595 18.9054 3.71502 17.9151 4.05315L5.61763 8.2523C4.48114 8.64037 3.91289 8.83441 3.72478 9.15032C3.56153 9.42447 3.53891 9.76007 3.66389 10.0536C3.80791 10.3919 4.34498 10.6605 5.41912 11.1975L9.86397 13.42C10.041 13.5085 10.1295 13.5527 10.2061 13.6118C10.2742 13.6643 10.3352 13.7253 10.3876 13.7933C10.4468 13.87 10.491 13.9585 10.5795 14.1355Z"
@@ -207,12 +211,15 @@
 
                                 {{-- REQUEST FRIEND --}}
 
-                                @if ($user->id !== auth()->id() && !auth()->user()->areFriends($user->id))
-                                    <form method="POST" class="full_statement_btn" action="{{ route('send-friend-request', $user) }}">
+                                @if (
+                                    $user->id !== auth()->id() &&
+                                        !auth()->user()->areFriends($user->id))
+                                    <form method="POST" class="full_statement_btn"
+                                        action="{{ route('send-friend-request', $user) }}">
                                         @csrf
 
 
-                                        <button type="submit" >
+                                        <button type="submit">
 
                                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -239,7 +246,8 @@
                                 {{-- REMOVE FRIEND --}}
 
                                 @if (
-                                    $user->id != auth()->id() && auth()->user()->areFriends($user->id))
+                                    $user->id != auth()->id() &&
+                                        auth()->user()->areFriends($user->id))
                                     <button class="full_statement_btn" type="button"
                                         onclick="confirmRemoveFriend()">
                                         <form id="removeFriendForm" method="POST"
@@ -282,24 +290,24 @@
 
 
                                 @if ($user->id !== auth()->id())
-                                @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
-                                    <button onclick="confirmSendComplaint()" class="full_statement_btn"> <svg width="100%" height="100%"
-                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                            stroke="#777777">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">        
-                                                <path
-                                                    d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
-                                                    stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                    @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
+                                        <button onclick="confirmSendComplaint()" class="full_statement_btn"> <svg
+                                                width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg" stroke="#777777">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                    </button>
-@endif
+                                                </g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
+                                                        stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    @endif
                                 @endif
 
 
@@ -401,100 +409,100 @@
                         менять местами
 
                         --}}
+                    @if (count($statements) > 0)
+                        <div class="profileuser_block_contents_wrap">
 
-                    <div class="profileuser_block_contents_wrap">
+                            <div class="profileuser_block_contents_first_wrap_title">
+                                <p>Фотоматериалы</p>
+                            </div>
 
-                        <div class="profileuser_block_contents_first_wrap_title">
-                            <p>Фотоматериалы</p>
-                        </div>
+                            <div class="profileuser_block_wrap_line">
+                            </div>
 
-                        <div class="profileuser_block_wrap_line">
-                        </div>
-
-                        <a href="{{ route('profile.profileuserstatements', ['id' => $user->id]) }}"
-                            class="profileuser_block_contents_wrap_btn">
-                            <p>Показать все</p>
-                        </a>
-
-                    </div>
-
-                    <div class="profileuser_block_contents_first">
-
-
-                        <div id="scrollContainerFirst" class="profileuser_block_contents_first_contents">
-
-
-                            @foreach ($statements as $statement)
-                                <div class="profileuser_content_first">
-
-
-                                    <img src="{{ asset('storage/' . $statement->photo_path) }}">
-
-
-                                    <div class="longvideos_video_thumbnail_title">
-                                        <p class="txt_2">{{ $statement->title }}</p>
-                                    </div>
-
-
-                                </div>
-                            @endforeach
-
-
+                            <a href="{{ route('profile.profileuserstatements', ['id' => $user->id]) }}"
+                                class="profileuser_block_contents_wrap_btn">
+                                <p>Показать все</p>
+                            </a>
 
                         </div>
 
-                    </div>
+                        <div class="profileuser_block_contents_first">
 
-                    <div class="profileuser_block_contents_wrap">
 
-                        <div class="profileuser_block_contents_second_wrap_title">
-                            <p>Видеоматериалы</p>
-                        </div>
+                            <div id="scrollContainerFirst" class="profileuser_block_contents_first_contents">
 
-                        <div class="profileuser_block_wrap_line"></div>
 
-                        <a href="{{ route('profile.profileuservideos', ['id' => $user->id]) }}"
-                            class="profileuser_block_contents_wrap_btn">
-                            <p>Показать все</p>
-                        </a>
-
-                    </div>
+                                @foreach ($statements as $statement)
+                                    <a class="profileuser_content_first"
+                                        href="{{ route('statementuser', ['id' => $statement->id]) }}">
 
 
 
+                                        <img src="{{ asset('storage/' . $statement->photo_path) }}">
 
 
-
-                    <div class="profileuser_block_contents_second">
-
-
-                        <div id="scrollContainerSecond"
-                            class="profileuser_block_contents_second_contents{{ count($videos) < 6 ? ' profileuser_block_contents_second_contents_flex' : '' }}">
-
-                            @foreach ($videos as $key => $video)
-                                <div
-                                    class="profileuser_content_second{{ ($key + 1) % 4 == 0 || $loop->first ? ' block1' : '' }}">
-                                    <a href="{{ route('videouser', ['id' => $video->id]) }}">
-                                        <img src="{{ asset('storage/' . $video->thumbnail_path) }}">
                                         <div class="longvideos_video_thumbnail_title">
-                                            <p class="txt_2">{{ $video->title }}</p>
+                                            <p class="txt_2">{{ $statement->title }}</p>
                                         </div>
+
+
+
                                     </a>
-                                </div>
-                            @endforeach
+                                @endforeach
+
+
+
+                            </div>
+
+                        </div>
+                    @endif
+
+                    @if (count($videos) > 0)
+                        <div class="profileuser_block_contents_wrap">
+
+                            <div class="profileuser_block_contents_second_wrap_title">
+                                <p>Видеоматериалы</p>
+                            </div>
+
+                            <div class="profileuser_block_wrap_line"></div>
+
+                            <a href="{{ route('profile.profileuservideos', ['id' => $user->id]) }}"
+                                class="profileuser_block_contents_wrap_btn">
+                                <p>Показать все</p>
+                            </a>
 
                         </div>
 
 
 
 
-                    </div>
+
+
+                        <div class="profileuser_block_contents_second">
+
+
+                            <div id="scrollContainerSecond"
+                                class="profileuser_block_contents_second_contents{{ count($videos) < 6 ? ' profileuser_block_contents_second_contents_flex' : '' }}">
+
+                                @foreach ($videos as $key => $video)
+                                    <div
+                                        class="profileuser_content_second{{ ($key + 1) % 4 == 0 || $loop->first ? ' block1' : '' }}">
+                                        <a href="{{ route('videouser', ['id' => $video->id]) }}">
+                                            <img src="{{ asset('storage/' . $video->thumbnail_path) }}">
+                                            <div class="longvideos_video_thumbnail_title">
+                                                <p class="txt_2">{{ $video->title }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
+
+                            </div>
 
 
 
 
-
-
+                        </div>
+                    @endif
                 </div>
 
             </div>

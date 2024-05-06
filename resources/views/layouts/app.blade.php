@@ -406,7 +406,7 @@
 
 
 
-            @foreach ($friendRequests as $request)
+            @foreach ($friendRequests as $friendRequest)
                 <div class="notification_container">
 
                     <div class="notication_top">
@@ -419,15 +419,15 @@
                         <div class="notification_content">
 
                             <div class="">
-                                <a href="{{ route('profile.profileuser', ['id' => $request->id]) }}">
-                                    {{ $request->sender->name }}
+                                <a href="{{ route('profile.profileuser', ['id' => $friendRequest->sender->id]) }}">
+                                    {{ $friendRequest->sender->name }}
                                 </a>
 
                                 отправил вам запрос в друзья
                             </div>
 
                             <div class="">
-                                дата
+                                дата {{ $friendRequest->created_at}}
                             </div>
                         </div>
 
@@ -436,16 +436,15 @@
 
                     <div class="notification_actions">
                         <div>
-                            <form action="{{ route('accept-friend-request', $request->id) }}" method="POST">
+                            <form action="{{ route('accept-friend-request', $friendRequest->id) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="accept-btn">Принять</button>
                             </form>
                         </div>
 
                         <div>
-                            <form action="{{ route('reject-friend-request', $request->id) }}" method="POST">
+                            <form action="{{ route('reject-friend-request', $friendRequest->id) }}" method="POST">
                                 @csrf
-                                @method('DELETE')
                                 <button type="submit" class="reject-btn">Отказать</button>
                             </form>
                         </div>
@@ -535,13 +534,13 @@
                         ->get();
                     
                     $friendIds = $friendsList->pluck('sender_id')->merge($friendsList->pluck('recipient_id'))->unique();
-                    
+
                     $friends = \App\Models\User::whereIn('id', $friendIds)->get();
                     ?>
 
                     @foreach ($friends as $friend)
                         @if ($friend->id !== auth()->id())
-                            <a href="{{ route('profile.profileuser', ['id' => $friend->id]) }}">
+                            <a href="{{ route('profile.profileuser', ['id' => $friend->id]) }}"> 
 
                                 @if ($friend->avatar !== null)
                                     <img class="avatar_mini" src="{{ asset('storage/' . $friend->avatar) }}"

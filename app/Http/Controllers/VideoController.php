@@ -15,6 +15,7 @@ use App\Models\Complaint;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
+use getID3;
 
 
 class VideoController extends Controller
@@ -358,36 +359,24 @@ class VideoController extends Controller
 
     public function allshortsvideouser(Request $request)
     {
-        $category = $request->input('category');
-        $sort = $request->input('sortirovka');
         $userId = Auth::id();
 
-        $videos = Video::select('videos.*') //выбор всех столбцов
-            ->leftJoin('views', function ($join) use ($userId) { // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
-                $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
+        $videos = Video::select('videos.*')
+            ->leftJoin('views', function ($join) use ($userId) {
+                $join->on('videos.id', '=', 'views.video_id')
                     ->where('views.user_id', '=', $userId);
             })
             ->whereNull('views.id')
             ->where('videos.status', 'true');
 
-        if ($category) {
-            $videos->where('videos.category', $category);
-        }
 
-        switch ($sort) {
-            case 'old':
-                $videos->orderBy('videos.created_at', 'asc');
-                break;
-            case 'popular':
-                $videos->withCount('likes')->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $videos->orderBy('videos.created_at', 'desc');
-                break;
-        }
+        // Получение длительности видео и фильтрация только тех, которые равны 30 секундам
+        $videos = $videos->get()->filter(function ($video) {
+            $videoPath = Storage::disk('public')->path($video->video_path); // Путь к видеофайлу в хранилище (может потребоваться подправить в соответствии с вашей структурой хранения)
+            $duration = $this->getVideoDuration($videoPath);
+            return $duration <= 30;
+        });
 
-        $videos = $videos->get();
 
         return view('video.shortsvideouser', ['videos' => $videos]);
     }
@@ -395,8 +384,7 @@ class VideoController extends Controller
 
     public function allshortsvideouserviewed(Request $request)
     {
-        $category = $request->input('category');
-        $sort = $request->input('sortirovka');
+
         $userId = Auth::id();
 
         $viewedVideoIds = View::where('user_id', $userId)->pluck('video_id')->all();
@@ -405,28 +393,21 @@ class VideoController extends Controller
             ->whereIn('id', $viewedVideoIds)
             ->withCount('likes');
 
-        if ($category) {
-            $videos->where('category', $category);
-        }
-
-        switch ($sort) {
-            case 'old':
-                $videos->orderBy('created_at', 'asc');
-                break;
-            case 'popular':
-                $videos->withCount('likes')->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $videos->orderBy('created_at', 'desc');
-                break;
-        }
-
-        $videos = $videos->get();
+                // Получение длительности видео и фильтрация только тех, которые больше или равны 30 секундам
+                $videos = $videos->get()->filter(function ($video) {
+                    $videoPath = Storage::disk('public')->path($video->video_path);
+                    $duration = $this->getVideoDuration($videoPath);
+                    return $duration <= 30;
+                });
 
         return view('video.shortsvideouser', ['videos' => $videos]);
     }
-
+        private function getVideoDuration($videoPath)
+        {
+            $getID3 = new getID3;
+            $fileInfo = $getID3->analyze($videoPath);
+            return $fileInfo['playtime_seconds'];
+        }
 
 
 

@@ -188,7 +188,7 @@
 
 
 
-            <script>
+            {{-- <script>
                 $(document).ready(function() {
 
                     var newMessageSent = false;
@@ -294,7 +294,7 @@
                         );
                     }
                 });
-            </script>
+            </script> --}}
 
 
 

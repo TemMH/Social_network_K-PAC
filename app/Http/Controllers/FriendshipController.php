@@ -25,9 +25,6 @@ class FriendshipController extends Controller
         $friendRequest->status = 'accepted';
         $friendRequest->save();
 
-
-
-
         return redirect()->back();
     }
 
@@ -36,9 +33,6 @@ class FriendshipController extends Controller
         $friendRequest = Friendship::findOrFail($id);
         $friendRequest->status = 'rejected';
         $friendRequest->save();
-
-        $friendRequest->delete();
-
 
         return redirect()->back();
     }

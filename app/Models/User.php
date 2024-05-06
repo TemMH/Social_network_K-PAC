@@ -111,6 +111,19 @@ class User extends Authenticatable
         })->exists();
     }
 
+    public function areSubscriber($userId)
+    {
+        return Friendship::where(function ($query) use ($userId) {
+            $query->where('sender_id', $this->id)
+                ->where('recipient_id', $userId)
+                ->where('status', 'pending');
+        })->orWhere(function ($query) use ($userId) {
+            $query->where('sender_id', $userId)
+                ->where('recipient_id', $this->id)
+                ->where('status', 'rejected');
+        })->exists();
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);

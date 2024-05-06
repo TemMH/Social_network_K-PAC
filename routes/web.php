@@ -365,7 +365,7 @@ Route::get('/friend-requests', [FriendRequestController::class, 'showFriendReque
 Route::middleware('auth')->group(function () {
     Route::get('/friend-requests', [FriendshipController::class, 'friendRequests'])->name('friend-requests');
     Route::post('/accept-friend-request/{id}', [FriendshipController::class, 'acceptFriendRequest'])->name('accept-friend-request');
-    Route::delete('/reject-friend-request/{id}', [FriendshipController::class, 'rejectFriendRequest'])->name('reject-friend-request');
+    Route::post('/reject-friend-request/{id}', [FriendshipController::class, 'rejectFriendRequest'])->name('reject-friend-request');
     Route::get('/friends', [FriendshipController::class, 'rejectFriendRequest'])->name('friends-list');
 
     Route::delete('/friend/{friend}', [FriendshipController::class, 'removeFriend'])->name('friend.remove');

@@ -57,7 +57,9 @@ class DialogController extends Controller
             })->orWhere(function ($query) use ($userId) {
                 $query->where('sender_id', $userId)
                     ->where('recipient_id', auth()->id());
-            })->get();
+            })->orderBy('created_at')
+            ->get();
+            
 
 
             $lastMessage = $messages->last();
@@ -112,8 +114,6 @@ class DialogController extends Controller
         $dialogs = $dialogs->filter(function ($dialog) {
             return $dialog->sender_id != $dialog->recipient_id;
         });
-
-
 
 
         foreach ($dialogs as $dialog) {

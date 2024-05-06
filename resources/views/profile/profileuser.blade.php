@@ -211,9 +211,7 @@
 
                                 {{-- REQUEST FRIEND --}}
 
-                                @if (
-                                    $user->id !== auth()->id() &&
-                                        !auth()->user()->areFriends($user->id))
+                                @if ($user->id !== auth()->id() && !auth()->user()->areFriends($user->id) && $user->id !== auth()->id() && !auth()->user()->areSubscriber($user->id))
                                     <form method="POST" class="full_statement_btn"
                                         action="{{ route('send-friend-request', $user) }}">
                                         @csrf
@@ -245,9 +243,7 @@
 
                                 {{-- REMOVE FRIEND --}}
 
-                                @if (
-                                    $user->id != auth()->id() &&
-                                        auth()->user()->areFriends($user->id))
+                                @if ($user->id != auth()->id() && auth()->user()->areFriends($user->id) || $user->id != auth()->id() && auth()->user()->areSubscriber($user->id))
                                     <button class="full_statement_btn" type="button"
                                         onclick="confirmRemoveFriend()">
                                         <form id="removeFriendForm" method="POST"
@@ -402,13 +398,6 @@
 
                 <div class="profileuser_block_contents">
 
-                    {{-- 
-                        
-                        if videoscounts>statementscounts
-                        foreach
-                        менять местами
-
-                        --}}
                     @if (count($statements) > 0)
                         <div class="profileuser_block_contents_wrap">
 

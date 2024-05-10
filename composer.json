@@ -5,21 +5,23 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
         "james-heinrich/getid3": "^1.9",
-        "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.2",
+        "laravel/framework": "^11",
+        "laravel/reverb": "@beta",
+        "laravel/sanctum": "^4",
         "laravel/tinker": "^2.8",
+        "livewire/livewire": "^3.4",
         "phpmailer/phpmailer": "^6.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
-        "laravel/breeze": "^1.25",
+        "laravel/breeze": "^2.0",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
+        "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^10.1",
         "spatie/laravel-ignition": "^2.0"
     },

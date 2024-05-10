@@ -183,7 +183,7 @@
                                     $user->id != auth()->id() &&
                                         auth()->user()->areFriends($user->id))
                                     <button class="full_statement_btn">
-                                        <a href="{{ route('messenger.show', ['userId' => $user->id]) }}"
+                                        <a href="{{ route('messenger.chat', $user->id) }}"
                                             class="message">
 
 

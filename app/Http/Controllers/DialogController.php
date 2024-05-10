@@ -15,11 +15,13 @@ use Illuminate\Support\Facades\Mail;
 
 class DialogController extends Controller
 {
-    public function show($userId = null)
-    {
-        $user = User::findOrFail($userId);
 
-        if (!auth()->user()->areFriends($userId)) {
+    public function chat($id)
+    {
+
+        $user = User::findOrFail($id);
+
+        if (!auth()->user()->areFriends($id)) {
             abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
         }
 
@@ -47,55 +49,7 @@ class DialogController extends Controller
             $dialog->user = User::find($dialog->sender_id);
         }
 
-
-        if ($userId === null) {
-            return view('messenger.messenger', compact('dialogs', 'user'));
-        } else {
-            $messages = Message::where(function ($query) use ($userId) {
-                $query->where('sender_id', auth()->id())
-                    ->where('recipient_id', $userId);
-            })->orWhere(function ($query) use ($userId) {
-                $query->where('sender_id', $userId)
-                    ->where('recipient_id', auth()->id());
-            })->orderBy('created_at')
-            ->get();
-            
-
-
-            $lastMessage = $messages->last();
-
-            return view('messenger.messenger', compact('user', 'messages', 'lastMessage', 'dialogs'));
-        }
-    }
-
-
-
-    public function sendMessage(Request $request, $userId)
-    {
-        $request->validate([
-            'message' => 'required|string',
-        ]);
-
-        Message::create([
-            'sender_id' => auth()->id(),
-            'recipient_id' => $userId,
-            'content' => $request->input('message'),
-        ]);
-
-        return redirect()->route('messenger.show', $userId);
-    }
-
-    public function getMessages(Request $request, $userId)
-    {
-        $messages = Message::where(function ($query) use ($userId) {
-            $query->where('sender_id', auth()->id())
-                ->where('recipient_id', $userId);
-        })->orWhere(function ($query) use ($userId) {
-            $query->where('sender_id', $userId)
-                ->where('recipient_id', auth()->id());
-        })->get();
-
-        return response()->json($messages);
+        return view('messenger.messenger', compact('id', 'dialogs', 'user'));
     }
 
     public function showMessenger()
@@ -145,7 +99,7 @@ class DialogController extends Controller
 
 
         $message = Message::create([
-            'content' => $messageContent,
+            'message' => $messageContent,
             'sender_id' => auth()->id(),
             'recipient_id' => $friend->id,
         ]);
@@ -165,7 +119,7 @@ class DialogController extends Controller
         $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
 
         $message = Message::create([
-            'content' => $messageContent,
+            'message' => $messageContent,
             'sender_id' => auth()->id(),
             'recipient_id' => $friend->id,
         ]);

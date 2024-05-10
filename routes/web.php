@@ -406,7 +406,8 @@ Route::get('/sendPostToFriend/{postId}/{friendId}', [DialogController::class, 's
 
 Route::middleware('auth')->group(function () {
     Route::get('/messenger', [DialogController::class, 'showMessenger'])->name('messenger');
-    Route::get('/messenger/{userId}', [DialogController::class, 'show'])->name('messenger.show');
+    // Route::get('/messenger/{userId}', [DialogController::class, 'show'])->name('messenger.show');
+    Route::get('/messenger/{id}', [DialogController::class, 'chat'])->name('messenger.chat');
     Route::post('/messenger/{userId}/send', [DialogController::class, 'sendMessage'])->name('message.send');
     Route::get('/messages/{userId}',[DialogController::class, 'getMessages'])->name('messages.get');
 });

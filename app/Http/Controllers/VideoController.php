@@ -53,7 +53,7 @@ class VideoController extends Controller
 
             $videos = $user->videos()->get();
 
-            return view('video.myvideo', ['videos' => $videos])->with('success', 'Видео успешно загружено!');
+            return back()->with('success', 'Видео успешно загружено!');
         }
 
         return back()->with('error', 'Ошибка при загрузке видео или превью');

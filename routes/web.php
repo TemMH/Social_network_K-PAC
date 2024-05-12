@@ -393,6 +393,12 @@ Route::get('/statement/autocomplete', [StatementController::class, 'autocomplete
 Route::get('/video/autocomplete', [StatementController::class, 'autocompletevideo'])->name('video.autocompletevideo');
 Route::get('/user/autocomplete', [StatementController::class, 'autocompleteuser'])->name('user.autocompleteuser');
 
+Route::get('/dialog/autocomplete', [StatementController::class, 'autocompletedialog'])->name('dialog.autocompletedialog');
+
+Route::get('/admin/autocomplete/user', [StatementController::class, 'autocomplete_admin_users'])->name('admin.autocomplete.user');
+Route::get('/admin/autocomplete/statement', [StatementController::class, 'autocomplete_admin_statements'])->name('admin.autocomplete.statement');
+Route::get('/admin/autocomplete/video', [StatementController::class, 'autocomplete_admin_videos'])->name('admin.autocomplete.video');
+
 
 Route::get('/usersort', [ProfileController::class, 'usersortMethod'])->name('usersort');
 

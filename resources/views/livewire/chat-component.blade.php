@@ -1,18 +1,14 @@
 <div class="message_history">
 
-<div class="message_history_author_background">
-    <a href="{{ route('profile.profileuser', $user) }}" class="message_history_author_info">
+    <div class="message_history_author_background">
+        <a href="{{ route('profile.profileuser', $user) }}" class="message_history_author_info">
 
             <div class="message_history_author_info_img">
 
                 @if ($user->avatar !== null)
-
                     <img style="border-radius: 12px;" src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar">
-
                 @else
-
-                        <img style="border-radius: 12px;" src="/uploads/ProfilePhoto.png">
-       
+                    <img style="border-radius: 12px;" src="/uploads/ProfilePhoto.png">
                 @endif
 
             </div>
@@ -20,12 +16,12 @@
             <div class="message_history_author_info_name">
                 <p>{{ $user->name }}</p>
                 <div class="message_history_author_info_online">
-                    <p>{{ $user->condition }}</p>
+                <p>{{ $user->condition }}</p>
                 </div>
             </div>
 
-    </a>
-</div>
+        </a>
+    </div>
 
     <div class="message_history_dialog">
 
@@ -63,9 +59,6 @@
                                     <div class="message_history_dialog_field_right_content">
                                         <div class="txt_2">
                                             {!! $message['message'] !!}
-
-
-
                                         </div>
                                     </div>
                                 </div>

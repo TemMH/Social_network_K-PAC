@@ -38,7 +38,7 @@ class ChatComponent extends Component
         })->orWhere(function($query){
             $query->where('sender_id', $this->recipient_id)
             ->where('recipient_id', $this->sender_id);
-        })->with('sender:id,name', 'recipient:id,name')->get();
+        })->with('sender:id,name', 'recipient:id,name')->orderBy('created_at')->get();
 
         foreach($messages as $message){
         

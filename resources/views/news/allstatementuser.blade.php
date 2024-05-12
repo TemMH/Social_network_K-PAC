@@ -14,7 +14,7 @@
                     <a href="">
                         <div class="statement_block_top_avatar_open">
 
-                            <img class="avatar_mini" src="" alt="Avatar"> {{-- FIX SRC --}}
+                            <img class="avatar_mini" src="" alt="Avatar">
 
                         </div>
 
@@ -137,7 +137,7 @@
                         <a href="">
                             <div class="main_novost_img">
 
-                                <img class="avatar_mini" src="" alt="Avatar">
+                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
 
                             </div>
 
@@ -448,7 +448,7 @@
 
                             statementFieldOpen.querySelector(
                                     ".statement_block_top_avatar_open img").src =
-                                "'/uploads/ProfilePhoto.png'";
+                                "/uploads/ProfilePhoto.png"; //добавить проверку есть ли ава
                             statementFieldOpen.querySelector(
                                 ".statement_block_top_info_left_open a").href = profileUrl;
 
@@ -456,7 +456,7 @@
 
 
                             statementFieldOpen.querySelector(".main_novost_img img").src =
-                                "{{ asset('storage/') }}" + '/' + userData.avatar;
+                                "{{ asset('storage/') }}" + '/' + userData.avatar; //добавить проверку нету ли авы
 
                             const likeButtonContainer = statementFieldOpen.querySelector(
                                 ".statement_block_like_button");
@@ -516,6 +516,7 @@
 
                                 const mainNovostImg = document.createElement("div");
                                 mainNovostImg.classList.add("main_novost_img");
+                                
 
                                 const avatarImg = document.createElement("img");
                                 avatarImg.classList.add("avatar_mini");

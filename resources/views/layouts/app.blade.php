@@ -11,7 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -33,8 +33,43 @@
 
 
                     <div class="logotype">
+@auth
 
 
+
+
+                        @if (auth()->user()->role == 'Admin')
+
+                        <a href="{{ route('reports') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"
+                                viewBox="0 0 50 50">
+                                <path stroke="#F5F5F5" stroke-opacity=".961" d="M3.5 3.5h43v43h-43z" />
+                                <path fill="#F5F5F5" fill-opacity=".961"
+                                    d="M16.44 16.38v-.78h7.23v.78l-1.65.18c-.32.02-.51.1-.57.24-.06.12-.09.53-.09 1.23v8.82l7.5-9c.5-.58.75-.93.75-1.05.02-.14-.14-.22-.48-.24l-1.53-.18v-.78h5.7v.78l-1.53.18c-.2.02-.36.06-.48.12-.12.04-.26.15-.42.33-.14.16-.38.44-.72.84l-4.68 5.64 5.7 10.08c.26.46.45.79.57.99.14.2.28.33.42.39.14.04.33.07.57.09l1.44.18V36h-4.68l-5.76-10.41-2.37 2.82v5.16c0 .7.03 1.11.09 1.23.06.12.25.2.57.24l1.65.18V36h-7.23v-.78l1.65-.18c.32-.04.51-.12.57-.24.06-.12.09-.53.09-1.23V18.03c0-.7-.03-1.11-.09-1.23-.06-.14-.25-.22-.57-.24l-1.65-.18Z" />
+                                <path stroke="#F5F5F5" stroke-opacity=".961" d="M.5.5h49v49H.5z" />
+                            </svg>
+
+                        </a>
+
+                        @else
+
+                        <a href="{{ route('main.all.video.user') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"
+                                viewBox="0 0 50 50">
+                                <path stroke="#F5F5F5" stroke-opacity=".961" d="M3.5 3.5h43v43h-43z" />
+                                <path fill="#F5F5F5" fill-opacity=".961"
+                                    d="M16.44 16.38v-.78h7.23v.78l-1.65.18c-.32.02-.51.1-.57.24-.06.12-.09.53-.09 1.23v8.82l7.5-9c.5-.58.75-.93.75-1.05.02-.14-.14-.22-.48-.24l-1.53-.18v-.78h5.7v.78l-1.53.18c-.2.02-.36.06-.48.12-.12.04-.26.15-.42.33-.14.16-.38.44-.72.84l-4.68 5.64 5.7 10.08c.26.46.45.79.57.99.14.2.28.33.42.39.14.04.33.07.57.09l1.44.18V36h-4.68l-5.76-10.41-2.37 2.82v5.16c0 .7.03 1.11.09 1.23.06.12.25.2.57.24l1.65.18V36h-7.23v-.78l1.65-.18c.32-.04.51-.12.57-.24.06-.12.09-.53.09-1.23V18.03c0-.7-.03-1.11-.09-1.23-.06-.14-.25-.22-.57-.24l-1.65-.18Z" />
+                                <path stroke="#F5F5F5" stroke-opacity=".961" d="M.5.5h49v49H.5z" />
+                            </svg>
+
+                        </a>
+
+                        @endif
+
+
+
+
+                        @else
 
                         <a href="{{ route('main.all.video.user') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"
@@ -49,6 +84,8 @@
 
 
 
+
+@endauth
                     </div>
 
                 </div>
@@ -57,19 +94,7 @@
 
 
                 <div class="header_middle">
-
-
-
                     @auth
-
-                        {{-- @if (auth()->user()->role == 'Admin')
-                            <div class="adminpanel">
-                                <a href="{{ route('allUsers', ['previous' => 'video']) }}">
-                                    <p class="txt_1">Все пользователи - ADMIN</p>
-                                </a>
-                            </div>
-                        @endif --}}
-
 
                         <div class="adminpanel">
 
@@ -599,9 +624,6 @@
         @endif
 
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(document).ready(function() {

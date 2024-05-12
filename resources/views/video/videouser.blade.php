@@ -162,27 +162,18 @@
                                     1x
                                 </button>
 
-                                <button class="theater-btn">
-                                    <svg class="tall" viewBox="0 0 24 24">
+                                <button class="full-screen-btn">
+                                    <svg class="open" viewBox="0 0 24 24">
                                         <path fill="currentColor"
-                                            d="M19 6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H5V8h14v8z" />
+                                            d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
                                     </svg>
-                                    <svg class="wide" viewBox="0 0 24 24">
+                                    <svg class="close" viewBox="0 0 24 24">
                                         <path fill="currentColor"
-                                            d="M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z" />
+                                            d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" />
                                     </svg>
                                 </button>
 
-                                {{-- <button class="full-screen-btn">
-                                <svg class="open" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
-                                </svg>
-                                <svg class="close" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" />
-                                </svg>
-                            </button> --}}
+
                             </div>
                         </div>
 
@@ -311,25 +302,25 @@
 
 
                             @if (!$video->complaints->contains('status', 'block') && !$video->complaints->contains('status', 'unblock'))
-                                    <button class="full_video_btn" onclick="confirmSendComplaint()">
+                                <button class="full_video_btn" onclick="confirmSendComplaint()">
 
 
 
-                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" stroke="#777777">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                stroke-linejoin="round"></g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
-                                                    stroke="#777777" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>
+                                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" stroke="#777777">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
+                                                stroke="#777777" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
 
 
-                                        {{-- репорт заполненный
+                                    {{-- репорт заполненный
                                     
                                     <svg fill="#777777" width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>ionicons-v5-m</title><path d="M80,480a16,16,0,0,1-16-16V68.13A24,24,0,0,1,75.9,47.41C88,40.38,112.38,32,160,32c37.21,0,78.83,14.71,115.55,27.68C305.12,70.13,333.05,80,352,80a183.84,183.84,0,0,0,71-14.5,18,18,0,0,1,25,16.58V301.44a20,20,0,0,1-12,18.31c-8.71,3.81-40.51,16.25-84,16.25-24.14,0-54.38-7.14-86.39-14.71C229.63,312.79,192.43,304,160,304c-36.87,0-55.74,5.58-64,9.11V464A16,16,0,0,1,80,480Z"></path></g></svg> 
                                     
@@ -337,9 +328,9 @@
 
 
 
-                                    </button>
-                                @endif
-                      
+                                </button>
+                            @endif
+
 
 
                             <?php
@@ -606,222 +597,227 @@
     </div>
 
 
-    <script>
-        function toggleTheaterAndFullScreen() {
-            const shortVideoRamaScroll = document.querySelector(".main_video_content_field");
-            shortVideoRamaScroll.classList.toggle("theater");
-            toggleFullScreen();
-        }
+<script>
 
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
-
-        document.addEventListener("keydown", function(event) {
-            if (event.keyCode === 70) { // Клавиша F
-                toggleTheaterAndFullScreen();
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const videos = document.querySelectorAll("video");
-            const theaterBtns = document.querySelectorAll(".theater-btn");
-            const shortVideoRamaScroll = document.querySelector(".main_video_content_field");
-
-            function toggleFullScreen() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen();
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    }
-                }
-            }
-
-            let speedChanged = false;
+const playPauseBtn = document.querySelector(".play-pause-btn")
+const fullScreenBtn = document.querySelector(".full-screen-btn")
+const muteBtn = document.querySelector(".mute-btn")
+const speedBtn = document.querySelector(".speed-btn")
+const currentTimeElem = document.querySelector(".current-time")
+const totalTimeElem = document.querySelector(".total-time")
+const volumeSlider = document.querySelector(".volume-slider")
+const videoContainer = document.querySelector(".video-container")
+const timelineContainer = document.querySelector(".timeline-container")
+const video = document.querySelector("video")
 
 
+const savedVolume = localStorage.getItem("savedVolume");
 
-            document.addEventListener("keydown", function(event) {
-                if (event.keyCode === 32) {
-                    event.preventDefault();
-                    const activeVideo = document.querySelector(
-                        ".main_video_content_scroll_lock.active video");
-                    if (activeVideo) {
-                        if (activeVideo.paused) {
-                            activeVideo.play();
-                        } else {
-                            activeVideo.pause();
-                        }
-                    }
-                }
-            });
+let isScrubbing = false
 
-            document.addEventListener("fullscreenchange", function() {
-                if (!document.fullscreenElement) {
-                    shortVideoRamaScroll.classList.remove("theater");
-                }
-            });
-
-            const savedVolume = localStorage.getItem("savedVolume");
             const initialVolume = savedVolume !== null ? parseFloat(savedVolume) : 1;
 
-            videos.forEach(function(video) {
-                const playPauseBtn = video.parentElement.querySelector(".play-pause-btn");
-                const volumeBtn = video.parentElement.querySelector(".mute-btn");
-                const volumeSlider = video.parentElement.querySelector(".volume-slider");
-                const currentTimeDisplay = video.parentElement.querySelector(".current-time");
-                const totalTimeDisplay = video.parentElement.querySelector(".total-time");
-                const timeline = video.parentElement.querySelector(".timeline");
-                const speedBtn = video.parentElement.querySelector(".speed-btn");
-                const thumbIndicator = video.parentElement.querySelector(".thumb-indicator");
+            video.volume = initialVolume;
+            volumeSlider.value = initialVolume;
 
-                document.addEventListener("keydown", function(event) {
-                    if (event.target.tagName.toLowerCase() !== 'input' && event.target.tagName
-                        .toLowerCase() !== 'textarea') {
-                        const activeVideo = document.querySelector(
-                            ".main_video_content_scroll_lock.active video");
+            document.addEventListener("keydown", e => {
+            const tagName = document.activeElement.tagName.toLowerCase()
 
-                        switch (event.keyCode) {
+  if (tagName === "input") return
 
-                            case 37: // Стрелка влево
-                                if (activeVideo && activeVideo.currentTime >= 1) {
-                                    activeVideo.currentTime -= 1;
-                                }
-                                break;
-                            case 39: // Стрелка вправо
-                                const rightActiveVideo = document.querySelector(
-                                    ".main_video_content_scroll_lock.active video");
-                                if (rightActiveVideo) {
-                                    if (!speedChanged) {
-                                        changePlaybackSpeed(rightActiveVideo, rightActiveVideo
-                                            .parentElement.querySelector(".speed-btn"));
-                                        speedChanged =
-                                            true;
-                                    }
-                                }
-                                break;
-                            case 77: // Клавиша M
-                                video.muted = !video.muted;
-                                break;
-                        }
-                    }
-                });
+  switch (e.key.toLowerCase()) {
+    case " ":
+      if (tagName === "button") return
+    case "k":
+      togglePlay()
+      break
+    case "f":
+      toggleFullScreenMode()
+      break
+    case "t":
+      toggleTheaterMode()
+      break
+    case "i":
+      toggleMiniPlayerMode()
+      break
+    case "m":
+      toggleMute()
+      break
+    case "arrowleft":
+    case "j":
+      skip(-5)
+      break
+    case "arrowright":
+    case "l":
+      skip(5)
+      break
+  }
+})
 
 
+// Timeline
+timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
+timelineContainer.addEventListener("mousedown", toggleScrubbing)
+document.addEventListener("mouseup", e => {
+  if (isScrubbing) toggleScrubbing(e)
+})
+document.addEventListener("mousemove", e => {
+  if (isScrubbing) handleTimelineUpdate(e)
+})
 
-                theaterBtns.forEach(function(theaterBtn) {
-                    theaterBtn.addEventListener("click", toggleTheaterAndFullScreen);
-                });
+function toggleScrubbing(e) {
+  const rect = timelineContainer.getBoundingClientRect()
 
-                document.addEventListener("keyup", function(event) {
-                    if (event.keyCode ===
-                        39) {
-                        speedChanged = false;
-                    }
-                });
-                video.volume = initialVolume;
-                volumeSlider.value = initialVolume;
+  const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1)
+  console.log("Percent:", percent)
+  isScrubbing = (e.buttons & 1) === 1
+  videoContainer.classList.toggle("scrubbing", isScrubbing)
+  
+  if (isScrubbing) {
+    wasPaused = video.paused
+    if (!wasPaused) {
+      video.pause()
+    }
+  } else {
+    console.log("Current Time Before:", video.currentTime)
+    const newTime = percent * video.duration
+    if (video.duration > 0) {
+  const newTime = percent * video.duration;
+  console.log("New Time:", newTime);
+  video.currentTime = newTime;
+}
 
-                playPauseBtn.addEventListener("click", function() {
-                    if (video.paused) {
-                        video.play();
-                    } else {
-                        video.pause();
-                    }
-                });
+    console.log("Current Time After:", video.currentTime) // Выводит 0
+    if (!wasPaused) {
+      video.play()
+    }
 
+  }
 
-
-                volumeBtn.addEventListener("click", function() {
-                    if (video.muted) {
-                        video.muted = false;
-                        volumeSlider.value = initialVolume;
-                    } else {
-                        video.muted = true;
-                        volumeSlider.value = 0;
-                    }
-                });
-
-                volumeSlider.addEventListener("input", function() {
-                    video.volume = volumeSlider.value;
-                    localStorage.setItem("savedVolume", volumeSlider.value);
-                });
-
-                video.addEventListener("timeupdate", function() {
-                    currentTimeDisplay.textContent = formatTime(video.currentTime);
-                    totalTimeDisplay.textContent = formatTime(video.duration);
-
-                    const progress = video.currentTime / video.duration * 100;
-                    thumbIndicator.style.left = `${progress}%`;
-                });
-
-                function formatTime(time) {
-                    const minutes = Math.floor(time / 60);
-                    const seconds = Math.floor(time % 60);
-                    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                }
-
-                speedBtn.addEventListener("click", function() {
-                    changePlaybackSpeed(video, speedBtn);
-                });
-            });
-        });
+  handleTimelineUpdate(e)
+}
 
 
-        function changePlaybackSpeed(video, speedBtn) {
-            let newPlaybackRate = video.playbackRate + 0.25;
-            if (newPlaybackRate > 2) newPlaybackRate = 0.25;
-            video.playbackRate = newPlaybackRate;
-            speedBtn.textContent = `${newPlaybackRate}x`;
-        }
 
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const videos = document.querySelectorAll("video");
+function handleTimelineUpdate(e) {
+  const rect = timelineContainer.getBoundingClientRect()
+  const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
 
-            function updateAddressBar(videoId) {
-                window.history.replaceState(null, null, `?videoId=${videoId}`);
-            }
 
-            const options = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.5
-            };
 
-            // function handleIntersection(entries, observer) {
-            //     entries.forEach(entry => {
-            //         const video = entry.target;
-            //         const shortVideoRama = video.closest('.main_video_content_scroll_lock');
-            //         if (shortVideoRama) {
-            //             if (entry.isIntersecting) {
-            //                 video.play();
-            //                 shortVideoRama.classList.add('active');
-            //                 const videoId = shortVideoRama.dataset.videoId;
-            //                 updateAddressBar(videoId);
-            //             } else {
-            //                 video.pause();
-            //                 shortVideoRama.classList.remove('active');
-            //             }
-            //         }
-            //     });
-            // }
+  timelineContainer.style.setProperty("--preview-position", percent)
 
-            const observer = new IntersectionObserver(handleIntersection, options);
+  if (isScrubbing) {
+    e.preventDefault()
+    
+    timelineContainer.style.setProperty("--progress-position", percent)
+  }
+}
 
-            videos.forEach(video => {
-                observer.observe(video);
-            });
-        });
-    </script>
+// Duration
+video.addEventListener("loadeddata", () => {
+  totalTimeElem.textContent = formatDuration(video.duration)
+})
+
+video.addEventListener("timeupdate", () => {
+  currentTimeElem.textContent = formatDuration(video.currentTime)
+  const percent = video.currentTime / video.duration
+  timelineContainer.style.setProperty("--progress-position", percent)
+})
+
+const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
+  minimumIntegerDigits: 2,
+})
+function formatDuration(time) {
+  const seconds = Math.floor(time % 60)
+  const minutes = Math.floor(time / 60) % 60
+  const hours = Math.floor(time / 3600)
+  if (hours === 0) {
+    return `${minutes}:${leadingZeroFormatter.format(seconds)}`
+  } else {
+    return `${hours}:${leadingZeroFormatter.format(
+      minutes
+    )}:${leadingZeroFormatter.format(seconds)}`
+  }
+}
+
+function skip(duration) {
+  video.currentTime += duration
+}
+
+// Playback Speed
+speedBtn.addEventListener("click", changePlaybackSpeed)
+
+function changePlaybackSpeed() {
+  let newPlaybackRate = video.playbackRate + 0.25
+  if (newPlaybackRate > 2) newPlaybackRate = 0.25
+  video.playbackRate = newPlaybackRate
+  speedBtn.textContent = `${newPlaybackRate}x`
+}
+
+// Volume
+muteBtn.addEventListener("click", toggleMute)
+volumeSlider.addEventListener("input", e => {
+  video.volume = e.target.value
+  video.muted = e.target.value === 0
+  localStorage.setItem("savedVolume", e.target.value);
+})
+
+function toggleMute() {
+  video.muted = !video.muted
+  if (!video.muted) {
+    localStorage.setItem("savedVolume", video.volume);
+  }
+}
+
+video.addEventListener("volumechange", () => {
+  volumeSlider.value = video.volume
+  let volumeLevel
+  if (video.muted || video.volume === 0) {
+    volumeSlider.value = 0
+    volumeLevel = "muted"
+  } else if (video.volume >= 0.5) {
+    volumeLevel = "high"
+  } else {
+    volumeLevel = "low"
+  }
+
+  videoContainer.dataset.volumeLevel = volumeLevel
+})
+
+// View Modes
+
+fullScreenBtn.addEventListener("click", toggleFullScreenMode)
+
+function toggleFullScreenMode() {
+  if (document.fullscreenElement == null) {
+    videoContainer.requestFullscreen()
+  } else {
+    document.exitFullscreen()
+  }
+}
+
+document.addEventListener("fullscreenchange", () => {
+  videoContainer.classList.toggle("full-screen", document.fullscreenElement)
+})
+
+// Play/Pause
+playPauseBtn.addEventListener("click", togglePlay)
+video.addEventListener("click", togglePlay)
+
+function togglePlay() {
+  video.paused ? video.play() : video.pause()
+}
+
+video.addEventListener("play", () => {
+  videoContainer.classList.remove("paused")
+})
+
+video.addEventListener("pause", () => {
+  videoContainer.classList.add("paused")
+})
+
+        </script>
 
 </x-app-layout>

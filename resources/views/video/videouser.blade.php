@@ -238,51 +238,92 @@
 
 
                         <div class="full_video_block_buttons">
-
+                            
                             @if (!$video->likes()->where('user_id', auth()->id())->exists())
-                                <form method="POST" class="full_video_btn"
-                                    action="{{ route('video.like', ['id' => $video->id]) }}">
-                                    @csrf
-                                    <button type="submit">
 
-                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                            {{-- like --}}
+
+                                <div class="full_video_btn">
+                                    <button type="submit" class="like-button" data-id="{{ $video->id }}">
+                                        <svg class="like-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg" stroke="#777777">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                            </g>
+                                                stroke-linejoin="round"></g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <path
                                                     d="M12 19.7501C11.8012 19.7499 11.6105 19.6708 11.47 19.5301L4.70001 12.7401C3.78387 11.8054 3.27072 10.5488 3.27072 9.24006C3.27072 7.9313 3.78387 6.6747 4.70001 5.74006C5.6283 4.81186 6.88727 4.29042 8.20001 4.29042C9.51274 4.29042 10.7717 4.81186 11.7 5.74006L12 6.00006L12.28 5.72006C12.739 5.25606 13.2857 4.88801 13.8883 4.63736C14.4909 4.3867 15.1374 4.25845 15.79 4.26006C16.442 4.25714 17.088 4.38382 17.6906 4.63274C18.2931 4.88167 18.8402 5.24786 19.3 5.71006C20.2161 6.6447 20.7293 7.9013 20.7293 9.21006C20.7293 10.5188 20.2161 11.7754 19.3 12.7101L12.53 19.5001C12.463 19.5752 12.3815 19.636 12.2904 19.679C12.1994 19.7219 12.1006 19.7461 12 19.7501ZM8.21001 5.75006C7.75584 5.74675 7.30551 5.83342 6.885 6.00505C6.4645 6.17669 6.08215 6.42989 5.76001 6.75006C5.11088 7.40221 4.74646 8.28491 4.74646 9.20506C4.74646 10.1252 5.11088 11.0079 5.76001 11.6601L12 17.9401L18.23 11.6801C18.5526 11.3578 18.8086 10.9751 18.9832 10.5538C19.1578 10.1326 19.2477 9.68107 19.2477 9.22506C19.2477 8.76905 19.1578 8.31752 18.9832 7.89627C18.8086 7.47503 18.5526 7.09233 18.23 6.77006C17.9104 6.44929 17.5299 6.1956 17.1109 6.02387C16.6919 5.85215 16.2428 5.76586 15.79 5.77006C15.3358 5.76675 14.8855 5.85342 14.465 6.02505C14.0445 6.19669 13.6621 6.44989 13.34 6.77006L12.53 7.58006C12.3869 7.71581 12.1972 7.79149 12 7.79149C11.8028 7.79149 11.6131 7.71581 11.47 7.58006L10.66 6.77006C10.3395 6.44628 9.95791 6.18939 9.53733 6.01429C9.11675 5.83919 8.66558 5.74937 8.21001 5.75006Z"
                                                     fill="#777777"></path>
                                             </g>
                                         </svg>
-
                                     </button>
-                                </form>
-                            @else
-                                <form method="POST" class="full_video_btn"
-                                    action="{{ route('video.unlike', ['id' => $video->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">
+                                </div>
 
-                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                            @else
+
+                                {{-- REMOVE LIKE --}}
+
+                                <div class="full_video_btn">
+                                    <button type="submit" class="unlike-button" data-id="{{ $video->id }}">
+                                        <svg class="unlike-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                            </g>
+                                                stroke-linejoin="round"></g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <path
                                                     d="M19.3 5.71002C18.841 5.24601 18.2943 4.87797 17.6917 4.62731C17.0891 4.37666 16.4426 4.2484 15.79 4.25002C15.1373 4.2484 14.4909 4.37666 13.8883 4.62731C13.2857 4.87797 12.739 5.24601 12.28 5.71002L12 6.00002L11.72 5.72001C10.7917 4.79182 9.53273 4.27037 8.22 4.27037C6.90726 4.27037 5.64829 4.79182 4.72 5.72001C3.80386 6.65466 3.29071 7.91125 3.29071 9.22002C3.29071 10.5288 3.80386 11.7854 4.72 12.72L11.49 19.51C11.6306 19.6505 11.8212 19.7294 12.02 19.7294C12.2187 19.7294 12.4094 19.6505 12.55 19.51L19.32 12.72C20.2365 11.7823 20.7479 10.5221 20.7442 9.21092C20.7405 7.89973 20.2218 6.64248 19.3 5.71002Z"
                                                     fill="#777777"></path>
                                             </g>
                                         </svg>
-
                                     </button>
-                                </form>
+                                </div>
+
                             @endif
+
+
+
+                  
+
+                            <script>
+                                $(document).ready(function() {
+                                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                                    $('.like-button, .unlike-button').click(function(e) {
+                                        e.preventDefault();
+                                        var videoId = $(this).data('id');
+                                        var $button = $(this);
+
+                                        var isLiked = $button.hasClass('unlike-button');
+
+                                        var requestType = isLiked ? 'DELETE' : 'POST';
+
+                                        var url = isLiked ? '/video/' + videoId + '/unlike' : '/video/' + videoId + '/like';
+
+                                        $.ajax({
+                                            type: requestType,
+                                            url: url,
+                                            headers: {
+                                                'X-CSRF-TOKEN': csrfToken
+                                            },
+                                            success: function(response) {
+                                                console.log(response);
+
+                                                $button.toggleClass('like-button unlike-button');
+
+                                                var svgIcon = isLiked ?
+                                                    '<svg class="like-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#777777"> <g id="SVGRepo_bgCarrier" stroke-width="0"></g> <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g> <g id="SVGRepo_iconCarrier"> <path d="M12 19.7501C11.8012 19.7499 11.6105 19.6708 11.47 19.5301L4.70001 12.7401C3.78387 11.8054 3.27072 10.5488 3.27072 9.24006C3.27072 7.9313 3.78387 6.6747 4.70001 5.74006C5.6283 4.81186 6.88727 4.29042 8.20001 4.29042C9.51274 4.29042 10.7717 4.81186 11.7 5.74006L12 6.00006L12.28 5.72006C12.739 5.25606 13.2857 4.88801 13.8883 4.63736C14.4909 4.3867 15.1374 4.25845 15.79 4.26006C16.442 4.25714 17.088 4.38382 17.6906 4.63274C18.2931 4.88167 18.8402 5.24786 19.3 5.71006C20.2161 6.6447 20.7293 7.9013 20.7293 9.21006C20.7293 10.5188 20.2161 11.7754 19.3 12.7101L12.53 19.5001C12.463 19.5752 12.3815 19.636 12.2904 19.679C12.1994 19.7219 12.1006 19.7461 12 19.7501ZM8.21001 5.75006C7.75584 5.74675 7.30551 5.83342 6.885 6.00505C6.4645 6.17669 6.08215 6.42989 5.76001 6.75006C5.11088 7.40221 4.74646 8.28491 4.74646 9.20506C4.74646 10.1252 5.11088 11.0079 5.76001 11.6601L12 17.9401L18.23 11.6801C18.5526 11.3578 18.8086 10.9751 18.9832 10.5538C19.1578 10.1326 19.2477 9.68107 19.2477 9.22506C19.2477 8.76905 19.1578 8.31752 18.9832 7.89627C18.8086 7.47503 18.5526 7.09233 18.23 6.77006C17.9104 6.44929 17.5299 6.1956 17.1109 6.02387C16.6919 5.85215 16.2428 5.76586 15.79 5.77006C15.3358 5.76675 14.8855 5.85342 14.465 6.02505C14.0445 6.19669 13.6621 6.44989 13.34 6.77006L12.53 7.58006C12.3869 7.71581 12.1972 7.79149 12 7.79149C11.8028 7.79149 11.6131 7.71581 11.47 7.58006L10.66 6.77006C10.3395 6.44628 9.95791 6.18939 9.53733 6.01429C9.11675 5.83919 8.66558 5.74937 8.21001 5.75006Z" fill="#777777"></path> </g> </svg>' :
+                                                    '<svg class="unlike-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <g id="SVGRepo_bgCarrier" stroke-width="0"></g> <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g> <g id="SVGRepo_iconCarrier"> <path d="M19.3 5.71002C18.841 5.24601 18.2943 4.87797 17.6917 4.62731C17.0891 4.37666 16.4426 4.2484 15.79 4.25002C15.1373 4.2484 14.4909 4.37666 13.8883 4.62731C13.2857 4.87797 12.739 5.24601 12.28 5.71002L12 6.00002L11.72 5.72001C10.7917 4.79182 9.53273 4.27037 8.22 4.27037C6.90726 4.27037 5.64829 4.79182 4.72 5.72001C3.80386 6.65466 3.29071 7.91125 3.29071 9.22002C3.29071 10.5288 3.80386 11.7854 4.72 12.72L11.49 19.51C11.6306 19.6505 11.8212 19.7294 12.02 19.7294C12.2187 19.7294 12.4094 19.6505 12.55 19.51L19.32 12.72C20.2365 11.7823 20.7479 10.5221 20.7442 9.21092C20.7405 7.89973 20.2218 6.64248 19.3 5.71002Z" fill="#777777"></path> </g> </svg>';
+                                                $button.html(svgIcon);
+
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error(xhr.responseText);
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
 
                             <button class="full_video_btn" onclick="toggleFriendsList({{ $video->id }})">
 
@@ -597,227 +638,226 @@
     </div>
 
 
-<script>
+    <script>
+        const playPauseBtn = document.querySelector(".play-pause-btn")
+        const fullScreenBtn = document.querySelector(".full-screen-btn")
+        const muteBtn = document.querySelector(".mute-btn")
+        const speedBtn = document.querySelector(".speed-btn")
+        const currentTimeElem = document.querySelector(".current-time")
+        const totalTimeElem = document.querySelector(".total-time")
+        const volumeSlider = document.querySelector(".volume-slider")
+        const videoContainer = document.querySelector(".video-container")
+        const timelineContainer = document.querySelector(".timeline-container")
+        const video = document.querySelector("video")
 
-const playPauseBtn = document.querySelector(".play-pause-btn")
-const fullScreenBtn = document.querySelector(".full-screen-btn")
-const muteBtn = document.querySelector(".mute-btn")
-const speedBtn = document.querySelector(".speed-btn")
-const currentTimeElem = document.querySelector(".current-time")
-const totalTimeElem = document.querySelector(".total-time")
-const volumeSlider = document.querySelector(".volume-slider")
-const videoContainer = document.querySelector(".video-container")
-const timelineContainer = document.querySelector(".timeline-container")
-const video = document.querySelector("video")
 
+        const savedVolume = localStorage.getItem("savedVolume");
 
-const savedVolume = localStorage.getItem("savedVolume");
+        let isScrubbing = false
 
-let isScrubbing = false
+        const initialVolume = savedVolume !== null ? parseFloat(savedVolume) : 1;
 
-            const initialVolume = savedVolume !== null ? parseFloat(savedVolume) : 1;
+        video.volume = initialVolume;
+        volumeSlider.value = initialVolume;
 
-            video.volume = initialVolume;
-            volumeSlider.value = initialVolume;
-
-            document.addEventListener("keydown", e => {
+        document.addEventListener("keydown", e => {
             const tagName = document.activeElement.tagName.toLowerCase()
 
-  if (tagName === "input") return
+            if (tagName === "input") return
 
-  switch (e.key.toLowerCase()) {
-    case " ":
-      if (tagName === "button") return
-    case "k":
-      togglePlay()
-      break
-    case "f":
-      toggleFullScreenMode()
-      break
-    case "t":
-      toggleTheaterMode()
-      break
-    case "i":
-      toggleMiniPlayerMode()
-      break
-    case "m":
-      toggleMute()
-      break
-    case "arrowleft":
-    case "j":
-      skip(-5)
-      break
-    case "arrowright":
-    case "l":
-      skip(5)
-      break
-  }
-})
-
-
-// Timeline
-timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
-timelineContainer.addEventListener("mousedown", toggleScrubbing)
-document.addEventListener("mouseup", e => {
-  if (isScrubbing) toggleScrubbing(e)
-})
-document.addEventListener("mousemove", e => {
-  if (isScrubbing) handleTimelineUpdate(e)
-})
-
-function toggleScrubbing(e) {
-  const rect = timelineContainer.getBoundingClientRect()
-
-  const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1)
-  console.log("Percent:", percent)
-  isScrubbing = (e.buttons & 1) === 1
-  videoContainer.classList.toggle("scrubbing", isScrubbing)
-  
-  if (isScrubbing) {
-    wasPaused = video.paused
-    if (!wasPaused) {
-      video.pause()
-    }
-  } else {
-    console.log("Current Time Before:", video.currentTime)
-    const newTime = percent * video.duration
-    if (video.duration > 0) {
-  const newTime = percent * video.duration;
-  console.log("New Time:", newTime);
-  video.currentTime = newTime;
-}
-
-    console.log("Current Time After:", video.currentTime) // Выводит 0
-    if (!wasPaused) {
-      video.play()
-    }
-
-  }
-
-  handleTimelineUpdate(e)
-}
+            switch (e.key.toLowerCase()) {
+                case " ":
+                    if (tagName === "button") return
+                case "k":
+                    togglePlay()
+                    break
+                case "f":
+                    toggleFullScreenMode()
+                    break
+                case "t":
+                    toggleTheaterMode()
+                    break
+                case "i":
+                    toggleMiniPlayerMode()
+                    break
+                case "m":
+                    toggleMute()
+                    break
+                case "arrowleft":
+                case "j":
+                    skip(-5)
+                    break
+                case "arrowright":
+                case "l":
+                    skip(5)
+                    break
+            }
+        })
 
 
+        // Timeline
+        timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
+        timelineContainer.addEventListener("mousedown", toggleScrubbing)
+        document.addEventListener("mouseup", e => {
+            if (isScrubbing) toggleScrubbing(e)
+        })
+        document.addEventListener("mousemove", e => {
+            if (isScrubbing) handleTimelineUpdate(e)
+        })
 
+        function toggleScrubbing(e) {
+            const rect = timelineContainer.getBoundingClientRect()
 
-function handleTimelineUpdate(e) {
-  const rect = timelineContainer.getBoundingClientRect()
-  const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
+            const percent = Math.min(Math.max(0, (e.clientX - rect.left) / rect.width), 1)
+            console.log("Percent:", percent)
+            isScrubbing = (e.buttons & 1) === 1
+            videoContainer.classList.toggle("scrubbing", isScrubbing)
+
+            if (isScrubbing) {
+                wasPaused = video.paused
+                if (!wasPaused) {
+                    video.pause()
+                }
+            } else {
+                console.log("Current Time Before:", video.currentTime)
+                const newTime = percent * video.duration
+                if (video.duration > 0) {
+                    const newTime = percent * video.duration;
+                    console.log("New Time:", newTime);
+                    video.currentTime = newTime;
+                }
+
+                console.log("Current Time After:", video.currentTime) // Выводит 0
+                if (!wasPaused) {
+                    video.play()
+                }
+
+            }
+
+            handleTimelineUpdate(e)
+        }
 
 
 
-  timelineContainer.style.setProperty("--preview-position", percent)
 
-  if (isScrubbing) {
-    e.preventDefault()
-    
-    timelineContainer.style.setProperty("--progress-position", percent)
-  }
-}
+        function handleTimelineUpdate(e) {
+            const rect = timelineContainer.getBoundingClientRect()
+            const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
 
-// Duration
-video.addEventListener("loadeddata", () => {
-  totalTimeElem.textContent = formatDuration(video.duration)
-})
 
-video.addEventListener("timeupdate", () => {
-  currentTimeElem.textContent = formatDuration(video.currentTime)
-  const percent = video.currentTime / video.duration
-  timelineContainer.style.setProperty("--progress-position", percent)
-})
 
-const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
-  minimumIntegerDigits: 2,
-})
-function formatDuration(time) {
-  const seconds = Math.floor(time % 60)
-  const minutes = Math.floor(time / 60) % 60
-  const hours = Math.floor(time / 3600)
-  if (hours === 0) {
-    return `${minutes}:${leadingZeroFormatter.format(seconds)}`
-  } else {
-    return `${hours}:${leadingZeroFormatter.format(
+            timelineContainer.style.setProperty("--preview-position", percent)
+
+            if (isScrubbing) {
+                e.preventDefault()
+
+                timelineContainer.style.setProperty("--progress-position", percent)
+            }
+        }
+
+        // Duration
+        video.addEventListener("loadeddata", () => {
+            totalTimeElem.textContent = formatDuration(video.duration)
+        })
+
+        video.addEventListener("timeupdate", () => {
+            currentTimeElem.textContent = formatDuration(video.currentTime)
+            const percent = video.currentTime / video.duration
+            timelineContainer.style.setProperty("--progress-position", percent)
+        })
+
+        const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
+            minimumIntegerDigits: 2,
+        })
+
+        function formatDuration(time) {
+            const seconds = Math.floor(time % 60)
+            const minutes = Math.floor(time / 60) % 60
+            const hours = Math.floor(time / 3600)
+            if (hours === 0) {
+                return `${minutes}:${leadingZeroFormatter.format(seconds)}`
+            } else {
+                return `${hours}:${leadingZeroFormatter.format(
       minutes
     )}:${leadingZeroFormatter.format(seconds)}`
-  }
-}
+            }
+        }
 
-function skip(duration) {
-  video.currentTime += duration
-}
+        function skip(duration) {
+            video.currentTime += duration
+        }
 
-// Playback Speed
-speedBtn.addEventListener("click", changePlaybackSpeed)
+        // Playback Speed
+        speedBtn.addEventListener("click", changePlaybackSpeed)
 
-function changePlaybackSpeed() {
-  let newPlaybackRate = video.playbackRate + 0.25
-  if (newPlaybackRate > 2) newPlaybackRate = 0.25
-  video.playbackRate = newPlaybackRate
-  speedBtn.textContent = `${newPlaybackRate}x`
-}
+        function changePlaybackSpeed() {
+            let newPlaybackRate = video.playbackRate + 0.25
+            if (newPlaybackRate > 2) newPlaybackRate = 0.25
+            video.playbackRate = newPlaybackRate
+            speedBtn.textContent = `${newPlaybackRate}x`
+        }
 
-// Volume
-muteBtn.addEventListener("click", toggleMute)
-volumeSlider.addEventListener("input", e => {
-  video.volume = e.target.value
-  video.muted = e.target.value === 0
-  localStorage.setItem("savedVolume", e.target.value);
-})
+        // Volume
+        muteBtn.addEventListener("click", toggleMute)
+        volumeSlider.addEventListener("input", e => {
+            video.volume = e.target.value
+            video.muted = e.target.value === 0
+            localStorage.setItem("savedVolume", e.target.value);
+        })
 
-function toggleMute() {
-  video.muted = !video.muted
-  if (!video.muted) {
-    localStorage.setItem("savedVolume", video.volume);
-  }
-}
+        function toggleMute() {
+            video.muted = !video.muted
+            if (!video.muted) {
+                localStorage.setItem("savedVolume", video.volume);
+            }
+        }
 
-video.addEventListener("volumechange", () => {
-  volumeSlider.value = video.volume
-  let volumeLevel
-  if (video.muted || video.volume === 0) {
-    volumeSlider.value = 0
-    volumeLevel = "muted"
-  } else if (video.volume >= 0.5) {
-    volumeLevel = "high"
-  } else {
-    volumeLevel = "low"
-  }
+        video.addEventListener("volumechange", () => {
+            volumeSlider.value = video.volume
+            let volumeLevel
+            if (video.muted || video.volume === 0) {
+                volumeSlider.value = 0
+                volumeLevel = "muted"
+            } else if (video.volume >= 0.5) {
+                volumeLevel = "high"
+            } else {
+                volumeLevel = "low"
+            }
 
-  videoContainer.dataset.volumeLevel = volumeLevel
-})
+            videoContainer.dataset.volumeLevel = volumeLevel
+        })
 
-// View Modes
+        // View Modes
 
-fullScreenBtn.addEventListener("click", toggleFullScreenMode)
+        fullScreenBtn.addEventListener("click", toggleFullScreenMode)
 
-function toggleFullScreenMode() {
-  if (document.fullscreenElement == null) {
-    videoContainer.requestFullscreen()
-  } else {
-    document.exitFullscreen()
-  }
-}
+        function toggleFullScreenMode() {
+            if (document.fullscreenElement == null) {
+                videoContainer.requestFullscreen()
+            } else {
+                document.exitFullscreen()
+            }
+        }
 
-document.addEventListener("fullscreenchange", () => {
-  videoContainer.classList.toggle("full-screen", document.fullscreenElement)
-})
+        document.addEventListener("fullscreenchange", () => {
+            videoContainer.classList.toggle("full-screen", document.fullscreenElement)
+        })
 
-// Play/Pause
-playPauseBtn.addEventListener("click", togglePlay)
-video.addEventListener("click", togglePlay)
+        // Play/Pause
+        playPauseBtn.addEventListener("click", togglePlay)
+        video.addEventListener("click", togglePlay)
 
-function togglePlay() {
-  video.paused ? video.play() : video.pause()
-}
+        function togglePlay() {
+            video.paused ? video.play() : video.pause()
+        }
 
-video.addEventListener("play", () => {
-  videoContainer.classList.remove("paused")
-})
+        video.addEventListener("play", () => {
+            videoContainer.classList.remove("paused")
+        })
 
-video.addEventListener("pause", () => {
-  videoContainer.classList.add("paused")
-})
-
-        </script>
+        video.addEventListener("pause", () => {
+            videoContainer.classList.add("paused")
+        })
+    </script>
 
 </x-app-layout>

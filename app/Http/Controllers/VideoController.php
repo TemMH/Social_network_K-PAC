@@ -412,27 +412,27 @@ class VideoController extends Controller
 
 
 
-    public function like(Request $request, $id)
-    {
-        $video = Video::findOrFail($id);
+public function like(Request $request, $id)
+{
+    $video = Video::findOrFail($id);
 
-        if (!$video->likes()->where('user_id', auth()->id())->exists()) {
-            $like = new Like([
-                'user_id' => auth()->id(),
-                'statement_id' => null,
-            ]);
-            $video->likes()->save($like);
-        }
-
-        return redirect()->back();
+    if (!$video->likes()->where('user_id', auth()->id())->exists()) {
+        $like = new Like([
+            'user_id' => auth()->id(),
+            'statement_id' => null,
+        ]);
+        $video->likes()->save($like);
     }
 
+    return response()->json(['success' => true]);
+}
 
-    public function unlike(Request $request, $id)
-    {
-        $video = Video::findOrFail($id);
-        $video->likes()->where('user_id', auth()->id())->delete();
+public function unlike(Request $request, $id)
+{
+    $video = Video::findOrFail($id);
+    $video->likes()->where('user_id', auth()->id())->delete();
 
-        return redirect()->back();
-    }
+    return response()->json(['success' => true]);
+}
+
 }

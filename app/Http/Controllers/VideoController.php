@@ -180,7 +180,7 @@ class VideoController extends Controller
 
         $videos = Video::select('videos.*') //выбор всех столбцов
             ->leftJoin('views', function ($join) use ($userId) {  // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
-                $join->on('videos.id', '=', 'views.statement_id') // объединить id с video_id 
+                $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
                     ->where('views.user_id', '=', $userId);
             })
             ->whereNull('views.id')

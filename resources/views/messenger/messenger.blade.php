@@ -13,7 +13,7 @@
                 <p class="txt2">Мессенджер</p>
 
                 <div class="search-container">
-                    <input type="text" id="searchInputdDialog" class="custom-search-input-news" placeholder="Поиск по имени...">
+                    <input type="text" id="searchInputdDialog" class="message_history_input_container" placeholder="Поиск по имени...">
                 </div>
 
             </div>

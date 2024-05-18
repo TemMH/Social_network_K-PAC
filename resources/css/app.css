@@ -2405,7 +2405,8 @@ Messages
 .message_dialog_searh {
 
     display: flex;
-    align-items: center;
+    flex-direction: column;
+
     justify-content: space-between;
     padding: 20px;
 

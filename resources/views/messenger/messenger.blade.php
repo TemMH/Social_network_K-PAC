@@ -13,143 +13,139 @@
                 <p class="txt2">Мессенджер</p>
 
                 <div class="search-container">
-                    <input type="text" id="searchInputdDialog" class="message_history_input_container" placeholder="Поиск по имени...">
+                    <input type="text" id="searchInputdDialog" class="message_history_input_container"
+                        placeholder="Поиск по имени...">
                 </div>
 
             </div>
-<div id="searchResultsDialog">
-            @foreach ($dialogs as $dialog)
-                @if ($dialog->user->name !== auth()->user()->name)
-                    <div class="message_dialogs">
-                        <a href="{{ route('messenger.chat', $dialog->user->id) }}"
-                            class="message_dialog
+            
+            <div id="searchResultsDialog">
+                @foreach ($dialogs as $dialog)
+
+                    @if ($dialog->user->name !== auth()->user()->name)
+
+                        <div class="message_dialogs">
+                            <a href="{{ route('messenger.chat', $dialog->user->id) }}" class="message_dialog
                          @if ($dialog->user->id == $user->id) active @endif">
 
+                                <div class="author">
 
-                            <div class="author">
-                                <div class="avatar_mini">
-                                    @if ($dialog->user->avatar !== null)
-                                        <img class="avatar_mini" src="{{ asset('storage/' . $dialog->user->avatar) }}"
-                                            alt="Avatar">
-                                    @else
-                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
-                                    @endif
+                                    <div class="avatar_mini">
+                                        @if ($dialog->user->avatar !== null)
+                                            <img class="avatar_mini"
+                                                src="{{ asset('storage/' . $dialog->user->avatar) }}" alt="Avatar">
+                                        @else
+                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
+                                        @endif
+                                    </div>
+
+                                    <p class="txt2">{{ $dialog->user->name }}</p>
+
                                 </div>
-                                <p class="txt2">{{ $dialog->user->name }}</p>
-                            </div>
-                            <div class="message_dialog_last">
-                                <p class="txt1">
-                                    @if ($dialog->lastMessage !== null)
-                                        <p class="txt1">{{ $dialog->lastMessage->message }}</p>
-                                    @else
-                                        <p> </p>
-                                    @endif
-                                </p>
-                            </div>
 
+                                <div class="message_dialog_last">
+                                    
+                                    <p class="txt1">
+                                        @if ($dialog->lastMessage !== null)
+                                            <p class="txt1">{{ $dialog->lastMessage->message }}</p>
+                                        @else
+                                            <p> </p>
+                                        @endif
+                                    </p>
 
-                        </a>
-                    </div>
-                @endif
-            @endforeach
-        </div>
+                                </div>
 
+                            </a>
+                        </div>
 
+                    @endif
 
-
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const dialogs = document.querySelectorAll('.message_dialog');
-
-                    dialogs.forEach(function(dialog) {
-                        dialog.addEventListener('click', function() {
-
-                            dialogs.forEach(function(dialog) {
-                                dialog.classList.remove('active');
-                            });
-
-                            this.classList.add('active');
-                        });
-                    });
-                });
-            </script>
+                @endforeach
+            </div>
 
         </div>
 
-@if (Route::is('messenger.chat'))
-
-        @livewire('chat-component', ['user_id' => $id])
-
+        @if (Route::is('messenger.chat'))
+            @livewire('chat-component', ['user_id' => $id])
         @else
-
-
-
-        <p>Выберите диалог для чата</p>
-
-
-
-@endif
+            <p>Выберите диалог для чата</p>
+        @endif
 
     </div>
 
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dialogs = document.querySelectorAll('.message_dialog');
+
+            dialogs.forEach(function(dialog) {
+                dialog.addEventListener('click', function() {
+
+                    dialogs.forEach(function(dialog) {
+                        dialog.classList.remove('active');
+                    });
+
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 
     <script>
-$(document).ready(function() {
-    // изначальный диалог
-    var initialDialogs = $('#searchResultsDialog').html();
-
-    $('#searchInputdDialog').on('input', function() {
-        let searchTerm = $(this).val().trim();
-
-        if (searchTerm.length >= 3) {
-            $.ajax({
-                type: 'GET',
-                url: '/dialog/autocomplete',
-                data: {
-                    search: searchTerm
-                },
-                success: function(response) {
-                    console.log(response);
-                    let resultsDiv = $('#searchResultsDialog');
-                    resultsDiv.empty();
-
-                    if (searchTerm !== '') {
-                        $.each(response.dialogs, function(index, dialog) {
-                            if (dialog.user) {
-
-                                var avatarSrc = dialog.user.avatar ? response.base_url + '/' + dialog.user.avatar : '/uploads/ProfilePhoto.png';
-
-                                resultsDiv.append(
-                                    '<div class="message_dialogs">' +
-                                    '<a href="/messenger/' + (dialog.user.id ? dialog.user.id : '') + '" class="message_dialog">' +
-                                    '<div class="author">' +
-                                    '<div class="avatar_mini">' +
-                                    '<img class="avatar_mini" src="' + avatarSrc + '" alt="Avatar">' +
-                                    '</div>' +
-                                    '<p class="txt2">' + (dialog.user.name ? dialog.user.name : '') + '</p>' +
-                                    '</div>' +
-                                    '<div class="message_dialog_last">' +
-                                    '<p class="txt1">' + (dialog.lastMessage !== null ? dialog.lastMessage.message : '') + '</p>' +
-                                    '</div>' +
-                                    '</a>' +
-                                    '</div>'
-                                );
+        $(document).ready(function() {
+            // изначальный диалог
+            var initialDialogs = $('#searchResultsDialog').html();
+        
+            $('#searchInputdDialog').on('input', function() {
+                let searchTerm = $(this).val().trim();
+        
+                if (searchTerm.length >= 3) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/dialog/autocomplete',
+                        data: {
+                            search: searchTerm
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            let resultsDiv = $('#searchResultsDialog');
+                            resultsDiv.empty();
+        
+                            if (searchTerm !== '') {
+                                $.each(response.dialogs, function(index, dialog) {
+                                    if (dialog.user) {
+        
+                                        var avatarSrc = dialog.user.avatar ? response.base_url + '/' + dialog.user.avatar : '/uploads/ProfilePhoto.png';
+        
+                                        resultsDiv.append(
+                                            '<div class="message_dialogs">' +
+                                            '<a href="/messenger/' + (dialog.user.id ? dialog.user.id : '') + '" class="message_dialog">' +
+                                            '<div class="author">' +
+                                            '<div class="avatar_mini">' +
+                                            '<img class="avatar_mini" src="' + avatarSrc + '" alt="Avatar">' +
+                                            '</div>' +
+                                            '<p class="txt2">' + (dialog.user.name ? dialog.user.name : '') + '</p>' +
+                                            '</div>' +
+                                            '<div class="message_dialog_last">' +
+                                            '<p class="txt1">' + (dialog.lastMessage !== null ? dialog.lastMessage.message : '') + '</p>' +
+                                            '</div>' +
+                                            '</a>' +
+                                            '</div>'
+                                        );
+                                    }
+                                });
                             }
-                        });
-                    }
+                        }
+                    });
+                } else if (searchTerm === '') {
+        
+                    $('#searchResultsDialog').html(initialDialogs);
+                } else {
+        
                 }
             });
-        } else if (searchTerm === '') {
-
-            $('#searchResultsDialog').html(initialDialogs);
-        } else {
-
-        }
-    });
-});
-    </script>
+        });
+            </script>
 
 </x-app-layout>

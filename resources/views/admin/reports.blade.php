@@ -181,9 +181,11 @@
 
 
                             <div class="statement_block_top_image_open">
+                                <div class="statement_block_top_image_open_test">
                                 <img src="{{ asset('storage/' . $reports['statement_complaint']->statement->photo_path) }}"
                                     alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
                                     style="cursor:pointer;">
+                                </div>
                             </div>
 
                             <div class="statement_block_top_addinfo">

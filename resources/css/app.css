@@ -234,7 +234,7 @@ html {
 
     height: 720px;
     width: 640px;
-    background-color: #950740;
+    background-color: #333333;
 
     display: flex;
     flex-direction: column;
@@ -267,10 +267,7 @@ html {
     width: 1280px;
     display: flex;
     justify-content: space-between;
-    margin-top: 50px;
-    margin-right: auto;
-    margin-bottom: 0px;
-    margin-left: auto;
+margin: 0 auto;
 
 }
 
@@ -5054,10 +5051,14 @@ input[type=file]::file-selector-button:hover {
 
 .statement_block_top_image_open img {
 
+    height: 100%;
+    aspect-ratio: 16/9;
     margin: 0 auto;
     border-radius: 12px;
 
 }
+
+
 
 .statement_block_top_user_image_open {
 

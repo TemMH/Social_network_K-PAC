@@ -53,7 +53,7 @@
 
                         @else
 
-                        <a href="{{ route('main.all.video.user') }}">
+                        <a href="{{ ('/') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"
                                 viewBox="0 0 50 50">
                                 <path stroke="#F5F5F5" stroke-opacity=".961" d="M3.5 3.5h43v43h-43z" />
@@ -71,7 +71,7 @@
 
                         @else
 
-                        <a href="{{ route('main.all.video.user') }}">
+                        <a href="{{ ('/') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"
                                 viewBox="0 0 50 50">
                                 <path stroke="#F5F5F5" stroke-opacity=".961" d="M3.5 3.5h43v43h-43z" />

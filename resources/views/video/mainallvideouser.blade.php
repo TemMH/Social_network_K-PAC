@@ -9,118 +9,89 @@
 
 
     <div class="longvideos_field">
-        @for ($i = 0; $i < min(count($trendvideos), 1); $i++)
-            @php $trendvideo = $trendvideos[$i]; @endphp
-
-                <div class="longvideos_thumbnail">
-
-
-                    <div class="blurred_bottom"></div>
-                    <div class="longvideos_thumbnail_info show">
-                        <div class="longvideos_thumbnail_top show">
-
-
-                            <h1 class="longvideos_thumbnail_title">
-                                {{ $trendvideo->title }}
-                            </h1>
-
-                            <div class="longvideos_thumbnail_dopinfo">
-
-                                <div class="longvideos_thumbnail_avatar">
-
-                                </div>
-                                <div class="longvideos_thumbnail_name">
-
-
-                                    {{ $trendvideo->user->name }}
-
-
-                                </div>
-                                <div class="longvideos_thumbnail_created_at">
-                                    @if (!function_exists('pluralForm'))
-                                        @php
-                                            function pluralForm($number, $one, $two, $five)
-                                            {
-                                                $number = abs($number) % 100;
-                                                $remainder = $number % 10;
-
-                                                if ($number > 10 && $number < 20) {
-                                                    return $five;
-                                                }
-
-                                                if ($remainder > 1 && $remainder < 5) {
-                                                    return $two;
-                                                }
-
-                                                if ($remainder == 1) {
-                                                    return $one;
-                                                }
-
-                                                return $five;
-                                            }
-                                        @endphp
-                                    @endif
-
-                                    @php
-                                        $createdAt = strtotime($trendvideo->created_at);
-                                        $currentDate = strtotime(date('Y-m-d H:i:s'));
-                                        $timeDiff = $currentDate - $createdAt;
-
-                                        if ($timeDiff >= 86400) {
-                                            $days = floor($timeDiff / 86400);
-                                            $formattedTime =
-                                                $days . ' ' . pluralForm($days, 'день', 'дня', 'дней') . ' назад';
-                                        } elseif ($timeDiff >= 3600) {
-                                            $hours = floor($timeDiff / 3600);
-                                            $formattedTime =
-                                                $hours . ' ' . pluralForm($hours, 'час', 'часа', 'часов') . ' назад';
-                                        } elseif ($timeDiff >= 60) {
-                                            $minutes = floor($timeDiff / 60);
-                                            $formattedTime =
-                                                $minutes .
-                                                ' ' .
-                                                pluralForm($minutes, 'минута', 'минуты', 'минут') .
-                                                ' назад';
-                                        } else {
-                                            $formattedTime = 'только что';
-                                        }
-                                    @endphp
-                                    <p class="longvideos_thumbnail_created_at">
-                                        {{ $formattedTime }}
-                                    </p>
-                                </div>
-
-
-
-                            </div>
-
+        @if ($trendvideos->isNotEmpty())
+        @php
+            $trendvideo = $trendvideos->first();
+        @endphp
+    
+        <div class="longvideos_thumbnail">
+            <div class="blurred_bottom"></div>
+            <div class="longvideos_thumbnail_info show">
+                <div class="longvideos_thumbnail_top show">
+                    <h1 class="longvideos_thumbnail_title">
+                        {{ $trendvideo->title }}
+                    </h1>
+    
+                    <div class="longvideos_thumbnail_dopinfo">
+                        <div class="longvideos_thumbnail_avatar"></div>
+                        <div class="longvideos_thumbnail_name">
+                            {{ $trendvideo->user->name }} ㅤ
                         </div>
-
-                        <details class="longvideos_thumbnail_description">
-                            <summary>
-                                Раскрывающийся список
-                            </summary>
-
-                            <div class="longvideos_thumbnail_description_text">
-
-
-
-                                {{ $trendvideo->description }}
-
-
-
-                            </div>
-                        </details>
-
+                        <div class="longvideos_thumbnail_created_at">
+                            @if (!function_exists('pluralForm'))
+                                @php
+                                    function pluralForm($number, $one, $two, $five) {
+                                        $number = abs($number) % 100;
+                                        $remainder = $number % 10;
+    
+                                        if ($number > 10 && $number < 20) {
+                                            return $five;
+                                        }
+    
+                                        if ($remainder > 1 && $remainder < 5) {
+                                            return $two;
+                                        }
+    
+                                        if ($remainder == 1) {
+                                            return $one;
+                                        }
+    
+                                        return $five;
+                                    }
+                                @endphp
+                            @endif
+    
+                            @php
+                                $createdAt = strtotime($trendvideo->created_at);
+                                $currentDate = strtotime(date('Y-m-d H:i:s'));
+                                $timeDiff = $currentDate - $createdAt;
+    
+                                if ($timeDiff >= 86400) {
+                                    $days = floor($timeDiff / 86400);
+                                    $formattedTime = $days . ' ' . pluralForm($days, 'день', 'дня', 'дней') . ' назад';
+                                } elseif ($timeDiff >= 3600) {
+                                    $hours = floor($timeDiff / 3600);
+                                    $formattedTime = $hours . ' ' . pluralForm($hours, 'час', 'часа', 'часов') . ' назад';
+                                } elseif ($timeDiff >= 60) {
+                                    $minutes = floor($timeDiff / 60);
+                                    $formattedTime = $minutes . ' ' . pluralForm($minutes, 'минута', 'минуты', 'минут') . ' назад';
+                                } else {
+                                    $formattedTime = 'только что';
+                                }
+                            @endphp
+                            <p class="longvideos_thumbnail_created_at">
+                                {{ $formattedTime }}
+                            </p>
+                        </div>
                     </div>
-
-                    <div style="position: absolute" class=""></div>
-
-                    <img src="{{ asset('storage/' . $trendvideo->thumbnail_path) }}" alt=" "
-                        style="object-fit: cover;" class="videoThumbnail_main">
-
                 </div>
-        @endfor
+    
+                <details class="longvideos_thumbnail_description">
+                    <summary>
+                        Раскрывающийся список
+                    </summary>
+                    <div class="longvideos_thumbnail_description_text">
+                        {{ $trendvideo->description }}
+                    </div>
+                </details>
+            </div>
+            <div style="position: absolute" class=""></div>
+            <img src="{{ asset('storage/' . $trendvideo->thumbnail_path) }}" alt=" " style="object-fit: cover;" class="videoThumbnail_main">
+        </div>
+    @else
+        <p>No trend videos available.</p>
+    @endif
+    
 
         <div class="longvideos_selections">
 

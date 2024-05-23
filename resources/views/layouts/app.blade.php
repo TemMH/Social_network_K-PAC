@@ -13,6 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    
     <!-- Scripts -->
     @vite(['resources/css/app.css',
     'resources/css/profileuser/profileuserfull.css',
@@ -426,12 +427,18 @@
 
         <main>
             {{ $slot }}
+            @include('flash::message')
+
         </main>
 
 
         {{-- @include('layouts.navigation') --}}
 
-
+        <script>
+            $(document).ready(function(){
+                $('.flash-success').delay(5000).fadeOut('slow');
+            });
+        </script>
 
 
 

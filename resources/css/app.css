@@ -723,3 +723,34 @@ main {
     min-height: 45%;
 
 }
+
+
+
+/* Flash */
+.flash-message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border-color: #f90000;
+    color: #ff0000;
+}
+
+.flash-success {
+    padding: 10px;
+    width: max-content;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #1e00ff;
+    border-color: #7700ff;
+    color: #ff00ae;
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+}
+
+
+.flash-error {
+    background-color: #00ffee;
+    border-color: #00b7ff;
+    color: #0059ff;
+}

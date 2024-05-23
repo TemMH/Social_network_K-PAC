@@ -15,6 +15,7 @@ use App\Models\Complaint;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
 use getID3;
 
 
@@ -53,10 +54,16 @@ class VideoController extends Controller
 
             $videos = $user->videos()->get();
 
-            return back()->with('success', 'Видео успешно загружено!');
+
+            Flash::success('<div class="flash-success">Видео успешно загружено!</div>');
+
+
+            return back();
         }
 
-        return back()->with('error', 'Ошибка при загрузке видео или превью');
+    Flash::error('Ошибка при загрузке видео или превью');
+
+        return back();
     }
 
 

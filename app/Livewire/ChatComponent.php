@@ -79,6 +79,7 @@ class ChatComponent extends Component
 
             'id' => $message->id,
             'message' => $message->message,
+            'created_at' => $message->created_at,
             'sender' => $message->sender->name,
             'recipient' => $message->recipient->name,
 

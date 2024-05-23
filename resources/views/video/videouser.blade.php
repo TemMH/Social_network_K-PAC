@@ -469,12 +469,17 @@
                             <div class="main_novost_top">
                                 <a
                                     href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
-                                    <div class="main_novost_img">
+                         
 
-                                        <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}"
-                                            alt="Avatar">
+                                            @if ($comment->user->avatar !== null)
+                                            <img src="{{ asset('storage/' . $comment->user->avatar) }}"
+                                                alt="Avatar" class="avatar_mini">
+                                        @else
+                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                alt="Avatar">
+                                        @endif
 
-                                    </div>
+                               
                                 </a>
 
 

@@ -162,28 +162,7 @@ class ProfileController extends Controller
     }
     
     
-    public function usersortMethod(Request $request)
-    {
-        $sort = $request->input('sortirovka');
-    
-        $userId = auth()->id();
-    
-        $users = User::whereNotIn('id', [$userId]);
-    
-        switch ($sort) {
-            case 'old':
-                $users->orderBy('created_at', 'asc');
-                break;
-            case 'recent':
-            default:
-                $users->orderBy('created_at', 'desc');
-                break;
-        }
-    
-        $users = $users->get();
-    
-        return view('alluser', ['users' => $users]);
-    }
+
     
     
 

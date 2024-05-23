@@ -14,7 +14,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css',
+    'resources/css/profileuser/profileuserfull.css',
+    'resources/css/profileuser/profileuserPublicate.css',
+    'resources/css/statement/statementBlock.css',
+    'resources/css/statement/statementFull.css',
+    'resources/css/video/videoCatalog.css',
+    'resources/css/video/videoControl.css',
+    'resources/css/video/videoFullvideo.css',
+    'resources/css/video/videoShortvideo.css',
+    'resources/css/adminpanel.css',
+    'resources/css/friendfeed.css',
+    'resources/css/messenger.css',
+    'resources/css/notification.css',
+    'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">

@@ -1,0 +1,140 @@
+/* friendfeed */
+
+.friendfeed_field_test {
+
+    overflow-y: scroll;
+    height: 95%;
+    width: 94.5%;
+    position: fixed;
+    z-index: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+
+}
+
+
+.friendfeed_field {
+
+    overflow-y: scroll;
+    height: 100vh;
+    width: 94.5%;
+    position: fixed;
+    z-index: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+
+}
+
+
+
+.friendfeed_field_frame {
+
+    width: 50%;
+    height: 99.5%;
+    /* overflow-y: scroll; */
+    margin: 0.5% auto;
+    border-radius: 12px 12px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.friendfeed_block {
+
+    margin-bottom: 3%;
+    margin-bottom: 3%;
+    /* height: 100%; */
+    position: relative;
+
+}
+
+.friendfeed_content {
+
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background-color: #222222;
+    border: 1px solid #484848;
+    margin-bottom: -2%;
+    padding: 0 1%;
+
+}
+
+
+.friendfeed_comments_block {
+
+    height: auto;
+    padding: 20px;
+    border-radius: 12px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #222222;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: #D9D9D9;
+
+}
+
+.friendfeed_comments.open {
+
+    background-color: #222222;
+    height: auto;
+    display: block;
+    border-radius: 0px 0px 12px 12px;
+    border: 1px solid #484848;
+    padding-top: 1%;
+    transition: display 0.3s ease-in-out, height 0.3s ease-in-out;
+
+}
+
+
+.friendfeed_comments {
+
+    display: none;
+    height: 0px;
+
+}
+
+.friendfeed_comment_input {
+
+    height: auto;
+    width: 80%;
+    min-height: 60px;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    color: #D9D9D9;
+
+}
+
+.friendfeed_comments_scroll {
+
+    max-height: 0vh;
+    width: 100%;
+    transition: max-height 0.3s ease-in-out;
+
+}
+
+.friendfeed_comments_scroll.open {
+
+    border-bottom: 1px solid #484848;
+    max-height: 40vh;
+    width: 100%;
+    overflow-y: scroll;
+    transition: max-height 0.3s ease-in-out;
+
+}
+

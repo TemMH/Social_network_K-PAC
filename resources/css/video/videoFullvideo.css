@@ -1,0 +1,81 @@
+
+.full_video_content_scrolled_info {
+
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+
+}
+
+.full_video_comments_form {
+
+    height: 15%;
+
+}
+
+.full_video_content_scrolled_trendvideo_block {
+
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    border-radius: 12px;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_left {
+
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 16 / 9;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_left img {
+
+    object-fit: contain;
+
+
+}
+
+.full_video_content_scrolled_trendvideo_block_right_info {
+
+    display: block;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_right_info_stats {
+
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
+    overflow: hidden;
+    /* Обрезаем всё за пределами блока */
+    text-overflow: ellipsis;
+    /* Добавляем многоточие */
+
+}
+
+.full_video_content_scrolled {
+
+    width: 98%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+}
+
+.full_video_content_scrolled_trendvideo_block_right {
+
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2%;
+}

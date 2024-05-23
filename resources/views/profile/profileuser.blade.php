@@ -554,30 +554,3 @@
 
 
 </x-app-layout>
-
-
-
-{{-- <div class="profile_novosti_verh">
-
-    @if ($user->id == auth()->id())
-        <a href="/profile">
-            <div class="profile_settings">
-                <p class="txt_2">Настройки</p>
-            </div>
-        </a>
-    @endif
-    @if ($user->id == auth()->id())
-        <div class="profile_condition">
-            <form method="POST" action="{{ route('update-condition') }}">
-                @csrf
-                <input type="text" name="condition" value="{{ $user->condition }}"
-                    placeholder="Кратко о себе...">
-                <button class="txt_2" type="submit">Обновить условие</button>
-            </form>
-        </div>
-    @endif
-    @if ($user->id !== auth()->id())
-        <p class="txt_1">{{ $user->condition }}</p>
-    @endif
-
-</div> --}}

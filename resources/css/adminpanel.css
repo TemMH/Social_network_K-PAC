@@ -1,0 +1,169 @@
+/* Reports */
+
+
+.reports_field_setting {
+
+    width: 98%;
+    margin: 0 auto;
+    /* height: 100vh; */
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.reports_field_frame {
+
+    width: 50%;
+    height: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    position: relative;
+
+}
+
+.reports_field_frame_test{
+
+    width: 50%;
+    /* height: min-content; */
+    margin: 0 auto;
+    /* display: flex; */
+    flex-direction: column;
+    /* justify-content: space-between; */
+    position: relative;
+
+}
+
+.statement_block_top_addinfo_second {
+
+    display: flex;
+    align-items: center;
+}
+
+.statement_block_top_addinfo {
+
+    display: block;
+
+}
+
+.statement_block_top_image_open {
+
+    width: 30%;
+    aspect-ratio: 16/9;
+
+}
+
+.statement_block_top_image_open img {
+
+    height: 100%;
+    aspect-ratio: 16/9;
+    margin: 0 auto;
+
+
+}
+
+
+
+.statement_block_top_user_image_open {
+
+    width: 30%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statement_block_top_user_image_open img {
+
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    width: auto;
+
+}
+
+.report_block_top_info_left_open {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 75%;
+
+}
+
+.report_block_top_info_right_open {
+
+    width: 25%;
+
+}
+
+.report_block_down_open {
+
+    display: flex;
+    justify-content: space-between;
+    margin: 1% auto;
+    align-items: flex-end;
+
+}
+
+
+.right_block_wrap_line {
+
+    height: 2px;
+    width: 100%;
+    margin-left: 5%;
+    background-color: #2D2D2D;
+    border-radius: 12px;
+
+}
+
+.reports_settings_right {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* width: 100%; */
+
+}
+
+.reports_settings_middle{
+
+    width: 40%;
+
+}
+
+
+.report_block_top_open {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1% auto;
+
+}
+
+
+.report_content {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background-color: #222222;
+    border: 1px solid #484848;
+
+    padding: 0 1%;
+}
+
+.report_content_test {
+
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background-color: #222222;
+    border: 1px solid #484848;
+    padding: 0 1%;
+    margin-bottom: 1%;
+}
+
+

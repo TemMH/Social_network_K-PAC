@@ -38,7 +38,7 @@
                                 <div class="dialog_field_left_content">
 
                                     <div>
-                                        <p class="txt_2">{{ $user->name }}</p>
+                                        <p class="txt_2">{{ $user->name }}</p> <p>{{ $message->created_at }}</p>
                                     </div>
                                     <div class="txt_2">
                                         {!! $message->content !!}

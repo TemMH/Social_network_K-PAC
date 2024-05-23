@@ -1,0 +1,326 @@
+
+/* 
+
+Messages 
+
+*/
+
+
+
+.messenger_dialogs {
+    height: 100%;
+    width: 20%;
+    border-right: 1px solid #222222;
+
+}
+
+.messenger {
+
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.message_dialog_searh {
+
+    height: 10%;
+    border-bottom: 1px solid #222222;
+
+}
+
+.message_dialogs {
+
+    height: auto;
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.message_dialog {
+
+    width: 90%;
+    height: auto;
+    border: 1px solid #2D2D2D;
+    border-radius: 12px;
+    padding: 2%;
+
+}
+
+
+.message_dialog.active {
+
+    background-color: #222222;
+    width: 90%;
+    height: auto;
+    border: 1px solid #2D2D2D;
+    border-radius: 12px;
+    padding: 2%;
+
+}
+
+.message_dialog_searh {
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+    padding: 20px;
+
+}
+
+.message_history {
+
+    width: 80%;
+    height: 100%;
+
+
+}
+
+.message_history_author_background {
+
+    width: 99%;
+    margin: 0 auto;
+    margin-top: 0.5%;
+    border-radius: 12px 12px 0px 0px;
+    aspect-ratio: 8 / 1;
+    /* height: 15%; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-color: #BABABA;
+
+    padding: 1%;
+}
+
+.message_history_input {
+
+    min-height: 80px;
+    width: 100%;
+    height: 7%;
+    border-top: 1px solid #222222;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.message_history {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.message_history_author_info_profile {
+
+    display: flex;
+
+}
+
+.message_history_author_info_img {
+
+    width: 80px;
+    height: 80px;
+    border: 1px solid #222222;
+
+
+}
+
+.message_history_author_info {
+
+
+    display: flex;
+    align-items: center;
+    padding: 0.5%;
+    border-radius: 12px;
+    background-color:#222222;
+
+}
+
+.message_history_author_buttons {
+
+    height: 80px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+}
+
+.message_history_author_info_name {
+
+    margin-left: 20px;
+
+}
+
+.message_history_input_container {
+
+    background-color: #1A1A1A;
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px auto;
+    padding: 15px 15px;
+    border: 1px solid #2D2D2D;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #777777;
+    outline: none;
+    width: 100%;
+    height: 100%;
+
+}
+
+.message_history_input_search_container {
+
+    min-height: 40px;
+    width: 90%;
+    height: 50%;
+
+}
+
+.message_history_dialog {
+
+    height: 75%;
+
+}
+
+.message_history_dialog_field {
+
+    height: 100%;
+    width: 99%;
+    margin: 0.5%;
+    padding: 0 0.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    color: #D9D9D9;
+
+}
+
+.message_history_field {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+
+}
+
+.message_history_dialog_field_left_rama {
+
+    width: 100%;
+
+    background-color: #222222;
+    border: 1px solid;
+    border-color: #222222;
+    border-radius: 12px;
+
+    padding: 10px;
+
+    display: flex;
+    justify-content: flex-start;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #AAAAAA;
+}
+
+.message_history_dialog_field_right_rama {
+
+    width: 100%;
+
+    background-color: #222222;
+    border: 1px solid;
+    border-color: #222222;
+    border-radius: 12px;
+
+    padding: 10px;
+
+    display: flex;
+
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #AAAAAA;
+}
+
+.dialog_img_ava {
+
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 50%;
+
+
+}
+
+.message_history_dialog_field_right {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.message_history_dialog_field_left {
+
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.message_history_dialog_field_left_content {
+
+    word-break: break-all;
+    max-width: 100%;
+    height: auto;
+    text-align: start;
+
+}
+
+.message_history_dialog_field_right_content {
+
+    word-break: break-all;
+    max-width: 100%;
+    height: auto;
+    text-align: start;
+
+}
+
+.message_history_dialog_field_width {
+
+    max-width: 40%;
+    min-width: 10%;
+
+}
+
+.message_dialog_author_info {
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
+
+}
+
+.message_dialog_last {
+
+    width: 100%;
+    word-break: break-all;
+    overflow: hidden;
+
+}
+
+.message_dialog_last p {
+
+    line-height: 1.2em;
+    max-height: 2.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}

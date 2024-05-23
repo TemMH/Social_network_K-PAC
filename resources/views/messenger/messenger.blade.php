@@ -39,7 +39,7 @@
                                         @endif
                                     </div>
 
-                                    <p class="txt2">{{ $dialog->user->name }}</p>
+                                    <p class="txt2">{{ $dialog->user->name }}</p> 
 
                                 </div>
 

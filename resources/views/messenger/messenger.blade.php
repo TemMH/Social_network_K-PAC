@@ -68,7 +68,19 @@
         @if (Route::is('messenger.chat'))
             @livewire('chat-component', ['user_id' => $id])
         @else
-            <p>Выберите диалог для чата</p>
+
+        <div style="justify-content: center; margin: 0 auto; height: 100%;" class="friendfeed_field_frame">
+
+            <div style="text-align: center; max-width: 800px; margin: 0 auto; padding:1%;" class="friendfeed_content">
+
+                <p style="margin:20px 0;"  class="txt_2">Для общения выберите диалог в левом меню</p>
+                <p style="margin:20px 0;"  class="txt_2">Если диалогов нет, создайте их сами написав другу</p>
+
+                <button class="statements_type_btn" onclick="toggleSearch()" >Найти новых друзей</button>
+
+
+            </div>
+        </div>
         @endif
 
     </div>

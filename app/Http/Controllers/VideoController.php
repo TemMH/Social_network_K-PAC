@@ -55,7 +55,18 @@ class VideoController extends Controller
             $videos = $user->videos()->get();
 
 
-            Flash::success('<div class="flash-success">Видео успешно загружено!</div>');
+            Flash::success('
+            
+            <div class="flash-success">
+            <div class="flsh-title">
+                K-PAC
+            </div>
+            <div class="flash-message">
+            Видео успешно загружено!
+            </div>
+            </div>'
+        
+        );
 
 
             return back();

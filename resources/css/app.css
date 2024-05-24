@@ -316,6 +316,8 @@ placeholder     background-color: #777777;
 main {
 
     width: 100%;
+    min-width: 940px; 
+    /* add media for min-width  */
     background-color: #1A1A1A;
 
 }
@@ -753,4 +755,18 @@ main {
     background-color: #00ffee;
     border-color: #00b7ff;
     color: #0059ff;
+}
+
+/* Setting */
+
+.edit_update{
+
+    background-color: #222222;
+
+    border: 1px solid #484848;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
 }

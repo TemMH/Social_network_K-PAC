@@ -89,7 +89,7 @@
             <img src="{{ asset('storage/' . $trendvideo->thumbnail_path) }}" alt=" " style="object-fit: cover;" class="videoThumbnail_main">
         </div>
     @else
-        <p>No trend videos available.</p>
+        <p>Нет доступа к видеоматериалу.</p>
     @endif
     
 

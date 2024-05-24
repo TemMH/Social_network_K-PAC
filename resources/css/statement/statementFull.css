@@ -90,6 +90,7 @@
 
     width: 20%;
     min-height: 40px;
+    min-width: 40px;
     aspect-ratio: 1;
     background-color: #222222;
     align-items: center;

@@ -182,7 +182,7 @@
                                 @if (
                                     $user->id != auth()->id() &&
                                         auth()->user()->areFriends($user->id))
-                                    <button class="full_statement_btn">
+                                    <button class="full_statement_btn" title="Открыть диалог">
                                         <a href="{{ route('messenger.chat', $user->id) }}"
                                             class="message">
 
@@ -213,7 +213,7 @@
 
                                 @if ($user->id !== auth()->id() && !auth()->user()->areFriends($user->id) && $user->id !== auth()->id() && !auth()->user()->areSubscriber($user->id))
                                     <form method="POST" class="full_statement_btn"
-                                        action="{{ route('send-friend-request', $user) }}">
+                                        action="{{ route('send-friend-request', $user) }}" title="Добавить в друзья">
                                         @csrf
 
 
@@ -245,7 +245,7 @@
 
                                 @if ($user->id != auth()->id() && auth()->user()->areFriends($user->id) || $user->id != auth()->id() && auth()->user()->areSubscriber($user->id))
                                     <button class="full_statement_btn" type="button"
-                                        onclick="confirmRemoveFriend()">
+                                        onclick="confirmRemoveFriend()" title="Удалить из друзей">
                                         <form id="removeFriendForm" method="POST"
                                             action="{{ route('friend.remove', ['friend' => $user->id]) }}">
                                             @csrf
@@ -287,7 +287,7 @@
 
                                 @if ($user->id !== auth()->id())
                                     @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
-                                        <button onclick="confirmSendComplaint()" class="full_statement_btn"> <svg
+                                        <button onclick="confirmSendComplaint()" class="full_statement_btn" title="Отправить жалобу"> <svg
                                                 width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg" stroke="#777777">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -311,7 +311,7 @@
                                 {{-- BUTTONS UPLOAD --}}
                                 @if ($user->id == auth()->id())
                                     <button class="full_statement_btn" onclick="location.href='/newvideo'"
-                                        type="button">
+                                        type="button" title="Опубликовать видеоматериал">
 
                                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -330,7 +330,7 @@
 
                                 @if ($user->id == auth()->id())
                                     <button class="full_statement_btn" onclick="location.href='/newstatement'"
-                                        type="button">
+                                        type="button" title="Опубликовать фотоматериал">
 
                                         <svg fill="#777777" version="1.1" id="Layer_1"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +368,7 @@
 
                                 @if ($user->id == auth()->id())
                                     <button class="full_statement_btn" onclick="location.href='/profile'"
-                                        type="button">
+                                        type="button" title="Настройки пользователя">
 
 
                                         <svg width="100%" height="100%" viewBox="0 0 1024 1024"

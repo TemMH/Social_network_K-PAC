@@ -17,6 +17,8 @@
                     class="statements_type_btn {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Видеоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.users') }}';"
                     class="statements_type_btn {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Пользователи</button>
+                    <button onclick="location.href='{{ route('admin.navigation.create') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.create') ? 'selected' : '' }}">Добавить</button>
 
             </div>
 

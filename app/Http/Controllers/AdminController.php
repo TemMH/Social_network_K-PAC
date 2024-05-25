@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use App\Models\Statement;
-use App\Models\Like;
 use App\Models\Comment;
 use App\Models\User;
-use App\Models\View;
 use App\Models\Complaint;
-use App\Models\Friendship;
+use App\Models\Category;
+use App\Models\Reason;
+
+use Laracasts\Flash\Flash;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -259,6 +261,59 @@ class AdminController extends Controller
 
         return back();
     }
+
+
+
+    //Create NEW
+
+
+    
+    public function create(){
+
+        return view('admin.adminadd');
+
+    }
+
+
+    public function createCategory(Request $request){
+
+        Category::create($request->all());
+
+
+        Flash::success('
+            
+        <div class="flash-success">
+        <div class="flsh-title">
+            K-PAC
+        </div>
+        <div class="flash-message">
+        Категория успешно создана!
+        </div>
+        </div>');
+
+        return back();
+    }
+
+    
+    public function createReason(Request $request){
+
+        Reason::create($request->all());
+
+
+        Flash::success('
+            
+        <div class="flash-success">
+        <div class="flsh-title">
+            K-PAC
+        </div>
+        <div class="flash-message">
+        Причина успешно создана!
+        </div>
+        </div>');
+
+        return back();
+    }
+
 
 
 

@@ -209,11 +209,19 @@
                 action="{{ url()->current() }}">
                 @csrf
 
-                <button value="" class="statements_categories_btn">Все категории</button>
+
+                <div class="dropdown">
+  <div class="dropbtn">Категории</div>
+  <div class="dropdown-content">
+  <button value="" class="statements_categories_btn">Все категории</button>
                 <button value="Спорт" class="statements_categories_btn">Спорт</button>
                 <button value="Игры" class="statements_categories_btn">Игры</button>
                 <button value="Экономика" class="statements_categories_btn">Экономика</button>
                 <button value="Транспорт" class="statements_categories_btn">Транспорт</button>
+  </div>
+</div>
+
+
 
             </form>
 

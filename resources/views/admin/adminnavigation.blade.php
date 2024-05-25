@@ -17,6 +17,8 @@
                     class="statements_type_btn {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Видеоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.users') }}';"
                     class="statements_type_btn {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Пользователи</button>
+                    <button onclick="location.href='{{ route('admin.navigation.create') }}';"
+                    class="statements_type_btn {{ Route::is('admin.navigation.create') ? 'selected' : '' }}">Добавить</button>
 
             </div>
 
@@ -51,8 +53,7 @@
 
 
     </div>
-    <div class="friendfeed_field_test">
-        <div class="reports_field_frame_test" >
+    <div class="reports_field_frame_test" >
 
             {{-- Видеоматериалы --}}
 
@@ -696,6 +697,6 @@ var formattedDate = createdDate.toISOString().replace('T', ' ').replace(/\.\d+Z$
         </div>
 
 
-    </div>
+
 
 </x-app-layout>

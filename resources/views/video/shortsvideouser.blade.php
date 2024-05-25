@@ -439,8 +439,16 @@
             </div>
 
         @empty
-            <p class= "txt_1">Вы посмотрели все короткие видео, заходите позже</p>
-            <p>Просмотренные -> <a href="{{ route('all.shortsvideo.user.viewed') }}">короткие видео</a></p>
+
+            <div style="justify-content: center; margin: 0 auto; height: 100%;" class="friendfeed_field_frame">
+
+<div style="text-align: center; max-width: 800px; margin: 0 auto; padding:1%;" class="friendfeed_content">
+
+    <p style="margin:20px 0;"  class="txt_2">Вы посмотрели все короткие видео, заходите позже или перейдите на просмотренные</p>
+            <button onclick="location.href='{{ route('all.shortsvideo.user.viewed') }}';" class="statements_type_btn">Просмотренные короткие видеоматерилы</button>
+
+</div>
+</div>
 
 
         @endforelse

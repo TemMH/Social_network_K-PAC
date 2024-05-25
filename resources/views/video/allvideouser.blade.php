@@ -22,11 +22,11 @@
                 action="{{ url()->current() }}">
                 @csrf
 
-                <button value="" class="statements_categories_btn">Все категории</button>
-                <button value="Спорт" class="statements_categories_btn">Спорт</button>
-                <button value="Игры" class="statements_categories_btn">Игры</button>
-                <button value="Экономика" class="statements_categories_btn">Экономика</button>
-                <button value="Транспорт" class="statements_categories_btn">Транспорт</button>
+                <button value="" class="statements_type_btn">Все категории</button>
+                <button value="Спорт" class="statements_type_btn">Спорт</button>
+                <button value="Игры" class="statements_type_btn">Игры</button>
+                <button value="Экономика" class="statements_type_btn">Экономика</button>
+                <button value="Транспорт" class="statements_type_btn">Транспорт</button>
 
             </form>
 

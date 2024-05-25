@@ -546,7 +546,7 @@
                     @auth
                     <div class="adminpanel">
 
-                        <button type="button" onclick="toggleNotification()">
+                        <button type="button" onclick="toggleNotification()" title="Уведомления">
 
                             <script src="https://cdn.lordicon.com/lordicon.js"></script>
                             <lord-icon src="https://cdn.lordicon.com/vspbqszr.json" trigger="hover" state="loop-bell"

@@ -184,6 +184,14 @@ Route::middleware(['auth', 'verified'])->controller(AdminController::class)->gro
 
     Route::get('/adminnavigation/statements', 'index')->name('admin.navigation.statements');
 
+    Route::get('/adminnavigation/create', 'create')->name('admin.navigation.create');
+
+
+    //AdminCreate
+
+    Route::post('/adminnavigation/create/category', 'createCategory')->name('admin.navigation.create.category');
+    Route::post('/adminnavigation/create/reason', 'createReason')->name('admin.navigation.create.reason');
+
 
     Route::post('/adminnavigation/statement/{statement}', 'post_statement_complaint')->name('complaint.post.statement');
     Route::post('/adminnavigation/video/{video}', 'post_video_complaint')->name('complaint.post.video');

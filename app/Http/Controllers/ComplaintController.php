@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Complaint;
+use App\Models\Reason;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 
@@ -27,17 +28,22 @@ class ComplaintController extends Controller
         // От 3-х по 1 причине
 
         $videoComplaint = Complaint::whereNotNull('video_id')
-            ->where('status', 'new')
-            ->select('video_id', DB::raw('count(*) as total'), 'reason')
-            ->having('total', '>=', 3)
-            ->groupBy('video_id', 'reason')
-            ->orderByDesc('total')
-            ->with('video')
-            ->first();
+        ->select('video_id', DB::raw('count(*) as total'))
+        ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
+        ->select('video_id', DB::raw('count(*) as total'), 'reasons.name as reason')
+
+        ->having('total', '>=', 3)
+        ->groupBy('video_id', 'reason')
+        ->orderByDesc('total')
+        ->with('video')
+        ->first();
+    
     
         $statementComplaint = Complaint::whereNotNull('statement_id')
-            ->where('status', 'new')
-            ->select('statement_id', DB::raw('count(*) as total'), 'reason')
+            ->select('statement_id', DB::raw('count(*) as total'))
+            ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
+            ->select('statement_id', DB::raw('count(*) as total'), 'reasons.name as reason')
+
             ->having('total', '>=', 3)
             ->groupBy('statement_id', 'reason')
             ->orderByDesc('total')
@@ -45,8 +51,10 @@ class ComplaintController extends Controller
             ->first();
     
         $userComplaint = Complaint::whereNotNull('user_id')
-            ->where('status', 'new')
-            ->select('user_id', DB::raw('count(*) as total'), 'reason')
+            ->select('user_id', DB::raw('count(*) as total'))
+            ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
+            ->select('user_id', DB::raw('count(*) as total'), 'reasons.name as reason')
+        
             ->having('total', '>=', 3)
             ->groupBy('user_id', 'reason')
             ->orderByDesc('total')
@@ -62,14 +70,17 @@ class ComplaintController extends Controller
         return view('admin.reports', compact('reports'));
     }
 
+
+
+
     public function storevideocomplaint(Request $request, $id)
     {
         $user = auth()->user();
 
         $complaint = new Complaint([
-            'reason' => $request->reason,
-            'status' => 'new',
+            'reason_id' => $request->reason,
             'video_id' => $id,
+            'status' => 'В ожидании',
             'statement_id' => null,
             'user_id' => null,
         ]);
@@ -86,9 +97,9 @@ class ComplaintController extends Controller
         $user = auth()->user();
 
         $complaint = new Complaint([
-            'reason' => $request->reason,
-            'status' => 'new',
+            'reason_id' => $request->reason,
             'video_id' => null,
+            'status' => 'В ожидании',
             'statement_id' => null,
             'user_id' => $id,
         ]);
@@ -105,9 +116,9 @@ class ComplaintController extends Controller
         $user = auth()->user();
 
         $complaint = new Complaint([
-            'reason' => $request->reason,
-            'status' => 'new',
+            'reason_id' => $request->reason,
             'video_id' => null,
+            'status' => 'В ожидании',
             'statement_id' => $id,
             'user_id' => null,
         ]);
@@ -121,7 +132,12 @@ class ComplaintController extends Controller
 
 
 
-
+    public function reasons(Request $request)
+    {
+        $reasons = Reason::all();
+        return response()->json($reasons);
+    }
+    
 
 
 }

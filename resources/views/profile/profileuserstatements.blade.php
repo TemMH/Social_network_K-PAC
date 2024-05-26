@@ -225,17 +225,7 @@
                 </p>
             </div>
 
-            <form class="statements_settings_right" id="categoryForm" method="GET"
-                action="{{ url()->current() }}">
-                @csrf
-
-                <button value="" class="statements_categories_btn">Все категории</button>
-                <button value="Спорт" class="statements_categories_btn">Спорт</button>
-                <button value="Игры" class="statements_categories_btn">Игры</button>
-                <button value="Экономика" class="statements_categories_btn">Экономика</button>
-                <button value="Транспорт" class="statements_categories_btn">Транспорт</button>
-
-            </form>
+            @include('general.partials.dropdown-category')
 
 
 
@@ -247,7 +237,7 @@
 
             @forelse ($statements as $statement)
                 @if ($statement->status == 'true')
-                    <div class="statement_block" id="statement_{{ $statement->id }}">
+                    <div class="statement_block" id="statement_{{ $statement->id }}" data-statementId="{{ $statement->id }}">
 
                         <div class="statement_block_top">
                             <div class="statement_block_top_info_left">
@@ -465,7 +455,7 @@
 
                             statementFieldOpen.querySelector(
                                     ".statement_block_top_avatar_open img").src =
-                                "{{ $statement->user->avatar !== null ? asset('storage/' . $statement->user->avatar) : '/uploads/ProfilePhoto.png' }}";
+                                "/uploads/ProfilePhoto.png"; //добавить проверку есть ли ава
                             statementFieldOpen.querySelector(
                                 ".statement_block_top_info_left_open a").href = profileUrl;
 
@@ -473,43 +463,11 @@
 
 
                             statementFieldOpen.querySelector(".main_novost_img img").src =
-                                "{{ asset('storage/') }}" + '/' + userData.avatar;
+                                "{{ asset('storage/') }}" + '/' + userData.avatar; //добавить проверку нету ли авы
 
                             const likeButtonContainer = statementFieldOpen.querySelector(
                                 ".statement_block_like_button");
                             likeButtonContainer.innerHTML = likeButtonHtml;
-
-
-                            const likeButton = likeButtonContainer.querySelector("button");
-                            likeButton.addEventListener("click", function(event) {
-                                event.preventDefault();
-                                const likeAction = likeButton.innerText === '♡' ?
-                                    'like' : 'unlike';
-                                const url = likeAction === 'like' ? likeUrl : unlikeUrl;
-
-                                fetch(url, {
-                                        method: likeAction === 'like' ? 'POST' :
-                                            'DELETE',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                        },
-                                        body: JSON.stringify({})
-                                    })
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            throw new Error(
-                                                'Network response was not ok');
-                                        }
-                                        return response.json();
-                                    })
-                                    .then(data => {})
-                                    .catch(error => {
-                                        console.error(
-                                            'There has been a problem with your fetch operation:',
-                                            error);
-                                    });
-                            });
 
                             const commentsContainer = document.querySelector(
                                 ".statementuser_comment_show");
@@ -524,16 +482,23 @@
                                 const mainNovostTop = document.createElement("div");
                                 mainNovostTop.classList.add("main_novost_top");
 
-                                
+
                                 const userLink = document.createElement("a");
-                                userLink.href = "{{ route('profile.profileuser', ['id' => ':id']) }}".replace(':id', comment.user.id); // ссылка на профиль пользователя
+                                userLink.href =
+                                    "{{ route('profile.profileuser', ['id' => ':id']) }}"
+                                    .replace(':id', comment.user
+                                        .id); // ссылка на профиль пользователя
 
                                 const mainNovostImg = document.createElement("div");
                                 mainNovostImg.classList.add("main_novost_img");
+                                
 
                                 const avatarImg = document.createElement("img");
                                 avatarImg.classList.add("avatar_mini");
-                                avatarImg.src = comment.user.avatar !== null ? "{{ asset('storage/') }}" + '/' + comment.user.avatar : '/uploads/ProfilePhoto.png'; // URL аватара пользователя
+                                avatarImg.src = comment.user.avatar !== null ?
+                                    "{{ asset('storage/') }}" + '/' + comment.user
+                                    .avatar :
+                                    '/uploads/ProfilePhoto.png'; // URL аватара пользователя
                                 avatarImg.alt = "Avatar";
 
                                 mainNovostImg.appendChild(avatarImg);
@@ -544,7 +509,9 @@
                                 mainNovostTitle.classList.add("main_novost_title");
 
                                 const usernameLink = document.createElement("a");
-                                usernameLink.href = "{{ route('profile.profileuser', ['id' => ':id']) }}".replace(':id', comment.user.id);
+                                usernameLink.href =
+                                    "{{ route('profile.profileuser', ['id' => ':id']) }}"
+                                    .replace(':id', comment.user.id);
 
 
                                 const usernameParagraph = document.createElement("p");

@@ -11,16 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('views', function (Blueprint $table) {
+        Schema::create('bans', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('sender_id');
 
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('statement_id')->nullable()->constrained('statements')->onDelete('cascade');
             $table->foreignId('video_id')->nullable()->constrained('videos')->onDelete('cascade');
 
-            $table->timestamps();
+            $table->foreignId('reason_id')->constrained('reasons')->onDelete('cascade');
 
+
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps();
+            
         });
+
     }
 
     /**
@@ -28,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('views');
+        Schema::dropIfExists('bans');
     }
 };

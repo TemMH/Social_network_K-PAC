@@ -5,98 +5,7 @@
 
 
 
-    <div class="statement_field_open">
-        <div class="modal_block_open">
-
-            <div class="modal-content">
-                <form id="sendcomplaint" action="{{ route('video.complaint', ['id' => $video->id]) }}" method="post">
-                    @csrf
-
-                    <p>Причина жалобы</p>
-                    <div class='radio-group'>
-                        <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason" value="Спам" required>
-                            <span class='inner-label'>Спам</span>
-                        </label>
-                        <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason"
-                                value="Жестокое или отталкивающее содержание" required>
-                            <span class='inner-label'>Жестокое или отталкивающее содержание</span>
-                        </label>
-                        <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason"
-                                value="Дискриминационные высказывания и оскорбления" required>
-                            <span class='inner-label'>Дискриминационные высказывания и оскорбления</span>
-                        </label>
-                        <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason" value="Вредные или опасные действия"
-                                required>
-                            <span class='inner-label'>Вредные или опасные действия</span>
-                        </label>
-                        <label class='radio-label'>
-                            <input type='radio' id="reasonInput" name="reason" value="Мошенничество" required>
-                            <span class='inner-label'>Мошенничество</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" style="float:right" class="statements_categories_btn">Отправить</button>
-                </form>
-            </div>
-
-        </div>
-
-        <div class="modal_block_close">
-            <button class="statement_block_btn_close">
-
-                <svg width="90%" height="90%" viewBox="-0.5 0 25 25" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M3 21.32L21 3.32001" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                        <path d="M3 3.32001L21 21.32" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                    </g>
-                </svg>
-
-            </button>
-        </div>
-
-    </div>
-
-    <script>
-        const statementFieldOpen = document.querySelector(".statement_field_open");
-        const closeButton = document.querySelector(".statement_block_btn_close");
-
-
-        function closeModal() {
-            statementFieldOpen.classList.remove("opened");
-        }
-
-        function openModal() {
-
-            statementFieldOpen.classList.add("opened");
-        }
-
-        closeButton.addEventListener("click", closeModal);
-
-        statementFieldOpen.addEventListener("click", function(event) {
-            if (event.target === statementFieldOpen) {
-                closeModal();
-            }
-        });
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape" && statementFieldOpen.classList.contains("opened")) {
-                closeModal();
-            }
-        });
-
-        function confirmSendComplaint() {
-            openModal();
-        }
-    </script>
+  @include('general.partials.complaint-modal-reason', ['video' => $video])
 
 
 
@@ -440,7 +349,7 @@
 
                     </div>
 
-                    <input class="form_field_full_video" name="comment" placeholder="Введите комментарий...">
+                    <input class="form_field_full_video" name="comment" placeholder="Введите комментарий..." required>
 
                     <button class="full_video_btn_send">
                         <svg width="100%" height="100%" viewBox="-2.4 -2.4 28.80 28.80" fill="none"

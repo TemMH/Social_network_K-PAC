@@ -19,9 +19,9 @@ return new class extends Migration
             $table->foreignId('statement_id')->nullable()->constrained('statements')->onDelete('cascade');
             $table->foreignId('video_id')->nullable()->constrained('videos')->onDelete('cascade');
 
-            $table->enum('status', ['unblock', 'block', 'new'])->nullable();
+            $table->enum('status', ['В ожидании', 'Принято', 'Отклонено'])->nullable();
 
-            $table->enum('reason', ['Спам', 'Жестокое или отталкивающее содержание', 'Дискриминационные высказывания и оскорбления', 'Вредные или опасные действия', 'Мошенничество', 'Решение администрации']);
+            $table->foreignId('reason_id')->constrained('reasons')->onDelete('cascade');
 
             $table->timestamps();
 

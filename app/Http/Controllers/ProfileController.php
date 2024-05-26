@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Statement;
 use App\Models\Video;
@@ -73,12 +74,24 @@ class ProfileController extends Controller
         return view('profile.profileuser', ['user' => $user, 'videos' => $videos, 'statements' => $statements, 'users' => [$user]]);
     }
 
-    public function ProfileUserStatements($id)
+    public function ProfileUserStatements(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $statements = Statement::where('user_id', $id)->withCount('likes','comments','views')->get();
+        $categories = Category::all();
 
-        return view('profile.profileuserstatements', ['user' => $user, 'statements' => $statements, 'users' => [$user]]);
+        $category = $request->input('category');
+
+        $user = User::findOrFail($id);
+        $statements = Statement::where('user_id', $id)
+        ->withCount('likes','comments','views');
+
+        
+        if ($category) {
+            $statements->where('statements.category', $category);
+        }
+
+        $statements = $statements->get();
+
+        return view('profile.profileuserstatements', compact('user','statements', 'categories'));
     }
 
 

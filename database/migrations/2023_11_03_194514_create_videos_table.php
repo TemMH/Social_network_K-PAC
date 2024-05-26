@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('description');
-            $table->string('status'); //DELETE
-            $table->string('category')->nullable();
-            $table->string('video_path', 512)->nullable();
-            $table->string('thumbnail_path', 512)->nullable();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
+            $table->string('video_path', 512);
+            $table->string('thumbnail_path', 512);
     
             $table->timestamps();
     

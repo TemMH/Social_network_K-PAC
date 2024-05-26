@@ -18,17 +18,8 @@
 
 
 
-            <form class="statements_settings_right" id="categoryForm" method="GET"
-                action="{{ url()->current() }}">
-                @csrf
+            @include('general.partials.dropdown-category')
 
-                <button value="" class="statements_type_btn">Все категории</button>
-                <button value="Спорт" class="statements_type_btn">Спорт</button>
-                <button value="Игры" class="statements_type_btn">Игры</button>
-                <button value="Экономика" class="statements_type_btn">Экономика</button>
-                <button value="Транспорт" class="statements_type_btn">Транспорт</button>
-
-            </form>
 
 
 
@@ -39,7 +30,7 @@
         <div class="statements_scroll_lock">
 
             @forelse ($videos as $video)
-                @if ($video->status == 'true')
+       
               
                     <div onclick="location.href='{{ route('videouser', ['id' => $video->id]) }}';" class="statement_block" id="video_{{ $video->id }}">
 
@@ -200,7 +191,7 @@
 
                     </div>
              
-                @endif
+        
 
             @empty
                 <p class= "txt_1">Видео нет</p>

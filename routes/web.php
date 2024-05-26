@@ -8,10 +8,11 @@ use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\FriendfeedController;
 use Illuminate\Routing\ViewController;
 use Illuminate\Support\Facades\Route;
-
+use Psy\TabCompletion\AutoCompleter;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,8 @@ Route::get('/', function () {
 
 
 
-
-// Statement
-Route::middleware(['auth', 'verified'])->controller(StatementController::class)->group(function () {
-
-
+// AutoComplete
+Route::middleware(['auth', 'verified'])->controller(AutocompleteController::class)->group(function () {
 
     Route::get('/statement/autocomplete', 'autocompletestatement')->name('statement.autocompletestatement');
     Route::get('/video/autocomplete',  'autocompletevideo')->name('video.autocompletevideo');
@@ -46,6 +44,11 @@ Route::middleware(['auth', 'verified'])->controller(StatementController::class)-
     Route::get('/admin/autocomplete/statement', 'autocomplete_admin_statements')->name('admin.autocomplete.statement');
     Route::get('/admin/autocomplete/video', 'autocomplete_admin_videos')->name('admin.autocomplete.video');
 
+});
+
+
+// Statement
+Route::middleware(['auth', 'verified'])->controller(StatementController::class)->group(function () {
 
 
     Route::get('/allstatementuser/trend',   'allstatementusertrend')->name('all.statement.user.trend');
@@ -60,7 +63,10 @@ Route::middleware(['auth', 'verified'])->controller(StatementController::class)-
 
 
 
-    Route::post('/newstatement',   'store')->name('createstatement');
+    Route::post('/newstatement/create',   'store')->name('createstatement');
+
+    Route::get('/newstatement', 'create')->name('newstatement');
+
 
     Route::post('/statement/{id}/like',   'like')->name('statement.like');
 
@@ -69,10 +75,6 @@ Route::middleware(['auth', 'verified'])->controller(StatementController::class)-
     Route::get('/statementuser/{id}',   'show')->name('statementuser');
 
     Route::post('/statement/{id}/comment',   'addComment')->name('statement.comment');
-
-
-    // Route::get('statement',   'create'])->name('statement');
-
 
 
     Route::get('/statement/{id}/details',   'getStatementDetails')->name('statement.details');
@@ -90,6 +92,9 @@ Route::middleware(['auth', 'verified'])->controller(ComplaintController::class)-
     Route::post('/user/{id}/complaint',  'storeusercomplaint')->name('user.complaint');
 
     Route::get('/adminnavigation/reports',  'index')->name('reports');
+
+    Route::get('/reasons', 'reasons')->name('reasons');
+
 });
 
 
@@ -100,6 +105,8 @@ Route::middleware(['auth', 'verified'])->controller(VideoController::class)->gro
 
     Route::get('/allvideouser',  'allvideouser')->name('main.all.video.user');
 
+
+    Route::get('/newvideo', 'create')->name('newvideo');
 
 
     Route::get('/allvideouser/trend',  'allvideousertrend')->name('all.video.user.trend');
@@ -121,9 +128,6 @@ Route::middleware(['auth', 'verified'])->controller(VideoController::class)->gro
     Route::post('/video/{id}/like',  'like')->name('video.like');
 
     Route::delete('/video/{id}/unlike',  'unlike')->name('video.unlike');
-
-
-    Route::get('/myvideo',  'myvideo')->name('myvideo');
 
 
     Route::get('/videouser/{id}',  'show')->name('videouser');
@@ -329,13 +333,7 @@ Route::middleware(['auth', 'verified'])->controller(DialogController::class)->gr
 //     return view('news.statementuser');
 // })->middleware(['auth', 'verified'])->name('statementuser');
 
-Route::get('/newvideo', function () {
-    return view('video.newvideo');
-})->middleware(['auth', 'verified'])->name('newvideo');
 
-Route::get('/newstatement', function () {
-    return view('news.newstatement');
-})->middleware(['auth', 'verified'])->name('newstatement');
 
 require __DIR__ . '/auth.php';
 

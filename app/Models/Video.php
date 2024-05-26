@@ -14,8 +14,7 @@ class Video extends Model
         'video_id',
         'title',
         'description',
-        'status',
-        'category',
+        'category_id',
         'video_path',
         'thumbnail_path',
     ];
@@ -44,6 +43,11 @@ class Video extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function addComment($comment)

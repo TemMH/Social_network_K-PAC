@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
 use App\Models\Like;
+use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 // use Illuminate\View\View;
@@ -22,6 +23,12 @@ use getID3;
 class VideoController extends Controller
 {
 
+    public function create(Request $request){
+        $categories = Category::all();
+
+        return view('video.newvideo',compact('categories'));
+        
+    }
 
     public function store(Request $request)
     {
@@ -46,8 +53,7 @@ class VideoController extends Controller
             $video = $user->videos()->create([
                 'title' => $request->title,
                 'description' => $request->description,
-                'status' => 'true',
-                'category' => $request->category,
+                'category_id' => $request->category,
                 'video_path' => 'videos/' . $videoName,
                 'thumbnail_path' => 'thumbnails/' . $thumbnailName,
             ]);
@@ -92,106 +98,115 @@ class VideoController extends Controller
 
 
 
+
+
+
     public function allvideouser(Request $request)
     {
+        $categories = Category::all();
         $category = $request->input('category');
         $userId = Auth::id();
-
-        $trendvideos = Video::where('status', 'true')
-        ->withCount('likes', 'comments', 'views')
-        ->with(['likes', 'views'])
-        ->when($category, function ($query, $category) {
-            return $query->where('category', $category);
-        })
-        ->get()
-        ->sortByDesc(function ($video) {
-            if ($video->views_count == 0) {
-                return -1;
-            }
-            return $video->likes_count / $video->views_count;
-        })
-        ->take(4);
-
-    $popularvideos = Video::where('status', 'true')
-        ->withCount('likes', 'comments', 'views')
-        ->when($category, function ($query, $category) {
-            return $query->where('category', $category);
-        })
-        ->limit(4)
-        ->orderByDesc('views_count')
-        ->get();
     
-    $newforuservideos = Video::select('videos.*') 
-        ->leftJoin('views', function ($join) use ($userId) {  
-            $join->on('videos.id', '=', 'views.video_id') 
-                 ->where('views.user_id', '=', $userId);
-        })
-        ->whereNull('views.id')
-        ->where('videos.status', 'true')
-        ->when($category, function ($query, $category) {
-            return $query->where('category', $category);
-        })
-        ->withCount('likes', 'comments', 'views')
-        ->limit(4)
-        ->get();
+        $trendvideos = Video::query()
+            ->withCount('likes', 'comments', 'views')
+            ->with(['likes', 'views'])
+            ->when($category, function ($query, $category) {
+                return $query->where('videos.category_id', $category);
+            })
+            ->get()
+            ->sortByDesc(function ($video) {
+                if ($video->views_count == 0) {
+                    return -1;
+                }
+                return $video->likes_count / $video->views_count;
+            })
+            ->take(4);
     
-    $newvideos = Video::where('status', 'true')
-        ->withCount('likes', 'comments', 'views')
-        ->when($category, function ($query, $category) {
-            return $query->where('category', $category);
-        })
-        ->limit(4)
-        ->orderByDesc('created_at')
-        ->get();
+        $popularvideos = Video::query()
+            ->withCount('likes', 'comments', 'views')
+            ->when($category, function ($query, $category) {
+                return $query->where('videos.category_id', $category);
+            })
+            ->orderByDesc('views_count')
+            ->limit(4)
+            ->get();
     
-    $viewedrvideos = Video::select('videos.*') 
-        ->join('views', function ($join) use ($userId) { 
-            $join->on('videos.id', '=', 'views.video_id')
-                 ->where('views.user_id', '=', $userId);
-        })
-        ->where('videos.status', 'true')
-        ->when($category, function ($query, $category) {
-            return $query->where('category', $category);
-        })
-        ->withCount('likes', 'comments', 'views')
-        ->limit(4)
-        ->orderBy('views.created_at', 'desc')
-        ->get();
+        $newforuservideos = Video::select('videos.*')
+            ->leftJoin('views', function ($join) use ($userId) {
+                $join->on('videos.id', '=', 'views.video_id')
+                    ->where('views.user_id', '=', $userId);
+            })
+            ->whereNull('views.id')
+            ->when($category, function ($query, $category) {
+                return $query->where('videos.category_id', $category);
+            })
+            ->withCount('likes', 'comments', 'views')
+            ->limit(4)
+            ->get();
     
-        return view('video.mainallvideouser', compact('trendvideos', 'popularvideos', 'newforuservideos', 'newvideos', 'viewedrvideos'));
+        $newvideos = Video::query()
+            ->withCount('likes', 'comments', 'views')
+            ->when($category, function ($query, $category) {
+                return $query->where('videos.category_id', $category);
+            })
+            ->orderByDesc('created_at')
+            ->limit(4)
+            ->get();
+    
+        $viewedrvideos = Video::select('videos.*')
+            ->join('views', function ($join) use ($userId) {
+                $join->on('videos.id', '=', 'views.video_id')
+                    ->where('views.user_id', '=', $userId);
+            })
+            ->when($category, function ($query, $category) {
+                return $query->where('videos.category_id', $category);
+            })
+            ->withCount('likes', 'comments', 'views')
+            ->orderBy('views.created_at', 'desc')
+            ->limit(4)
+            ->get();
+    
+        return view('video.mainallvideouser', compact('trendvideos', 'popularvideos', 'newforuservideos', 'newvideos', 'viewedrvideos', 'categories'));
     }
+    
 
 
     
 
     public function allvideouserviewed(Request $request)
     {
+        $categories = Category::all();
+
+
+
         $category = $request->input('category');
+
         $userId = Auth::id();
 
         $videos = Video::select('videos.*') //выбор всех столбцов
         ->join('views', function ($join) use ($userId) { // анонимная функция $join  для установления связи между таблицами + при объединении передаем $userId внутрь анонимной функции
-            $join->on('videos.id', '=', 'views.statement_id') // объединить id с video_id 
+            $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
                  ->where('views.user_id', '=', $userId);
         })
-        ->where('videos.status', 'true')
-        ->withCount('likes', 'comments', 'views')
-        ->orderBy('views.created_at', 'desc');
-    
-    
+        ->withCount('likes', 'comments', 'views');
+
 
         if ($category) {
-            $videos->where('category', $category);
+            $videos->where('videos.category_id', $category);
         }
+    
+        $videos = $videos->orderBy('views.created_at', 'desc')
+            ->get();
 
-
-        $videos = $videos->get();
-
-        return view('video.allvideouser', ['videos' => $videos]);
+        return view('video.allvideouser', compact('videos', 'categories'));
     }
 
     public function allvideousernewforuser(Request $request)
     {
+        $categories = Category::all();
+
+
+
         $category = $request->input('category');
         $userId = Auth::id();
 
@@ -201,80 +216,86 @@ class VideoController extends Controller
                 $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
                     ->where('views.user_id', '=', $userId);
             })
-            ->whereNull('views.id')
-            ->where('videos.status', 'true')
-            ->withCount('likes', 'comments', 'views');
-
-
+            ->whereNull('views.id');
+    
         if ($category) {
-            $videos->where('videos.category', $category);
+            $videos->where('videos.category_id', $category);
         }
-
-
-        $videos = $videos->get();
-        return view('video.allvideouser', ['videos' => $videos]);
+    
+        $videos = $videos->withCount('likes', 'comments', 'views')
+            ->get();
+        return view('video.allvideouser', compact('videos', 'categories'));
     }
 
     public function allvideouserpopular(Request $request)
     {
+        $categories = Category::all();
+
+
+
         $category = $request->input('category');
 
 
-        $videos = Video::where('status', 'true')
-            ->withCount('likes', 'comments', 'views')
-            ->orderByDesc('views_count');
-
-
-
+        $videos = Video::query()
+        ->withCount('likes', 'comments', 'views');
+    
         if ($category) {
-            $videos->where('videos.category', $category);
+            $videos->where('videos.category_id', $category);
         }
-
-
-
-        $videos = $videos->get();
-        return view('video.allvideouser', ['videos' => $videos]);
+    
+        $videos = $videos->orderByDesc('views_count')
+            ->get();
+        return view('video.allvideouser', compact('videos', 'categories'));
     }
 
     public function allvideousertrend(Request $request)
     {
+        $categories = Category::all();
+
+
         $category = $request->input('category');
 
-        $videos = Video::where('status', 'true')
+        $videos = Video::query()
             ->withCount('likes', 'comments', 'views')
-            ->with(['likes', 'views'])
-            ->get()
-            ->sortByDesc(function ($video) {
-                // Если просмотры = 0 отнести это заявление вниз
-                if ($video->views_count == 0) {
+            ->with(['likes', 'views']);
+    
+        if ($category) {
+            $videos->where('videos.category_id', $category);
+        }
+    
+        $videos = $videos->get()
+            ->sortByDesc(function ($videos) {
+                // Если просмотры = 0 отнести этот фотоматериал вниз
+                if ($videos->views_count == 0) {
                     return -1;
                 }
-
-                return $video->likes_count / $video->views_count;
+    
+                return $videos->likes_count / $videos->views_count;
             });
 
-        if ($category) {
-            $videos = $videos->where('category', $category);
-        }
+        return view('video.allvideouser', compact('videos', 'categories'));
 
-        return view('video.allvideouser', ['videos' => $videos]);
     }
 
     public function allvideousernew(Request $request)
     {
+        $categories = Category::all();
+
+
+
         $category = $request->input('category');
 
-        $videos = Video::where('status', 'true')
+        $videos = Video::query()
             ->withCount('likes', 'comments', 'views')
             ->orderByDesc('created_at');
 
 
-        if ($category) {
-            $videos->where('videos.category', $category);
-        }
+            if ($category) {
+                $videos->where('videos.category_id', $category);
+            }
 
         $videos = $videos->get();
-        return view('video.allvideouser', ['videos' => $videos]);
+        return view('video.allvideouser', compact('videos', 'categories'));
     }
 
 
@@ -283,7 +304,7 @@ class VideoController extends Controller
 
     public function show($id)
     {
-        $trendvideos = Video::where('status', 'true')
+        $trendvideos = Video::query()
         ->withCount('likes', 'comments', 'views')
         ->with(['likes', 'views'])
         ->get()
@@ -343,37 +364,6 @@ class VideoController extends Controller
         return redirect()->back()->with('success', 'Статус успешно обновлён');
     }
 
-    public function myvideo(Request $request)
-    {
-        $category = $request->input('category');
-        $sort = $request->input('sortirovka');
-
-        $videos = Video::where('user_id', auth()->id())
-            ->withCount('likes');
-
-        if ($category) {
-            $videos->where('category', $category);
-        }
-
-        switch ($sort) {
-            case 'old':
-                $videos->orderBy('created_at', 'asc');
-                break;
-            case 'popular':
-                $videos->withCount('likes')->orderByDesc('likes_count');
-                break;
-            case 'recent':
-            default:
-                $videos->orderBy('created_at', 'desc');
-                break;
-        }
-
-        $videos = $videos->get();
-
-        return view('video.myvideo', ['videos' => $videos]);
-    }
-
-
 
     public function allshortsvideouser(Request $request)
     {
@@ -384,13 +374,13 @@ class VideoController extends Controller
                 $join->on('videos.id', '=', 'views.video_id')
                     ->where('views.user_id', '=', $userId);
             })
-            ->whereNull('views.id')
-            ->where('videos.status', 'true');
+            ->whereNull('views.id');
 
 
-        // Получение длительности видео и фильтрация только тех, которые равны 30 секундам
+
+        // Получение длительности видео и фильтрация только тех, которые равны <= 30 секундам
         $videos = $videos->get()->filter(function ($video) {
-            $videoPath = Storage::disk('public')->path($video->video_path); // Путь к видеофайлу в хранилище (может потребоваться подправить в соответствии с вашей структурой хранения)
+            $videoPath = Storage::disk('public')->path($video->video_path); // Путь к видеофайлу в хранилище
             $duration = $this->getVideoDuration($videoPath);
             return $duration <= 30;
         });
@@ -407,11 +397,11 @@ class VideoController extends Controller
 
         $viewedVideoIds = View::where('user_id', $userId)->pluck('video_id')->all();
 
-        $videos = Video::where('status', 'true')
+        $videos = Video::query()
             ->whereIn('id', $viewedVideoIds)
             ->withCount('likes');
 
-                // Получение длительности видео и фильтрация только тех, которые больше или равны 30 секундам
+                // Получение длительности видео и фильтрация только тех, которые равны <= 30 секундам
                 $videos = $videos->get()->filter(function ($video) {
                     $videoPath = Storage::disk('public')->path($video->video_path);
                     $duration = $this->getVideoDuration($videoPath);
@@ -420,6 +410,7 @@ class VideoController extends Controller
 
         return view('video.shortsvideouser', ['videos' => $videos]);
     }
+
         private function getVideoDuration($videoPath)
         {
             $getID3 = new getID3;

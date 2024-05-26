@@ -205,25 +205,7 @@
                 <button onclick="location.href='{{ route('all.statement.user.viewed') }}';" class="statements_type_btn {{ Route::is('all.statement.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
             </div>
 
-            <form class="statements_settings_right" id="categoryForm" method="GET"
-                action="{{ url()->current() }}">
-                @csrf
-
-
-                <div class="dropdown">
-  <div class="dropbtn">Категории</div>
-  <div class="dropdown-content">
-  <button value="" class="statements_categories_btn">Все категории</button>
-                <button value="Спорт" class="statements_categories_btn">Спорт</button>
-                <button value="Игры" class="statements_categories_btn">Игры</button>
-                <button value="Экономика" class="statements_categories_btn">Экономика</button>
-                <button value="Транспорт" class="statements_categories_btn">Транспорт</button>
-  </div>
-</div>
-
-
-
-            </form>
+@include('general.partials.dropdown-category')
 
 
 
@@ -235,7 +217,7 @@
         <div class="statements_scroll_lock">
 
             @forelse ($statements as $statement)
-                @if ($statement->status == 'true')
+               
                     <div class="statement_block" id="statement_{{ $statement->id }}" data-statementId="{{ $statement->id }}">
 
                         <div class="statement_block_top">
@@ -433,7 +415,7 @@
                         </div>
 
                     </div>
-                @endif
+         
 
             @empty
             <p class= "txt_1">Вы посмотрели все фотографии в этом разделе, заходите позже</p>

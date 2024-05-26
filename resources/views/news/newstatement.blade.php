@@ -128,11 +128,17 @@
 
                     <div>
                         <select class="message_history_input_container" name="category" id="category">
-                            <option value=" "> </option>
-                            <option value="Спорт">Спорт</option>
-                            <option value="Игры">Игры</option>
-                            <option value="Экономика">Экономика</option>
-                            <option value="Транспорт">Транспорт</option>
+                            <option value="">Без категории</option>
+
+                @forelse ($categories as $category)
+
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                @empty
+
+                <p>Категорий нет</p>
+            @endforelse
+                         
                         </select>
                     </div>
 

@@ -96,20 +96,19 @@
         <div class="longvideos_selections">
 
             <div class="longvideos_categories">
-                <form id="categoryForm" method="GET" action="{{ url()->current() }}">
-                    @csrf
+                <form class="statements_settings_right" id="categoryForm" method="GET" action="{{ url()->current() }}">
                     <div class="category">
-
-
-                        <button value="" class="statements_type_btn">Все категории</button>
-                        <button value="Спорт" class="statements_type_btn">Спорт</button>
-                        <button value="Игры" class="statements_type_btn">Игры</button>
-                        <button value="Экономика" class="statements_type_btn">Экономика</button>
-                        <button value="Транспорт" class="statements_type_btn">Транспорт</button>
-
+                        <button type="submit" name="category" value="" class="statements_type_btn">Все категории</button>
+                        @forelse ($categories as $category)
+                            <button type="submit" name="category" value="{{ $category->id }}" class="statements_categories_btn">{{ $category->name }}</button>
+                        @empty
+                            <p>Категорий нет</p>
+                        @endforelse
                     </div>
                 </form>
             </div>
+            
+            
             <div class="longvideos_scroll_lock">
 
 
@@ -548,7 +547,7 @@
 
                     <div class="longvideos_scroll_sorting_block_videos">
 
-                        @foreach ($viewedrvideos as $viewedrvideo)
+                        @forelse ($viewedrvideos as $viewedrvideo)
 
                             <div class="longvideos_scroll_sorting_block_videos_fixed">
                                 <div class="main_novost_allvideo">
@@ -638,8 +637,12 @@
                                     </a>
                                 </div>
                             </div>
+@empty
 
-                        @endforeach
+<p>Вы не посмотрели ни одного видео</p>
+
+
+                        @endforelse
 
                     </div>
                 </div>
@@ -769,55 +772,7 @@
 
 
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
 
-                var categoryButtons = document.querySelectorAll('.longvideos_categories_btn');
-
-                var selectedCategory = localStorage.getItem('selectedCategory');
-
-                var currentUrl = window.location.href;
-
-                if (!currentUrl.includes('category')) {
-                    selectedCategory = null;
-                    localStorage.removeItem('selectedCategory');
-                }
-
-                if (selectedCategory) {
-                    categoryButtons.forEach(function(button) {
-                        if (button.value === selectedCategory) {
-                            button.classList.add('select');
-                        }
-                    });
-                }
-
-                categoryButtons.forEach(function(button) {
-                    button.addEventListener('click', function(event) {
-                        event.preventDefault();
-
-                        categoryButtons.forEach(function(btn) {
-                            btn.classList.remove('select');
-                        });
-
-                        button.classList.add('select');
-
-                        var category = button.value;
-
-                        localStorage.setItem('selectedCategory', category);
-
-                        var hiddenField = document.createElement('input');
-                        hiddenField.type = 'hidden';
-                        hiddenField.name = 'category';
-                        hiddenField.value = category;
-
-                        var form = document.getElementById('categoryForm');
-                        form.appendChild(hiddenField);
-
-                        form.submit();
-                    });
-                });
-            });
-        </script>
 
 
 

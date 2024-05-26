@@ -14,8 +14,7 @@ class Statement extends Model
         'statement_id',
         'title',
         'description',
-        'status',
-        'category',
+        'category_id',
         'photo_path',
     ];
 
@@ -43,6 +42,11 @@ class Statement extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function addComment($comment)

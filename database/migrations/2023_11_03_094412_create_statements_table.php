@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('statements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('description');
-            $table->string('status');
-            $table->string('category')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('photo_path', 512)->nullable();
 
             $table->timestamps();

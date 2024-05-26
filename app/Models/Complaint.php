@@ -9,7 +9,7 @@ class Complaint extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sender_id','user_id', 'statement_id', 'video_id', 'status', 'reason', 'dateunlock'];
+    protected $fillable = ['sender_id','user_id', 'statement_id', 'video_id', 'reason_id', 'status',];
 
 
     public function sender()
@@ -22,6 +22,10 @@ class Complaint extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
     
+    public function reason()
+    {
+        return $this->belongsTo(Reason::class, 'reason_id');
+    }
 
     public function video()
     {
@@ -31,6 +35,13 @@ class Complaint extends Model
     public function statement()
     {
         return $this->belongsTo(Statement::class);
+    }
+
+
+
+    public function bans()
+    {
+        return $this->belongsToMany(Ban::class, 'complaint_ban', 'complaint_id', 'ban_id');
     }
 
 }

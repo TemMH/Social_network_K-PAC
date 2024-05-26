@@ -46,6 +46,9 @@ class AdminController extends Controller
         return view('admin.adminnavigation', compact('users', 'videos', 'statements'));
     }
 
+
+    //SEND COMPLAINT
+
     public function blockvideo(Request $request, $id)
     {
         $user = auth()->user();
@@ -105,6 +108,8 @@ class AdminController extends Controller
 
     
 
+    // UPDATE STATUS BAN
+
     public function update_video_complaint(Request $request, $videoId)
     {
         $video = Video::findOrFail($videoId);
@@ -132,6 +137,9 @@ class AdminController extends Controller
         return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
     }
 
+
+
+// BAN BLOCK
 
 
     public function post_statement_complaint(Request $request, Statement $statement){
@@ -192,6 +200,10 @@ class AdminController extends Controller
     }
 
 
+
+//DELETE COMMENT
+
+
     public function deleteStatementComment($statementId, $commentId)
     {
         $statement = Statement::findOrFail($statementId);
@@ -226,6 +238,10 @@ class AdminController extends Controller
     
 
 
+
+
+
+    //DELETE BLOCK
 
     public function deleteStatement(Request $request, Statement $statement)
     {

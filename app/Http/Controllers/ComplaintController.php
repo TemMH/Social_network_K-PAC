@@ -28,46 +28,55 @@ class ComplaintController extends Controller
         // От 3-х по 1 причине
 
         $videoComplaint = Complaint::whereNotNull('video_id')
+        ->where('status','pending')
         ->select('video_id', DB::raw('count(*) as total'))
         ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
-        ->select('video_id', DB::raw('count(*) as total'), 'reasons.name as reason')
-
+        ->select('video_id', DB::raw('count(*) as total'), 'reasons.id as reason_id')
+        ->groupBy('video_id', 'reason_id')
         ->having('total', '>=', 3)
-        ->groupBy('video_id', 'reason')
         ->orderByDesc('total')
         ->with('video')
         ->first();
     
     
-        $statementComplaint = Complaint::whereNotNull('statement_id')
-            ->select('statement_id', DB::raw('count(*) as total'))
-            ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
-            ->select('statement_id', DB::raw('count(*) as total'), 'reasons.name as reason')
 
-            ->having('total', '>=', 3)
-            ->groupBy('statement_id', 'reason')
-            ->orderByDesc('total')
-            ->with('statement')
-            ->first();
+        // dd($videoComplaint);
+    
+        $statementComplaint = Complaint::whereNotNull('statement_id')
+        ->where('status','pending')
+        ->select('statement_id', DB::raw('count(*) as total'))
+        ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
+        ->select('statement_id', DB::raw('count(*) as total'), 'reasons.id as reason_id')
+        ->groupBy('statement_id', 'reason_id')
+        ->having('total', '>=', 3)
+        ->orderByDesc('total')
+        ->with('statement')
+        ->first();
+
+
+
+
+
     
         $userComplaint = Complaint::whereNotNull('user_id')
-            ->select('user_id', DB::raw('count(*) as total'))
-            ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
-            ->select('user_id', DB::raw('count(*) as total'), 'reasons.name as reason')
-        
-            ->having('total', '>=', 3)
-            ->groupBy('user_id', 'reason')
-            ->orderByDesc('total')
-            ->with('user')
-            ->first();
+        ->where('status','pending')
+        ->select('user_id', DB::raw('count(*) as total'))
+        ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
+        ->select('user_id', DB::raw('count(*) as total'), 'reasons.id as reason_id')
+        ->groupBy('user_id', 'reason_id')
+        ->having('total', '>=', 3)
+        ->orderByDesc('total')
+        ->with('user')
+        ->first();
     
         $reports = [
             'video_complaint' => $videoComplaint,
             'statement_complaint' => $statementComplaint,
             'user_complaint' => $userComplaint,
         ];
+
     
-        return view('admin.reports', compact('reports'));
+        return view('admin.reports', compact('reports','videoComplaint','statementComplaint','userComplaint'));
     }
 
 
@@ -80,7 +89,7 @@ class ComplaintController extends Controller
         $complaint = new Complaint([
             'reason_id' => $request->reason,
             'video_id' => $id,
-            'status' => 'В ожидании',
+            'status' => 'pending',
             'statement_id' => null,
             'user_id' => null,
         ]);
@@ -99,7 +108,7 @@ class ComplaintController extends Controller
         $complaint = new Complaint([
             'reason_id' => $request->reason,
             'video_id' => null,
-            'status' => 'В ожидании',
+            'status' => 'pending',
             'statement_id' => null,
             'user_id' => $id,
         ]);
@@ -118,7 +127,7 @@ class ComplaintController extends Controller
         $complaint = new Complaint([
             'reason_id' => $request->reason,
             'video_id' => null,
-            'status' => 'В ожидании',
+            'status' => 'pending',
             'statement_id' => $id,
             'user_id' => null,
         ]);

@@ -3,6 +3,8 @@
 
     </x-slot>
 
+    @include('admin.partials.complaint-modal-reason', ['user' => $video])
+
     <div class="reports_field_setting">
 
         <div class="statements_settings">
@@ -547,17 +549,34 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
                                 {{-- <p>Статус:</p> --}}
 
-                                <form action="{{ route('complaint.post.user', $user) }}" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">
 
-                                    @csrf
 
-                                    <select class="message_history_input_container" name="edit_status"
-                                        id="edit_status">
-                                        <option value="unblock">Разрешить</option>
-                                        <option value="block">Заблокировать</option>
-                                    </select>
-                                    <button type="submit" class="statements_categories_btn">Применить</button>
-                                </form>
+
+
+
+
+
+
+
+
+
+                                @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
+                                <button class="statements_categories_btn" onclick="confirmSendComplaint()"> Заблокировать
+
+
+
+                                    {{-- репорт заполненный
+                                    
+                                    <svg fill="#777777" width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>ionicons-v5-m</title><path d="M80,480a16,16,0,0,1-16-16V68.13A24,24,0,0,1,75.9,47.41C88,40.38,112.38,32,160,32c37.21,0,78.83,14.71,115.55,27.68C305.12,70.13,333.05,80,352,80a183.84,183.84,0,0,0,71-14.5,18,18,0,0,1,25,16.58V301.44a20,20,0,0,1-12,18.31c-8.71,3.81-40.51,16.25-84,16.25-24.14,0-54.38-7.14-86.39-14.71C229.63,312.79,192.43,304,160,304c-36.87,0-55.74,5.58-64,9.11V464A16,16,0,0,1,80,480Z"></path></g></svg> 
+                                    
+                                --}}
+
+
+
+                                </button>
+                            @endif
+
+
                             </div>
 
 

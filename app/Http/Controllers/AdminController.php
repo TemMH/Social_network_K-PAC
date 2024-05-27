@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Complaint;
 use App\Models\Category;
 use App\Models\Reason;
+use App\Models\Ban;
+
 
 use Laracasts\Flash\Flash;
 
@@ -113,6 +115,18 @@ class AdminController extends Controller
     public function update_video_complaint(Request $request, $videoId)
     {
         $video = Video::findOrFail($videoId);
+
+
+        $ban = new Ban([
+            'sender_id' => auth()->user()->id,
+            'reason_id' => $request->reason_id,
+            'video_id' => $videoId,
+            'statement_id' => null,
+            'user_id' => null,
+        ]);
+
+        $ban -> save();
+
     
         $video->complaints()->update(['status' => $request->edit_status]);
     
@@ -122,6 +136,19 @@ class AdminController extends Controller
     public function update_statement_complaint(Request $request, $statementId)
     {
         $statement = Statement::findOrFail($statementId);
+
+
+        $ban = new Ban([
+            'sender_id' => auth()->user()->id,
+            'reason_id' => $request->reason_id,
+            'video_id' => null,
+            'statement_id' => $statementId,
+            'user_id' => null,
+        ]);
+
+        $ban -> save();
+
+
     
         $statement->complaints()->update(['status' => $request->edit_status]);
     
@@ -131,6 +158,17 @@ class AdminController extends Controller
     public function update_user_complaint(Request $request, $userId)
     {
         $user = User::findOrFail($userId);
+
+
+        $ban = new Ban([
+            'sender_id' => auth()->user()->id,
+            'reason_id' => $request->reason_id,
+            'video_id' => null,
+            'statement_id' => null,
+            'user_id' => $userId,
+        ]);
+
+        $ban -> save();
     
         $user->complaints()->update(['status' => $request->edit_status]);
     
@@ -183,10 +221,10 @@ class AdminController extends Controller
 
     public function post_user_complaint(Request $request, User $user){
 
-        $complaint = new Complaint([
+
+        $ban = new Ban([
             'sender_id' => auth()->user()->id,
-            'reason' => 'Решение администрации',
-            'status' => $request->edit_status,
+            'reason_id' => $request->reason_id,
             'video_id' => null,
             'statement_id' => null,
             'user_id' => $user->id,
@@ -194,7 +232,7 @@ class AdminController extends Controller
 
         $user->complaints()->update(['status' => $request->edit_status]);
 
-        $complaint -> save();
+        $ban -> save();
 
         return redirect()->back();
     }

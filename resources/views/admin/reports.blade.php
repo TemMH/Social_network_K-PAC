@@ -121,8 +121,8 @@
                         <div class="report_block_top_info_right_open">
                             <p>Статус:</p>
                             <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                <option value="unblock">Разрешить</option>
-                                <option value="block">Заблокировать</option>
+                                <option value="rejected">Разрешить</option>
+                                <option value="accepted">Заблокировать</option>
                             </select>
                         </div>
 
@@ -135,7 +135,9 @@
 
 
                         <div class="statement_block_down_views_open">
-                            <p>Частая причина: {{ $reports['video_complaint']->reason }}</p>
+                            <p>Частая причина: {{ $videoComplaint->reason->name }}</p>                            
+                        <input type="hidden" name="reason_id" value="{{ $videoComplaint->reason->id }}">
+
                         </div>
 
                         <div class="statement_block_down_description_open">
@@ -228,8 +230,8 @@
                         <div class="report_block_top_info_right_open">
                             <p>Статус:</p>
                             <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                <option value="unblock">Разрешить</option>
-                                <option value="block">Заблокировать</option>
+                            <option value="rejected">Разрешить</option>
+                                <option value="accepted">Заблокировать</option>
                             </select>
                         </div>
 
@@ -241,7 +243,9 @@
                     <div class="report_block_down_open">
 
                         <div class="statement_block_down_views_open">
-                            <p>Частая причина: {{ $reports['statement_complaint']->reason }}</p>
+                            <p>Частая причина: {{ $statementComplaint->reason->name }}</p>
+                        <input type="hidden" name="reason_id" value="{{ $statementComplaint->reason->id }}">
+
                         </div>
 
                         <div class="statement_block_down_description_open">
@@ -334,8 +338,8 @@
                                 <p>Статус:</p>
 
                                 <select class="message_history_input_container" name="edit_status" id="edit_status">
-                                    <option value="unblock">Разрешить</option>
-                                    <option value="block">Заблокировать</option>
+                                <option value="rejected">Разрешить</option>
+                                <option value="accepted">Заблокировать</option>
                                 </select>
                             </div>
 
@@ -347,7 +351,8 @@
                         <div class="report_block_down_open">
 
                             <div class="statement_block_down_views_open">
-                                <p>Частая причина: {{ $reports['user_complaint']->reason }}</p>
+                            <p>Частая причина: {{ $userComplaint->reason->name }}</p>
+                        <input type="hidden" name="reason_id" value="{{ $userComplaint->reason->id }}">
                             </div>
 
                             <div class="statement_block_down_description_open">

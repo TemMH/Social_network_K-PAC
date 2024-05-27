@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('statement_id')->nullable()->constrained('statements')->onDelete('cascade');
             $table->foreignId('video_id')->nullable()->constrained('videos')->onDelete('cascade');
 
-            $table->enum('status', ['В ожидании', 'Принято', 'Отклонено'])->nullable();
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->nullable();
 
             $table->foreignId('reason_id')->constrained('reasons')->onDelete('cascade');
 

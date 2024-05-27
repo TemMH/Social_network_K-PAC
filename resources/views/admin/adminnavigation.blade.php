@@ -3,7 +3,9 @@
 
     </x-slot>
 
-    @include('admin.partials.complaint-modal-reason', ['user' => $video])
+
+
+
 
     <div class="reports_field_setting">
 
@@ -73,6 +75,9 @@
 
                 <div id="searchResultsAdmin">
                 @foreach ($videos as $video)
+                @include('admin.partials.complaint-modal-reason', ['video' => $video])
+
+
                     <div class="report_content_test">
 
                         <div class="report_block_top_open">
@@ -124,19 +129,15 @@
                             </div>
 
                             <div class="report_block_top_info_right_open">
-                                {{-- <p>Статус:</p> --}}
-                                <form action="{{ route('complaint.post.video', $video) }}" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">
 
-                                    @csrf
 
-                                    <select class="message_history_input_container" name="edit_status"
-                                        id="edit_status">
-                                        <option value="unblock">Разрешить</option>
-                                        <option value="block">Заблокировать</option>
-                                    </select>
-                                    <button type="submit" class="statements_categories_btn">Применить</button>
-                                </form>
-                                
+
+
+                                <div class="report_block_top_info_right_open">
+
+                                </div>
+
+
                             </div>
 
 
@@ -152,6 +153,16 @@
                             </div>
 
                             <div class="statement_block_down_description_open" style="display: flex;">
+
+                                @if (!$video->complaints->contains('status', 'block') && !$video->complaints->contains('status', 'unblock'))
+                                <button class="statements_categories_btn" 
+                                data-user-id="{{ $user->id ?? null }}" 
+                                data-video-id="{{ $video->id }}"
+                                data-statement-id="{{ $statement->id ?? null }}" 
+                                onclick="confirmSendComplaint(this)"> Заблокировать </button>
+                                
+                                @endif
+
 
                                 <form onclick="confirmVideoRemove('{{ $video->title }}', event)"
                                     action="{{ route('admin.video.delete', $video) }}" method="post">
@@ -291,6 +302,8 @@ var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + vi
 
                 <div id="searchResultsAdmin">
                 @foreach ($statements as $statement)
+                @include('admin.partials.complaint-modal-reason', ['statement' => $statement])
+
                     <div class="report_content_test">
 
                         <div class="report_block_top_open">
@@ -339,17 +352,18 @@ var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + vi
 
                                 </div>
                             </div>
-
                             <div class="report_block_top_info_right_open">
-                                <form action="{{ route('complaint.post.statement', $statement) }}" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">
-                                    @csrf
-                                    <select class="message_history_input_container" name="edit_status"
-                                        id="edit_status">
-                                        <option value="unblock">Разрешить</option>
-                                        <option value="block">Заблокировать</option>
-                                    </select>
-                                    <button type="submit" class="statements_categories_btn">Применить</button>
-                                </form>
+
+                                <div class="report_block_top_info_right_open">
+                                    @if (!$statement->complaints->contains('status', 'block') && !$statement->complaints->contains('status', 'unblock'))
+                                    <button class="statements_categories_btn" 
+                                    data-user-id="{{ $user->id ?? null }}" 
+                                    data-video-id="{{ $video->id ?? null }}"
+                                    data-statement-id="{{ $statement->id }}" 
+                                    onclick="confirmSendComplaint(this)"> Заблокировать </button>
+                                        @endif
+                                </div>
+
                             </div>
                         </div>
 
@@ -488,6 +502,9 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
 
             @if (Route::is('admin.navigation.users'))
+
+
+
                 <div class="notification_block_contents_wrap">
 
                     <div class="profileuser_block_contents_second_wrap_title">
@@ -501,6 +518,9 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
                 <div id="searchResultsAdmin">
                 @foreach ($users as $user)
+                @include('admin.partials.complaint-modal-reason', ['user' => $user])
+
+
                     <div class="report_content_test">
 
                         <div class="report_block_top_open">
@@ -547,34 +567,19 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
                             <div class="report_block_top_info_right_open">
 
-                                {{-- <p>Статус:</p> --}}
 
 
 
-
-
-
-
-
-
-
-
-
-                                @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
-                                <button class="statements_categories_btn" onclick="confirmSendComplaint()"> Заблокировать
-
-
-
-                                    {{-- репорт заполненный
-                                    
-                                    <svg fill="#777777" width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>ionicons-v5-m</title><path d="M80,480a16,16,0,0,1-16-16V68.13A24,24,0,0,1,75.9,47.41C88,40.38,112.38,32,160,32c37.21,0,78.83,14.71,115.55,27.68C305.12,70.13,333.05,80,352,80a183.84,183.84,0,0,0,71-14.5,18,18,0,0,1,25,16.58V301.44a20,20,0,0,1-12,18.31c-8.71,3.81-40.51,16.25-84,16.25-24.14,0-54.38-7.14-86.39-14.71C229.63,312.79,192.43,304,160,304c-36.87,0-55.74,5.58-64,9.11V464A16,16,0,0,1,80,480Z"></path></g></svg> 
-                                    
-                                --}}
-
-
-
-                                </button>
-                            @endif
+                                <div class="report_block_top_info_right_open">
+                                    @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
+                                                        <button class="statements_categories_btn" 
+                        data-user-id="{{ $user->id }}" 
+                        data-video-id="{{ $video->id ?? null }}"
+                        data-statement-id="{{ $statement->id ?? null }}" 
+                        onclick="confirmSendComplaint(this)"> Заблокировать </button>
+                        
+                        @endif
+                                </div>
 
 
                             </div>

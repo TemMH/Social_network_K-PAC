@@ -183,10 +183,10 @@ class AdminController extends Controller
     public function post_statement_complaint(Request $request, Statement $statement){
 
 
-        $complaint = new Complaint([
+
+        $ban = new Ban([
             'sender_id' => auth()->user()->id,
-            'reason' => 'Решение администрации',
-            'status' => $request->edit_status,
+            'reason_id' => $request->reason,
             'video_id' => null,
             'statement_id' => $statement->id,
             'user_id' => null,
@@ -195,7 +195,7 @@ class AdminController extends Controller
         $statement->complaints()->update(['status' => $request->edit_status]);
 
 
-        $complaint -> save();
+        $ban -> save();
 
         return redirect()->back();
     }
@@ -203,10 +203,9 @@ class AdminController extends Controller
 
     public function post_video_complaint(Request $request, Video $video){
 
-        $complaint = new Complaint([
+        $ban = new Ban([
             'sender_id' => auth()->user()->id,
-            'reason' => 'Решение администрации',
-            'status' => $request->edit_status,
+            'reason_id' => $request->reason,
             'video_id' => $video->id,
             'statement_id' => null,
             'user_id' => null,
@@ -214,28 +213,27 @@ class AdminController extends Controller
 
         $video->complaints()->update(['status' => $request->edit_status]);
 
-        $complaint -> save();
-
-        return redirect()->back();
-    }
-
-    public function post_user_complaint(Request $request, User $user){
-
-
-        $ban = new Ban([
-            'sender_id' => auth()->user()->id,
-            'reason_id' => $request->reason_id,
-            'video_id' => null,
-            'statement_id' => null,
-            'user_id' => $user->id,
-        ]);
-
-        $user->complaints()->update(['status' => $request->edit_status]);
-
         $ban -> save();
 
         return redirect()->back();
     }
+
+public function post_user_complaint(Request $request, User $user){
+    $ban = new Ban([
+        'sender_id' => auth()->user()->id,
+        'reason_id' => $request->reason,
+        'video_id' => null,
+        'statement_id' => null,
+        'user_id' => $user->id,
+    ]);
+
+    $user->complaints()->update(['status' => $request->edit_status]);
+
+    $ban->save();
+
+    return redirect()->back();
+}
+
 
 
 

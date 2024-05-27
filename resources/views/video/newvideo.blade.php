@@ -20,7 +20,7 @@
 
                     <div>
                         <input type="text" id="title" name="title" required
-                            class="message_history_input_container" placeholder="Введите название фотоматериала...">
+                            class="message_history_input_container" placeholder="Введите название видеоматериала...">
                     </div>
 
                 </div>
@@ -31,7 +31,7 @@
 
                     <div class="newvideo_frame_text_description_textarea">
                         <textarea type="text" id="description" type="text" name="description" required class="newvideo_textarea"
-                            placeholder="Введите описание фотоматериала..."></textarea>
+                            placeholder="Введите описание видеоматериала..."></textarea>
                     </div>
 
 

@@ -139,7 +139,7 @@ class AutocompleteController extends Controller
     {
         $searchTerm = $request->input('search');
 
-        $users = User::where('permission', 'new')
+        $users = User::query()
             ->where('name', 'LIKE', '%' . $searchTerm . '%')
             ->get();
 
@@ -152,7 +152,7 @@ class AutocompleteController extends Controller
     {
         $searchTerm = $request->input('search');
 
-        $videos = Video::where('status', 'true')
+        $videos = Video::query()
             ->where('title', 'LIKE', '%' . $searchTerm . '%')
             ->with('user')
             ->get();
@@ -166,7 +166,7 @@ class AutocompleteController extends Controller
     {
         $searchTerm = $request->input('search');
 
-        $statements = Statement::where('status', 'true')
+        $statements = Statement::query()
         ->where('title', 'LIKE', '%' . $searchTerm . '%')
         ->with('user')
         ->get();

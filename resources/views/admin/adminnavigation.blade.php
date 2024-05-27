@@ -75,7 +75,6 @@
 
                 <div id="searchResultsAdmin">
                 @foreach ($videos as $video)
-                @include('admin.partials.complaint-modal-reason', ['video' => $video])
 
 
                     <div class="report_content_test">
@@ -153,15 +152,13 @@
                             </div>
 
                             <div class="statement_block_down_description_open" style="display: flex;">
-
+                                <form id="sendcomplaint" action="{{ route('complaint.post.video', ['video' => $video->id]) }}" method="post">
+                                    @csrf
                                 @if (!$video->complaints->contains('status', 'block') && !$video->complaints->contains('status', 'unblock'))
-                                <button class="statements_categories_btn" 
-                                data-user-id="{{ $user->id ?? null }}" 
-                                data-video-id="{{ $video->id }}"
-                                data-statement-id="{{ $statement->id ?? null }}" 
-                                onclick="confirmSendComplaint(this)"> Заблокировать </button>
-                                
+                                <button name="edit_status" value="accepted" class="statements_categories_btn" > Заблокировать </button>
                                 @endif
+
+                                </form>
 
 
                                 <form onclick="confirmVideoRemove('{{ $video->title }}', event)"
@@ -216,55 +213,57 @@
                                 if (video) {
 
                                     var createdDate = new Date(video.created_at);
-var formattedDate = createdDate.toISOString().replace('T', ' ').replace(/\.\d+Z$/, '');
-
-var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + video.user.avatar : '/uploads/ProfilePhoto.png';
+                                    var formattedDate = createdDate.toISOString().replace('T', ' ').replace(/\.\d+Z$/, '');
+                                    var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + video.user.avatar : '/uploads/ProfilePhoto.png';
 
                                     resultsDiv.append(
-                    '<div class="report_content_test">' +
-                        '<div class="report_block_top_open">' +
-                            '<div class="report_block_top_info_left_open">' +
-                                '<div class="statement_block_top_image_open">' +
-                                    '<img src="' + response.base_url + '/' + video.thumbnail_path + '" alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">' +
-                                '</div>' +
-                                '<div class="statement_block_top_addinfo">' +
-                                    '<div class="statement_block_top_addinfo_first">' +
+                                        '<div class="report_content_test">' +
+                                        '<div class="report_block_top_open">' +
+                                        '<div class="report_block_top_info_left_open">' +
+                                        '<div class="statement_block_top_image_open">' +
+                                        '<img src="' + response.base_url + '/' + video.thumbnail_path + '" alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">' +
+                                        '</div>' +
+                                        '<div class="statement_block_top_addinfo">' +
+                                        '<div class="statement_block_top_addinfo_first">' +
                                         '<p>' + video.title + '</p>' +
-                                    '</div>' +
-                                    '<div class="statement_block_top_addinfo_second">' +
+                                        '</div>' +
+                                        '<div class="statement_block_top_addinfo_second">' +
                                         '<div class="statement_block_top_avatar_open">' +
-                                            '<img class="avatar_mini" src="' + avatarSrc + '" alt="Avatar">' +  
+                                        '<img class="avatar_mini" src="' + avatarSrc + '" alt="Avatar">' +
                                         '</div>' +
                                         '<p>' + video.user.name + '</p>' +
-                                    '</div>' +
-                                    '<div class="statement_block_top_addinfo">' +
+                                        '</div>' +
+                                        '<div class="statement_block_top_addinfo">' +
                                         '<p>' + formattedDate + '</p>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                                                '<div class="report_block_top_info_right_open">' +
-                                                    '<form action="/complaint/post/video/' + video + '" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">' +
-                                                        '@csrf' +
-                                                        '<select class="message_history_input_container"  name="edit_status" id="edit_status">' +
-                                                            '<option value="unblock">Разрешить</option>' +
-                                                            '<option value="block">Заблокировать</option>' +
-                                                        '</select>' +
-                                                        '<button type="submit" class="statements_categories_btn">Применить</button>' +
-                                                    '</form>' +
-                                                '</div>' +
-                                            '</div>' +
-                                            '<div class="report_block_down_open">' +
-                                                '<div class="statement_block_down_views_open">' +
-                                                    '<p>Статус: </p>' +
-                                                '</div>' +
-                                                '<div class="statement_block_down_description_open" style="display: flex;">' +
-                                                    '<form onclick="confirmUserRemove(\'' + video.title + '\', event)" action="/admin/video/delete/' + video.id + '" method="post">' +
-                                                        '@method('DELETE')' +
-                                                        '@csrf' +
-                                                        '<button id="removeUserForm" class="statements_categories_btn">Удалить видеоматериал</button>' +
-                                                    '</form>' +
-                                                '</div>' +
-                                            '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="report_block_top_info_right_open">' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="report_block_down_open">' +
+                                        '<div class="statement_block_down_views_open">' +
+                                        '<p>Статус: </p>' +
+                                        '</div>' +
+                                        '<div class="statement_block_down_description_open" style="display: flex;">' +
+
+
+                                        '<form id="sendcomplaint" action="/adminnavigation/video/' + video.id + '" method="post">' +
+                                        '@csrf' +
+                                        '<button type="submit" name="edit_status" value="accepted" class="statements_categories_btn">Заблокировать</button>' +
+                                        '</form>' +
+
+
+                                       '<form onclick="confirmVideoRemove(\'' + video.title + '\', event)" action="/admin/video/delete/' + video.id + '" method="post">' +
+                                        '@method('DELETE')' +
+                                        '@csrf' +
+                                        '<button id="removeVideoForm" class="statements_categories_btn">Удалить видеоматериал</button>' +
+                                        '</form>' +
+
+
+                                        '</div>' +
+                                        '</div>' +
                                         '</div>'
                                     );
                                 }
@@ -273,14 +272,14 @@ var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + vi
                     }
                 });
             } else if (searchTerm === '') {
-
                 $('#searchResultsAdmin').html(initialDialogs);
             } else {
-
+                // Дополнительная логика, если нужно
             }
         });
     });
 </script>
+
 
             @endif
 
@@ -302,7 +301,7 @@ var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + vi
 
                 <div id="searchResultsAdmin">
                 @foreach ($statements as $statement)
-                @include('admin.partials.complaint-modal-reason', ['statement' => $statement])
+
 
                     <div class="report_content_test">
 
@@ -354,15 +353,7 @@ var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + vi
                             </div>
                             <div class="report_block_top_info_right_open">
 
-                                <div class="report_block_top_info_right_open">
-                                    @if (!$statement->complaints->contains('status', 'block') && !$statement->complaints->contains('status', 'unblock'))
-                                    <button class="statements_categories_btn" 
-                                    data-user-id="{{ $user->id ?? null }}" 
-                                    data-video-id="{{ $video->id ?? null }}"
-                                    data-statement-id="{{ $statement->id }}" 
-                                    onclick="confirmSendComplaint(this)"> Заблокировать </button>
-                                        @endif
-                                </div>
+
 
                             </div>
                         </div>
@@ -375,6 +366,13 @@ var avatarSrc = (video.user && video.user.avatar) ? response.base_url + '/' + vi
                             </div>
 
                             <div class="statement_block_down_description_open" style="display: flex;">
+                                <form id="sendcomplaint" action="{{ route('complaint.post.statement', ['statement' => $statement->id]) }}" method="post">
+                                    @csrf
+                                @if (!$statement->complaints->contains('status', 'block') && !$statement->complaints->contains('status', 'unblock')) {{-- Исправить --}}
+                                <button name="edit_status" value="accepted" class="statements_categories_btn" > Заблокировать </button>
+                                @endif
+
+                                </form>
 
 
                                 <form onclick="confirmStatementRemove('{{ $statement->title }}', event)"
@@ -431,52 +429,54 @@ var formattedDate = createdDate.toISOString().replace('T', ' ').replace(/\.\d+Z$
 var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + '/' + statement.user.avatar : '/uploads/ProfilePhoto.png';
 
                                     resultsDiv.append(
-                    '<div class="report_content_test">' +
-                        '<div class="report_block_top_open">' +
-                            '<div class="report_block_top_info_left_open">' +
-                                '<div class="statement_block_top_image_open">' +
-                                    '<img src="' + response.base_url + '/' + statement.photo_path + '" alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">' +
-                                '</div>' +
-                                '<div class="statement_block_top_addinfo">' +
-                                    '<div class="statement_block_top_addinfo_first">' +
+                                        '<div class="report_content_test">' +
+                                        '<div class="report_block_top_open">' +
+                                        '<div class="report_block_top_info_left_open">' +
+                                        '<div class="statement_block_top_image_open">' +
+                                        '<img src="' + response.base_url + '/' + statement.photo_path + '" alt="Photo" style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">' +
+                                        '</div>' +
+                                        '<div class="statement_block_top_addinfo">' +
+                                        '<div class="statement_block_top_addinfo_first">' +
                                         '<p>' + statement.title + '</p>' +
-                                    '</div>' +
-                                    '<div class="statement_block_top_addinfo_second">' +
+                                        '</div>' +
+                                        '<div class="statement_block_top_addinfo_second">' +
                                         '<div class="statement_block_top_avatar_open">' +
-                                            '<img class="avatar_mini" src="' + avatarSrc + '" alt="Avatar">' +  
+                                        '<img class="avatar_mini" src="' + avatarSrc + '" alt="Avatar">' +
                                         '</div>' +
                                         '<p>' + statement.user.name + '</p>' +
-                                    '</div>' +
-                                    '<div class="statement_block_top_addinfo">' +
+                                        '</div>' +
+                                        '<div class="statement_block_top_addinfo">' +
                                         '<p>' + formattedDate + '</p>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                                                '<div class="report_block_top_info_right_open">' +
-                                                    '<form action="/complaint/post/statement/' + statement + '" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">' +
-                                                        '@csrf' +
-                                                        '<select class="message_history_input_container" name="edit_status" id="edit_status">' +
-                                                            '<option value="unblock">Разрешить</option>' +
-                                                            '<option value="block">Заблокировать</option>' +
-                                                        '</select>' +
-                                                        '<button type="submit" class="statements_categories_btn">Применить</button>' +
-                                                    '</form>' +
-                                                '</div>' +
-                                            '</div>' +
-                                            '<div class="report_block_down_open">' +
-                                                '<div class="statement_block_down_views_open">' +
-                                                    '<p>Статус: </p>' +
-                                                '</div>' +
-                                                '<div class="statement_block_down_description_open" style="display: flex;">' +
-                                                    '<form onclick="confirmUserRemove(\'' + statement.title + '\', event)" action="/admin/statement/delete/' + statement.id + '" method="post">' +
-                                                        '@method('DELETE')' +
-                                                        '@csrf' +
-                                                        '<button id="removeUserForm" class="statements_categories_btn">Удалить фотоматериал</button>' +
-                                                    '</form>' +
-                                                '</div>' +
-                                            '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="report_block_top_info_right_open">' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="report_block_down_open">' +
+                                        '<div class="statement_block_down_views_open">' +
+                                        '<p>Статус: </p>' +
+                                        '</div>' +
+                                        '<div class="statement_block_down_description_open" style="display: flex;">' +
+
+
+                                        '<form id="sendcomplaint" action="/adminnavigation/statement/' + statement.id + '" method="post">' +
+                                        '@csrf' +
+                                        '<button type="submit" name="edit_status" value="accepted" class="statements_categories_btn">Заблокировать</button>' +
+                                        '</form>' +
+
+                                        
+                                       '<form onclick="confirmStatementRemove(\'' + statement.title + '\', event)" action="/admin/statement/delete/' + statement.id + '" method="post">' +
+                                        '@method('DELETE')' +
+                                        '@csrf' +
+                                        '<button id="removeStatementForm" class="statements_categories_btn">Удалить видеоматериал</button>' +
+                                        '</form>' +
+
+
+                                        '</div>' +
+                                        '</div>' +
                                         '</div>'
-                                    );
+                                        );
                                 }
                             });
                         }
@@ -518,7 +518,6 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
                 <div id="searchResultsAdmin">
                 @foreach ($users as $user)
-                @include('admin.partials.complaint-modal-reason', ['user' => $user])
 
 
                     <div class="report_content_test">
@@ -571,14 +570,7 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
 
                                 <div class="report_block_top_info_right_open">
-                                    @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
-                                                        <button class="statements_categories_btn" 
-                        data-user-id="{{ $user->id }}" 
-                        data-video-id="{{ $video->id ?? null }}"
-                        data-statement-id="{{ $statement->id ?? null }}" 
-                        onclick="confirmSendComplaint(this)"> Заблокировать </button>
-                        
-                        @endif
+
                                 </div>
 
 
@@ -597,6 +589,14 @@ var avatarSrc = (statement.user && statement.user.avatar) ? response.base_url + 
 
                             <div class="statement_block_down_description_open" style="display: flex;">
 
+
+                                <form id="sendcomplaint" action="{{ route('complaint.post.user', ['user' => $user->id]) }}" method="post">
+                                    @csrf
+                                @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
+                                <button name="edit_status" value="accepted" class="statements_categories_btn" > Заблокировать </button>
+                                @endif
+
+                                </form>
 
                                 <form onclick="confirmUserRemove('{{ $user->name }}', event)"
                                     action="{{ route('admin.user.delete', $user) }}" method="post">
@@ -671,33 +671,37 @@ var formattedDate = createdDate.toISOString().replace('T', ' ').replace(/\.\d+Z$
                                                     '<p>' + (user.condition ? user.condition : '') + '</p>' +
                                                     '<div class="statement_block_top_addinfo">' +
                                                         '</div>' +
-                                                        '<p>' + formattedDate + '</p>' +
-                                                        '</div>'+
-                                                '</div>' +
-                                                '</div>' +
-                                                '<div class="report_block_top_info_right_open">' +
-                                                    '<form action="/complaint/post/user/' + user + '" style="display: flex; flex-direction:column; align-items:flex-end;" method="POST">' +
-                                                        '@csrf' +
-                                                        '<select class="message_history_input_container" name="edit_status" id="edit_status">' +
-                                                            '<option value="unblock">Разрешить</option>' +
-                                                            '<option value="block">Заблокировать</option>' +
-                                                        '</select>' +
-                                                        '<button type="submit" class="statements_categories_btn">Применить</button>' +
-                                                    '</form>' +
-                                                '</div>' +
-                                            '</div>' +
+                                        '<p>' + formattedDate + '</p>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="report_block_top_info_right_open">' +
+                                        '</div>' +
+                                        '</div>' +
+
+
                                             '<div class="report_block_down_open">' +
-                                                '<div class="statement_block_down_views_open">' +
-                                                    '<p>Статус: </p>' +
-                                                '</div>' +
-                                                '<div class="statement_block_down_description_open" style="display: flex;">' +
-                                                    '<form onclick="confirmUserRemove(\'' + user.name + '\', event)" action="/admin/user/delete/' + user.id + '" method="post">' +
-                                                        '@method('DELETE')' +
-                                                        '@csrf' +
-                                                        '<button id="removeUserForm" class="statements_categories_btn">Удалить пользователя</button>' +
-                                                    '</form>' +
-                                                '</div>' +
-                                            '</div>' +
+                                        '<div class="statement_block_down_views_open">' +
+                                        '<p>Статус: </p>' +
+                                        '</div>' +
+                                        '<div class="statement_block_down_description_open" style="display: flex;">' +
+
+
+                                        '<form id="sendcomplaint" action="/adminnavigation/user/' + user.id + '" method="post">' +
+                                        '@csrf' +
+                                        '<button type="submit" name="edit_status" value="accepted" class="statements_categories_btn">Заблокировать</button>' +
+                                        '</form>' +
+
+
+                                       '<form onclick="confirmUserRemove(\'' + user.title + '\', event)" action="/admin/user/delete/' + user.id + '" method="post">' +
+                                        '@method('DELETE')' +
+                                        '@csrf' +
+                                        '<button id="removeUserForm" class="statements_categories_btn">Удалить видеоматериал</button>' +
+                                        '</form>' +
+
+
+                                        '</div>' +
+                                        '</div>' +
                                         '</div>'
                                     );
                                 }

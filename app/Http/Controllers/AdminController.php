@@ -177,7 +177,7 @@ class AdminController extends Controller
 
 
 
-// BAN BLOCK
+// ADMIN BAN BLOCK
 
 
     public function post_statement_complaint(Request $request, Statement $statement){
@@ -186,7 +186,7 @@ class AdminController extends Controller
 
         $ban = new Ban([
             'sender_id' => auth()->user()->id,
-            'reason_id' => $request->reason,
+            'reason_id' => 1,
             'video_id' => null,
             'statement_id' => $statement->id,
             'user_id' => null,
@@ -205,11 +205,12 @@ class AdminController extends Controller
 
         $ban = new Ban([
             'sender_id' => auth()->user()->id,
-            'reason_id' => $request->reason,
+            'reason_id' => 1,
             'video_id' => $video->id,
             'statement_id' => null,
             'user_id' => null,
         ]);
+
 
         $video->complaints()->update(['status' => $request->edit_status]);
 
@@ -221,7 +222,7 @@ class AdminController extends Controller
 public function post_user_complaint(Request $request, User $user){
     $ban = new Ban([
         'sender_id' => auth()->user()->id,
-        'reason_id' => $request->reason,
+        'reason_id' => 1,
         'video_id' => null,
         'statement_id' => null,
         'user_id' => $user->id,
@@ -282,7 +283,7 @@ public function post_user_complaint(Request $request, User $user){
     public function deleteStatement(Request $request, Statement $statement)
     {
         if (auth()->user()->role !== 'Admin') {
-            abort(403, 'У вас нет прав на удаление этой записи');
+            abort(403, 'У вас нет прав на удаление этого фотоматериала');
         }
 
         $statement->delete();
@@ -293,7 +294,7 @@ public function post_user_complaint(Request $request, User $user){
     public function deleteVideo(Request $request, Video $video)
     {
         if (auth()->user()->role !== 'Admin') {
-            abort(403, 'У вас нет прав на удаление этого видео');
+            abort(403, 'У вас нет прав на удаление этого видеоматериала');
         }
 
         $video->delete();
@@ -305,7 +306,7 @@ public function post_user_complaint(Request $request, User $user){
     {
 
         if (auth()->user()->role !== 'Admin') {
-            abort(403, 'У вас нет прав на удаление этого видео');
+            abort(403, 'У вас нет прав на удаление этого пользователя');
         }
 
 

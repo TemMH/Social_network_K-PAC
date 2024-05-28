@@ -275,6 +275,8 @@ Route::middleware(['auth', 'verified', 'admin', 'ban'])->controller(AdminControl
     Route::get('/admin/messenger/{user}', 'showMessengerAdmin')->name('admin.show.messenger');
     Route::get('/admin/messenger/{userId}/{dialogId}', 'showChatAdmin')->name('admin.show.chat');
 
+    //AdminDownloadPdf
+    Route::get('/admin/messenger/{user}/dialog/{dialog}/download-pdf', 'downloadChatPdf')->name('admin.download.chat.pdf');
 
     Route::delete('/profileuser/delete/{user}', 'deleteUser')->name('admin.user.delete');
 
@@ -286,7 +288,7 @@ Route::middleware(['auth', 'verified', 'admin', 'ban'])->controller(AdminControl
 
     // Route::get('/adminnavigation' , 'index'])->name('admin.navigation')->middleware(['auth', 'verified']);
 
-
+    //AdminDownloadPDF
     Route::post('/adminnavigation/user/updaterole/{user}', 'update_user_role')->name('admin.update.role.user');
 
 

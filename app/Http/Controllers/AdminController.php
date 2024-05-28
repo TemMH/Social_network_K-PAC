@@ -10,10 +10,9 @@ use App\Models\Complaint;
 use App\Models\Category;
 use App\Models\Reason;
 use App\Models\Message;
-
 use App\Models\Ban;
 
-
+use PDF;
 use Laracasts\Flash\Flash;
 
 use Illuminate\Http\Request;
@@ -618,6 +617,35 @@ $messages = Message::where(function ($query) use ($userId, $dialogId) {
         }
 
         return view('messenger.messenger', compact('dialogs', 'user', 'messages', 'recipient'));
+    }
+
+
+
+    //AdminDownloadDialog
+    public function downloadChatPdf($userId, $dialogId)
+    {
+        $user = User::findOrFail($userId);
+    
+        if (auth()->user()->role !== 'Admin') {
+            abort(403, 'У вас нет прав администратора.');
+        }
+    
+        $messages = Message::where(function ($query) use ($userId, $dialogId) {
+                $query->where('sender_id', $userId)
+                      ->where('recipient_id', $dialogId);
+            })
+            ->orWhere(function ($query) use ($userId, $dialogId) {
+                $query->where('sender_id', $dialogId)
+                      ->where('recipient_id', $userId);
+            })
+            ->orderBy('created_at')
+            ->get();
+    
+        $recipient = User::find($dialogId);
+    
+        $pdf = PDF::loadView('pdf.chat', compact('user', 'messages', 'recipient'));
+    
+        return $pdf->download('Чат_пользователя' . $user->id . '_с_пользователем_' . $dialogId . '.pdf');
     }
 
 

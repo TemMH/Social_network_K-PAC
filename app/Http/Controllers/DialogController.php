@@ -21,10 +21,12 @@ class DialogController extends Controller
 
         $user = User::findOrFail($id);
 
-        if (!auth()->user()->areFriends($id)) {
-            abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
+        if (auth()->user()->role !== 'Admin') {
+            // Если текущий пользователь не администратор, проверяем, являются ли они друзьями
+            if (!auth()->user()->areFriends($id)) {
+                abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
+            }
         }
-
         $dialogs = Message::select('sender_id', 'recipient_id')
             ->where('sender_id', auth()->id())
             ->orWhere('recipient_id', auth()->id())
@@ -85,6 +87,9 @@ class DialogController extends Controller
 
         return view('messenger.messenger', compact('dialogs', 'user'));
     }
+
+
+    
 
 
     public function sendPostToFriend(Request $request, $statementId, $friendId)

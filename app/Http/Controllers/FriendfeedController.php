@@ -36,10 +36,12 @@ class FriendfeedController extends Controller
         $feedItems = collect([]);
     
         $videos = Video::whereIn('user_id', $friendIds)
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments','views')
             ->get();
     
         $statements = Statement::whereIn('user_id', $friendIds)
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments','views')
             ->get();
     

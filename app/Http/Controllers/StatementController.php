@@ -96,6 +96,7 @@ class StatementController extends Controller
 
         $statement = Statement::with('comments.user')
             ->with('complaints')
+            
             ->withCount('views', 'likes')
             ->findOrFail($id);
 
@@ -191,6 +192,7 @@ class StatementController extends Controller
             $join->on('statements.id', '=', 'views.statement_id') // объединить id с video_id 
                  ->where('views.user_id', '=', $userId);
         })
+        ->whereDoesntHave('bans')
         ->withCount('likes', 'comments', 'views');
 
 
@@ -217,6 +219,7 @@ class StatementController extends Controller
                 $join->on('statements.id', '=', 'views.statement_id') 
                     ->where('views.user_id', '=', $userId);
             })
+            ->whereDoesntHave('bans')
             ->whereNull('views.id');
     
         if ($category) {
@@ -236,6 +239,7 @@ class StatementController extends Controller
         $category = $request->input('category');
     
         $statements = Statement::query()
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments', 'views');
     
         if ($category) {
@@ -255,6 +259,7 @@ class StatementController extends Controller
         $category = $request->input('category');
     
         $statements = Statement::query()
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments', 'views')
             ->with(['likes', 'views']);
     
@@ -284,6 +289,7 @@ class StatementController extends Controller
         $category = $request->input('category');
 
         $statements = Statement::query()
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments', 'views')
             ->orderByDesc('created_at');
 

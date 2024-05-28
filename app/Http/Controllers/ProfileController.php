@@ -82,6 +82,7 @@ class ProfileController extends Controller
 
         $user = User::findOrFail($id);
         $statements = Statement::where('user_id', $id)
+        ->whereDoesntHave('bans')
         ->withCount('likes','comments','views');
 
         
@@ -98,7 +99,9 @@ class ProfileController extends Controller
     public function ProfileUserVideos($id)
     {
         $user = User::findOrFail($id);
-        $videos = Video::where('user_id', $id)->withCount('likes','comments','views')->get();
+        $videos = Video::where('user_id', $id)
+        ->whereDoesntHave('bans')
+        ->withCount('likes','comments','views')->get();
 
         return view('profile.profileuservideos', ['user' => $user, 'videos' => $videos, 'users' => [$user]]);
     }

@@ -214,7 +214,6 @@ Route::middleware(['auth', 'verified', 'ban'])->controller(DialogController::cla
     Route::get('/messages/{userId}', 'getMessages')->name('messages.get');
 
 
-
     Route::get('/sendVideoToFriend/{postId}/{friendId}', 'sendVideoToFriend')->name('sendVideoToFriend');
 
     Route::get('/sendPostToFriend/{postId}/{friendId}', 'sendPostToFriend')->name('sendPostToFriend');
@@ -271,6 +270,10 @@ Route::middleware(['auth', 'verified', 'admin', 'ban'])->controller(AdminControl
 
     Route::delete('/video/delete/{video}', 'deleteVideo')->name('admin.video.delete');
 
+
+    //AdminCheckDialogs
+    Route::get('/admin/messenger/{user}', 'showMessengerAdmin')->name('admin.show.messenger');
+    Route::get('/admin/messenger/{userId}/{dialogId}', 'showChatAdmin')->name('admin.show.chat');
 
 
     Route::delete('/profileuser/delete/{user}', 'deleteUser')->name('admin.user.delete');

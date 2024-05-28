@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Complaint;
 use App\Models\Category;
 use App\Models\Reason;
+use App\Models\Message;
+
 use App\Models\Ban;
 
 
@@ -529,5 +531,94 @@ public function update_user_role(Request $request, User $user){
 
     return redirect()->back();
 }
+
+
+// AdminCheckDialogs
+public function showMessengerAdmin(User $user)
+{
+
+    $dialogs = Message::select('sender_id', 'recipient_id')
+        ->where('sender_id', $user->id)
+        ->orWhere('recipient_id', $user->id)
+        ->groupBy('sender_id', 'recipient_id')
+        ->get();
+
+
+    $dialogs = $dialogs->filter(function ($dialog) {
+        return $dialog->sender_id != $dialog->recipient_id;
+    });
+
+
+    foreach ($dialogs as $dialog) {
+        $lastMessage = Message::where(function ($query) use ($dialog) {
+            $query->where('sender_id', $dialog->sender_id)
+                ->where('recipient_id', $dialog->recipient_id);
+        })->orWhere(function ($query) use ($dialog) {
+            $query->where('sender_id', $dialog->recipient_id)
+                ->where('recipient_id', $dialog->sender_id);
+        })->orderByDesc('created_at')->first();
+
+
+        $dialog->lastMessage = $lastMessage;
+        $dialog->user = User::find($dialog->sender_id);
+    }
+
+    return view('messenger.messenger', compact('dialogs', 'user'));
+}
+
+//AdminCheckDialog
+public function showChatAdmin($userId, $dialogId)
+    {
+
+        $user = User::findOrFail($userId);
+        $recipient = User::findOrFail($dialogId);
+
+
+        if (auth()->user()->role !== 'Admin') {
+                abort(403, 'У вас нет прав администратора.');
+        }
+
+
+        $dialogs = Message::select('sender_id', 'recipient_id')
+            ->where('sender_id', $userId)
+            ->orWhere('recipient_id', $userId)
+            ->groupBy('sender_id', 'recipient_id')
+            ->get();
+
+
+        $dialogs = $dialogs->filter(function ($dialog) {
+            return $dialog->sender_id != $dialog->recipient_id;
+        });
+
+// Получаем список сообщений для указанного диалога
+$messages = Message::where(function ($query) use ($userId, $dialogId) {
+    $query->where('sender_id', $userId)
+          ->where('recipient_id', $dialogId);
+})
+->orWhere(function ($query) use ($userId, $dialogId) {
+    $query->where('sender_id', $dialogId)
+          ->where('recipient_id', $userId);
+})
+->orderBy('created_at')
+->get();
+
+// dd($messages);
+
+        foreach ($dialogs as $dialog) {
+            $lastMessage = Message::where(function ($query) use ($dialog) {
+                $query->where('sender_id', $dialog->sender_id)
+                    ->where('recipient_id', $dialog->recipient_id);
+            })->orWhere(function ($query) use ($dialog) {
+                $query->where('sender_id', $dialog->recipient_id)
+                    ->where('recipient_id', $dialog->sender_id);
+            })->orderByDesc('created_at')->first();
+
+            $dialog->lastMessage = $lastMessage;
+            $dialog->user = User::find($dialog->sender_id);
+        }
+
+        return view('messenger.messenger', compact('dialogs', 'user', 'messages', 'recipient'));
+    }
+
 
 }

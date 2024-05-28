@@ -5,87 +5,13 @@
     </x-slot>
 
 
-    <div class="messenger">
-        <div class="messenger_dialogs">
+    @if (Route::is('messenger','messenger.chat'))
+@include('messenger.components.view-user-dialogs')
+@endif
 
-            <div class="message_dialog_searh">
-
-                <p class="txt2">Мессенджер</p>
-
-                <div class="search-container">
-                    <input type="text" id="searchInputdDialog" class="message_history_input_container"
-                        placeholder="Поиск по имени...">
-                </div>
-
-            </div>
-            
-            <div id="searchResultsDialog">
-                @foreach ($dialogs as $dialog)
-
-                    @if ($dialog->user->name !== auth()->user()->name)
-
-                        <div class="message_dialogs">
-                            <a href="{{ route('messenger.chat', $dialog->user->id) }}" class="message_dialog
-                         @if ($dialog->user->id == $user->id) active @endif">
-
-                                <div class="author">
-
-                                    <div class="avatar_mini">
-                                        @if ($dialog->user->avatar !== null)
-                                            <img class="avatar_mini"
-                                                src="{{ asset('storage/' . $dialog->user->avatar) }}" alt="Avatar">
-                                        @else
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
-                                        @endif
-                                    </div>
-
-                                    <p class="txt2">{{ $dialog->user->name }}</p> 
-
-                                </div>
-
-                                <div class="message_dialog_last">
-                                    
-                                    <p class="txt1">
-                                        @if ($dialog->lastMessage !== null)
-                                            <p class="txt1">{{ $dialog->lastMessage->message }}</p>
-                                        @else
-                                            <p> </p>
-                                        @endif
-                                    </p>
-
-                                </div>
-
-                            </a>
-                        </div>
-
-                    @endif
-
-                @endforeach
-            </div>
-
-        </div>
-
-        @if (Route::is('messenger.chat'))
-            @livewire('chat-component', ['user_id' => $id])
-        @else
-
-        <div style="justify-content: center; margin: 0 auto; height: 100%;" class="friendfeed_field_frame">
-
-            <div style="text-align: center; max-width: 800px; margin: 0 auto; padding:1%;" class="friendfeed_content">
-
-                <p style="margin:20px 0;"  class="txt_2">Для общения выберите диалог в левом меню</p>
-                <p style="margin:20px 0;"  class="txt_2">Если диалогов нет, создайте их сами написав другу</p>
-
-                <button class="statements_type_btn" onclick="toggleSearch()" >Найти новых друзей</button>
-
-
-            </div>
-        </div>
-        @endif
-
-    </div>
-
-
+@if (Route::is('admin.show.messenger','admin.show.chat'))
+@include('messenger.components.view-admin-dialogs')
+@endif
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -103,6 +29,10 @@
             });
         });
     </script>
+
+
+
+
 
 
 @vite(['resources/js/search-input/SearchDialog.js'])

@@ -71,6 +71,15 @@
                             </div>
 
                         </form>
+
+
+                        <form action="{{ route('admin.show.messenger', ['user' => $user->id])}}" method="get">
+                        
+                            <button class="statements_type_btn">Открыть диалоги пользователя</button>
+
+
+                        </form>
+
 @endif
 
                     </div>

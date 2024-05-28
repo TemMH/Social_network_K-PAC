@@ -110,6 +110,7 @@ class VideoController extends Controller
         $trendvideos = Video::query()
             ->withCount('likes', 'comments', 'views')
             ->with(['likes', 'views'])
+            ->whereDoesntHave('bans')
             ->when($category, function ($query, $category) {
                 return $query->where('videos.category_id', $category);
             })
@@ -124,6 +125,7 @@ class VideoController extends Controller
     
         $popularvideos = Video::query()
             ->withCount('likes', 'comments', 'views')
+            ->whereDoesntHave('bans')
             ->when($category, function ($query, $category) {
                 return $query->where('videos.category_id', $category);
             })
@@ -137,6 +139,7 @@ class VideoController extends Controller
                     ->where('views.user_id', '=', $userId);
             })
             ->whereNull('views.id')
+            ->whereDoesntHave('bans')
             ->when($category, function ($query, $category) {
                 return $query->where('videos.category_id', $category);
             })
@@ -146,6 +149,7 @@ class VideoController extends Controller
     
         $newvideos = Video::query()
             ->withCount('likes', 'comments', 'views')
+            ->whereDoesntHave('bans')
             ->when($category, function ($query, $category) {
                 return $query->where('videos.category_id', $category);
             })
@@ -158,6 +162,7 @@ class VideoController extends Controller
                 $join->on('videos.id', '=', 'views.video_id')
                     ->where('views.user_id', '=', $userId);
             })
+            ->whereDoesntHave('bans')
             ->when($category, function ($query, $category) {
                 return $query->where('videos.category_id', $category);
             })
@@ -188,6 +193,7 @@ class VideoController extends Controller
             $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
                  ->where('views.user_id', '=', $userId);
         })
+        ->whereDoesntHave('bans')
         ->withCount('likes', 'comments', 'views');
 
 
@@ -216,6 +222,7 @@ class VideoController extends Controller
                 $join->on('videos.id', '=', 'views.video_id') // объединить id с video_id 
                     ->where('views.user_id', '=', $userId);
             })
+            ->whereDoesntHave('bans')
             ->whereNull('views.id');
     
         if ($category) {
@@ -237,6 +244,7 @@ class VideoController extends Controller
 
 
         $videos = Video::query()
+        ->whereDoesntHave('bans')
         ->withCount('likes', 'comments', 'views');
     
         if ($category) {
@@ -256,6 +264,7 @@ class VideoController extends Controller
         $category = $request->input('category');
 
         $videos = Video::query()
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments', 'views')
             ->with(['likes', 'views']);
     
@@ -286,6 +295,7 @@ class VideoController extends Controller
         $category = $request->input('category');
 
         $videos = Video::query()
+        ->whereDoesntHave('bans')
             ->withCount('likes', 'comments', 'views')
             ->orderByDesc('created_at');
 
@@ -374,6 +384,7 @@ class VideoController extends Controller
                 $join->on('videos.id', '=', 'views.video_id')
                     ->where('views.user_id', '=', $userId);
             })
+            ->whereDoesntHave('bans')
             ->whereNull('views.id');
 
 
@@ -399,6 +410,7 @@ class VideoController extends Controller
 
         $videos = Video::query()
             ->whereIn('id', $viewedVideoIds)
+            ->whereDoesntHave('bans')
             ->withCount('likes');
 
                 // Получение длительности видео и фильтрация только тех, которые равны <= 30 секундам

@@ -19,6 +19,7 @@ class AutocompleteController extends Controller
 
         $statements = Statement::query()
             ->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->whereDoesntHave('bans')
             ->with('user')
             ->withCount('likes', 'views', 'comments')
             ->limit(3)
@@ -43,6 +44,7 @@ class AutocompleteController extends Controller
 
         $videos = Video::query()
             ->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->whereDoesntHave('bans')
             ->with('user')
             ->withCount('likes', 'views', 'comments')
             ->limit(3)
@@ -59,6 +61,7 @@ class AutocompleteController extends Controller
 
         $users = User::query()
             ->where('name', 'LIKE', '%' . $searchTerm . '%')
+            ->whereDoesntHave('bans')
             ->limit(3)
             ->get();
 

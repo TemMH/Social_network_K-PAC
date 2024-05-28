@@ -143,4 +143,19 @@ class User extends Authenticatable
         return $this->hasMany(View::class, 'user_id');
     }
 
+
+    public function isBlocked()
+    {
+
+    $userId = $this->id;
+
+    
+    return $this->bans()->where('user_id', $userId)->whereNotNull('created_at')->exists();
+    }
+
+    public function bans()
+    {
+        return $this->hasMany(Ban::class);
+    }
+
 }

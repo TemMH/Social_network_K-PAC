@@ -21,67 +21,7 @@ use Illuminate\Http\File;
 
 class ComplaintController extends Controller
 {
-
-    public function index()
-    {
-        
-        // От 3-х по 1 причине
-
-        $videoComplaint = Complaint::whereNotNull('video_id')
-        ->where('status','pending')
-        ->select('video_id', DB::raw('count(*) as total'))
-        ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
-        ->select('video_id', DB::raw('count(*) as total'), 'reasons.id as reason_id')
-        ->groupBy('video_id', 'reason_id')
-        ->having('total', '>=', 3)
-        ->orderByDesc('total')
-        ->with('video')
-        ->first();
     
-    
-
-        // dd($videoComplaint);
-    
-        $statementComplaint = Complaint::whereNotNull('statement_id')
-        ->where('status','pending')
-        ->select('statement_id', DB::raw('count(*) as total'))
-        ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
-        ->select('statement_id', DB::raw('count(*) as total'), 'reasons.id as reason_id')
-        ->groupBy('statement_id', 'reason_id')
-        ->having('total', '>=', 3)
-        ->orderByDesc('total')
-        ->with('statement')
-        ->first();
-
-
-
-
-
-    
-        $userComplaint = Complaint::whereNotNull('user_id')
-        ->where('status','pending')
-        ->select('user_id', DB::raw('count(*) as total'))
-        ->leftJoin('reasons', 'complaints.reason_id', '=', 'reasons.id')
-        ->select('user_id', DB::raw('count(*) as total'), 'reasons.id as reason_id')
-        ->groupBy('user_id', 'reason_id')
-        ->having('total', '>=', 3)
-        ->orderByDesc('total')
-        ->with('user')
-        ->first();
-    
-        $reports = [
-            'video_complaint' => $videoComplaint,
-            'statement_complaint' => $statementComplaint,
-            'user_complaint' => $userComplaint,
-        ];
-
-    
-        return view('admin.reports', compact('reports','videoComplaint','statementComplaint','userComplaint'));
-    }
-
-
-
-
     public function storevideocomplaint(Request $request, $id)
     {
         $user = auth()->user();

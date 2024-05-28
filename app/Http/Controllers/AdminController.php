@@ -23,14 +23,16 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $status = $request->input('status');
-    
+        $role = $request->input('role');
+
+
         $usersQuery = User::query();
         $videosQuery = Video::query();
         $statementsQuery = Statement::query();
     
         if ($status) {
             $usersQuery->whereHas('complaints', function ($query) use ($status) {
-                $query->where('status', $status);
+                $query->where('role', $status);
             });
             $videosQuery->whereHas('complaints', function ($query) use ($status) {
                 $query->where('status', $status);
@@ -39,6 +41,10 @@ class AdminController extends Controller
                 $query->where('status', $status);
             });
         }
+
+        if ($role) {
+            $usersQuery->where('role', $role);
+        }
     
         $users = $usersQuery->get();
         $videos = $videosQuery->get();
@@ -46,6 +52,99 @@ class AdminController extends Controller
 
     
         return view('admin.adminnavigation', compact('users', 'videos', 'statements'));
+    }
+
+
+    //BLOCKED
+
+
+
+    public function blockedUsers(Request $request)
+    {
+        $role = $request->input('role');
+    
+        $usersQuery = User::query();
+    
+        if ($role) {
+            $usersQuery->where('role', $role);
+        }
+    
+        // Получаем только заблокированных пользователей
+        $users = $usersQuery->whereHas('bans')->get();
+    
+        return view('admin.adminnavigation', compact('users'));
+    }
+
+    public function blockedStatements(Request $request)
+    {
+
+    
+        $statementsQuery = Statement::query();
+    
+
+    
+        // Получаем только заблокированных пользователей
+        $statements = $statementsQuery->whereHas('bans')->get();
+    
+        return view('admin.adminnavigation', compact('statements'));
+    }
+
+    public function blockedVideos(Request $request)
+    {
+
+    
+        $videosQuery = Video::query();
+    
+
+    
+        // Получаем только заблокированных пользователей
+        $videos = $videosQuery->whereHas('bans')->get();
+    
+        return view('admin.adminnavigation', compact('videos'));
+    }
+
+    //UNBLOCKED
+    
+    public function unblockedUsers(Request $request)
+    {
+        $role = $request->input('role');
+    
+        $usersQuery = User::query();
+    
+        if ($role) {
+            $usersQuery->where('role', $role);
+        }
+    
+        // Получаем пользователей, у которых нет записей в таблице блокировок
+        $users = $usersQuery->whereDoesntHave('bans')->get();
+    
+        return view('admin.adminnavigation', compact('users'));
+    }
+
+    public function unblockedStatements(Request $request)
+    {
+
+
+        $statementsQuery = Statement::query();
+
+    
+        // Получаем пользователей, у которых нет записей в таблице блокировок
+        $statements = $statementsQuery->whereDoesntHave('bans')->get();
+    
+        return view('admin.adminnavigation', compact('statements'));
+    }
+
+    public function unblockedVideos(Request $request)
+    {
+
+
+        $videosQuery = Video::query();
+
+    
+        // Получаем пользователей, у которых нет записей в таблице блокировок
+        $videos = $videosQuery->whereDoesntHave('bans')->get();
+    
+        return view('admin.adminnavigation', compact('videos'));
     }
 
 
@@ -110,74 +209,11 @@ class AdminController extends Controller
 
     
 
-    // UPDATE STATUS BAN
-
-    public function update_video_complaint(Request $request, $videoId)
-    {
-        $video = Video::findOrFail($videoId);
-
-
-        $ban = new Ban([
-            'sender_id' => auth()->user()->id,
-            'reason_id' => $request->reason_id,
-            'video_id' => $videoId,
-            'statement_id' => null,
-            'user_id' => null,
-        ]);
-
-        $ban -> save();
-
-    
-        $video->complaints()->update(['status' => $request->edit_status]);
-    
-        return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
-    }
-
-    public function update_statement_complaint(Request $request, $statementId)
-    {
-        $statement = Statement::findOrFail($statementId);
-
-
-        $ban = new Ban([
-            'sender_id' => auth()->user()->id,
-            'reason_id' => $request->reason_id,
-            'video_id' => null,
-            'statement_id' => $statementId,
-            'user_id' => null,
-        ]);
-
-        $ban -> save();
-
-
-    
-        $statement->complaints()->update(['status' => $request->edit_status]);
-    
-        return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
-    }
-
-    public function update_user_complaint(Request $request, $userId)
-    {
-        $user = User::findOrFail($userId);
-
-
-        $ban = new Ban([
-            'sender_id' => auth()->user()->id,
-            'reason_id' => $request->reason_id,
-            'video_id' => null,
-            'statement_id' => null,
-            'user_id' => $userId,
-        ]);
-
-        $ban -> save();
-    
-        $user->complaints()->update(['status' => $request->edit_status]);
-    
-        return redirect()->route('reports')->with('success', 'Статус жалоб успешно обновлен');
-    }
 
 
 
-// ADMIN BAN BLOCK
+
+// ADMIN BAN
 
 
     public function post_statement_complaint(Request $request, Statement $statement){
@@ -237,42 +273,48 @@ public function post_user_complaint(Request $request, User $user){
 
 
 
+// ADMIN DELETE BAN
+public function delete_ban_user(Request $request, User $user){
 
-//DELETE COMMENT
-
-
-    public function deleteStatementComment($statementId, $commentId)
-    {
-        $statement = Statement::findOrFail($statementId);
-        $comment = Comment::findOrFail($commentId);
+    $ban = Ban::where('user_id', $user->id)->firstOrFail();
 
 
-        if ($comment->statement_id !== $statement->id) {
-            abort(403, 'Этот комментарий не принадлежит указанной заявке.');
-        }
+    $user->complaints()->update(['status' => $request->edit_status]);
 
 
-        $comment->delete();
-
-        return redirect()->back();
-    }
-
-    public function deleteVideoComment($videoId, $commentId)
-    {
-        $video = Video::findOrFail($videoId);
-        $comment = Comment::findOrFail($commentId);
+    $ban->delete();
 
 
-        if ($comment->video_id !== $video->id) {
-            abort(403, 'Этот комментарий не принадлежит указанному видео.');
-        }
+    return redirect()->back();
+}
+
+public function delete_ban_video(Request $request, Video $video){
+
+    $ban = Ban::where('video_id', $video->id)->firstOrFail();
 
 
-        $comment->delete();
+    $video->complaints()->update(['status' => $request->edit_status]);
 
-        return redirect()->back();
-    }
-    
+
+    $ban->delete();
+
+
+    return redirect()->back();
+}
+
+public function delete_ban_statement(Request $request, Statement $statement){
+
+    $ban = Ban::where('statement_id', $statement->id)->firstOrFail();
+
+
+    $statement->complaints()->update(['status' => $request->edit_status]);
+
+
+    $ban->delete();
+
+
+    return redirect()->back();
+}
 
 
 
@@ -318,9 +360,6 @@ public function post_user_complaint(Request $request, User $user){
 
 
     //Create NEW
-
-
-    
     public function create(){
 
         return view('admin.adminadd');
@@ -368,6 +407,127 @@ public function post_user_complaint(Request $request, User $user){
     }
 
 
+//SearchAdminInput
+public function autocomplete_admin_users(Request $request)
+{
+    $searchTerm = $request->input('search');
 
+    $users = User::query()
+        ->where('name', 'LIKE', '%' . $searchTerm . '%')
+        ->get();
+
+    $usersWithBlockStatus = [];
+
+    foreach ($users as $user) {
+        $isBlocked = $user->isBlocked(); 
+        $userWithBlockStatus = $user->toArray(); //объект в массив
+        $userWithBlockStatus['is_blocked'] = $isBlocked;
+
+        if ($user->bans) {
+            //элементы bans
+            if ($user->bans->isNotEmpty()) {
+
+                $userWithBlockStatus['first_ban'] = [
+                    'created_at' => $user->bans->first()->created_at,
+                    'sender_name' => $user->bans->first()->sender ? $user->bans->first()->sender->name : null,
+                    'reason_name' => $user->bans->first()->reason ? $user->bans->first()->reason->name : null
+                ];
+            }
+        }
+    
+        $usersWithBlockStatus[] = $userWithBlockStatus;
+    }
+
+    $base_url = url('/storage/');
+
+    return response()->json(['users' => $usersWithBlockStatus, 'base_url' => $base_url]);
+}
+
+
+    public function autocomplete_admin_videos(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $videos = Video::query()
+            ->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->with('user')
+            ->get();
+
+            $videosWithBlockStatus = [];
+
+            foreach ($videos as $video) {
+                $isBlocked = $video->isBlocked(); 
+                $videoWithBlockStatus = $video->toArray(); //объект в массив
+                $videoWithBlockStatus['is_blocked'] = $isBlocked;
+        
+                if ($video->bans) {
+                    //элементы bans
+                    if ($video->bans->isNotEmpty()) {
+        
+                        $videoWithBlockStatus['first_ban'] = [
+                            'created_at' => $video->bans->first()->created_at,
+                            'sender_name' => $video->bans->first()->sender ? $video->bans->first()->sender->name : null,
+                            'reason_name' => $video->bans->first()->reason ? $video->bans->first()->reason->name : null
+                        ];
+                    }
+                }
+            
+                $videosWithBlockStatus[] = $videoWithBlockStatus;
+            }
+
+
+        $base_url = url('/storage/');
+
+        return response()->json(['videos' => $videosWithBlockStatus, 'base_url' => $base_url]);
+    }
+
+    public function autocomplete_admin_statements(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $statements = Statement::query()
+        ->where('title', 'LIKE', '%' . $searchTerm . '%')
+        ->with('user')
+        ->get();
+
+        $statementsWithBlockStatus = [];
+
+        foreach ($statements as $statement) {
+            $isBlocked = $statement->isBlocked(); 
+            $statementWithBlockStatus = $statement->toArray(); //объект в массив
+            $statementWithBlockStatus['is_blocked'] = $isBlocked;
+    
+            if ($statement->bans) {
+                //элементы bans
+                if ($statement->bans->isNotEmpty()) {
+    
+                    $statementWithBlockStatus['first_ban'] = [
+                        'created_at' => $statement->bans->first()->created_at,
+                        'sender_name' => $statement->bans->first()->sender ? $statement->bans->first()->sender->name : null,
+                        'reason_name' => $statement->bans->first()->reason ? $statement->bans->first()->reason->name : null
+                    ];
+                }
+            }
+        
+            $statementsWithBlockStatus[] = $statementWithBlockStatus;
+        }
+    
+        $base_url = url('/storage/');
+
+        return response()->json(['statements' => $statementsWithBlockStatus, 'base_url' => $base_url]);
+    }
+
+
+//UpdateRoleUsers
+
+public function update_user_role(Request $request, User $user){
+
+
+    $user->update(['role' => $request->role]);
+
+    $user->save();
+
+    return redirect()->back();
+}
 
 }

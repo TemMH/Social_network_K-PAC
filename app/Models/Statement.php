@@ -53,4 +53,21 @@ class Statement extends Model
     {
         $this->comments()->create(['content' => $comment, 'user_id' => auth()->id()]);
     }
+
+
+    public function isBlocked()
+    {
+
+    $statementId = $this->id;
+
+    
+    return $this->bans()->where('statement_id', $statementId)->whereNotNull('created_at')->exists();
+    }
+
+    public function bans()
+    {
+        return $this->hasMany(Ban::class);
+    }
+
+
 }

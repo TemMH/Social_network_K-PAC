@@ -11,6 +11,9 @@
 
                 <button onclick="location.href='{{ route('reports') }}';"
                 class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
+
+                @if (auth()->user()->role == 'Admin')
+
                 <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
                     class="statements_type_btn {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
@@ -19,6 +22,9 @@
                     class="statements_type_btn {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Пользователи</button>
                     <button onclick="location.href='{{ route('admin.navigation.create') }}';"
                     class="statements_type_btn {{ Route::is('admin.navigation.create') ? 'selected' : '' }}">Добавить</button>
+
+                    @endif
+
 
             </div>
 

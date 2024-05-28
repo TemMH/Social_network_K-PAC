@@ -8,6 +8,7 @@ use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\FriendfeedController;
 use Illuminate\Routing\ViewController;
@@ -32,7 +33,7 @@ Route::get('/', function () {
 
 
 // AutoComplete
-Route::middleware(['auth', 'verified'])->controller(AutocompleteController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(AutocompleteController::class)->group(function () {
 
     Route::get('/statement/autocomplete', 'autocompletestatement')->name('statement.autocompletestatement');
     Route::get('/video/autocomplete',  'autocompletevideo')->name('video.autocompletevideo');
@@ -40,15 +41,13 @@ Route::middleware(['auth', 'verified'])->controller(AutocompleteController::clas
 
     Route::get('/dialog/autocomplete', 'autocompletedialog')->name('dialog.autocompletedialog');
 
-    Route::get('/admin/autocomplete/user', 'autocomplete_admin_users')->name('admin.autocomplete.user');
-    Route::get('/admin/autocomplete/statement', 'autocomplete_admin_statements')->name('admin.autocomplete.statement');
-    Route::get('/admin/autocomplete/video', 'autocomplete_admin_videos')->name('admin.autocomplete.video');
+
 
 });
 
 
 // Statement
-Route::middleware(['auth', 'verified'])->controller(StatementController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(StatementController::class)->group(function () {
 
 
     Route::get('/allstatementuser/trend',   'allstatementusertrend')->name('all.statement.user.trend');
@@ -72,17 +71,17 @@ Route::middleware(['auth', 'verified'])->controller(StatementController::class)-
 
     Route::delete('/statement/{id}/unlike',   'unlike')->name('statement.unlike');
 
-    Route::get('/statementuser/{id}',   'show')->name('statementuser');
+    Route::get('/statementuser/{id}',   'show')->name('statementuser')->middleware('banstatement');
 
     Route::post('/statement/{id}/comment',   'addComment')->name('statement.comment');
 
 
-    Route::get('/statement/{id}/details',   'getStatementDetails')->name('statement.details');
+    Route::get('/statement/{id}/details',   'getStatementDetails')->name('statement.details')->middleware('banstatement');
 });
 
 
 // Complaint
-Route::middleware(['auth', 'verified'])->controller(ComplaintController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(ComplaintController::class)->group(function () {
 
 
     Route::post('/statement/{id}/complaint',  'storestatementcomplaint')->name('statement.complaint');
@@ -91,15 +90,13 @@ Route::middleware(['auth', 'verified'])->controller(ComplaintController::class)-
 
     Route::post('/user/{id}/complaint',  'storeusercomplaint')->name('user.complaint');
 
-    Route::get('/adminnavigation/reports',  'index')->name('reports');
-
     Route::get('/reasons', 'reasons')->name('reasons');
 
 });
 
 
 // Video
-Route::middleware(['auth', 'verified'])->controller(VideoController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(VideoController::class)->group(function () {
 
     Route::post('/newvideo',  'store')->name('createvideo');
 
@@ -130,7 +127,7 @@ Route::middleware(['auth', 'verified'])->controller(VideoController::class)->gro
     Route::delete('/video/{id}/unlike',  'unlike')->name('video.unlike');
 
 
-    Route::get('/videouser/{id}',  'show')->name('videouser');
+    Route::get('/videouser/{id}',  'show')->name('videouser')->middleware('banvideo');
 
     Route::get('/allshortsvideouser',  'allshortsvideouser')->name('allshortsvideouser');
 
@@ -143,7 +140,7 @@ Route::middleware(['auth', 'verified'])->controller(VideoController::class)->gro
 
 
 // FriendFeed
-Route::middleware(['auth', 'verified'])->controller(FriendfeedController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(FriendfeedController::class)->group(function () {
 
     Route::get('/friendfeeduser',  'friendfeeduser')->name('friendfeeduser');
 
@@ -154,7 +151,7 @@ Route::middleware(['auth', 'verified'])->controller(FriendfeedController::class)
 
 
 // Profileuser
-Route::middleware(['auth', 'verified'])->controller(ProfileController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban', 'ban'])->controller(ProfileController::class)->group(function () {
 
     // Route::get('/profileuser', 'MyProfile'])->name('profileuser')->middleware(['auth', 'verified']);
 
@@ -177,61 +174,11 @@ Route::middleware(['auth', 'verified'])->controller(ProfileController::class)->g
 });
 
 
-// Admin
-Route::middleware(['auth', 'verified'])->controller(AdminController::class)->group(function () {
 
-    //AdminNavigation
-
-    Route::get('/adminnavigation/users', 'index')->name('admin.navigation.users');
-
-    Route::get('/adminnavigation/videos', 'index')->name('admin.navigation.videos');
-
-    Route::get('/adminnavigation/statements', 'index')->name('admin.navigation.statements');
-
-    Route::get('/adminnavigation/create', 'create')->name('admin.navigation.create');
-
-
-    //AdminCreate
-
-    Route::post('/adminnavigation/create/category', 'createCategory')->name('admin.navigation.create.category');
-    Route::post('/adminnavigation/create/reason', 'createReason')->name('admin.navigation.create.reason');
-
-
-    Route::post('/adminnavigation/statement/{statement}', 'post_statement_complaint')->name('complaint.post.statement');
-    Route::post('/adminnavigation/video/{video}', 'post_video_complaint')->name('complaint.post.video');
-    Route::post('/adminnavigation/user/{user}', 'post_user_complaint')->name('complaint.post.user');
-
-
-    // AdminComplaint
-    Route::put('/complaint/video/{video}', 'update_video_complaint')->name('complaint.update.video');
-
-    Route::put('/complaint/statement/{statement}', 'update_statement_complaint')->name('complaint.update.statement');
-
-    Route::put('/complaint/user/{user}', 'update_user_complaint')->name('complaint.update.user');
-
-
-    // AdminDelete
-    Route::delete('/statement/delete/{statement}', 'deleteStatement')->name('admin.statement.delete');
-
-    Route::delete('/statement/{statementId}/comment/{commentId}', 'deleteStatementComment')->name('admin.statement.comment.delete');
-
-
-    Route::delete('/video/delete/{video}', 'deleteVideo')->name('admin.video.delete');
-
-    Route::delete('/video/{videoId}/comment/{commentId}', 'deleteVideoComment')->name('admin.video.comment.delete');
-
-
-    Route::delete('/profileuser/delete/{user}', 'deleteUser')->name('admin.user.delete');
-
-
-
-    // Route::get('/adminnavigation' , 'index'])->name('admin.navigation')->middleware(['auth', 'verified']);
-
-});
 
 
 // View
-Route::middleware(['auth', 'verified'])->controller(ViewsController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(ViewsController::class)->group(function () {
 
     Route::post('/view/statement/{statementId}',  'view_statement')->name('view.statement');
 
@@ -240,7 +187,7 @@ Route::middleware(['auth', 'verified'])->controller(ViewsController::class)->gro
 
 
 //FriendRequest
-Route::middleware(['auth', 'verified'])->controller(FriendshipController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(FriendshipController::class)->group(function () {
 
 
     Route::get('/friend-requests', 'friendRequests')->name('friend-requests');
@@ -259,7 +206,7 @@ Route::middleware(['auth', 'verified'])->controller(FriendshipController::class)
 
 
 // Messenger
-Route::middleware(['auth', 'verified'])->controller(DialogController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'ban'])->controller(DialogController::class)->group(function () {
 
     Route::get('/messenger', 'showMessenger')->name('messenger');
     Route::get('/messenger/{id}', 'chat')->name('messenger.chat');
@@ -272,6 +219,101 @@ Route::middleware(['auth', 'verified'])->controller(DialogController::class)->gr
 
     Route::get('/sendPostToFriend/{postId}/{friendId}', 'sendPostToFriend')->name('sendPostToFriend');
 });
+
+
+
+// Admin
+Route::middleware(['auth', 'verified', 'admin', 'ban'])->controller(AdminController::class)->group(function () {
+
+    //AdminNavigation
+
+    Route::get('/adminnavigation/users', 'index')->name('admin.navigation.users');
+
+    Route::get('/adminnavigation/videos', 'index')->name('admin.navigation.videos');
+
+    Route::get('/adminnavigation/statements', 'index')->name('admin.navigation.statements');
+
+    Route::get('/adminnavigation/create', 'create')->name('admin.navigation.create');
+
+
+    //AdminNavigationBlocked
+    Route::get('/adminnavigation/users/blocked', 'blockedUsers')->name('admin.navigation.users.blocked');
+    Route::get('/adminnavigation/statements/blocked', 'blockedStatements')->name('admin.navigation.statements.blocked');
+    Route::get('/adminnavigation/videos/blocked', 'blockedVideos')->name('admin.navigation.videos.blocked');
+
+    //AdminNavigationUnblocked
+    Route::get('/adminnavigation/users/unblocked', 'unblockedUsers')->name('admin.navigation.users.unblocked');
+    Route::get('/adminnavigation/statements/unblocked', 'unblockedStatements')->name('admin.navigation.statements.unblocked');
+    Route::get('/adminnavigation/videos/unblocked', 'unblockedVideos')->name('admin.navigation.videos.unblocked');
+
+    //AdminCreate
+
+    Route::post('/adminnavigation/create/category', 'createCategory')->name('admin.navigation.create.category');
+    Route::post('/adminnavigation/create/reason', 'createReason')->name('admin.navigation.create.reason');
+
+    //AdminBan
+    Route::post('/adminnavigation/statement/{statement}', 'post_statement_complaint')->name('complaint.post.statement');
+    Route::post('/adminnavigation/video/{video}', 'post_video_complaint')->name('complaint.post.video');
+    Route::post('/adminnavigation/user/{user}', 'post_user_complaint')->name('complaint.post.user');
+
+
+
+    //AdminDeleteBan
+    Route::post('/adminnavigation/user/deleteban/{user}', 'delete_ban_user')->name('admin.delete.ban.user');
+    Route::post('/adminnavigation/video/deleteban/{video}', 'delete_ban_video')->name('admin.delete.ban.video');
+    Route::post('/adminnavigation/statement/deleteban/{statement}', 'delete_ban_statement')->name('admin.delete.ban.statement');
+
+
+    // AdminDelete
+    Route::delete('/statement/delete/{statement}', 'deleteStatement')->name('admin.statement.delete');
+
+
+
+    Route::delete('/video/delete/{video}', 'deleteVideo')->name('admin.video.delete');
+
+
+
+    Route::delete('/profileuser/delete/{user}', 'deleteUser')->name('admin.user.delete');
+
+        //AdminSearch
+        Route::get('/admin/autocomplete/user', 'autocomplete_admin_users')->name('admin.autocomplete.user');
+        Route::get('/admin/autocomplete/statement', 'autocomplete_admin_statements')->name('admin.autocomplete.statement');
+        Route::get('/admin/autocomplete/video', 'autocomplete_admin_videos')->name('admin.autocomplete.video');
+
+
+    // Route::get('/adminnavigation' , 'index'])->name('admin.navigation')->middleware(['auth', 'verified']);
+
+
+    Route::post('/adminnavigation/user/updaterole/{user}', 'update_user_role')->name('admin.update.role.user');
+
+
+});
+
+
+// MANAGER
+Route::middleware(['auth', 'verified', 'manager', 'ban'])->controller(ManagerController::class)->group(function () {
+
+    // MangerIndex
+    Route::get('/adminnavigation/reports',  'index')->name('reports');
+
+
+    // MangerComplaint
+    Route::put('/complaint/video/{video}', 'update_video_complaint')->name('complaint.update.video');
+
+    Route::put('/complaint/statement/{statement}', 'update_statement_complaint')->name('complaint.update.statement');
+
+    Route::put('/complaint/user/{user}', 'update_user_complaint')->name('complaint.update.user');
+
+
+    //ManagerDeleteComment
+    Route::delete('/video/{videoId}/comment/{commentId}', 'deleteVideoComment')->name('admin.video.comment.delete');
+
+    Route::delete('/statement/{statementId}/comment/{commentId}', 'deleteStatementComment')->name('admin.statement.comment.delete');
+
+
+});
+
+
 
 
 // Other

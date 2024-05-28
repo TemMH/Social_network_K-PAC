@@ -54,4 +54,21 @@ class Video extends Model
     {
         $this->comments()->create(['content' => $comment, 'user_id' => auth()->id()]);
     }
+
+
+    public function isBlocked()
+    {
+
+    $videoId = $this->id;
+
+    
+    return $this->bans()->where('video_id', $videoId)->whereNotNull('created_at')->exists();
+    }
+
+    public function bans()
+    {
+        return $this->hasMany(Ban::class);
+    }
+
+
 }

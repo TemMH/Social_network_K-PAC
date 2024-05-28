@@ -26,14 +26,17 @@
 
 .reports_field_frame_test{
 
-    width: 48%;
-    /* height: min-content; */
+
+
+
+    width: 50%;
+    /* height: 99.5%; */
+    /* overflow-y: scroll; */
     margin: 0 auto;
-    /* display: flex; */
+    border-radius: 12px 12px 0px 0px;
+    display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
-    position: fixed;
-    right: 25%;
+    position: relative;
 
 }
 

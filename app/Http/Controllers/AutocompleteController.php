@@ -135,46 +135,7 @@ class AutocompleteController extends Controller
 
 
     
-    public function autocomplete_admin_users(Request $request)
-    {
-        $searchTerm = $request->input('search');
 
-        $users = User::query()
-            ->where('name', 'LIKE', '%' . $searchTerm . '%')
-            ->get();
-
-        $base_url = url('/storage/');
-
-        return response()->json(['users' => $users, 'base_url' => $base_url]);
-    }
-
-    public function autocomplete_admin_videos(Request $request)
-    {
-        $searchTerm = $request->input('search');
-
-        $videos = Video::query()
-            ->where('title', 'LIKE', '%' . $searchTerm . '%')
-            ->with('user')
-            ->get();
-
-        $base_url = url('/storage/');
-
-        return response()->json(['videos' => $videos, 'base_url' => $base_url]);
-    }
-
-    public function autocomplete_admin_statements(Request $request)
-    {
-        $searchTerm = $request->input('search');
-
-        $statements = Statement::query()
-        ->where('title', 'LIKE', '%' . $searchTerm . '%')
-        ->with('user')
-        ->get();
-    
-        $base_url = url('/storage/');
-
-        return response()->json(['statements' => $statements, 'base_url' => $base_url]);
-    }
 
 
 }

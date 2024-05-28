@@ -37,7 +37,10 @@ class Ban extends Model
     {
         return $this->belongsTo(Reason::class);
     }
-
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
 
 
 

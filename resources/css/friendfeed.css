@@ -18,8 +18,8 @@
 .friendfeed_field {
 
     overflow-y: scroll;
-    height: 100vh;
-    width: 94.5%;
+    height: -webkit-fill-available;
+    /* width: 94.5%; */
     position: fixed;
     z-index: 0;
     margin-left: auto;

@@ -68,7 +68,7 @@ class VideoController extends Controller
                 K-PAC
             </div>
             <div class="flash-message">
-            Видео успешно загружено!
+            Видеоматериал успешно загружено!
             </div>
             </div>'
         

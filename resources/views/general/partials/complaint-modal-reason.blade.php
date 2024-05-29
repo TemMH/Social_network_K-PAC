@@ -82,14 +82,15 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        fetch('{{ route('reasons') }}')
-            .then(response => response.json())
-            .then(data => {
-                const reasonsContainer = document.getElementById('reasons-container');
-                reasonsContainer.innerHTML = '';
-                if (data.length > 0) {
-                    data.forEach(reason => {
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('{{ route('reasons') }}')
+        .then(response => response.json())
+        .then(data => {
+            const reasonsContainer = document.getElementById('reasons-container');
+            reasonsContainer.innerHTML = '';
+            if (data.length > 0) {
+                data.forEach(reason => {
+                    if (reason.id !== 1) {
                         const label = document.createElement('label');
                         label.className = 'radio-label';
                         
@@ -107,13 +108,14 @@
                         label.appendChild(input);
                         label.appendChild(span);
                         reasonsContainer.appendChild(label);
-                    });
-                } else {
-                    reasonsContainer.innerHTML = '<p>Причины не созданы</p>';
-                }
-            })
-            .catch(error => console.error('Ошибка получения причин:', error));
-    });
+                    }
+                });
+            } else {
+                reasonsContainer.innerHTML = '<p>Причины не созданы</p>';
+            }
+        })
+        .catch(error => console.error('Ошибка получения причин:', error));
+});
     
     function toggleSubmitButton() {
         const submitButton = document.getElementById('submit-button');

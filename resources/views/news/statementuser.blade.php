@@ -323,8 +323,16 @@
                                     href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'news']) }}">
                                     <div class="main_novost_img">
 
-                                        <img class="avatar" src="{{ asset('storage/' . $comment->user->avatar) }}"
-                                            alt="Avatar">
+                                    @if ($comment->user->avatar !== null)
+                        <a href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
+                            <img class="avatar_mini" src="{{ asset('storage/' . $comment->user->avatar) }}"
+                                alt="Avatar">
+                        </a>
+                    @else
+                        <a href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
+                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
+                        </a>
+                    @endif
 
                                     </div>
                                 </a>

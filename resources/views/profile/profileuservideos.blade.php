@@ -45,7 +45,7 @@
         <div class="statements_scroll_lock">
 
             @forelse ($videos as $video)
-                @if ($video->status == 'true')
+
               
                     <div onclick="location.href='{{ route('videouser', ['id' => $video->id]) }}';" class="statement_block" id="video_{{ $video->id }}">
 
@@ -206,7 +206,7 @@
 
                     </div>
              
-                @endif
+      
 
             @empty
                 <p class= "txt_1">Видео нет</p>

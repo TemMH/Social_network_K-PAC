@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('reason_id')->constrained('reasons')->onDelete('cascade');
 
 
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('sender_id')->nullable()->references('id')->on('users')->onDelete('set null');
 
             $table->timestamps();
             

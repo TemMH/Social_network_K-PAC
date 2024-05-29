@@ -12,7 +12,7 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 // use Illuminate\View\View;
 use App\Models\View;
-
+use Laracasts\Flash\Flash;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
@@ -52,6 +52,17 @@ class StatementController extends Controller
             ]);
 
             $statements = $user->statements()->get();
+
+            Flash::success('
+            
+            <div class="flash-success">
+            <div class="flsh-title">
+                K-PAC
+            </div>
+            <div class="flash-message">
+            Фотоматериал успешно загружено!
+            </div>
+            </div>');
 
             return back()->with('success', 'Фотоматериал успешно загружен!');
         }

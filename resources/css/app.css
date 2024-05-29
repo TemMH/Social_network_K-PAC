@@ -734,8 +734,8 @@ main {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    border-color: #f90000;
-    color: #ff0000;
+    border-color: #00ff2f;
+    color: #00ff2f;
 }
 
 .flash-success {
@@ -743,9 +743,10 @@ main {
     width: max-content;
     border-radius: 5px;
     margin-bottom: 10px;
-    background-color: #1e00ff;
-    border-color: #7700ff;
-    color: #ff00ae;
+    border-color: #484848;
+    background-color: #2D2D2D;
+    border-color: #ffffff;
+    color: #ffffff;
     position: absolute;
     bottom: 0;
     right: 10%;

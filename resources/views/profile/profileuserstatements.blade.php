@@ -236,7 +236,7 @@
         <div class="statements_scroll_lock">
 
             @forelse ($statements as $statement)
-                @if ($statement->status == 'true')
+             
                     <div class="statement_block" id="statement_{{ $statement->id }}" data-statementId="{{ $statement->id }}">
 
                         <div class="statement_block_top">
@@ -390,8 +390,7 @@
                         </div>
 
                     </div>
-                @endif
-
+            
             @empty
                 <p class= "txt_1">Фотографий нет</p>
 

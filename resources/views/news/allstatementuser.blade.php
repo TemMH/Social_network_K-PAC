@@ -40,18 +40,11 @@
                     </div>
 
 
-                    <button class="full_statement_btn">
+                    <button class="mini_button">
 
-                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" stroke="#777777" stroke-width="1.9200000000000004">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M12.0678 2.14611C12.3883 2.00663 12.7431 1.96564 13.0874 2.02906C13.4316 2.09244 13.7478 2.25698 13.9973 2.49935L22.459 10.7164C22.6312 10.8837 22.7672 11.0838 22.8599 11.3041C22.9525 11.5244 23 11.7609 23 11.9994C23 12.238 22.9525 12.4744 22.8599 12.6947C22.7672 12.9151 22.6309 13.1154 22.4587 13.2827L13.9972 21.4997C13.7476 21.742 13.4316 21.9064 13.0874 21.9698C12.7431 22.0332 12.3883 21.9922 12.0678 21.8528C11.7474 21.7134 11.4771 21.4826 11.2883 21.1916C11.0997 20.9008 11.0001 20.5617 11 20.2164L11 17.0208C8.70545 17.1206 7.26436 17.5717 6.17555 18.2297C4.90572 18.9971 4.01283 20.0973 2.77837 21.6278C2.5122 21.9578 2.06688 22.0841 1.66711 21.943C1.26733 21.8018 1 21.424 1 21C1 17.4414 1.5013 13.9586 3.15451 11.341C4.72577 8.85318 7.25861 7.26795 11 7.03095L11 3.78241C11.0001 3.43711 11.0997 3.09808 11.2883 2.80727C11.4771 2.51629 11.7474 2.2855 12.0678 2.14611Z"
-                                    fill=""></path>
-                            </g>
-                        </svg>
+                        @include('general.elements.svg-repost') 
+                        {{-- FIX --}}
+
 
                     </button>
 
@@ -59,27 +52,9 @@
 
 
 
-                    <button id="openFull" class="full_statement_btn">
+                    <button id="openFull" class="mini_button">
 
-                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M3 7C3 7.55228 2.55228 8 2 8C1.44772 8 1 7.55228 1 7V3C1 1.89543 1.89543 1 3 1H7C7.55228 1 8 1.44772 8 2C8 2.55228 7.55228 3 7 3H4.41421L10.7071 9.29289C11.0976 9.68342 11.0976 10.3166 10.7071 10.7071C10.3166 11.0976 9.68342 11.0976 9.29289 10.7071L3 4.41422V7Z"
-                                    fill="#777777"></path>
-                                <path
-                                    d="M21 17C21 16.4477 21.4477 16 22 16C22.5523 16 23 16.4477 23 17V21C23 22.1046 22.1046 23 21 23H17C16.4477 23 16 22.5523 16 22C16 21.4477 16.4477 21 17 21H19.5858L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L21 19.5858V17Z"
-                                    fill="#777777"></path>
-                                <path
-                                    d="M21 7C21 7.55228 21.4477 8 22 8C22.5523 8 23 7.55228 23 7V3C23 1.89543 22.1046 1 21 1H17C16.4477 1 16 1.44772 16 2C16 2.55228 16.4477 3 17 3H19.5858L13.2929 9.29289C12.9024 9.68342 12.9024 10.3166 13.2929 10.7071C13.6834 11.0976 14.3166 11.0976 14.7071 10.7071L21 4.41421V7Z"
-                                    fill="#777777"></path>
-                                <path
-                                    d="M3 17C3 16.4477 2.55228 16 2 16C1.44772 16 1 16.4477 1 17V21C1 22.1046 1.89543 23 3 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H4.41421L10.7071 14.7071C11.0976 14.3166 11.0976 13.6834 10.7071 13.2929C10.3166 12.9024 9.68342 12.9024 9.29289 13.2929L3 19.5858V17Z"
-                                    fill="#777777"></path>
-                            </g>
-                        </svg>
+                        @include('general.elements.svg-openfull')
 
 
                     </button>
@@ -116,11 +91,12 @@
 
                         </div>
 
-                        <textarea class="form_field_comment" name="comment"></textarea>
+                        <textarea class="form_field_comment" name="comment" required></textarea>
 
                         <div class="submit_comment">
-                            <button class="txt_2">
-                                Отправить
+                            <button class="mini_button">
+                                @include('general.elements.svg-send')
+
                             </button>
 
 
@@ -170,23 +146,11 @@
 
         </div>
 
-        <div class="statement_block_close">
-            <button class="statement_block_btn_close">
+        <button class="statement_block_btn_close">
+    
+            @include('general.elements.svg-close-modal')
 
-                <svg width="90%" height="90%" viewBox="-0.5 0 25 25" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M3 21.32L21 3.32001" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                        <path d="M3 3.32001L21 21.32" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                    </g>
-                </svg>
-
-            </button>
-        </div>
+        </button>
 
     </div>
 
@@ -198,11 +162,11 @@
         <div class="statements_settings">
 
             <div class="statements_settings_left">
-                <button onclick="location.href='{{ route('all.statement.user.trend') }}';" class="statements_type_btn {{ Route::is('all.statement.user.trend') ? 'selected' : ''}}">В тренде</button>
-                <button onclick="location.href='{{ route('all.statement.user.popular') }}';" class="statements_type_btn {{ Route::is('all.statement.user.popular') ? 'selected' : ''}}">Популярно</button>
-                <button onclick="location.href='{{ route('all.statement.user.newforuser') }}';" class="statements_type_btn {{ Route::is('all.statement.user.newforuser') ? 'selected' : ''}}">Новое для вас</button>
-                <button onclick="location.href='{{ route('all.statement.user.new') }}';" class="statements_type_btn {{ Route::is('all.statement.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
-                <button onclick="location.href='{{ route('all.statement.user.viewed') }}';" class="statements_type_btn {{ Route::is('all.statement.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
+                <button onclick="location.href='{{ route('all.statement.user.trend') }}';" class="long_button {{ Route::is('all.statement.user.trend') ? 'selected' : ''}}">В тренде</button>
+                <button onclick="location.href='{{ route('all.statement.user.popular') }}';" class="long_button {{ Route::is('all.statement.user.popular') ? 'selected' : ''}}">Популярно</button>
+                <button onclick="location.href='{{ route('all.statement.user.newforuser') }}';" class="long_button {{ Route::is('all.statement.user.newforuser') ? 'selected' : ''}}">Новое для вас</button>
+                <button onclick="location.href='{{ route('all.statement.user.new') }}';" class="long_button {{ Route::is('all.statement.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
+                <button onclick="location.href='{{ route('all.statement.user.viewed') }}';" class="long_button {{ Route::is('all.statement.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
             </div>
 
 @include('general.partials.dropdown-category')
@@ -425,6 +389,8 @@
         </div>
 
     </div>
+    
+    @vite(['resources/js/buttons/button-close-modal.js'])
 
     <script>
         $(document).ready(function() {
@@ -473,7 +439,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const statementBlocks = document.querySelectorAll(".statement_block");
             const statementFieldOpen = document.querySelector(".statement_field_open");
-            const closeButton = document.querySelector(".statement_block_btn_close");
+            const closeButton = document.querySelector(".mini_button");
 
             function closeModal() {
                 statementFieldOpen.classList.remove("opened");
@@ -496,6 +462,13 @@
                             const statementurl = data.statementurl;
                             const profileUrl = data.profileUrl;
 
+                            const avatarUrl = userData.avatar !== null && userData.avatar !== ''
+                            ? "{{ asset('storage/') }}" + '/' + userData.avatar
+                            : '/uploads/ProfilePhoto.png';
+
+                            const StatementAvatarUrl = statementData.user.avatar !== null && statementData.user.avatar !== ''
+                            ? "{{ asset('storage/') }}" + '/' + statementData.user.avatar
+                            : '/uploads/ProfilePhoto.png';
 
                             const commentForm = document.getElementById('commentForm');
                             commentForm.action = createcomment;
@@ -522,16 +495,16 @@
                                 statementData.description;
 
                             statementFieldOpen.querySelector(
-                                    ".statement_block_top_avatar_open img").src =
-                                "/uploads/ProfilePhoto.png"; //добавить проверку есть ли ава
+                                    ".statement_block_top_avatar_open img").src = StatementAvatarUrl;
                             statementFieldOpen.querySelector(
                                 ".statement_block_top_info_left_open a").href = profileUrl;
 
 
 
 
-                            statementFieldOpen.querySelector(".main_novost_img img").src =
-                                "{{ asset('storage/') }}" + '/' + userData.avatar; //добавить проверку нету ли авы
+                            statementFieldOpen.querySelector(".main_novost_img img").src = avatarUrl;
+                            
+               
 
                             const likeButtonContainer = statementFieldOpen.querySelector(
                                 ".statement_block_like_button");

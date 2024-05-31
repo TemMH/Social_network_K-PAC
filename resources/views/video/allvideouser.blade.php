@@ -9,11 +9,11 @@
         <div class="statements_settings">
 
             <div class="statements_settings_left">
-                <button onclick="location.href='{{ route('all.video.user.trend') }}';" class="statements_type_btn {{ Route::is('all.video.user.trend') ? 'selected' : ''}}">В тренде</button>
-                <button onclick="location.href='{{ route('all.video.user.popular') }}';" class="statements_type_btn {{ Route::is('all.video.user.popular') ? 'selected' : ''}}">Популярно</button>
-                <button onclick="location.href='{{ route('all.video.user.newforuser') }}';" class="statements_type_btn {{ Route::is('all.video.user.newforuser') ? 'selected' : ''}}">Новое для вас</button>
-                <button onclick="location.href='{{ route('all.video.user.new') }}';" class="statements_type_btn {{ Route::is('all.video.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
-                <button onclick="location.href='{{ route('all.video.user.viewed') }}';" class="statements_type_btn {{ Route::is('all.video.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
+                <button onclick="location.href='{{ route('all.video.user.trend') }}';" class="long_button {{ Route::is('all.video.user.trend') ? 'selected' : ''}}">В тренде</button>
+                <button onclick="location.href='{{ route('all.video.user.popular') }}';" class="long_button {{ Route::is('all.video.user.popular') ? 'selected' : ''}}">Популярно</button>
+                <button onclick="location.href='{{ route('all.video.user.newforuser') }}';" class="long_button {{ Route::is('all.video.user.newforuser') ? 'selected' : ''}}">Новое для вас</button>
+                <button onclick="location.href='{{ route('all.video.user.new') }}';" class="long_button {{ Route::is('all.video.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
+                <button onclick="location.href='{{ route('all.video.user.viewed') }}';" class="long_button {{ Route::is('all.video.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
             </div>
 
 

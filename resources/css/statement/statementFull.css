@@ -105,7 +105,11 @@
 
 .statement_block_like_button{
 
-    width: 20%;
+    min-height: 40px;
+    min-width: 40px;
+    max-width: 50px;
+    max-height: 50px;
+    margin-inline: 10px;
     aspect-ratio: 1;
     background-color: #222222;
     align-items: center;
@@ -130,7 +134,18 @@
     justify-content: center;
 
 }
+.full_statement_content_statement_middle img{
 
+
+    max-width: 100%;
+    max-height: 60rem;
+    /* margin: 1% auto; */
+    /* aspect-ratio: 16 / 9; */
+    -o-object-fit: contain;
+    object-fit: contain;
+    border-radius: 12px;
+
+}
 
 
 .full_statement_comment {

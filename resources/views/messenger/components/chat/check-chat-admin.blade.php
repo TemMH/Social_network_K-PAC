@@ -79,7 +79,7 @@
     </div>
 
     <div class="message_history_input">
-        <a href="{{ route('admin.download.chat.pdf', ['user' => $user->id, 'dialog' => $recipient->id]) }}" class="statements_type_btn ">Скачать чат PDF</a>
+        <a href="{{ route('admin.download.chat.pdf', ['user' => $user->id, 'dialog' => $recipient->id]) }}" class="long_button ">Скачать чат PDF</a>
     </div>
     <script>
         function clearInputField() {

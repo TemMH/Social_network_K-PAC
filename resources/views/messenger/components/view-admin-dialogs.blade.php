@@ -73,7 +73,7 @@
                 <p style="margin:20px 0;"  class="txt_2">Для общения выберите диалог в левом меню</p>
                 <p style="margin:20px 0;"  class="txt_2">Если диалогов нет, создайте их сами написав другу</p>
 
-                <button class="statements_type_btn" onclick="toggleSearch()" >Найти новых друзей</button>
+                <button class="long_button" onclick="toggleSearch()" >Найти новых друзей</button>
 
 
             </div>

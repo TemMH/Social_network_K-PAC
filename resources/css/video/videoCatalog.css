@@ -435,6 +435,7 @@
     padding: 2%;
     display: flex;
     justify-content: center;
+    margin-inline: 20px;
     border-radius: 12px;
     border: 2px solid #777777;
 
@@ -444,7 +445,6 @@
 .full_video_block_buttons {
 
     display: flex;
-    width: 10%;
     justify-content: flex-end;
 
 }

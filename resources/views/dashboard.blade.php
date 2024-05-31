@@ -26,7 +26,7 @@
 
                         <form class="adminpanel" method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button class="statements_type_btn">Выйти</button>
+                            <button class="long_button">Выйти</button>
                         </form>
 
 
@@ -36,7 +36,7 @@
                             захватывающими материалами, которые мы специально подготовили для вас. Приятного
                             времяпровождения!</p>
 
-                        <button class="statements_type_btn">Перейти к видеоматериалам</button>
+                        <button class="long_button">Перейти к видеоматериалам</button>
                         @endif
 
 
@@ -45,7 +45,7 @@
                             материалы собраны в одном месте. У нас вы найдете всё: от последних технологических новинок до
                             самых актуальных спортивных событий. Присоединяйтесь к нам и будьте в курсе самых интересных
                             событий!</p>
-                        <a href="{{ '/login' }}" class="statements_type_btn">Авторизоваться</a>
+                        <a href="{{ '/login' }}" class="long_button">Авторизоваться</a>
        
                 @endauth
 

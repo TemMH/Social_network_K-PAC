@@ -31,6 +31,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+    background-color:    rgba(26, 26, 26, 0.9);
+
     z-index: 2;
     display: flex;
     height: 0%;
@@ -58,6 +60,7 @@
 .main_shortvideo_desc_right.active {
 
     height: 90%;
+ 
 
 }
 

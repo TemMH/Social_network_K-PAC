@@ -5,7 +5,7 @@
             <div class="dropbtn">Категории</div>
             <div class="dropdown-content">
 
-                <button value="" class="statements_type_btn">Все категории</button>
+                <button value="" class="long_button">Все категории</button>
                 @forelse ($categories as $category)
                     <button value="{{ $category->id }}" class="statements_categories_btn">{{ $category->name }}</button>
 

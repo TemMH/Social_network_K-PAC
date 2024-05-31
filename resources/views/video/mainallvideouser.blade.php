@@ -98,7 +98,7 @@
             <div class="longvideos_categories">
                 <form class="statements_settings_right" id="categoryForm" method="GET" action="{{ url()->current() }}">
                     <div class="category">
-                        <button type="submit" name="category" value="" class="statements_type_btn">Все категории</button>
+                        <button type="submit" name="category" value="" class="long_button">Все категории</button>
                         @forelse ($categories as $category)
                             <button type="submit" name="category" value="{{ $category->id }}" class="statements_categories_btn">{{ $category->name }}</button>
                         @empty
@@ -116,7 +116,7 @@
                 <div class="longvideos_scroll_sorting_block">
 
                     <div class="longvideos_scroll_sorting_block_name"><button
-                            onclick="location.href='{{ route('all.video.user.trend') }}';" class="statements_type_btn">В
+                            onclick="location.href='{{ route('all.video.user.trend') }}';" class="long_button">В
                             тренде</button>
                         <div class="longvideos_scroll_sorting_block_wrap_line"></div>
                     </div>
@@ -223,7 +223,7 @@
 
                     <div class="longvideos_scroll_sorting_block_name"><button
                             onclick="location.href='{{ route('all.video.user.popular') }}';"
-                            class="statements_type_btn">Популярное</button>
+                            class="long_button">Популярное</button>
                         <div class="longvideos_scroll_sorting_block_wrap_line"></div>
                     </div>
 
@@ -329,7 +329,7 @@
 
                     <div class="longvideos_scroll_sorting_block_name"><button
                             onclick="location.href='{{ route('all.video.user.newforuser') }}';"
-                            class="statements_type_btn">Новое для вас</button>
+                            class="long_button">Новое для вас</button>
                         <div class="longvideos_scroll_sorting_block_wrap_line"></div>
                     </div>
 
@@ -435,7 +435,7 @@
 
                     <div class="longvideos_scroll_sorting_block_name"><button
                             onclick="location.href='{{ route('all.video.user.new') }}';"
-                            class="statements_type_btn">Недавно опубликованные</button>
+                            class="long_button">Недавно опубликованные</button>
                         <div class="longvideos_scroll_sorting_block_wrap_line"></div>
                     </div>
 
@@ -541,7 +541,7 @@
 
                     <div class="longvideos_scroll_sorting_block_name"><button
                             onclick="location.href='{{ route('all.video.user.viewed') }}';"
-                            class="statements_type_btn">Посмотрено</button>
+                            class="long_button">Посмотрено</button>
                         <div class="longvideos_scroll_sorting_block_wrap_line"></div>
                     </div>
 

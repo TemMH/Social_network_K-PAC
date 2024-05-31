@@ -27,6 +27,51 @@ button{
 }
 
 
+/* Buttons */
+
+.long_button{
+
+    padding: 8px 16px;
+    text-transform: uppercase;
+    background-color: #1A1A1D;
+    border: 1px solid #777777;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    border-radius: 12px;
+    margin: 0 1%;
+    white-space: nowrap;
+
+    &:hover{
+        background-color: #1c1c1c;
+    }
+
+    &.selected{
+        background-color: #1c1c1c;
+    }
+
+
+}
+
+.mini_button{
+
+
+    min-height: 40px;
+    min-width: 40px;
+    max-width: 50px;
+    max-height: 50px;
+    margin-inline: 10px;
+    aspect-ratio: 1;
+    background-color: #222222;
+    align-items: center;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid #777777;
+
+}
+
 
 
 
@@ -708,6 +753,7 @@ main {
 
     position: relative;
     max-width: 60%;
+    min-width: 25%;
     min-height: 45%;
     border-radius: 12px;
     background-color: #222222;
@@ -715,13 +761,16 @@ main {
     overflow-y: scroll;
     padding: 1%;
     z-index: 13;
-    margin-left: 3%;
+    box-shadow: 0 0 .2rem #fff,
+    0 0 2rem #484848,
+    inset 0 0 1.3rem #484848; 
 
 }
 
+
 .modal_block_close{
 
-    width: 2%;
+    /* width: 2%; */
     margin-left: 1%;
     min-height: 45%;
 

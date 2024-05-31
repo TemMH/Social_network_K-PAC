@@ -53,8 +53,8 @@
                                                         '<div class="dropdown">' +
                                                             '<div class="dropbtn">Изменить роль</div>' +
                                                             '<div class="dropdown-content">' +
-                                                                '<button name="role" value="Manager" class="statements_type_btn">Менеджер</button>' +
-                                                                '<button name="role" value="User" class="statements_type_btn">Пользователь</button>' +
+                                                                '<button name="role" value="Manager" class="long_button">Менеджер</button>' +
+                                                                '<button name="role" value="User" class="long_button">Пользователь</button>' +
                                                             '</div>' +
                                                         '</div>' +
                                                     '</form>'

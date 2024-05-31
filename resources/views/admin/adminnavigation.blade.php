@@ -14,18 +14,18 @@
             <div class="statements_settings_left">
 
                 <button onclick="location.href='{{ route('reports') }}';"
-                    class="statements_type_btn {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
+                    class="long_button {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
 
                     @if (auth()->user()->role == 'Admin')
 
                     <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
-                    class="statements_type_btn {{ Route::is('admin.navigation.statements', 'admin.navigation.statements.unblocked', 'admin.navigation.statements.blocked') ? 'selected' : '' }}">Фотоматериалы</button>
+                    class="long_button {{ Route::is('admin.navigation.statements', 'admin.navigation.statements.unblocked', 'admin.navigation.statements.blocked') ? 'selected' : '' }}">Фотоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
-                    class="statements_type_btn {{ Route::is('admin.navigation.videos', 'admin.navigation.videos.unblocked', 'admin.navigation.videos.blocked') ? 'selected' : '' }}">Видеоматериалы</button>
+                    class="long_button {{ Route::is('admin.navigation.videos', 'admin.navigation.videos.unblocked', 'admin.navigation.videos.blocked') ? 'selected' : '' }}">Видеоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.users') }}';"
-                    class="statements_type_btn {{ Route::is('admin.navigation.users', 'admin.navigation.users.unblocked', 'admin.navigation.users.blocked') ? 'selected' : '' }}">Пользователи</button>
+                    class="long_button {{ Route::is('admin.navigation.users', 'admin.navigation.users.unblocked', 'admin.navigation.users.blocked') ? 'selected' : '' }}">Пользователи</button>
                 <button onclick="location.href='{{ route('admin.navigation.create') }}';"
-                    class="statements_type_btn {{ Route::is('admin.navigation.create') ? 'selected' : '' }}">Добавить</button>
+                    class="long_button {{ Route::is('admin.navigation.create') ? 'selected' : '' }}">Добавить</button>
 
                     @endif
 
@@ -48,13 +48,13 @@
                 {{-- USERS --}}
                 @if (Route::is('admin.navigation.users', 'admin.navigation.users.unblocked', 'admin.navigation.users.blocked'))
                     <button onclick="location.href='{{ route('admin.navigation.users') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Все</button>
+                        class="long_button {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Все</button>
 
                     <button onclick="location.href='{{ route('admin.navigation.users.unblocked') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.users.unblocked') ? 'selected' : '' }}">Разблокированные</button>
+                        class="long_button {{ Route::is('admin.navigation.users.unblocked') ? 'selected' : '' }}">Разблокированные</button>
 
                     <button onclick="location.href='{{ route('admin.navigation.users.blocked') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.users.blocked') ? 'selected' : '' }}">Заблокированные</button>
+                        class="long_button {{ Route::is('admin.navigation.users.blocked') ? 'selected' : '' }}">Заблокированные</button>
 
                     <form id="categoryForm" method="GET"
                         action="{{ url()->current() }}">
@@ -63,9 +63,9 @@
                             <div class="dropdown-content">
 
                                 <button onclick="location.href='{{ route('admin.navigation.users') }}';"
-                                    class="statements_type_btn">Все</button>
-                                <button name="role" value="Manager" class="statements_type_btn">Менеджеры</button>
-                                <button name="role" value="User" class="statements_type_btn">Пользователи</button>
+                                    class="long_button">Все</button>
+                                <button name="role" value="Manager" class="long_button">Менеджеры</button>
+                                <button name="role" value="User" class="long_button">Пользователи</button>
 
                             </div>
                         </div>
@@ -76,13 +76,13 @@
 
                 @if (Route::is('admin.navigation.statements', 'admin.navigation.statements.unblocked', 'admin.navigation.statements.blocked'))
                     <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Все</button>
+                        class="long_button {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Все</button>
 
                     <button onclick="location.href='{{ route('admin.navigation.statements.unblocked') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.statements.unblocked') ? 'selected' : '' }}">Разблокированные</button>
+                        class="long_button {{ Route::is('admin.navigation.statements.unblocked') ? 'selected' : '' }}">Разблокированные</button>
 
                     <button onclick="location.href='{{ route('admin.navigation.statements.blocked') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.statements.blocked') ? 'selected' : '' }}">Заблокированные</button>
+                        class="long_button {{ Route::is('admin.navigation.statements.blocked') ? 'selected' : '' }}">Заблокированные</button>
                 @endif
 
 
@@ -90,13 +90,13 @@
 
                 @if (Route::is('admin.navigation.videos', 'admin.navigation.videos.unblocked', 'admin.navigation.videos.blocked'))
                     <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Все</button>
+                        class="long_button {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Все</button>
 
                     <button onclick="location.href='{{ route('admin.navigation.videos.unblocked') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.videos.unblocked') ? 'selected' : '' }}">Разблокированные</button>
+                        class="long_button {{ Route::is('admin.navigation.videos.unblocked') ? 'selected' : '' }}">Разблокированные</button>
 
                     <button onclick="location.href='{{ route('admin.navigation.videos.blocked') }}';"
-                        class="statements_type_btn {{ Route::is('admin.navigation.videos.blocked') ? 'selected' : '' }}">Заблокированные</button>
+                        class="long_button {{ Route::is('admin.navigation.videos.blocked') ? 'selected' : '' }}">Заблокированные</button>
                 @endif
 
             </div>

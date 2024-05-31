@@ -40,7 +40,7 @@
                     </div>
 
 
-                    <button class="full_statement_btn">
+                    <button class="mini_button">
 
                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg" stroke="#777777" stroke-width="1.9200000000000004">
@@ -56,7 +56,7 @@
                     </button>
 
 
-                    <button class="full_statement_btn"> <svg width="100%" height="100%" viewBox="0 0 24 24"
+                    <button class="mini_button"> <svg width="100%" height="100%" viewBox="0 0 24 24"
                             fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#777777">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -69,7 +69,7 @@
                         </svg></button>
 
 
-                    <button id="openFull" class="full_statement_btn">
+                    <button id="openFull" class="mini_button">
 
                         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -180,24 +180,11 @@
 
         </div>
 
-        <div class="statement_block_close">
-            <button class="statement_block_btn_close">
+        <button class="statement_block_btn_close">
+    
+            @include('general.elements.svg-close-modal')
 
-                <svg width="90%" height="90%" viewBox="-0.5 0 25 25" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M3 21.32L21 3.32001" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                        <path d="M3 3.32001L21 21.32" stroke="#777777" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                    </g>
-                </svg>
-
-            </button>
-        </div>
-
+        </button>
     </div>
 
 
@@ -404,7 +391,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const statementBlocks = document.querySelectorAll(".statement_block");
             const statementFieldOpen = document.querySelector(".statement_field_open");
-            const closeButton = document.querySelector(".statement_block_btn_close");
+            const closeButton = document.querySelector(".mini_button");
 
             function closeModal() {
                 statementFieldOpen.classList.remove("opened");

@@ -41,10 +41,13 @@
                                 <div class="message_dialog_last">
                                     
                                     <p class="txt1">
-                                        @if ($dialog->lastMessage !== null)
-                                            <p class="txt1">{{ $dialog->lastMessage->message }}</p>
-                                        @else
-                                            <p> </p>
+
+                                        @if ($dialog->lastMessage->type === 'repost')
+                                        <p>Ссылка</p>
+                                        @endif
+    
+                                        @if ($dialog->lastMessage->type === 'text')
+                                        {{ $dialog->lastMessage->message }}
                                         @endif
                                     </p>
 

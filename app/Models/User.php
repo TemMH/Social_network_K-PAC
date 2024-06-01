@@ -98,31 +98,7 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'recipient_id');
     }
 
-    public function areFriends($userId)
-    {
-        return Friendship::where(function ($query) use ($userId) {
-            $query->where('sender_id', $this->id)
-                ->where('recipient_id', $userId)
-                ->where('status', 'accepted');
-        })->orWhere(function ($query) use ($userId) {
-            $query->where('sender_id', $userId)
-                ->where('recipient_id', $this->id)
-                ->where('status', 'accepted');
-        })->exists();
-    }
 
-    public function areSubscriber($userId)
-    {
-        return Friendship::where(function ($query) use ($userId) {
-            $query->where('sender_id', $this->id)
-                ->where('recipient_id', $userId)
-                ->where('status', 'pending');
-        })->orWhere(function ($query) use ($userId) {
-            $query->where('sender_id', $userId)
-                ->where('recipient_id', $this->id)
-                ->where('status', 'rejected');
-        })->exists();
-    }
 
     public function videos()
     {
@@ -158,5 +134,60 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ban::class);
     }
+
+    //Friends
+
+    public function areFriends($userId)
+{
+    return $this->checkFriendshipStatus($userId, 'accepted');
+}
+
+public function arePending($userId)
+{
+    return $this->checkFriendshipStatus($userId, 'pending');
+}
+
+public function areSubscriber($userId)
+{
+    return $this->checkFriendshipStatus($userId, 'rejected');
+}
+
+private function checkFriendshipStatus($userId, $status)
+{
+    return Friendship::where(function ($query) use ($userId, $status) {
+        $query->where('sender_id', $this->id)
+              ->where('recipient_id', $userId)
+              ->where('status', $status);
+    })->orWhere(function ($query) use ($userId, $status) {
+        $query->where('sender_id', $userId)
+              ->where('recipient_id', $this->id)
+              ->where('status', $status);
+    })->exists();
+}
+
+public function isRequesting($userId)
+{
+    return Friendship::where('sender_id', $this->id )
+                     ->where('recipient_id', $userId)
+                     ->where('status', 'pending')
+                     ->exists();
+}
+
+public function isSender($userId)
+{
+    return Friendship::where('sender_id', $this->id)
+                     ->where('recipient_id', $userId)
+                     ->where('status', 'rejected')
+                     ->exists();
+}
+
+public function isRecipient($userId)
+{
+    return Friendship::where('sender_id', $userId)
+                     ->where('recipient_id', $this->id)
+                     ->where('status', 'rejected')
+                     ->exists();
+}
+
 
 }

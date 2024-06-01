@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('recipient_id');
-            $table->enum('type_message',['text','repost'])->default('text');
+            $table->enum('type',['text','repost'])->default('text');
             $table->text('message');
             $table->timestamps();
 

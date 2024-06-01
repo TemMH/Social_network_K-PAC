@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Events\MessageSendEvent;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\Statement;
+use App\Models\Video;
 use Livewire\Component;
 use Livewire\Attributes\On; 
 
@@ -17,9 +19,15 @@ class ChatComponent extends Component
 
     public $recipient_id;
 
+    public $type;
+
+
     public $message = '';
 
     public $messages = [];
+
+    public $statement;
+    public $recipient;
 
 
     public function render()
@@ -56,6 +64,7 @@ class ChatComponent extends Component
         $message->sender_id = $this->sender_id;
         $message->recipient_id = $this->recipient_id;
         $message->message = $this->message;
+        $message->type = 'text';
         $message->save();
         $this->chatMessage($message);
 
@@ -82,6 +91,7 @@ class ChatComponent extends Component
             'created_at' => $message->created_at,
             'sender' => $message->sender->name,
             'recipient' => $message->recipient->name,
+            'type' => $message->type,
 
         ];
 

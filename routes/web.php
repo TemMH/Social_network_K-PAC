@@ -188,21 +188,12 @@ Route::middleware(['auth', 'verified', 'ban'])->controller(ViewsController::clas
 
 //FriendRequest
 Route::middleware(['auth', 'verified', 'ban'])->controller(FriendshipController::class)->group(function () {
-
-
-    Route::get('/friend-requests', 'friendRequests')->name('friend-requests');
-    Route::post('/accept-friend-request/{id}',  'acceptFriendRequest')->name('accept-friend-request');
-    Route::post('/reject-friend-request/{id}',  'rejectFriendRequest')->name('reject-friend-request');
-    Route::get('/friends', 'rejectFriendRequest')->name('friends-list');
-
-
-
+    Route::post('/accept-friend-request/{id}', 'acceptFriendRequest')->name('accept-friend-request');
+    Route::post('/reject-friend-request/{id}', 'rejectFriendRequest')->name('reject-friend-request');
     Route::post('/send-friend-request/{user}', 'sendFriendRequest')->name('send-friend-request');
-    Route::get('/friend-requests', 'showFriendRequests')->name('friend-requests');
-
-
     Route::delete('/friend/{friend}', 'removeFriend')->name('friend.remove');
 });
+
 
 
 // Messenger
@@ -210,7 +201,7 @@ Route::middleware(['auth', 'verified', 'ban'])->controller(DialogController::cla
 
     Route::get('/messenger', 'showMessenger')->name('messenger');
     Route::get('/messenger/{id}', 'chat')->name('messenger.chat');
-    Route::post('/messenger/{userId}/send', 'sendMessage')->name('message.send');
+
     Route::get('/messages/{userId}', 'getMessages')->name('messages.get');
 
 

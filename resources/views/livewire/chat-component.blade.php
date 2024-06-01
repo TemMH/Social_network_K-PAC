@@ -40,7 +40,13 @@
                                 <div class="message_history_dialog_field_left_rama">
                                     <div class="message_history_dialog_field_left_content">
                                         <div class="txt_2">
+                                            @if ($message['type'] === 'repost')
                                             {!! $message['message'] !!}
+                                            @endif
+        
+                                            @if ($message['type'] === 'text')
+                                            {{ $message['message'] }}
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +63,17 @@
                                 <div class="message_history_dialog_field_right_rama">
                                     <div class="message_history_dialog_field_right_content">
                                         <div class="txt_2">
+
+                                            
+                                           
+                                            @if ($message['type'] === 'repost')
                                             {!! $message['message'] !!}
+                                        @endif
+            
+                                        @if ($message['type'] === 'text')
+                                            {{ $message['message'] }}
+                                        @endif
+                                        
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +88,7 @@
     <form id="sendMessageForm" wire:submit="sendMessage()" class="message_history_input" onsubmit="clearInputField()">
         @csrf
         <div class="message_history_input_search_container">
-            <input type="text" wire:model="message" id="message" name="message" required autofocus autocomplete="message" class="message_history_input_container" placeholder="Напишите сообщение...">
+            <input type="text" wire:model="message" id="message" name="message" required  class="message_history_input_container" placeholder="Напишите сообщение...">
         </div>
         <button class="full_video_btn_send" type="submit">
             <svg width="100%" height="100%" viewBox="-2.4 -2.4 28.80 28.80" fill="none"

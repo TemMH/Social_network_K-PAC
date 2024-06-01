@@ -105,6 +105,7 @@ class DialogController extends Controller
 
         $message = Message::create([
             'message' => $messageContent,
+            'type' => 'repost',
             'sender_id' => auth()->id(),
             'recipient_id' => $friend->id,
         ]);

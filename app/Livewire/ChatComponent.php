@@ -26,8 +26,6 @@ class ChatComponent extends Component
 
     public $messages = [];
 
-    public $statement;
-    public $recipient;
 
 
     public function render()

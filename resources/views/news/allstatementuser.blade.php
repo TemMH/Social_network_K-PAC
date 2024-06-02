@@ -40,13 +40,8 @@
                     </div>
 
 
-                    <button class="mini_button">
+                    <div id="repostButtonContainer"></div>
 
-                        @include('general.elements.svg-repost') 
-                        {{-- FIX --}}
-
-
-                    </button>
 
 
 

@@ -43,7 +43,7 @@
                                     @if (in_array($friend->id, $sentFriends))
                                         <button disabled class="long_button">Отправлено</button>
                                     @elseif ($user_id === $friend->id)
-                                        <button wire:click="sendVideoToFriend" class="long_button">Отправить</button>
+                                        <button wire:click="sendStatementToFriend" class="long_button">Отправить</button>
                                     @endif
                                 </div>
                             @endforeach

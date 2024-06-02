@@ -198,12 +198,7 @@
                                 });
                             </script>
 
-                            <button class="mini_button" onclick="toggleFriendsList({{ $video->id }})">
-
-                                @include('general.elements.svg-repost')
-
-
-                            </button>
+@livewire('repost-component', ['videoId' => $video->id])
 
 
 
@@ -223,7 +218,7 @@
 
 
 
-                            @livewire('repost-component', ['videoId' => $video->id])
+
 
                         </div>
 

@@ -110,11 +110,8 @@
                 </script>
 
 
-                <button class="mini_button" onclick="toggleFriendsList({{ $statement->id }})">
+                            @livewire('repost-statement-component', ['statementId' => $statement->id])
 
-                    @include('general.elements.svg-repost')
-
-                </button>
 
 
 

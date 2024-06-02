@@ -4,37 +4,38 @@ namespace App\Livewire;
 
 use App\Events\MessageSendEvent;
 use Livewire\Component;
-use App\Models\Video;
+use App\Models\Statement;
 use App\Models\User;
 use App\Models\Message;
 use Livewire\Attributes\On;
 
-class RepostComponent extends Component
+class RepostStatementComponent extends Component
 {
+
     public $user;
     public $showFriendsList = false;
     public $sender_id;
     public $recipient_id;
-    public $videoId;
+    public $statementId;
     public $friends;
     public $user_id;
     public $sentFriends = [];
     public $message = '';
     public $messages = [];
 
-    public function mount($videoId)
+    public function mount($statementId)
     {
-        $this->videoId = $videoId;
+        $this->statementId = $statementId;
         $this->friends = User::where('id', '!=', auth()->id())->get();
         $this->sender_id = auth()->user()->id;
     }
 
-    public function sendVideoToFriend()
+    public function sendStatementToFriend()
     {
-        $video = Video::findOrFail($this->videoId);
+        $statement = Statement::findOrFail($this->statementId);
         $recipient = User::findOrFail($this->user_id);
 
-        $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
+        $messageContent = '<a href="' . route('statementuser', ['id' => $statement->id]) . '">Видео для тебя: ' . $statement->title . '</a>';
 
         $message = new Message();
         $message->sender_id = $this->sender_id;
@@ -59,8 +60,9 @@ class RepostComponent extends Component
         $this->emit('messageReceived', $chatMessage);
     }
 
+
     public function render()
     {
-        return view('livewire.repost-component');
+        return view('livewire.repost-statement-component');
     }
 }

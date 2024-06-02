@@ -81,50 +81,8 @@
 
 
 
-                            <?php
-                            $friendsList = \App\Models\Friendship::where(function ($query) {
-                                $query->where('sender_id', auth()->id())->where('status', 'accepted');
-                            })
-                                ->orWhere(function ($query) {
-                                    $query->where('recipient_id', auth()->id())->where('status', 'accepted');
-                                })
-                                ->get();
-                            
-                            $friendIds = $friendsList->pluck('sender_id')->merge($friendsList->pluck('recipient_id'))->unique();
-                            
-                            $friends = \App\Models\User::whereIn('id', $friendIds)->get();
-                            ?>
+                            @livewire('repost-component', ['videoId' => $video->id])
 
-
-                            {{-- REPOST --}}
-
-                            <button onclick="toggleFriendsList({{ $video->id }})" class="mini_button">
-
-                                @include('general.elements.svg-repost')
-
-
-                            </button>
-
-                            <div id="friendsList{{ $video->id }}" style="display: none;">
-                                <div class="friendsList_repost">
-                                    @foreach ($friends as $friend)
-                                        @if ($friend->id !== auth()->id())
-                                            <a
-                                                href="{{ route('sendPostToFriend', ['postId' => $video->id, 'friendId' => $friend->id]) }}">
-                                                {{ $friend->name }}
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-
-
-                            <script>
-                                function toggleFriendsList(postId) {
-                                    const friendsList = document.getElementById(`friendsList${postId}`);
-                                    friendsList.style.display = friendsList.style.display === 'none' ? 'block' : 'none';
-                                }
-                            </script>
 
 
                             {{-- COMPLAINT --}}
@@ -288,7 +246,7 @@
                                     </div>
                                 </div>
 
-                                <video loop width="320" height="240" autoplay style="object-fit:contain">
+                                <video loop width="320" height="240" autoplay style="object-fit:contain; border-radius:12px;">
                                     <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
                                     Ваш браузер не поддерживает видео тег.
                                 </video>

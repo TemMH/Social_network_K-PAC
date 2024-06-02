@@ -312,66 +312,6 @@ Route::middleware(['auth', 'verified', 'manager', 'ban'])->controller(ManagerCon
 
 
 
-// Other
-
-
-// Route::get('/dialog', function () {
-//     return view('dialog');
-// })->middleware(['auth', 'verified'])->name('dialog');
-
-// Route::get('/confirmation', function () {
-//     return view('confirmation');
-// })->middleware(['auth', 'verified'])->name('confirmation');
-
-// Route::get('/messages', function () {
-//     return view('messages');
-// })->middleware(['auth', 'verified'])->name('messages');
-
-// Route::get('/allvideouser', function () {
-//     return view('video.allvideouser');
-// })->middleware(['auth', 'verified'])->name('allvideouser');
-
-// Route::get('/allvideo', function () {
-//     return view('video.allvideo');
-// })->middleware(['auth', 'verified'])->name('allvideo');
-
-// Route::get('/myvideo', function () {
-//     return view('video.myvideo');
-// })->middleware(['auth', 'verified'])->name('myvideo');
-
-// Route::get('/videouser', function () {
-//     return view('video.videouser');
-// })->middleware(['auth', 'verified'])->name('videouser');
-
-// Route::get('/allshortsvideouser', function () {
-//     return view('video.allshortsvideouser');
-// })->middleware(['auth', 'verified'])->name('allshortsvideouser');
-
-// Route::get('/profileuser', function () {
-//     return view('profile.profileuser');
-// })->middleware(['auth', 'verified'])->name('profileuser');
-
-// Route::get('/profileuserstatements', function () {
-//     return view('profile.profileuserstatements');
-// })->middleware(['auth', 'verified'])->name('profileuserstatements');
-
-// Route::get('/friendfeeduser', function () {
-//     return view('friendfeed.friendfeeduser');
-// })->middleware(['auth', 'verified'])->name('friendfeeduser');
-
-// Route::get('/allstatement', function () {
-//     return view('news.allstatement');
-// })->middleware(['auth', 'verified'])->name('allstatement');
-
-// Route::get('/allstatementuser', function () {
-//     return redirect('all.statement.user.trend');
-// })->middleware(['auth', 'verified'])->name('allstatementuser');
-
-// Route::get('/statementuser', function () {
-//     return view('news.statementuser');
-// })->middleware(['auth', 'verified'])->name('statementuser');
-
-
 
 require __DIR__ . '/auth.php';
 

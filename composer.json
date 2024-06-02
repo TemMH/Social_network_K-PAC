@@ -15,6 +15,7 @@
         "laravel/sanctum": "^4",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
+        "mailersend/laravel-driver": "^2.6",
         "phpmailer/phpmailer": "^6.8"
     },
     "require-dev": {

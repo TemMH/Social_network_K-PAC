@@ -1,6 +1,5 @@
 <?php
 
-namespace App\Listeners;
 namespace App\Mail;
 
 use App\Events\UserRegistered;
@@ -40,22 +39,3 @@ class SendRegistrationEmail
     
 }
 
-class WelcomeMail extends Mailable
-{
-    use Queueable, SerializesModels;
-
-    protected $user;
-
-    public function __construct($user)
-    {
-        $this->user = $user;
-    }
-
-    public function build()
-    {
-        return $this->view('emails.welcome')
-                    ->with(['user' => $this->user])
-                    ->from(config('mail.from.address'), config('mail.from.name'))
-                    ->subject('Добро пожаловать!');
-    }
-}

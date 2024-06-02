@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -189,5 +190,8 @@ public function isRecipient($userId)
                      ->exists();
 }
 
-
+public function sendEmailVerificationNotification()
+{
+    $this->notify(new VerifyEmail);
+}
 }

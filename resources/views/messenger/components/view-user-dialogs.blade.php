@@ -17,7 +17,6 @@
             <div id="searchResultsDialog">
                 @foreach ($dialogs as $dialog)
 
-                    @if ($dialog->user->name !== auth()->user()->name)
 
                         <div class="message_dialogs">
                             <a href="{{ route('messenger.chat', $dialog->user->id) }}" class="message_dialog
@@ -34,7 +33,16 @@
                                         @endif
                                     </div>
 
+                                    @if ($dialog->user->name == auth()->user()->name)
+                                    <p class="txt2">Избранное</p> 
+
+                                    @else
+
                                     <p class="txt2">{{ $dialog->user->name }}</p> 
+
+
+                                    @endif
+                                
 
                                 </div>
 
@@ -56,7 +64,7 @@
                             </a>
                         </div>
 
-                    @endif
+              
 
                 @endforeach
             </div>

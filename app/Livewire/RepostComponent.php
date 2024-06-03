@@ -34,7 +34,7 @@ class RepostComponent extends Component
         $video = Video::findOrFail($this->videoId);
         $recipient = User::findOrFail($this->user_id);
 
-        $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
+        $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">'. $video->title . '<img src="' . asset('storage/' . $video->thumbnail_path) . '" alt="thumbnail"></a>';
 
         $message = new Message();
         $message->sender_id = $this->sender_id;

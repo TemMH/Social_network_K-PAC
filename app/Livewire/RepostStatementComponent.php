@@ -35,7 +35,7 @@ class RepostStatementComponent extends Component
         $statement = Statement::findOrFail($this->statementId);
         $recipient = User::findOrFail($this->user_id);
 
-        $messageContent = '<a href="' . route('statementuser', ['id' => $statement->id]) . '">Видео для тебя: ' . $statement->title . '</a>';
+        $messageContent = '<a href="' . route('statementuser', ['id' => $statement->id]) . '">'. $statement->title . '<img src="' . asset('storage/' . $statement->photo_path) . '" alt="Photo"></a>';
 
         $message = new Message();
         $message->sender_id = $this->sender_id;

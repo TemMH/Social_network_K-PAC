@@ -279,7 +279,7 @@
 
                             <div class="main_novost_top">
                                 <a
-                                    href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'news']) }}">
+                                    href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
                                     <div class="main_novost_img">
 
                                     @if ($comment->user->avatar !== null)

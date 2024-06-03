@@ -62,7 +62,7 @@
 .statement_block_middle img {
 
     object-fit: contain;
-
+    pointer-events: none;
 
 }
 
@@ -160,7 +160,7 @@
     overflow-y: scroll;
     padding: 0 1%;
     z-index: 12;
-
+    margin-inline: auto;
 
 
 }
@@ -204,7 +204,7 @@
 .statement_block_middle_open img {
 
     object-fit: contain;
-    max-height: 60rem;
+    height: 50rem;
 
 }
 

@@ -822,6 +822,18 @@ main {
 
 }
 
+    .delete-form{
+        width: 50%;
+        padding: 1%;
+        margin: 0.5% auto;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #222222;
+        border: 1px solid #484848;
+    }
+
 
 /* DropDownMenu */
 

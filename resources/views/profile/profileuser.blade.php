@@ -229,38 +229,22 @@ function confirmUnsubscribe() {
 
                                 {{-- BUTTONS UPLOAD --}}
                                 @if ($user->id == auth()->id())
-                                    <button class="mini_button" onclick="location.href='{{ route('newvideo') }}'"
-                                        type="button" title="Опубликовать видеоматериал">
+                                @include('profile.create.new-video')
 
-
-                                        @include('general.elements.profile.svg-newvideo')
-                                    </button>
                                 @endif
 
                                 @if ($user->id == auth()->id())
-                                    <button class="mini_button" onclick="location.href='{{ route('newstatement') }}'"
-                                        type="button" title="Опубликовать фотоматериал">
-
-                                        @include('general.elements.profile.svg-newstatement')
-
-                                    </button>
+                                @include('profile.create.new-statement')
                                 @endif
+                               
 
                                 {{-- SETTINGS --}}
 
                                 @if ($user->id == auth()->id())
                                     <button class="mini_button" onclick="location.href='/profile'"
                                         type="button" title="Настройки пользователя">
-
-
                                         @include('general.elements.profile.svg-setting')
-
                                     </button>
-
-
-
-
-                                    
                                 @endif
 
 

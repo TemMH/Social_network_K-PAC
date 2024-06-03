@@ -4,7 +4,7 @@
 .newvideo_frame {
 
     width: 50%;
-    height: 98%;
+    height: 95vh;
     margin: 0.5% auto;
     border-radius: 12px;
     display: flex;

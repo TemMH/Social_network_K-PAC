@@ -64,7 +64,7 @@ Route::middleware(['auth', 'verified', 'ban'])->controller(StatementController::
 
     Route::post('/newstatement/create',   'store')->name('createstatement');
 
-    Route::get('/newstatement', 'create')->name('newstatement');
+    // Route::get('/newstatement', 'create')->name('newstatement');
 
 
     Route::post('/statement/{id}/like',   'like')->name('statement.like');
@@ -103,7 +103,7 @@ Route::middleware(['auth', 'verified', 'ban'])->controller(VideoController::clas
     Route::get('/allvideouser',  'allvideouser')->name('main.all.video.user');
 
 
-    Route::get('/newvideo', 'create')->name('newvideo');
+    // Route::get('/newvideo', 'create')->name('newvideo');
 
 
     Route::get('/allvideouser/trend',  'allvideousertrend')->name('all.video.user.trend');

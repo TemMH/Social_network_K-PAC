@@ -67,11 +67,13 @@ class ProfileController extends Controller
 
     public function UserProfile($id)
     {
+        $categories = Category::all();
+
         $user = User::findOrFail($id);
         $statements = Statement::where('user_id', $id)->get();
         $videos = Video::where('user_id', $id)->get();
 
-        return view('profile.profileuser', ['user' => $user, 'videos' => $videos, 'statements' => $statements, 'users' => [$user]]);
+        return view('profile.profileuser', ['categories' => $categories,'user' => $user, 'videos' => $videos, 'statements' => $statements, 'users' => [$user]]);
     }
 
     public function ProfileUserStatements(Request $request, $id)

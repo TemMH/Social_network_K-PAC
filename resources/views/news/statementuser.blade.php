@@ -245,7 +245,7 @@
                         </div>
                         <div class="full_statement_content_statement_top_category">
 
-                            <div class="full_statement_category">{{ $statement->category->name }}</div>
+                            <div class="full_statement_category">{{ isset($statement->category)? $statement->category->name : 'без категории' }}</div>
 
                         </div>
 

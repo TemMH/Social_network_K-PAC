@@ -1,11 +1,17 @@
-<x-app-layout>
-    <x-slot name="header">
+<section>
 
-    </x-slot>
+    <button
+    x-data=""
+    x-on:click.prevent="$dispatch('open-modal', 'create-new-statement')"
+    class="mini_button"
+    title="Опубликовать фотоматериал"
+>@include('general.elements.profile.svg-newstatement')</button>
 
 
 
-    <div class="friendfeed_field">
+
+<x-modal name="create-new-statement" :show="$errors->userDeletion->isNotEmpty()" focusable>
+
 
 
 
@@ -155,11 +161,6 @@
 
         </form>
 
+</x-modal>
 
-
-
-    </div>
-
-
-
-</x-app-layout>
+</section>

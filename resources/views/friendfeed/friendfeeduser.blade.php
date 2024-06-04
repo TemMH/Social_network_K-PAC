@@ -132,40 +132,22 @@
 
                                     </button>
 
-                                    <?php
-                                    $friendsList = \App\Models\Friendship::where(function ($query) {
-                                        $query->where('sender_id', auth()->id())->where('status', 'accepted');
-                                    })
-                                        ->orWhere(function ($query) {
-                                            $query->where('recipient_id', auth()->id())->where('status', 'accepted');
-                                        })
-                                        ->get();
-                                    
-                                    $friendIds = $friendsList->pluck('sender_id')->merge($friendsList->pluck('recipient_id'))->unique();
-                                    
-                                    $friends = \App\Models\User::whereIn('id', $friendIds)->get();
-                                    ?>
+
 
                             {{-- REPOST --}}
 
-                            <button onclick="toggleFriendsList({{ $feedItem->id }})" class="mini_button">
+                            @if ($feedItem instanceof \App\Models\Video)
+                            
+                            @livewire('repost-component', ['videoId' => $feedItem->id])
 
-@include('general.elements.svg-repost')
 
-                            </button>
+                        @elseif ($feedItem instanceof \App\Models\Statement)
 
-                            <div id="friendsList{{ $feedItem->id }}" style="display: none;">
-                                <div class="friendsList_repost">
-                                    @foreach ($friends as $friend)
-                                        @if ($friend->id !== auth()->id())
-                                            <a
-                                                href="{{ route('sendPostToFriend', ['postId' => $feedItem->id, 'friendId' => $friend->id]) }}">
-                                                {{ $friend->name }}
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
+                        @livewire('repost-statement-component', ['statementId' => $feedItem->id])
+
+
+                        @endif
+
 
                             @if ($feedItem instanceof \App\Models\Video)
 
@@ -197,7 +179,7 @@
 
                             </div>
                             <div class="statement_block_middle_open_img_lock">
-                                <div class="statement_block_middle_open">
+                                <div class="friendfeed_block_middle_open">
 
 
                                     @if ($feedItem instanceof \App\Models\Video)

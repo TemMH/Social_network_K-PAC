@@ -15,19 +15,27 @@
 
                 <button onclick="location.href='{{ route('reports') }}';"
                     class="long_button {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
-
-                    @if (auth()->user()->role == 'Admin')
-
-                    <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
-                    class="long_button {{ Route::is('admin.navigation.statements', 'admin.navigation.statements.unblocked', 'admin.navigation.statements.blocked') ? 'selected' : '' }}">Фотоматериалы</button>
+                <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
+                    class="long_button {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
-                    class="long_button {{ Route::is('admin.navigation.videos', 'admin.navigation.videos.unblocked', 'admin.navigation.videos.blocked') ? 'selected' : '' }}">Видеоматериалы</button>
+                    class="long_button {{ Route::is('admin.navigation.videos') ? 'selected' : '' }}">Видеоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.users') }}';"
-                    class="long_button {{ Route::is('admin.navigation.users', 'admin.navigation.users.unblocked', 'admin.navigation.users.blocked') ? 'selected' : '' }}">Пользователи</button>
-                <button onclick="location.href='{{ route('admin.navigation.create') }}';"
-                    class="long_button {{ Route::is('admin.navigation.create') ? 'selected' : '' }}">Добавить</button>
+                    class="long_button {{ Route::is('admin.navigation.users') ? 'selected' : '' }}">Пользователи</button>
 
-                    @endif
+
+                    <div class="statements_settings_right">
+                        <div class="dropdown">
+                            <div class="dropbtn">Настройки</div>
+                            <div class="dropdown-content">
+
+                                <a href="{{ route('admin.navigation.view.category') }}" class="long_button">Категории</a>
+                
+                                <a href="{{ route('admin.navigation.view.reason') }}" class="long_button">Причины</a>
+                
+                            </div>
+                        </div>
+                
+                    </div>
 
             </div>
 

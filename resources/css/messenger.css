@@ -77,9 +77,9 @@ Messages
 
 .message_history {
 
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
     width: 80%;
     height: 100vh;
 
@@ -92,7 +92,7 @@ Messages
     margin-top: 0.5%;
     border-radius: 12px 12px 0px 0px;
     aspect-ratio: 8 / 1;
-    /* height: 15%; */
+    height: 15%;
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
@@ -184,7 +184,7 @@ Messages
 
 .message_history_dialog {
 
-    height: 75%;
+    height: 76%;
 
 }
 

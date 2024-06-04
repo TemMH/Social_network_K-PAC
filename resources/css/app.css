@@ -31,12 +31,15 @@ button{
 
 .long_button{
 
+
     padding: 8px 16px;
     text-transform: uppercase;
     background-color: #1A1A1D;
     border: 1px solid #777777;
+
     font-size: 12px;
     font-weight: 600;
+    height: min-content;
     letter-spacing: 1.2px;
     border-radius: 12px;
     margin: 0 1%;
@@ -783,8 +786,7 @@ main {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    border-color: #00ff2f;
-    color: #00ff2f;
+
 }
 
 .flash-success {
@@ -792,10 +794,11 @@ main {
     width: max-content;
     border-radius: 5px;
     margin-bottom: 10px;
+    border: 1px solid;
     border-color: #484848;
     background-color: #2D2D2D;
-    border-color: #ffffff;
-    color: #ffffff;
+    border-color: #00ff2f;
+    color: #00ff2f;
     position: absolute;
     bottom: 0;
     right: 10%;
@@ -803,9 +806,18 @@ main {
 
 
 .flash-error {
-    background-color: #00ffee;
-    border-color: #00b7ff;
-    color: #0059ff;
+    padding: 10px;
+    width: max-content;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid;
+    border-color: #484848;
+    background-color: #2D2D2D;
+    border-color: #dc2626;
+    color: #dc2626;
+    position: absolute;
+    bottom: 0;
+    right: 10%;
 }
 
  /* Form */

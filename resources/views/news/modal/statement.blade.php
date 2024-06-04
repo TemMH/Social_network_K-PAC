@@ -286,10 +286,23 @@
 
 
 
-                <button id="openFull" class="mini_button">
+                <a href="{{ route('statementuser', ['id' => $statement->id]) }}" id="openFull"  class="mini_button">
 
                     @include('general.elements.svg-openfull')
 
+
+                </a>
+
+                <button onclick="confirmSendComplaint()" type="button" class="mini_button">
+
+
+
+                    @include('general.elements.svg-complaint')
+
+                                    
+                    {{-- репорт заполненный
+                    @include('general.elements.svg-complained')
+                    --}}
 
                 </button>
             </div>

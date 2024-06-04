@@ -78,7 +78,7 @@
     
                 <details class="longvideos_thumbnail_description">
                     <summary>
-                        Раскрывающийся список
+                        Краткое описание
                     </summary>
                     <div class="longvideos_thumbnail_description_text">
                         {{ $trendvideo->description }}
@@ -100,7 +100,7 @@
                     <div class="category">
                         <button type="submit" name="category" value="" class="long_button">Все категории</button>
                         @forelse ($categories as $category)
-                            <button type="submit" name="category" value="{{ $category->id }}" class="statements_categories_btn">{{ $category->name }}</button>
+                            <button type="submit" name="category" value="{{ $category->id }}" class="long_button">{{ $category->name }}</button>
                         @empty
                             <p>Категорий нет</p>
                         @endforelse

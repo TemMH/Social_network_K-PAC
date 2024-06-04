@@ -120,8 +120,19 @@
 
         <main>
             {{ $slot }}
+
+
             @include('flash::message')
 
+            <div id="flash-success" class="flash-success" style="display: none;">
+                <div class="flsh-title">K-PAC</div>
+                <div class="flash-message"></div>
+            </div>
+
+            <div id="flash-error" class="flash-error" style="display: none;">
+                <div class="flsh-title">K-PAC</div>
+                <div class="flash-message"></div>
+            </div>
         </main>
 
 
@@ -131,7 +142,27 @@
             });
         </script>
 
-
+<script>
+    $(document).ready(function(){
+        $('.flash-error').delay(5000).fadeOut('slow');
+    });
+</script>
+<script>
+    function showFlashSuccess(message) {
+        var flashSuccess = document.getElementById('flash-success');
+    var flashMessage = flashSuccess.querySelector('.flash-message');
+    flashMessage.textContent = message;
+    flashSuccess.style.display = 'block';
+    }
+</script>
+<script>
+    function showFlashError(message) {
+        var flashError = document.getElementById('flash-error');
+    var flashMessage = flashError.querySelector('.flash-message');
+    flashMessage.textContent = message;
+    flashError.style.display = 'block';
+    }
+</script>
 
         <?php
         $friendRequests = \App\Models\Friendship::where('recipient_id', auth()->id())->where('status', 'pending')->get();

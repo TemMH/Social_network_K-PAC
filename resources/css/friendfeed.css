@@ -30,6 +30,11 @@
 }
 
 
+.friendfeed_block_middle_open img {
+
+    object-fit: contain;
+
+}
 
 .friendfeed_field_frame {
 

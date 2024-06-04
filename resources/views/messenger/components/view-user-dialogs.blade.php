@@ -15,8 +15,53 @@
             </div>
             
             <div id="searchResultsDialog">
-                @foreach ($dialogs as $dialog)
 
+                <div class="message_dialogs">
+                    <a href="{{ route('messenger.chat', $selfDialog->user->id) }}" class="message_dialog
+                 @if ($selfDialog->user->id == $user->id) active @endif">
+
+                        <div class="author">
+
+                            <div class="avatar_mini">
+                                @if ($selfDialog->user->avatar !== null)
+                                    <img class="avatar_mini"
+                                        src="{{ asset('storage/' . $selfDialog->user->avatar) }}" alt="Avatar">
+                                @else
+                                    <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
+                                @endif
+                            </div>
+                            @if ($selfDialog->user->name == auth()->user()->name)
+
+                            <p class="txt2">Избранное</p> 
+                            @endif
+
+
+                           
+                        
+
+                        </div>
+
+                        <div class="message_dialog_last">
+                            
+                            <p class="txt1">
+
+                                @if ($selfDialog->lastMessage->type === 'repost')
+                                <p>Ссылка</p>
+                                @endif
+
+                                @if ($selfDialog->lastMessage->type === 'text')
+                                {{ $selfDialog->lastMessage->message }}
+                                @endif
+                            </p>
+
+                        </div>
+
+                    </a>
+                </div>
+
+
+                @foreach ($dialogs as $dialog)
+                @if ($dialog->user->name !== auth()->user()->name)
 
                         <div class="message_dialogs">
                             <a href="{{ route('messenger.chat', $dialog->user->id) }}" class="message_dialog
@@ -33,15 +78,10 @@
                                         @endif
                                     </div>
 
-                                    @if ($dialog->user->name == auth()->user()->name)
-                                    <p class="txt2">Избранное</p> 
-
-                                    @else
-
                                     <p class="txt2">{{ $dialog->user->name }}</p> 
 
 
-                                    @endif
+                                   
                                 
 
                                 </div>
@@ -65,7 +105,7 @@
                         </div>
 
               
-
+                        @endif
                 @endforeach
             </div>
 

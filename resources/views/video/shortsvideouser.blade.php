@@ -176,11 +176,11 @@
                                 @endforeach
                             </div>
 
-                            <div class="new_comment">
+               
 
 
-                                <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}">
-                                    <div class="shortvideo_form_comment">
+                                <form method="POST" class="shortvideo_form_comment" action="{{ route('video.comment', ['id' => $video->id]) }}">
+                             
 
                                         @csrf
 
@@ -194,10 +194,10 @@
 
                                         </div>
 
-                                    </div>
+                               
                                 </form>
 
-                            </div>
+                       
 
 
 

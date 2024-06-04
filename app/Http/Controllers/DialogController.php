@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Mail;
 
+use function Laravel\Prompts\select;
+
 class DialogController extends Controller
 {
 
@@ -23,10 +25,15 @@ class DialogController extends Controller
 
         if (auth()->user()->role !== 'Admin') {
             // Если текущий пользователь не администратор, проверяем, являются ли они друзьями
-            if (!auth()->user()->areFriends($id)) {
+            if (!auth()->user()->areFriends($id) && !auth()->user() == ($id)) {
                 abort(403, 'Вы не являетесь друзьями для доступа к диалогу.');
             }
         }
+
+        
+
+
+
         $dialogs = Message::select('sender_id', 'recipient_id')
             ->where('sender_id', auth()->id())
             ->orWhere('recipient_id', auth()->id())
@@ -38,6 +45,15 @@ class DialogController extends Controller
             return $dialog->sender_id != $dialog->recipient_id;
         });
 
+
+    $selfDialog = Message::where('sender_id', auth()->id())
+        ->where('recipient_id', auth()->id())
+        ->first();
+
+    if ($selfDialog) {
+        $dialogs->push($selfDialog);
+    }
+    
         foreach ($dialogs as $dialog) {
             $lastMessage = Message::where(function ($query) use ($dialog) {
                 $query->where('sender_id', $dialog->sender_id)
@@ -51,7 +67,7 @@ class DialogController extends Controller
             $dialog->user = User::find($dialog->sender_id);
         }
 
-        return view('messenger.messenger', compact('id', 'dialogs', 'user'));
+        return view('messenger.messenger', compact('id', 'dialogs', 'user','selfDialog'));
     }
 
     public function showMessenger()
@@ -72,6 +88,15 @@ class DialogController extends Controller
         });
 
 
+    $selfDialog = Message::where('sender_id', auth()->id())
+    ->where('recipient_id', auth()->id())
+    ->first();
+
+if ($selfDialog) {
+    $dialogs->push($selfDialog);
+}
+
+
         foreach ($dialogs as $dialog) {
             $lastMessage = Message::where(function ($query) use ($dialog) {
                 $query->where('sender_id', $dialog->sender_id)
@@ -85,51 +110,9 @@ class DialogController extends Controller
             $dialog->user = User::find($dialog->sender_id);
         }
 
-        return view('messenger.messenger', compact('dialogs', 'user'));
+        return view('messenger.messenger', compact('dialogs', 'user','selfDialog'));
     }
 
 
     
-
-
-    public function sendPostToFriend(Request $request, $statementId, $friendId)
-    {
-
-        $statement = Statement::findOrFail($statementId);
-        $friend = User::findOrFail($friendId);
-
-
-        $messageContent = '<a href="' . route('statementuser', ['id' => $statement->id]) . '">Пост для тебя: ' . $statement->description . '</a>';
-
-
-
-        $message = Message::create([
-            'message' => $messageContent,
-            'type' => 'repost',
-            'sender_id' => auth()->id(),
-            'recipient_id' => $friend->id,
-        ]);
-
-
-
-        return redirect()->back()->with('success', 'Пост отправлен пользователю ' . $friend->name);
-    }
-
-    public function sendVideoToFriend(Request $request, $videoId, $friendId)
-    {
-        $video = Video::findOrFail($videoId);
-        $friend = User::findOrFail($friendId);
-
-
-
-        $messageContent = '<a href="' . route('videouser', ['id' => $video->id]) . '">Видео для тебя: ' . $video->title . '</a>';
-
-        $message = Message::create([
-            'message' => $messageContent,
-            'sender_id' => auth()->id(),
-            'recipient_id' => $friend->id,
-        ]);
-
-        return redirect()->back()->with('success', 'Видео отправлено пользователю ' . $friend->name);
-    }
 }

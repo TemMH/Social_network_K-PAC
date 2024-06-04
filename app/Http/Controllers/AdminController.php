@@ -361,9 +361,21 @@ public function delete_ban_statement(Request $request, Statement $statement){
 
 
     //Create NEW
-    public function create(){
+    public function ViewCreateCategoey(){
 
-        return view('admin.adminadd');
+        $categories = Category::all();
+        $reasons = Reason::all();
+
+        return view('admin.adminadd', compact('categories', 'reasons'));
+
+    }
+
+    public function ViewCreateReason(){
+
+        $categories = Category::all();
+        $reasons = Reason::all();
+
+        return view('admin.adminadd', compact('categories', 'reasons'));
 
     }
 
@@ -406,6 +418,42 @@ public function delete_ban_statement(Request $request, Statement $statement){
 
         return back();
     }
+
+//DeleteAdmin
+
+public function deleteCategory(Category $category)
+{
+    $category->delete();
+
+    return response()->json(['success' => true]);
+}
+
+public function deleteReason(Reason $reason)
+{
+    $reason->delete();
+
+    return response()->json(['success' => true]);
+}
+
+
+
+//UpdateAdmin
+
+public function updateCategory(Request $request, Category $category)
+{
+    $category->name = $request->input('name');
+    $category->save();
+
+    return response()->json(['success' => true]);
+}
+
+public function updateReason(Request $request, Reason $reason)
+{
+    $reason->name = $request->input('name');
+    $reason->save();
+
+    return response()->json(['success' => true]);
+}
 
 
 //SearchAdminInput

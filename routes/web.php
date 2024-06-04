@@ -223,7 +223,10 @@ Route::middleware(['auth', 'verified', 'admin', 'ban'])->controller(AdminControl
 
     Route::get('/adminnavigation/statements', 'index')->name('admin.navigation.statements');
 
-    Route::get('/adminnavigation/create', 'create')->name('admin.navigation.create');
+    Route::get('/adminnavigation/view/categories', 'ViewCreateCategoey')->name('admin.navigation.view.category');
+
+    Route::get('/adminnavigation/view/reasons', 'ViewCreateReason')->name('admin.navigation.view.reason');
+
 
 
     //AdminNavigationBlocked
@@ -240,6 +243,16 @@ Route::middleware(['auth', 'verified', 'admin', 'ban'])->controller(AdminControl
 
     Route::post('/adminnavigation/create/category', 'createCategory')->name('admin.navigation.create.category');
     Route::post('/adminnavigation/create/reason', 'createReason')->name('admin.navigation.create.reason');
+
+    //AdminDelete
+
+    Route::delete('/adminnavigation/delete/category/{category}', 'deleteCategory')->name('admin.navigation.delete.category');
+    Route::delete('/adminnavigation/delete/reason/{reason}', 'deleteReason')->name('admin.navigation.delete.reason');
+
+    //AdminUpdate
+    Route::put('/adminnavigation/update/category/{category}', 'updateCategory')->name('admin.navigation.update.category');
+    Route::put('/adminnavigation/update/reason/{reason}', 'updateReason')->name('admin.navigation.update.reason');
+
 
     //AdminBan
     Route::post('/adminnavigation/statement/{statement}', 'post_statement_complaint')->name('complaint.post.statement');

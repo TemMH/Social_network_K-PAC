@@ -9,7 +9,13 @@
                 @endif
             </div>
             <div class="message_history_author_info_name">
+                @if ($user->name == auth()->user()->name)
+
+                <p>Избранное</p> 
+      @else
+
                 <p>{{ $user->name }}</p>
+                @endif
                 <div class="message_history_author_info_online">
                     <p>{{ $user->condition }}</p>
                 </div>

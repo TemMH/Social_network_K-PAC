@@ -9,7 +9,7 @@
     <div class="statements_field">
 
         <div class="statements_settings">
-
+            @if (Route::is('all.statement.user.trend', 'all.statement.user.popular', 'all.statement.user.newforuser', 'all.statement.user.new', 'all.statement.user.viewed'))
             <div class="statements_settings_left">
                 <button onclick="location.href='{{ route('all.statement.user.trend') }}';" class="long_button {{ Route::is('all.statement.user.trend') ? 'selected' : ''}}">В тренде</button>
                 <button onclick="location.href='{{ route('all.statement.user.popular') }}';" class="long_button {{ Route::is('all.statement.user.popular') ? 'selected' : ''}}">Популярно</button>
@@ -17,6 +17,31 @@
                 <button onclick="location.href='{{ route('all.statement.user.new') }}';" class="long_button {{ Route::is('all.statement.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
                 <button onclick="location.href='{{ route('all.statement.user.viewed') }}';" class="long_button {{ Route::is('all.statement.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
             </div>
+            @endif
+
+            @if (Route::is('profile.profileuserstatements.trend', 'profile.profileuserstatements.popular', 'profile.profileuserstatements.newforuser', 'profile.profileuserstatements.viewed', 'profile.profileuserstatements.new'))
+            <div class="statements_settings_left">
+                <button onclick="location.href='{{ route('profile.profileuserstatements.trend', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuserstatements.trend') ? 'selected' : ''}}">В тренде</button>
+                <button onclick="location.href='{{ route('profile.profileuserstatements.popular', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuserstatements.popular') ? 'selected' : ''}}">Популярно</button>
+                <button onclick="location.href='{{ route('profile.profileuserstatements.newforuser', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuserstatements.newforuser') ? 'selected' : ''}}">Новое для вас</button>
+                <button onclick="location.href='{{ route('profile.profileuserstatements.new', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuserstatements.new') ? 'selected' : ''}}">Недавно опубликованные</button>
+                <button onclick="location.href='{{ route('profile.profileuserstatements.viewed', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuserstatements.viewed') ? 'selected' : ''}}">Просмотрено</button>
+            </div>
+            @endif
+
+
+            @if (Route::is('profile.profileuserstatements.trend', 'profile.profileuserstatements.popular', 'profile.profileuserstatements.newforuser', 'profile.profileuserstatements.viewed', 'profile.profileuserstatements.new'))
+            <div class="statements_settings_middle">
+                <p>Фотоматериалы  
+                    
+                    <a href="{{ route('profile.profileuser', ['id' => $user->id]) }}">
+                    {{ $user->name }}
+                    </a>
+                
+                </p>
+            </div>
+            @endif
+
 
 @include('general.partials.dropdown-category')
 
@@ -88,7 +113,6 @@
     </script>
 
 
-    
 
 
 

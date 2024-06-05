@@ -24,14 +24,14 @@
 
 
 
-                    <div class="statement_block_top_user_image_open">
+                    <a href="{{ route('profile.profileuser', ['id' => $user->id]) }}" class="statement_block_top_user_image_open">
                         @if ($user->avatar !== null)
                             <img class="avatar_mini" src="{{ asset('storage/' . $user->avatar) }}"
                                 alt="Avatar">
                         @else
                             <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
                         @endif
-                    </div>
+                    </a>
 
                     <div class="statement_block_top_addinfo">
 

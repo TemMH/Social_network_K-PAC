@@ -157,9 +157,32 @@ Route::middleware(['auth', 'verified', 'ban', 'ban'])->controller(ProfileControl
 
     Route::get('/profileuser/{id}',  'UserProfile')->name('profile.profileuser');
 
-    Route::get('/profileuserstatements/{id}', 'ProfileUserStatements')->name('profile.profileuserstatements');
 
-    Route::get('/profileuservideos/{id}', 'ProfileUserVideos')->name('profile.profileuservideos');
+    //STATEMENTS
+
+    Route::get('/profileuserstatements/{id}/trend',   'allstatementusertrend')->name('profile.profileuserstatements.trend');
+
+    Route::get('/profileuserstatements/{id}/popular',   'allstatementuserpopular')->name('profile.profileuserstatements.popular');
+
+    Route::get('/profileuserstatements/{id}/newforuser',   'allstatementusernewforuser')->name('profile.profileuserstatements.newforuser');
+
+    Route::get('/profileuserstatements/{id}/viewed',  'allstatementuserviewed')->name('profile.profileuserstatements.viewed');
+
+    Route::get('/profileuserstatements/{id}/new', 'allstatementusernew')->name('profile.profileuserstatements.new');
+
+    //VIDEOS
+
+    Route::get('/profileuservideos/{id}/trend',   'allvideousertrend')->name('profile.profileuservideos.trend');
+
+    Route::get('/profileuservideos/{id}/popular',   'allvideouserpopular')->name('profile.profileuservideos.popular');
+
+    Route::get('/profileuservideos/{id}/newforuser',   'allvideousernewforuser')->name('profile.profileuservideos.newforuser');
+
+    Route::get('/profileuservideos/{id}/viewed',  'allvideouserviewed')->name('profile.profileuservideos.viewed');
+
+    Route::get('/profileuservideos/{id}/new', 'allvideousernew')->name('profile.profileuservideos.new');
+
+
 
     Route::get('/profile',  'edit')->name('profile.edit');
     Route::patch('/profile',  'update')->name('profile.update');

@@ -697,7 +697,13 @@ main {
 }
 
 
+.main_comment_show{
 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+
+}
 
 /* radio button */
 
@@ -713,7 +719,7 @@ main {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    margin: 4% 0;
+    /* margin: 4% 0; */
     padding: 5% 0;
 
 }

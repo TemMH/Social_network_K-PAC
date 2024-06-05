@@ -7,7 +7,7 @@
     <div class="statements_field">
 
         <div class="statements_settings">
-
+            @if (Route::is('all.video.user.trend', 'all.video.user.popular', 'all.video.user.newforuser', 'all.video.user.new', 'all.video.user.viewed'))
             <div class="statements_settings_left">
                 <button onclick="location.href='{{ route('all.video.user.trend') }}';" class="long_button {{ Route::is('all.video.user.trend') ? 'selected' : ''}}">В тренде</button>
                 <button onclick="location.href='{{ route('all.video.user.popular') }}';" class="long_button {{ Route::is('all.video.user.popular') ? 'selected' : ''}}">Популярно</button>
@@ -15,17 +15,35 @@
                 <button onclick="location.href='{{ route('all.video.user.new') }}';" class="long_button {{ Route::is('all.video.user.new') ? 'selected' : ''}}">Недавно опубликованные</button>
                 <button onclick="location.href='{{ route('all.video.user.viewed') }}';" class="long_button {{ Route::is('all.video.user.viewed') ? 'selected' : ''}}">Просмотрено</button>
             </div>
+            @endif
+
+            @if (Route::is('profile.profileuservideos.trend', 'profile.profileuservideos.popular', 'profile.profileuservideos.newforuser', 'profile.profileuservideos.viewed', 'profile.profileuservideos.new'))
+            <div class="statements_settings_left">
+                <button onclick="location.href='{{ route('profile.profileuservideos.trend', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuservideos.trend') ? 'selected' : ''}}">В тренде</button>
+                <button onclick="location.href='{{ route('profile.profileuservideos.popular', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuservideos.popular') ? 'selected' : ''}}">Популярно</button>
+                <button onclick="location.href='{{ route('profile.profileuservideos.newforuser', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuservideos.newforuser') ? 'selected' : ''}}">Новое для вас</button>
+                <button onclick="location.href='{{ route('profile.profileuservideos.new', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuservideos.new') ? 'selected' : ''}}">Недавно опубликованные</button>
+                <button onclick="location.href='{{ route('profile.profileuservideos.viewed', ['id' => $user->id]) }}';" class="long_button {{ Route::is('profile.profileuservideos.viewed') ? 'selected' : ''}}">Просмотрено</button>
+            </div>
+            @endif
 
 
+            @if (Route::is('profile.profileuservideos.trend', 'profile.profileuservideos.popular', 'profile.profileuservideos.newforuser', 'profile.profileuservideos.viewed', 'profile.profileuservideos.new'))
+            <div class="statements_settings_middle">
+                <p>Видеоматериалы  
+                    
+                    <a href="{{ route('profile.profileuser', ['id' => $user->id]) }}">
+                    {{ $user->name }}
+                    </a>
+                
+                </p>
+            </div>
+            @endif
 
-            @include('general.partials.dropdown-category')
-
-
-
-
-
+@include('general.partials.dropdown-category')
 
         </div>
+
 
         <div class="statements_scroll_lock">
 
@@ -256,48 +274,3 @@
 
 </x-app-layout>
 
-
-{{-- РЕПОСТ
-<div class="main_novost_down">
-
-    <?php
-    $friendsList = \App\Models\Friendship::where(function ($query) {
-        $query->where('sender_id', auth()->id())->where('status', 'accepted');
-    })
-        ->orWhere(function ($query) {
-            $query->where('recipient_id', auth()->id())->where('status', 'accepted');
-        })
-        ->get();
-    
-    $friendIds = $friendsList->pluck('sender_id')->merge($friendsList->pluck('recipient_id'))->unique();
-    
-    $friends = \App\Models\User::whereIn('id', $friendIds)->get();
-    ?>
-
-    <div class="novost_down_func1">
-        <button onclick="toggleFriendsList({{ $statement->id }})"
-            class="novost_down_func_news">📢</button>
-
-    </div>
-    <div id="friendsList{{ $statement->id }}" style="display: none;">
-        <div class="friendsList_repost">
-            @foreach ($friends as $friend)
-                @if ($friend->id !== auth()->id())
-                    <a class="txt_2"
-                        href="{{ route('sendPostToFriend', ['postId' => $statement->id, 'friendId' => $friend->id]) }}">
-                        {{ $friend->name }}
-                    </a>
-                @endif
-            @endforeach
-        </div>
-    </div>
-
-    <script>
-        function toggleFriendsList(postId) {
-            const friendsList = document.getElementById(`friendsList${postId}`);
-            friendsList.style.display = friendsList.style.display === 'none' ? 'block' : 'none';
-        }
-    </script>
-</div> 
-
---}}

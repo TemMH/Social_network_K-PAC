@@ -115,20 +115,8 @@
 
 
 
-                @if (!$statement->complaints->contains('status', 'block') && !$statement->complaints->contains('status', 'unblock'))
-                <button onclick="confirmSendComplaint()" type="button" class="mini_button">
+                            @include('news.modal.report')
 
-
-
-                    @include('general.elements.svg-complaint')
-
-                                    
-                    {{-- репорт заполненный
-                    @include('general.elements.svg-complained')
-                    --}}
-
-                </button>
-@endif
 
 
 

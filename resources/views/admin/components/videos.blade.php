@@ -24,10 +24,10 @@
 
 
 
-                <div class="statement_block_top_image_open">
+                <a href="{{ route('videouser', ['id' => $video->id]) }}" class="statement_block_top_image_open">
                     <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="Thumbnail"
                         style="object-fit:contain;" class="videoThumbnail" style="cursor:pointer;">
-                </div>
+                </a>
 
                 <div class="statement_block_top_addinfo">
 

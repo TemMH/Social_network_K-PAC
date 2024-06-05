@@ -86,7 +86,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
+    column-gap: 0.5%;
 }
 
 .statements_settings_right {
@@ -94,7 +94,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
+    column-gap: 0.5%;
 }
 
 
@@ -204,7 +204,7 @@
 .statement_block_middle_open img {
 
     object-fit: contain;
-    height: 50rem;
+    max-height: 50rem;
 
 }
 

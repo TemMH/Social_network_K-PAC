@@ -9,6 +9,7 @@ use App\Models\Like;
 use App\Models\Comment;
 use App\Models\Video;
 use App\Models\Message;
+use App\Models\Reason;
 use Illuminate\Http\Request;
 // use Illuminate\View\View;
 use App\Models\View;
@@ -266,6 +267,7 @@ class StatementController extends Controller
 
     public function allstatementusertrend(Request $request)
     {
+
         $categories = Category::all();
         $category = $request->input('category');
     

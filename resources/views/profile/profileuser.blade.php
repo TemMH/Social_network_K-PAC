@@ -271,7 +271,7 @@ function confirmUnsubscribe() {
                             <div class="profileuser_block_wrap_line">
                             </div>
 
-                            <a href="{{ route('profile.profileuserstatements', ['id' => $user->id]) }}"
+                            <a href="{{ route('profile.profileuserstatements.new', ['id' => $user->id]) }}"
                                 class="profileuser_block_contents_wrap_btn">
                                 <p>Показать все</p>
                             </a>
@@ -318,7 +318,7 @@ function confirmUnsubscribe() {
 
                             <div class="profileuser_block_wrap_line"></div>
 
-                            <a href="{{ route('profile.profileuservideos', ['id' => $user->id]) }}"
+                            <a href="{{ route('profile.profileuservideos.new', ['id' => $user->id]) }}"
                                 class="profileuser_block_contents_wrap_btn">
                                 <p>Показать все</p>
                             </a>

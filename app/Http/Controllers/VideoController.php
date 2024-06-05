@@ -38,50 +38,60 @@ class VideoController extends Controller
             'video' => 'required|file|mimes:mp4|max:500000',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048|aspect_ratio',
         ]);
-
+    
         $user = auth()->user();
-
+    
         if ($request->hasFile('video') && $request->hasFile('thumbnail')) {
             $uploadedVideo = $request->file('video');
             $videoName = 'video_' . time() . '.' . $uploadedVideo->getClientOriginalExtension();
             $videoPath = $uploadedVideo->storeAs('public/videos', $videoName);
+    
+            $encodedVideoName = 'video_h265_' . time() . '.mp4';
+            $encodedVideoPath = 'public/videos/' . $encodedVideoName;
 
+            $ffmpegPath = 'C:\ffmpeg\bin\ffmpeg.exe';
+            $inputVideoPath = storage_path('app/public/videos/' . $videoName);
+            $outputVideoPath = storage_path('app/public/videos/' . $encodedVideoName);
+    
+            // Формирование команды ffmpeg
+            $ffmpegCommand = "\"$ffmpegPath\" -i \"$inputVideoPath\" -c:v libx265 -crf 28 \"$outputVideoPath\"";
+            exec($ffmpegCommand, $output, $return_var);
+    
+            if ($return_var !== 0) {
+                Flash::error('Ошибка при кодировании видео.');
+                return back();
+            }
+    
             $uploadedThumbnail = $request->file('thumbnail');
             $thumbnailName = 'thumbnail_' . time() . '.' . $uploadedThumbnail->getClientOriginalExtension();
             $thumbnailPath = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
-
+    
             $video = $user->videos()->create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'category_id' => $request->category,
-                'video_path' => 'videos/' . $videoName,
+                'video_path' => 'videos/' . $encodedVideoName, //путь H.265 
                 'thumbnail_path' => 'thumbnails/' . $thumbnailName,
             ]);
-
-            $videos = $user->videos()->get();
-
-
+    
             Flash::success('
-            
             <div class="flash-success">
             <div class="flsh-title">
                 K-PAC
             </div>
             <div class="flash-message">
-            Видеоматериал успешно загружено!
+            Видеоматериал успешно загружен!
             </div>
-            </div>'
-        
-        );
-
-
+            </div>');
+    
             return back();
         }
-
-    Flash::error('Ошибка при загрузке видео или превью');
-
+    
+        Flash::error('Ошибка при загрузке видео или превью');
+    
         return back();
     }
+    
 
     public function addComment(Request $request, $id)
     {

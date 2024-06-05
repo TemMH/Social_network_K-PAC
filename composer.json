@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
         "mailersend/laravel-driver": "^2.6",
+        "pbmedia/laravel-ffmpeg": "^8.5",
         "phpmailer/phpmailer": "^6.8"
     },
     "require-dev": {

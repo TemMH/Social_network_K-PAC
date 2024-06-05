@@ -139,15 +139,10 @@
 
 
     <x-modal name="statement-modal {{ $statement->id }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-
         <div class="statement_block_open">
-
             <div class="statement_block_top_open">
-
                 <div class="statement_block_top_info_left_open">
-
                     <div class="statement_block_top_avatar_open">
-
                         @if ($statement->user->avatar !== null)
                             <a href="{{ route('profile.profileuser', ['id' => $statement->user_id]) }}">
                                 <img class="avatar_mini" src="{{ asset('storage/' . $statement->user->avatar) }}"
@@ -158,42 +153,28 @@
                                 <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
                             </a>
                         @endif
-
                     </div>
-
                     <div class="statement_block_top_info_open">
-
-
                         <div class="statement_block_top_info_name_open">
                             <a href="{{ route('profile.profileuser', ['id' => $statement->user_id]) }}">
                                 {{ $statement->user->name }}
                             </a>
                         </div>
-
                         <div class="statement_block_top_info_createdat_open">
                             {{ $statement->created_at }}
-
                         </div>
-
                     </div>
-
                 </div>
-
-
                 <div class="statement_block_top_info_right_open">
-
                     @if (!$statement->likes()->where('user_id', auth()->id())->exists())
                         {{-- like --}}
-
                         <div class="mini_button">
                             <button type="submit" class="like-button" data-id="{{ $statement->id }}">
                                 @include('general.elements.svg-like')
-
                             </button>
                         </div>
                     @else
                         {{-- REMOVE LIKE --}}
-
                         <div class="mini_button">
                             <button type="submit" class="unlike-button" data-id="{{ $statement->id }}">
                                 @include('general.elements.svg-unlike')
@@ -201,41 +182,21 @@
                             </button>
                         </div>
                     @endif
-
-
                     {{-- REPOST --}}
                     @livewire('repost-statement-component', ['statementId' => $statement->id])
-
-
                     {{-- OPEFULL --}}
 
                     <a href="{{ route('statementuser', ['id' => $statement->id]) }}" id="openFull"
                         class="mini_button">
 
                         @include('general.elements.svg-openfull')
-
-
                     </a>
-
-
-
-
-
-
                 </div>
-
-
-
-
             </div>
             <div class="statement_block_middle_open_img_lock">
                 <div class="statement_block_middle_open">
-
                     <img src="{{ asset('storage/' . $statement->photo_path) }}" alt="Photo">
-
-
                 </div>
-
             </div>
             <div class="statement_block_down_open">
 
@@ -245,67 +206,44 @@
                 <div class="statement_block_down_description_open">
                     <p>{{ $statement->description }}</p>
                 </div>
-
             </div>
-
             <div class="statement_block_comments_open">
-                <form id="commentForm" method="POST"
-                    action="{{ route('statement.comment', ['id' => $statement->id]) }}">
+                <form id="commentForm_{{ $statement->id }}" class="comment-form" data-statement-id="{{ $statement->id }}" method="POST" action="{{ route('statement.comment', ['id' => $statement->id]) }}">
                     <div class="statementuser_comment">
-
                         @csrf
-
                         <div class="main_novost_img">
-
                             @if (Auth::user()->avatar !== null)
-                                <img class="avatar_mini"
-                                    src="{{ asset('storage/' . Auth::user()->avatar) }}"alt="Avatar">
+                                <img class="avatar_mini" src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar">
                             @else
                                 <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
                             @endif
-
                         </div>
-
                         <input class="form_field_comment" name="comment" placeholder="Введите комментарий..." required>
-
                         <div class="submit_comment">
                             <button class="mini_button">
                                 @include('general.elements.svg-send')
-
                             </button>
-
-
                         </div>
-
                     </div>
                 </form>
-
                 <div class="statementuser_comment_show">
-
                     @foreach ($statement->comments as $comment)
                         <div class="main_novost_top">
                             <a href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
                                 <div class="main_novost_img">
-
                                     @if ($comment->user->avatar !== null)
                                         <a href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
-                                            <img class="avatar_mini"
-                                                src="{{ asset('storage/' . $comment->user->avatar) }}" alt="Avatar">
+                                            <img class="avatar_mini" src="{{ asset('storage/' . $comment->user->avatar) }}" alt="Avatar">
                                         </a>
                                     @else
                                         <a href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
                                             <img class="avatar_mini" src="/uploads/ProfilePhoto.png" alt="Avatar">
                                         </a>
                                     @endif
-
                                 </div>
-
-
-
                                 <div class="main_novost_title">
                                     <div>
-                                        <a
-                                            href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'news']) }}">
+                                        <a href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'news']) }}">
                                             <p class="txt_2">{{ $comment->user->name }}</p>
                                         </a>
                                     </div>
@@ -315,28 +253,19 @@
                                 </div>
                             </a>
                         </div>
-
                         <div class="main_comment_show">
                             <p class="txt_2">{{ $comment->content }}</p>
                         </div>
-
                         @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Manager')
-                            <form method="POST"
-                                action="{{ route('admin.statement.comment.delete', ['statementId' => $statement->id, 'commentId' => $comment->id]) }}">
+                            <form method="POST" action="{{ route('admin.statement.comment.delete', ['statementId' => $statement->id, 'commentId' => $comment->id]) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="novost_down_func" type="submit">Удалить комментарий</button>
                             </form>
                         @endif
                     @endforeach
-
                 </div>
-
-
             </div>
-
         </div>
-
     </x-modal>
-
 </section>

@@ -132,10 +132,26 @@ class StatementController extends Controller
     public function addComment(Request $request, $id)
     {
         $statement = Statement::findOrFail($id);
-        $statement->addComment($request->input('comment'));
+    
+        $comment = $statement->comments()->create([
+            'user_id' => auth()->id(),
+            'content' => $request->input('comment')
+        ]);
+    
+        return response()->json([
+            'user_id' => $comment->user_id,
+            'user_name' => $comment->user->name,
+            'user_avatar' => $comment->user->avatar ? asset('storage/' . $comment->user->avatar) : '/uploads/ProfilePhoto.png',
+            'user_role' => auth()->user()->role,
+            'comment' => $comment->content,
+            'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            'comment_id' => $comment->id,
+            'statement_id' => $id,
 
-        return redirect()->back();
+        ]);
     }
+    
+    
 
 
 

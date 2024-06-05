@@ -166,7 +166,63 @@
             });
         });
     </script>
+<script>
+$(document).ready(function() {
+    $('.comment-form').submit(function(e) {
+        e.preventDefault();
+        var statementId = $(this).data('statement-id');
+        var formData = $(this).serialize();
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'), 
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                let deleteForm = '';
+                if (response.user_role === 'Admin' || response.user_role === 'Manager') {
+                    deleteForm = `
+                        <form method="POST" action="/statement/${response.statement_id}/comment/${response.comment_id}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="novost_down_func" type="submit">Удалить комментарий</button>
+                        </form>
+                    `;
+                }
+                var commentsContainer = form.closest('.statement_block_comments_open').find('.statementuser_comment_show');
+                commentsContainer.append(`
+                    <div class="main_novost_top">
+                        <a href="/profileuser/${response.user_id}">
+                            <div class="main_novost_img">
+                                <img class="avatar_mini" src="${response.user_avatar}" alt="Avatar">
+                            </div>
+                            <div class="main_novost_title">
+                                <div>
+                                    <a href="/profileuser/${response.user_id}">
+                                        <p class="txt_2">${response.user_name}</p>
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="txt_2">${response.created_at}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="main_comment_show">
+                        <p class="txt_2">${response.comment}</p>
+                    </div>
+                    ${deleteForm}
+                `);
+                form.find('input[name="comment"]').val('');
+            },
+            error: function(response) {
+                alert('Ошибка при отправке комментария.');
+            }
+        });
+    });
+});
 
+    
+    </script>
 
 <script>
 

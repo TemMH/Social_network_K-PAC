@@ -305,7 +305,7 @@
 
 
 
-                            @if (auth()->user()->role == 'Admin')
+                            @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Manager')
                                 <form method="POST"
                                     action="{{ route('admin.statement.comment.delete', ['statementId' => $statement->id, 'commentId' => $comment->id]) }}">
                                     @csrf
@@ -320,38 +320,87 @@
                     @endforeach
                 </div>
 
-                <form method="POST" class="full_statement_content_comments_form"
-                    action="{{ route('statement.comment', ['id' => $statement->id]) }}">
-
-
+                <form id="commentForm" class="full_statement_content_comments_form" method="POST">
                     @csrf
-
-                    <input class="full_statement_content_comments_field" placeholder="Введите комментарий..."
-                        name="comment">
-
-
-
-
+                    <input class="full_statement_content_comments_field" placeholder="Введите комментарий..." name="comment">
                     <button class="mini_button" style="padding: 0%">
                         @include('general.elements.svg-send')
-
                     </button>
-
-
-
-
-
                 </form>
+                
+
 
             </div>
 
         </div>
 
-
-
-
     </div>
 
+<script>
+    $(document).ready(function() {
+        $('#commentForm').submit(function(event) {
+            event.preventDefault();
+    
+            let commentContent = $('input[name="comment"]').val();
+            let token = $('input[name="_token"]').val();
+    
+            $.ajax({
+                url: "{{ route('statement.comment', ['id' => $statement->id]) }}",
+                method: 'POST',
+                data: {
+                    _token: token,
+                    comment: commentContent
+                },
+                success: function(response) {
 
+                    let deleteForm = '';
+                    if (response.user_role === 'Admin' || response.user_role === 'Manager') {
+                        deleteForm = `
+                        <form method="POST" action="/statement/${response.statement_id}/comment/${response.comment_id}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="novost_down_func" type="submit">Удалить комментарий</button>
+                            </form>
+                        `;
+                    }
+                    $('.full_statement_content_comments').append(`
+                        <div class="full_statement_comment">
+                            <div class="main_novost_top">
+                                <a href="/profileuser/${response.user_id}">
+
+                                    <div class="main_novost_img">
+                                        <img class="avatar_mini" src="${response.user_avatar}" alt="Avatar">
+                                    </div>
+                                </a>
+                                <div class="main_novost_title">
+                                    <div>
+                                        <a href="/profileuser/${response.user_id}">
+                                            <p class="txt_2">${response.user_name}</p>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <p class="txt_2">${response.created_at}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main_comment_show">
+                                <p class="txt_2">${response.comment}</p>
+                            </div>
+                            ${deleteForm}
+                        </div>
+                    `);
+    
+                    $('input[name="comment"]').val('');
+    
+                    var commentsContainer = $('.full_statement_content_comments');
+                    commentsContainer.scrollTop(commentsContainer.prop("scrollHeight"));
+                },
+                error: function(response) {
+                    alert('Ошибка при отправке комментария.');
+                }
+            });
+        });
+    });
+    </script>
 
 </x-app-layout>

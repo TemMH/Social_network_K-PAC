@@ -232,44 +232,37 @@
 
                 </div>
 
-
-                <form method="POST" action="{{ route('video.comment', ['id' => $video->id]) }}"
-                    class="full_video_comments_form_lock">
+                <form id="commentForm" data-route="{{ route('video.comment', ['id' => $video->id]) }}" class="full_video_comments_form_lock">
                     @csrf
 
 
 
                     <div class="full_video_img">
-
                         @if (Auth::user()->avatar !== null)
-                            <img class="avatar_mini"
-                                src="{{ asset('storage/' . Auth::user()->avatar) }}"alt="Avatar">
+                            <img class="avatar_mini" src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar">
                         @else
                             <img class="avatar_mini" src="/uploads/ProfilePhoto.png" width="50px" height="50px">
                         @endif
-
                     </div>
 
-                    <input class="form_field_full_video" name="comment" placeholder="Введите комментарий..." required>
+                    <input id="commentInput" class="form_field_full_video" name="comment" placeholder="Введите комментарий..." required>
 
-                    <button class="mini_button" style="padding: 0%">
-
+                    <button id="submitComment" class="mini_button" style="padding: 0%">
                         @include('general.elements.svg-send')
-
                     </button>
 
 
                 </form>
 
 
-                <div class="full_video_comments">
+                <div id="commentsContainer" class="full_video_comments">
 
                     @foreach ($video->comments as $comment)
                         <div class="statementuser_comment_show">
 
                             <div class="main_novost_top">
                                 <a
-                                    href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                    href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
                          
 
                                             @if ($comment->user->avatar !== null)
@@ -287,7 +280,7 @@
                                 <div class="main_novost_title">
                                     <div>
                                         <a
-                                            href="{{ route('profile.profileuser', ['id' => $comment->user_id, 'previous' => 'video']) }}">
+                                            href="{{ route('profile.profileuser', ['id' => $comment->user_id]) }}">
                                             <p class="txt_2">{{ $comment->user->name }}</p>
                                         </a>
                                     </div>
@@ -304,7 +297,7 @@
 
 
 
-                            @if (auth()->user()->role == 'Admin')
+                            @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Manager')
                                 <form method="POST"
                                     action="{{ route('admin.video.comment.delete', ['videoId' => $video->id, 'commentId' => $comment->id]) }}">
                                     @csrf
@@ -445,5 +438,72 @@
 
 
     @vite('resources/js/control-panel/for-videouser.js')
+
+    <script>
+        $(document).ready(function() {
+            $('#commentForm').submit(function(event) {
+                event.preventDefault();
+    
+                let commentContent = $('input[name="comment"]').val();
+                let token = $('input[name="_token"]').val();
+    
+                $.ajax({
+                    url: "{{ route('video.comment', ['id' => $video->id]) }}",
+                    method: 'POST',
+                    data: {
+                        _token: token,
+                        comment: commentContent
+                    },
+                    success: function(response) {
+    
+                        let deleteForm = '';
+                        if (response.user_role === 'Admin' || response.user_role === 'Manager') {
+                            deleteForm = `
+                                <form method="POST" action="/video/${response.video_id}/comment/${response.comment_id}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="novost_down_func" type="submit">Удалить комментарий</button>
+                                </form>
+                            `;
+                        }
+                        $('.full_video_comments').append(`
+                            <div class="statementuser_comment_show">
+                                <div class="main_novost_top">
+                                    <a href="/profileuser/${response.user_id}">
+                                        <div class="main_novost_img">
+                                            <img class="avatar_mini" src="${response.user_avatar}" alt="Avatar">
+                                        </div>
+                                    </a>
+                                    <div class="main_novost_title">
+                                        <div>
+                                            <a href="/profileuser/${response.user_id}">
+                                                <p class="txt_2">${response.user_name}</p>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <p class="txt_2">${response.created_at}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="main_comment_show">
+                                    <p class="txt_2">${response.comment}</p>
+                                </div>
+                                ${deleteForm}
+                            </div>
+                        `);
+    
+                        $('input[name="comment"]').val('');
+    
+                        var commentsContainer = $('.full_statement_content_comments');
+                        commentsContainer.scrollTop(commentsContainer.prop("scrollHeight"));
+                    },
+                    error: function(response) {
+                        alert('Ошибка при отправке комментария.');
+                    }
+                });
+            });
+        });
+    </script>
+    
 
 </x-app-layout>

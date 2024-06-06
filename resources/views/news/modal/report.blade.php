@@ -25,7 +25,8 @@
 
                         <p>Причина жалобы</p>
                         <?php
-                        $reasons = \App\Models\Reason::all();
+$reasons = \App\Models\Reason::where('id', '!=', 1)->get();
+
                         ?>
                         <div class="radio-group" id="reasons-container-{{ $statement->id }}">
                             @foreach ($reasons as $reason)

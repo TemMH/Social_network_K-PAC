@@ -44,4 +44,27 @@ class Complaint extends Model
         return $this->belongsToMany(Ban::class, 'complaint_ban', 'complaint_id', 'ban_id');
     }
 
+    public static function hasComplaintVideo($videoId, $userId)
+    {
+        return self::where('video_id', $videoId)
+            ->where('sender_id', $userId)
+            ->exists();
+    }
+
+    
+    public static function hasComplaintStatement($videoId, $userId)
+    {
+        return self::where('statement_id', $videoId)
+            ->where('sender_id', $userId)
+            ->exists();
+    }
+
+    
+    public static function hasComplaintUser($videoId, $userId)
+    {
+        return self::where('user_id', $videoId)
+            ->where('sender_id', $userId)
+            ->exists();
+    }
+
 }

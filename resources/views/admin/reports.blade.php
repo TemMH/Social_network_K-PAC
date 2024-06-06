@@ -11,6 +11,9 @@
 
                 <button onclick="location.href='{{ route('reports') }}';"
                     class="long_button {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button>
+
+
+                    @if (auth()->user()->role == 'Admin')
                 <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
                     class="long_button {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button>
                 <button onclick="location.href='{{ route('admin.navigation.videos') }}';"
@@ -32,7 +35,7 @@
                         </div>
                 
                     </div>
-
+@endif
             </div>
 
 
@@ -163,7 +166,7 @@
 
             </form>
             @else
-                <p>Нет жалоб на видео</p>
+                <p>Нет жалоб на видеоматериалы</p>
             @endif
 
 
@@ -270,7 +273,7 @@
                 </div>
             </form>
             @else
-                <p>Нет жалоб на заявление</p>
+                <p>Нет жалоб на фотоматериалы</p>
             @endif
 
 
@@ -378,7 +381,7 @@
 
                 </form>
             @else
-                <p>Нет жалоб на пользователя</p>
+                <p>Нет жалоб на пользователей</p>
             @endif
 
 

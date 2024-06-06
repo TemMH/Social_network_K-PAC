@@ -72,7 +72,7 @@
 
             @foreach ($friends as $friend)
                 @if ($friend->id !== auth()->id())
-                    <a href="{{ route('profile.profileuser', ['id' => $friend->id]) }}"> 
+                    <a title="{{ $friend->name }}" href="{{ route('profile.profileuser', ['id' => $friend->id]) }}"> 
 
                         @if ($friend->avatar !== null)
                             <img class="avatar_mini" src="{{ asset('storage/' . $friend->avatar) }}"

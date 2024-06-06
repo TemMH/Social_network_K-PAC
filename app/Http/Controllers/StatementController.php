@@ -61,13 +61,23 @@ class StatementController extends Controller
                 K-PAC
             </div>
             <div class="flash-message">
-            Фотоматериал успешно загружено!
+            Фотоматериал успешно загружен!
             </div>
             </div>');
 
             return back()->with('success', 'Фотоматериал успешно загружен!');
         }
 
+        Flash::error('
+            
+        <div class="flash-error">
+        <div class="flsh-title">
+            K-PAC
+        </div>
+        <div class="flash-message">
+        Ошибка при загрузке фотоматериала!
+        </div>
+        </div>');
         return back()->with('error', 'Ошибка при загрузке фотоматериала');
     }
 
@@ -109,7 +119,7 @@ class StatementController extends Controller
         $statement = Statement::with('comments.user')
             ->with('complaints')
             
-            ->withCount('views', 'likes')
+            ->withCount('views','comments', 'likes')
             ->findOrFail($id);
 
         $existingView = View::where('user_id', Auth::id())

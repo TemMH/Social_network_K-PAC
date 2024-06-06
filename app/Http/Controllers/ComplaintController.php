@@ -21,10 +21,16 @@ use Illuminate\Http\File;
 
 class ComplaintController extends Controller
 {
+
+    
     
     public function storevideocomplaint(Request $request, $id)
     {
         $user = auth()->user();
+
+        if (Complaint::hasComplaintVideo($id, $user->id)) {
+            return redirect()->back()->with('message', 'Вы уже отправили жалобу на этот видеоматериал.');
+        }
 
         $complaint = new Complaint([
             'reason_id' => $request->reason,
@@ -45,6 +51,10 @@ class ComplaintController extends Controller
     {
         $user = auth()->user();
 
+        if (Complaint::hasComplaintUser($id, $user->id)) {
+            return redirect()->back()->with('message', 'Вы уже отправили жалобу на этого пользователя.');
+        }
+
         $complaint = new Complaint([
             'reason_id' => $request->reason,
             'video_id' => null,
@@ -64,6 +74,10 @@ class ComplaintController extends Controller
     {
         $user = auth()->user();
 
+        if (Complaint::hasComplaintStatement($id, $user->id)) {
+            return redirect()->back()->with('message', 'Вы уже отправили жалобу на этот фотоматериал.');
+        }
+        
         $complaint = new Complaint([
             'reason_id' => $request->reason,
             'video_id' => null,

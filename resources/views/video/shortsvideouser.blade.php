@@ -41,9 +41,7 @@
 
                             {{-- REQUEST FRIEND --}}
 
-                            @if (
-                                $video->user->id !== auth()->id() &&
-                                    !auth()->user()->areFriends($video->user->id))
+                            @if ($video->user->id !== auth()->id() && !auth()->user()->areFriends($video->user->id) && !auth()->user()->arePending($video->user->id) && !auth()->user()->areSubscriber($video->user->id))
                                 <form method="POST" class="mini_button"
                                     action="{{ route('send-friend-request', $video->user) }}">
                                     @csrf
@@ -87,15 +85,20 @@
 
                             {{-- COMPLAINT --}}
 
-                            @if (!$video->complaints->contains('status', 'block') && !$video->complaints->contains('status', 'unblock'))
-                            <button class="mini_button" onclick="confirmSendComplaint({{ $video->id }})">
-                                @include('general.elements.svg-complaint')
 
-                                {{-- репорт заполненный
-                                @include('general.elements.svg-complained')
-                                --}}
-                                </button>
-                            @endif
+                            @php
+    $hasComplaint = auth()->check() && \App\Models\Complaint::hasComplaintVideo($video->id, auth()->id());
+@endphp
+
+@if ($hasComplaint)
+    <button class="mini_button" disabled>
+        @include('general.elements.svg-complained')
+    </button>
+@else
+    <button class="mini_button" onclick="confirmSendComplaint({{ $video->id }})">
+        @include('general.elements.svg-complaint')
+    </button>
+@endif
 
 
 

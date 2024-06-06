@@ -218,11 +218,19 @@ function confirmUnsubscribe() {
 
 
                                 @if ($user->id !== auth()->id())
-                                    @if (!$user->complaints->contains('status', 'block') && !$user->complaints->contains('status', 'unblock'))
-                                        <button onclick="confirmSendComplaint()" class="mini_button" title="Отправить жалобу"> 
-                                        @include('general.elements.svg-complaint')
-                                        </button>
-                                    @endif
+                                @php
+                                $hasComplaint = auth()->check() && \App\Models\Complaint::hasComplaintUser($user->id, auth()->id());
+                            @endphp
+                            
+                            @if ($hasComplaint)
+                                <button class="mini_button" disabled title="Вами уже отправлена жалоба">
+                                    @include('general.elements.svg-complained' )
+                                </button>
+                            @else
+                                <button class="mini_button" onclick="confirmSendComplaint()" title="Отправить жалобу">
+                                    @include('general.elements.svg-complaint')
+                                </button>
+                            @endif
                                 @endif
 
 

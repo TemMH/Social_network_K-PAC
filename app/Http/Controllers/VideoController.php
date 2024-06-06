@@ -35,7 +35,7 @@ class VideoController extends Controller
         $request->validate([
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'video' => 'required|file|mimes:mp4|max:500000',
+            'video' => 'required|file|mimes:mp4,mov,avi|max:500000',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048|aspect_ratio',
         ]);
     
@@ -333,6 +333,8 @@ class VideoController extends Controller
     public function show($id)
     {
         $trendvideos = Video::query()
+        ->whereDoesntHave('bans')
+        ->whereNotIn('id', [$id])
         ->withCount('likes', 'comments', 'views')
         ->with(['likes', 'views'])
         ->get()

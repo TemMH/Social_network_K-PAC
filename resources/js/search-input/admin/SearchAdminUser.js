@@ -57,7 +57,14 @@
                                                                 '<button name="role" value="User" class="long_button">Пользователь</button>' +
                                                             '</div>' +
                                                         '</div>' +
-                                                    '</form>'
+                                                    '</form>' +
+
+                                                    '<form action="/admin/messenger/' + user.id + '" method="get">' +
+                        
+                                                    '<button class="long_button">Открыть диалоги пользователя</button>' +
+            
+                                                '</form>'
+
                                                 : '') +
                                             '</div>' +
                                         '</div>' +

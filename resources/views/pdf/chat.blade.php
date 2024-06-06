@@ -24,7 +24,13 @@
                         <p>{{ $user->name }}</p> <p>{{ $message->created_at }}</p>
                     </div>
                     <div>
+                        @if ($message->type == 'repost')
+                        <p>Repost</p>
+
+                        @else
                         {!! $message->message !!}
+
+                    @endif
                     </div>
                 </div>
             </div>
@@ -38,7 +44,14 @@
                         <p>{{ $recipient->name }}</p> <p>{{ $message->created_at }}</p>
                     </div>
                     <div>
-                        {!! $message->message !!}
+                  
+                        @if ($message->type == 'repost')
+                            <p>Repost</p>
+
+                            @else
+                            {!! $message->message !!}
+
+                        @endif
                     </div>
                 </div>
             </div>

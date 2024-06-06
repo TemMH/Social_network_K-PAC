@@ -14,6 +14,10 @@
             <div class="statements_settings_left">
                 <div>                <button onclick="location.href='{{ route('reports') }}';"
                     class="long_button {{ Route::is('reports') ? 'selected' : '' }}">Жалобы</button></div>
+
+
+                    @if (auth()->user()->role == 'Admin')
+
                 <div>
                     <button onclick="location.href='{{ route('admin.navigation.statements') }}';"
                         class="long_button {{ Route::is('admin.navigation.statements') ? 'selected' : '' }}">Фотоматериалы</button></div>
@@ -39,7 +43,7 @@
                         </div>
                 
                     </div>
-
+                    @endif
             </div>
 
 

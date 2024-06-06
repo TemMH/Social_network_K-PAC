@@ -142,15 +142,24 @@
             dropContainerVideo.addEventListener('drop', handleDropVideo, false);
         
             function handleDropVideo(e) {
-                var dt = e.dataTransfer;
-                var files = dt.files;
-        
-                if (files.length === 1 && files[0].type === 'video/mp4') {
-                    handleFiles(files);
-                } else {
-                    alert('Пожалуйста, используйте один файл в формате MP4.');
-                }
-            }
+    var dt = e.dataTransfer;
+    var files = dt.files;
+
+    if (files.length === 1) {
+        var file = files[0];
+        var validFormats = ['video/mp4', 'video/quicktime', 'video/x-msvideo'];
+        var maxSize = 500000000;
+
+        if (validFormats.includes(file.type) && file.size <= maxSize) {
+            handleFiles(files);
+        } else {
+            showFlashError('Пожалуйста, используйте один файл в формате mp4, mov, avi и размером не более 500 МБ.');
+        }
+    } else {
+        showFlashError('Пожалуйста, загрузите только один файл.');
+    }
+}
+
         
             var dropContainerThumbnail = document.getElementById('dropcontainer_thumbnail');
             var inputThumbnail = document.getElementById('thumbnail');
@@ -177,7 +186,7 @@
                 if (files.length === 1 && files[0].type.startsWith('image/')) {
                     handleFiles(files);
                 } else {
-                    alert('Пожалуйста, используйте один файл в формате jpg/jpeg.');
+                    showFlashError('Пожалуйста, используйте один файл в формате jpg/jpeg.');
                 }
             }
         
@@ -206,12 +215,16 @@
 
         <div class="newvideo_frame_btn">
 
-            <button class="newvideo_frame_btn_submit">
+            <button onclick="showUploadMessage()" class="newvideo_frame_btn_submit">
 
                 Опубликовать
 
             </button>
-
+<script>
+function showUploadMessage() {
+    showFlashError('Пожалуйста подождите загрузку видеоматериала...');
+}
+</script>
         </div>
 
 

@@ -17,6 +17,48 @@
             <div id="searchResultsDialog">
                 @foreach ($dialogs as $dialog)
 
+                    @if ($dialog->user->name == $user->name)
+
+                        <div class="message_dialogs">
+                            <a href="{{ route('admin.show.chat', ['userId' => $user->id, 'dialogId' => $dialog->user->id]) }}" class="message_dialog
+                         @if ($dialog->user->id == $user->id) active @endif">
+
+                                <div class="author">
+
+                                    <div class="avatar_mini">
+                                        @if ($dialog->user->avatar !== null)
+                                            <img class="avatar_mini"
+                                                src="{{ asset('storage/' . $dialog->user->avatar) }}" alt="Avatar">
+                                        @else
+                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
+                                        @endif
+                                    </div>
+
+                                    <p class="txt2">Избранное {{ $dialog->user->name }}</p> 
+
+                                </div>
+
+                                <div class="message_dialog_last">
+                                    
+                                    <p class="txt1">
+                                        @if ($dialog->lastMessage !== null)
+                                            <p class="txt1">{{ $dialog->lastMessage->message }}</p>
+                                        @else
+                                            <p> </p>
+                                        @endif
+                                    </p>
+
+                                </div>
+
+                            </a>
+                        </div>
+
+                    @endif
+
+                @endforeach
+
+                @foreach ($dialogs as $dialog)
+
                     @if ($dialog->user->name !== $user->name)
 
                         <div class="message_dialogs">

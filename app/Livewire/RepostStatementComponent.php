@@ -53,13 +53,23 @@ class RepostStatementComponent extends Component
     #[On('echo-private:chat-channel.{sender_id},MessageSendEvent')]
     public function listenForMessage($event)
     {
-        $chatMessage = Message::whereId($event['message']['id'])
-            ->with('sender:id,name', 'recipient:id,name')
-            ->first();
-
-        $this->emit('messageReceived', $chatMessage);
+    $chatMessage = Message::whereId($event['message']['id'])->with('sender:id,name', 'recipient:id,name')->first();
+        $this->chatMessage($chatMessage);
     }
+    public function chatMessage($message){
+    
+        $this->messages[]= [
 
+            'id' => $message->id,
+            'message' => $message->message,
+            'created_at' => $message->created_at,
+            'sender' => $message->sender->name,
+            'recipient' => $message->recipient->name,
+            'type' => $message->type,
+
+        ];
+
+    }
 
     public function render()
     {

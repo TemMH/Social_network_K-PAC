@@ -15,99 +15,73 @@
             </div>
             
             <div id="searchResultsDialog">
-
-                <div class="message_dialogs">
-                    <a href="{{ route('messenger.chat', $selfDialog->user->id) }}" class="message_dialog
-                 @if ($selfDialog->user->id == $user->id) active @endif">
-
-                        <div class="author">
-
-                            <div class="avatar_mini">
-                                @if ($selfDialog->user->avatar !== null)
-                                    <img class="avatar_mini"
-                                        src="{{ asset('storage/' . $selfDialog->user->avatar) }}" alt="Avatar">
-                                @else
-                                    <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
-                                @endif
+                
+                    @if($selfDialog)
+                    <div class="message_dialogs">
+                        <a href="{{ route('messenger.chat', $selfDialog->user->id) }}" class="message_dialog @if ($selfDialog->user->id == $user->id) active @endif">
+                            <div class="author">
+                                <div class="avatar_mini">
+                                    @if ($selfDialog->user->avatar !== null)
+                                        <img class="avatar_mini" src="{{ asset('storage/' . $selfDialog->user->avatar) }}" alt="Avatar">
+                                    @else
+                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
+                                    @endif
+                                </div>
+                                <p class="txt2">Избранное</p>
                             </div>
-                            @if ($selfDialog->user->name == auth()->user()->name)
-
-                            <p class="txt2">Избранное</p> 
-                            @endif
-
-
-                           
-                        
-
-                        </div>
-
-                        <div class="message_dialog_last">
-                            
-                            <p class="txt1">
-
-                                @if ($selfDialog->lastMessage->type === 'repost')
-                                <p>Ссылка</p>
-                                @endif
-
-                                @if ($selfDialog->lastMessage->type === 'text')
-                                {{ $selfDialog->lastMessage->message }}
-                                @endif
-                            </p>
-
-                        </div>
-
-                    </a>
-                </div>
-
-
-                @foreach ($dialogs as $dialog)
-                @if ($dialog->user->name !== auth()->user()->name)
-
-                        <div class="message_dialogs">
-                            <a href="{{ route('messenger.chat', $dialog->user->id) }}" class="message_dialog
-                         @if ($dialog->user->id == $user->id) active @endif">
-
-                                <div class="author">
-
-                                    <div class="avatar_mini">
-                                        @if ($dialog->user->avatar !== null)
-                                            <img class="avatar_mini"
-                                                src="{{ asset('storage/' . $dialog->user->avatar) }}" alt="Avatar">
-                                        @else
-                                            <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
+                            <div class="message_dialog_last">
+                                <p class="txt1">
+                                    @if ($selfDialog->lastMessage)
+                                        @if ($selfDialog->lastMessage->type === 'repost')
+                                            <p>Ссылка</p>
                                         @endif
+                                        @if ($selfDialog->lastMessage->type === 'text')
+                                            {{ $selfDialog->lastMessage->message }}
+                                        @endif
+                                    @else
+                                        Нет сообщений
+                                    @endif
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    @endif
+            
+                    @foreach ($dialogs as $dialog)
+                        @if ($dialog->user->name !== auth()->user()->name)
+                            <div class="message_dialogs">
+                                <a href="{{ route('messenger.chat', $dialog->user->id) }}" class="message_dialog @if ($dialog->user->id == $user->id) active @endif">
+                                    <div class="author">
+                                        <div class="avatar_mini">
+                                            @if ($dialog->user->avatar !== null)
+                                                <img class="avatar_mini" src="{{ asset('storage/' . $dialog->user->avatar) }}" alt="Avatar">
+                                            @else
+                                                <img class="avatar_mini" src="/uploads/ProfilePhoto.png">
+                                            @endif
+                                        </div>
+                                        <p class="txt2">{{ $dialog->user->name }}</p>
                                     </div>
-
-                                    <p class="txt2">{{ $dialog->user->name }}</p> 
-
-
-                                   
-                                
-
-                                </div>
-
-                                <div class="message_dialog_last">
-                                    
-                                    <p class="txt1">
-
-                                        @if ($dialog->lastMessage->type === 'repost')
-                                        <p>Ссылка</p>
-                                        @endif
-    
-                                        @if ($dialog->lastMessage->type === 'text')
-                                        {{ $dialog->lastMessage->message }}
-                                        @endif
-                                    </p>
-
-                                </div>
-
-                            </a>
-                        </div>
-
-              
+                                    <div class="message_dialog_last">
+                                        <p class="txt1">
+                                            @if ($dialog->lastMessage)
+                                                @if ($dialog->lastMessage->type === 'repost')
+                                                    <p>Ссылка</p>
+                                                @endif
+                                                @if ($dialog->lastMessage->type === 'text')
+                                                    {{ $dialog->lastMessage->message }}
+                                                @endif
+                                            @else
+                                                Нет сообщений
+                                            @endif
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
                         @endif
-                @endforeach
+                    @endforeach
+              
             </div>
+            
 
         </div>
 

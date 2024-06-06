@@ -104,7 +104,7 @@
                     if (files.length === 1 && (files[0].type === 'image/jpeg' || files[0].type === 'image/jpg' || files[0].type === 'image/png')) {
                         handleFiles(files);
                     } else {
-                        alert('Пожалуйста, используйте один файл в формате jpg/jpeg.');
+                        showFlashError('Пожалуйста, используйте один файл в формате jpg/jpeg/png.');
                     }
                 }
 
@@ -150,11 +150,18 @@
 
             <div class="newvideo_frame_btn">
 
-                <button class="newvideo_frame_btn_submit">
+                <button onclick="showUploadMessageStatement()" class="newvideo_frame_btn_submit">
 
                     Опубликовать
 
                 </button>
+
+                <script>
+function showUploadMessageStatement() {
+    showFlashError('Пожалуйста подождите загрузку фотоматериала...');
+}
+
+                </script>
 
             </div>
 

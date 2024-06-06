@@ -33,35 +33,46 @@
 
     <body>
 
-        <div style="
+        <div
+            style="
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
     ">
-        <div class="form-reg">
+            <div class="form-reg">
 
-            <div class="form-reg-lev">
+                <div class="form-reg-lev">
 
 
-                <div class="form_reg_lev_text">
-                    <p class="txt_1">Вступай в самую обсуждаемую соцсеть!</p>
+                    <div class="form_reg_lev_text">
+                        <p class="txt_1">Вступай в самую обсуждаемую соцсеть!</p>
 
-                    <p class="txt_1">Здесь собраны  самые яркие и актуальные материалы .</p>
+                        <p class="txt_1">Здесь собраны самые яркие и актуальные материалы .</p>
 
+
+
+                    </div>
 
 
                 </div>
 
 
-            </div>
 
-            <div class="form-reg-prav">
-                {{ $slot }}
-            </div>
+                @if (Route::is('verifed', 'password.request', 'verification.notice'))
+                    <div class="form-reg-prav-verifed">
+                        {{ $slot }}
+                    </div>
+                @endif
+                @if (Route::is('login', 'register'))
+                    <div class="form-reg-prav">
+                        {{ $slot }}
+                    </div>
+                @endif
 
+
+            </div>
         </div>
-    </div>
     </body>
 </x-app-layout>
 

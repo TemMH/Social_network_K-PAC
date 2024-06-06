@@ -148,30 +148,6 @@
 
                         @endif
 
-
-                            @if ($feedItem instanceof \App\Models\Video)
-
-                            <button onclick="location.href='{{ route('videouser', ['id' => $feedItem->id]) }}';" class="mini_button">
-
-@include('general.elements.svg-openfull')
-        
-        
-                            </button>
-
-                        @elseif ($feedItem instanceof \App\Models\Statement)
-
-                        <button onclick="location.href='{{ route('statementuser', ['id' => $feedItem->id]) }}';" class="mini_button">
-                            @include('general.elements.svg-openfull')
-
-    
-    
-                        </button>
-
-                        @endif
-   
-
-
-
                                 </div>
 
 
@@ -183,14 +159,14 @@
 
 
                                     @if ($feedItem instanceof \App\Models\Video)
-
+<a href="{{ route('videouser', ['id' => $feedItem->id]) }}">
                                         <img src="{{ asset('storage/' . $feedItem->thumbnail_path) }}"
                                             alt="Thumbnail">
-
+                                        </a>
                                     @elseif ($feedItem instanceof \App\Models\Statement)
-
+<a href="{{ route('statementuser', ['id' => $feedItem->id]) }}">
                                         <img src="{{ asset('storage/' . $feedItem->photo_path) }}" alt="Photo">
-
+                                    </a>
                                     @endif
 
                                 </div>

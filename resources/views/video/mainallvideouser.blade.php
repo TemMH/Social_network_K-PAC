@@ -328,112 +328,6 @@
                 <div class="longvideos_scroll_sorting_block">
 
                     <div class="longvideos_scroll_sorting_block_name"><button
-                            onclick="location.href='{{ route('all.video.user.newforuser') }}';"
-                            class="long_button">Новое для вас</button>
-                        <div class="longvideos_scroll_sorting_block_wrap_line"></div>
-                    </div>
-
-                    <div class="longvideos_scroll_sorting_block_videos">
-
-                        @foreach ($newforuservideos as $newforuservideo)
-                        
-                            <div class="longvideos_scroll_sorting_block_videos_fixed">
-                                <div class="main_novost_allvideo">
-                                    <a href="{{ route('videouser', ['id' => $newforuservideo->id]) }}">
-                                        @csrf
-
-                                        <div class="longvideos_video_thumbnail">
-                                            <img src="{{ asset('storage/' . $newforuservideo->thumbnail_path) }}"
-                                                alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
-                                                style="cursor:pointer;">
-                                            <div class="longvideos_video_thumbnail_title">
-                                                <p class="txt_2">{{ $newforuservideo->title }}</p>
-                                            </div>
-                                            <div class="longvideos_thumbnail_dopinfo_formain">
-                                                <p class="lv_name">{{ $newforuservideo->user->name }}</p>
-                                                <p class="lv_avatar">
-                                                    @if ($newforuservideo->user->avatar !== null)
-                                                        <img class="avatar"
-                                                            src="{{ asset('storage/' . $newforuservideo->user->avatar) }}"
-                                                            alt="Avatar">
-                                                    @else
-                                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
-                                                            alt="Avatar">
-                                                    @endif
-                                                </p>
-                                                <p class="lv_description">{{ $newforuservideo->description }}</p>
-
-
-                                                @if (!function_exists('pluralForm'))
-                                                    @php
-                                                        function pluralForm($number, $one, $two, $five)
-                                                        {
-                                                            $number = abs($number) % 100;
-                                                            $remainder = $number % 10;
-
-                                                            if ($number > 10 && $number < 20) {
-                                                                return $five;
-                                                            }
-
-                                                            if ($remainder > 1 && $remainder < 5) {
-                                                                return $two;
-                                                            }
-
-                                                            if ($remainder == 1) {
-                                                                return $one;
-                                                            }
-
-                                                            return $five;
-                                                        }
-                                                    @endphp
-                                                @endif
-
-                                                @php
-                                                    $createdAt = strtotime($newforuservideo->created_at);
-                                                    $currentDate = strtotime(date('Y-m-d H:i:s'));
-                                                    $timeDiff = $currentDate - $createdAt;
-
-                                                    if ($timeDiff >= 86400) {
-                                                        $days = floor($timeDiff / 86400);
-                                                        $formattedTime =
-                                                            $days .
-                                                            ' ' .
-                                                            pluralForm($days, 'день', 'дня', 'дней') .
-                                                            ' назад';
-                                                    } elseif ($timeDiff >= 3600) {
-                                                        $hours = floor($timeDiff / 3600);
-                                                        $formattedTime =
-                                                            $hours .
-                                                            ' ' .
-                                                            pluralForm($hours, 'час', 'часа', 'часов') .
-                                                            ' назад';
-                                                    } elseif ($timeDiff >= 60) {
-                                                        $minutes = floor($timeDiff / 60);
-                                                        $formattedTime =
-                                                            $minutes .
-                                                            ' ' .
-                                                            pluralForm($minutes, 'минута', 'минуты', 'минут') .
-                                                            ' назад';
-                                                    } else {
-                                                        $formattedTime = 'только что';
-                                                    }
-                                                @endphp
-                                                <p class="lv_created_at">{{ $formattedTime }}</p>
-                                            </div>
-                                        </div>
-
-                                    </a>
-                                </div>
-                            </div>
-
-                        @endforeach
-
-                    </div>
-                </div>
-
-                <div class="longvideos_scroll_sorting_block">
-
-                    <div class="longvideos_scroll_sorting_block_name"><button
                             onclick="location.href='{{ route('all.video.user.new') }}';"
                             class="long_button">Недавно опубликованные</button>
                         <div class="longvideos_scroll_sorting_block_wrap_line"></div>
@@ -536,6 +430,118 @@
 
                     </div>
                 </div>
+
+                <div class="longvideos_scroll_sorting_block">
+
+                    <div class="longvideos_scroll_sorting_block_name"><button
+                            onclick="location.href='{{ route('all.video.user.newforuser') }}';"
+                            class="long_button">Новое для вас</button>
+                        <div class="longvideos_scroll_sorting_block_wrap_line"></div>
+                    </div>
+
+                    <div class="longvideos_scroll_sorting_block_videos">
+
+                        @forelse ($newforuservideos as $newforuservideo)
+                        
+                            <div class="longvideos_scroll_sorting_block_videos_fixed">
+                                <div class="main_novost_allvideo">
+                                    <a href="{{ route('videouser', ['id' => $newforuservideo->id]) }}">
+                                        @csrf
+
+                                        <div class="longvideos_video_thumbnail">
+                                            <img src="{{ asset('storage/' . $newforuservideo->thumbnail_path) }}"
+                                                alt="Thumbnail" style="object-fit:contain;" class="videoThumbnail"
+                                                style="cursor:pointer;">
+                                            <div class="longvideos_video_thumbnail_title">
+                                                <p class="txt_2">{{ $newforuservideo->title }}</p>
+                                            </div>
+                                            <div class="longvideos_thumbnail_dopinfo_formain">
+                                                <p class="lv_name">{{ $newforuservideo->user->name }}</p>
+                                                <p class="lv_avatar">
+                                                    @if ($newforuservideo->user->avatar !== null)
+                                                        <img class="avatar"
+                                                            src="{{ asset('storage/' . $newforuservideo->user->avatar) }}"
+                                                            alt="Avatar">
+                                                    @else
+                                                        <img class="avatar_mini" src="/uploads/ProfilePhoto.png"
+                                                            alt="Avatar">
+                                                    @endif
+                                                </p>
+                                                <p class="lv_description">{{ $newforuservideo->description }}</p>
+
+
+                                                @if (!function_exists('pluralForm'))
+                                                    @php
+                                                        function pluralForm($number, $one, $two, $five)
+                                                        {
+                                                            $number = abs($number) % 100;
+                                                            $remainder = $number % 10;
+
+                                                            if ($number > 10 && $number < 20) {
+                                                                return $five;
+                                                            }
+
+                                                            if ($remainder > 1 && $remainder < 5) {
+                                                                return $two;
+                                                            }
+
+                                                            if ($remainder == 1) {
+                                                                return $one;
+                                                            }
+
+                                                            return $five;
+                                                        }
+                                                    @endphp
+                                                @endif
+
+                                                @php
+                                                    $createdAt = strtotime($newforuservideo->created_at);
+                                                    $currentDate = strtotime(date('Y-m-d H:i:s'));
+                                                    $timeDiff = $currentDate - $createdAt;
+
+                                                    if ($timeDiff >= 86400) {
+                                                        $days = floor($timeDiff / 86400);
+                                                        $formattedTime =
+                                                            $days .
+                                                            ' ' .
+                                                            pluralForm($days, 'день', 'дня', 'дней') .
+                                                            ' назад';
+                                                    } elseif ($timeDiff >= 3600) {
+                                                        $hours = floor($timeDiff / 3600);
+                                                        $formattedTime =
+                                                            $hours .
+                                                            ' ' .
+                                                            pluralForm($hours, 'час', 'часа', 'часов') .
+                                                            ' назад';
+                                                    } elseif ($timeDiff >= 60) {
+                                                        $minutes = floor($timeDiff / 60);
+                                                        $formattedTime =
+                                                            $minutes .
+                                                            ' ' .
+                                                            pluralForm($minutes, 'минута', 'минуты', 'минут') .
+                                                            ' назад';
+                                                    } else {
+                                                        $formattedTime = 'только что';
+                                                    }
+                                                @endphp
+                                                <p class="lv_created_at">{{ $formattedTime }}</p>
+                                            </div>
+                                        </div>
+
+                                    </a>
+                                </div>
+                            </div>
+
+                            @empty
+
+                            <p>Вы посмотрели все видеоматериалы, заходите позже!</p>
+                            
+                            
+                                                    @endforelse
+                    </div>
+                </div>
+
+
 
                 <div class="longvideos_scroll_sorting_block">
 

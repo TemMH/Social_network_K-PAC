@@ -2,7 +2,7 @@
     margin: 1% 0;
     display: flex;
     column-gap: 5%;
-    width: 30%;
+    width: fit-content;
     align-items: center;
 }
 

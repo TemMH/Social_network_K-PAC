@@ -70,8 +70,8 @@ class ProfileController extends Controller
         $categories = Category::all();
 
         $user = User::findOrFail($id);
-        $statements = Statement::where('user_id', $id)->get();
-        $videos = Video::where('user_id', $id)->get();
+        $statements = Statement::where('user_id', $id)->whereDoesntHave('bans')->orderByDesc('created_at')->get();
+        $videos = Video::where('user_id', $id)->whereDoesntHave('bans')->orderByDesc('created_at')->get();
 
         return view('profile.profileuser', ['categories' => $categories,'user' => $user, 'videos' => $videos, 'statements' => $statements, 'users' => [$user]]);
     }
@@ -327,7 +327,7 @@ class ProfileController extends Controller
     
         $videos = $videos->get()
             ->sortByDesc(function ($videos) {
-                // Если просмотры = 0 отнести этот фотоматериал вниз
+                // Если просмотры = 0 отнести этот видеоматериал вниз
                 if ($videos->views_count == 0) {
                     return -1;
                 }

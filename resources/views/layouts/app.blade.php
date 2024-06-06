@@ -241,17 +241,6 @@
     </div>
 
     @vite(['resources/js/search-input/SearchGlobal.js'])
-
-    
-    
-
-
-
-
-
-
-
-
 </body>
 
 </html>

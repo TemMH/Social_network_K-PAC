@@ -48,6 +48,12 @@ $(document).ready(function() {
                             });
                         } else {
                             $.each(response[config.template + 's'], function(index, item) {
+                                let createdAt = new Date(item.created_at);
+                                let formattedTime = ('0' + createdAt.getDate()).slice(-2) + '.' +
+                                                    ('0' + (createdAt.getMonth() + 1)).slice(-2) + '.' +
+                                                    createdAt.getFullYear() + ' ' +
+                                                    ('0' + createdAt.getHours()).slice(-2) + ':' +
+                                                    ('0' + createdAt.getMinutes()).slice(-2);
                                 let template = `
                                     <a href="/${config.template}user/${item.id}">
                                         <div class="statement_block">
@@ -59,7 +65,7 @@ $(document).ready(function() {
                                                     </div>
                                                     <div class="statement_block_top_info">
                                                         <div class="statement_block_top_info_name">${item.user.name}</div>
-                                                        <div class="statement_block_top_info_createdat">${item.created_at}</div>
+                                                        <div class="statement_block_top_info_createdat">${formattedTime}</div>
                                                     </div>
                                                 </div>
                                                 <div class="statement_block_top_info_right">

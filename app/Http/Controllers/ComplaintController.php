@@ -101,6 +101,18 @@ class ComplaintController extends Controller
         return response()->json($reasons);
     }
     
+    //UPDATESTATUS
+
+
+    public function updateusercomplaint(Request $request, $id)
+    {
+        $complaint = Complaint::findOrFail($id);
+        
+        $complaint->status = 'rejected';
+        $complaint->save();
+        
+        return redirect()->back();
+    }
 
 
 }

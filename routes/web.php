@@ -90,6 +90,8 @@ Route::middleware(['auth', 'verified', 'ban'])->controller(ComplaintController::
 
     Route::post('/user/{id}/complaint',  'storeusercomplaint')->name('user.complaint');
 
+    Route::put('/user/complaint/{id}',  'updateusercomplaint')->name('user.update.complaint');
+
     Route::get('/reasons', 'reasons')->name('reasons');
 
 });

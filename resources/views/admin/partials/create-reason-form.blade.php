@@ -15,7 +15,7 @@
 
         <div>
             <x-input-label for="name" :value="__('Название причины')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 

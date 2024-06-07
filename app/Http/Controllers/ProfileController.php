@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Laracasts\Flash\Flash;
+
 
 class ProfileController extends Controller
 {
@@ -419,7 +421,16 @@ class ProfileController extends Controller
             $user->avatar = 'avatars/' . $avatarName;         
             $user->save();
     
-            return redirect()->back()->with('success', 'Аватар успешно обновлен!');
+            Flash::success('
+            <div class="flash-success">
+            <div class="flsh-title">
+                K-PAC
+            </div>
+            <div class="flash-message">
+            Фото профиля обновлено!
+            </div>
+            </div>');
+            return redirect()->back();
         }
     
         return redirect()->back()->with('error', 'Не удалось обновить аватар!');

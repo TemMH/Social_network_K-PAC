@@ -59,12 +59,12 @@
 
 
 
-                @if (Route::is('verifed', 'password.request', 'verification.notice'))
+                @if (Route::is('verifed', 'password.request', 'verification.notice', 'password.store'))
                     <div class="form-reg-prav-verifed">
                         {{ $slot }}
                     </div>
                 @endif
-                @if (Route::is('login', 'register'))
+                @if (Route::is('login', 'register', 'password.reset'))
                     <div class="form-reg-prav">
                         {{ $slot }}
                     </div>
